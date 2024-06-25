@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/screens/Signup_Screen/ReferrerInfoPage.dart';
+import 'package:tomiru_social_flutter/screens/Signup_Screen/Referrer_Info_Page.dart';
 import '../../helper/validator.dart';
 import '../../state/signup_state.dart';
 import 'package:provider/provider.dart';

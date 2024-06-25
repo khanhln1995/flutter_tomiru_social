@@ -4,13 +4,13 @@ import 'package:flutter/widgets.dart';
 import '../../state/signup_state.dart';
 
 import '../../widgets/custom_button.dart';
+import '../../widgets/custom_appbar.dart';
 import '../../widgets/custom_input.dart';
+
 import 'package:provider/provider.dart';
 
-import '../../widgets/custom_appbar.dart';
-
 import '../../widgets/custom_selector.dart';
-
+import "Verify_Register_Screen.dart";
 
 class ReferrerInfoPage extends StatefulWidget {
   const ReferrerInfoPage({Key? key}) : super(key: key);
@@ -133,7 +133,13 @@ class _ReferrerInfoPageState extends State<ReferrerInfoPage> {
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     var signupState = Provider.of<SignupState>(context, listen: false);
     signupState.referralCode = _inputController.text;
-    Navigator.pushNamed(context, '/VerifyRegistrationPage');
+    // Navigator.pushNamed(context, '/VerifyRegistrationPage');
+     Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const VerifyRegistrationPage(),
+      ),
+    );
   }
 
   bool validInput() {
