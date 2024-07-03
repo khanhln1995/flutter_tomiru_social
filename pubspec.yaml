@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
   google_fonts: ^4.0.0
   provider: ^6.0.0
+  url_launcher: ^6.3.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
@@ -39,6 +40,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
   
   
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -59,32 +61,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-        - assets/images/qr.png
-        - assets/images/bulb.png
-        - assets/images/google_logo.png
-        - assets/images/error_image.png
-        - assets/images/splash.png
-        - assets/images/logo-tomiru.jpg
-        - assets/images/logo-fb.png
-        - assets/images/icon-tomiru.png
-        - assets/images/icon-check.png
-        - assets/images/icon-verify-check.png
-        - assets/images/img-qrcode.png
-        - assets/images/icon-error.png
-        - assets/images/icon-sucsses.png
-        - assets/images/icon-QRcode.png
-        - assets/images/mark-zuckerberg.jpg
-        - assets/images/success-icon.png
-        - assets/images/detail-qr.png
-        - assets/images/bg-appbar.jpg
-        - assets/images/icon-tomiru-appbar.jpg
-        - assets/images/icon-tomiru-appbar-fill.jpg
-        - assets/images/icon-scan.jpg
-        - assets/images/Firefly.png
-        - assets/images/Pinned.png
-        - assets/images/checkindaily.png
-      
-   
+        - assets/images/
     
   # To add assets to your application, add an assets section, like this:
   # assets:
