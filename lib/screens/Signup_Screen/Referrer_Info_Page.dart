@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../../state/signup_state.dart';
 
 import '../../widgets/custom_button.dart';
@@ -13,7 +12,7 @@ import '../../widgets/custom_selector.dart';
 import "Verify_Register_Screen.dart";
 
 class ReferrerInfoPage extends StatefulWidget {
-  const ReferrerInfoPage({Key? key}) : super(key: key);
+  const ReferrerInfoPage({super.key});
 
   @override
   State<ReferrerInfoPage> createState() => _ReferrerInfoPageState();
@@ -169,7 +168,7 @@ class _ReferrerInfoPageState extends State<ReferrerInfoPage> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
-                          child: Container(
+                          child: SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: Image.asset('assets/images/img-qrcode.png',
                                 fit: BoxFit.contain),

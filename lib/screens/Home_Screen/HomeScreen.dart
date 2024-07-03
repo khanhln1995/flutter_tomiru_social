@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import "../Signup_Screen/Signup_Screen.dart";
+import "../Friend_Screen/Friend_Screen.dart";
+import "../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
+import "../Friend2_Screen/Friend2_Screen.dart";
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -29,9 +32,41 @@ class HomeScreen extends StatelessWidget {
               },
               child: const Text('Register'),
             ),
+            
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Friends(
+                      tabBarView: 1,
+                      navigateTo: (context, index) {
+                        Navigator.pop(
+                            context); 
+                      },
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Friend'),
+            ),
+            
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Friend2Screen(),
+                  ),
+                );
+              },
+              child: const Text('Friend2'),
+            ),
           ],
+          
         ),
       ),
+    bottomNavigationBar:const BottomMenubar(),
     );
   }
 }

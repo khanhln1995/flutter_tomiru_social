@@ -49,7 +49,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
       const Center(
         child: Text(
           'Thiết lập mật khẩu',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),

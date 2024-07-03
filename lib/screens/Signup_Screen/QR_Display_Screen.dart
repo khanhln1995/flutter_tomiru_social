@@ -70,14 +70,14 @@ class QRDisplayPage extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.7,
           child: OutlinedButton(
             onPressed: () {},
+            style: OutlinedButton.styleFrom(
+              foregroundColor: const Color(0xFF196DFF),
+              side: const BorderSide(color: Color(0xFF196DFF)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
             child: const Text('Sao chép mã QR', style: TextStyle(fontSize: 16)),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: const Color(0xFF196DFF),
-              side: const BorderSide(color: Color(0xFF196DFF)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
           ),
         ),
         const SizedBox(height: 5),
@@ -85,14 +85,14 @@ class QRDisplayPage extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.7,
           child: OutlinedButton(
             onPressed: () {},
+            style: OutlinedButton.styleFrom(
+              foregroundColor: const Color(0xFF196DFF),
+              side: const BorderSide(color: Color(0xFF196DFF)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
             child: const Text('Tải về máy', style: TextStyle(fontSize: 16)),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: const Color(0xFF196DFF),
-              side: const BorderSide(color: Color(0xFF196DFF)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
           ),
         ),
         const SizedBox(height: 5),
@@ -100,7 +100,6 @@ class QRDisplayPage extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.7,
           child: OutlinedButton(
             onPressed: () {},
-            child: const Text('Chia sẻ mã QR', style: TextStyle(fontSize: 16)),
             style: OutlinedButton.styleFrom(
               foregroundColor: const Color(0xFF196DFF),
               side: const BorderSide(color: Color(0xFF196DFF)),
@@ -108,6 +107,7 @@ class QRDisplayPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
+            child: const Text('Chia sẻ mã QR', style: TextStyle(fontSize: 16)),
           ),
         ),
       ],
