@@ -14,15 +14,14 @@ class OTPVerificationPage extends StatefulWidget {
   final String? infoUser;
   final String? userAction;
   final String? titlePage;
-  OTPVerificationPage(
-      {Key? key,
-      bool? this.isEmailVerification,
+  const OTPVerificationPage(
+      {super.key,
+      this.isEmailVerification,
       this.isSmsVerification,
-      String? this.infoUser,
+      this.infoUser,
       this.userAction,
       required this.titlePage,
-      this.isWhatsAppVerification})
-      : super(key: key);
+      this.isWhatsAppVerification});
 
   @override
   State<OTPVerificationPage> createState() => _OTPVerificationPageState();

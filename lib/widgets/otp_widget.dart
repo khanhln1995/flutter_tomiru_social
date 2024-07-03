@@ -56,7 +56,7 @@ class _OTPWidgetState extends State<OTPWidget> {
   }
 
   Widget otpInputField(int index) {
-    return Container(
+    return SizedBox(
       width: 40,
       height: 40,
       child: TextField(
@@ -64,7 +64,7 @@ class _OTPWidgetState extends State<OTPWidget> {
         textAlign: TextAlign.center,
         decoration: InputDecoration(
           border: showRedBorder
-              ? const OutlineInputBorder(borderSide: const BorderSide(color: Colors.red))
+              ? const OutlineInputBorder(borderSide: BorderSide(color: Colors.red))
               : const OutlineInputBorder(),
           counterText: "",
           hintText: "-",

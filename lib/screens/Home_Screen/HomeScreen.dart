@@ -4,6 +4,10 @@ import 'package:tomiru_social_flutter/screens/Profile_Screen/Profile_Screen.dart
 import 'package:tomiru_social_flutter/screens/Signin_Screen/Signin_Screent.dart';
 import "../Signup_Screen/Signup_Screen.dart";
 
+import "../Friend_Screen/Friend_Screen.dart";
+import "../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
+import "../Friend2_Screen/Friend2_Screen.dart";
+import "../home/Home.dart";
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -26,13 +30,13 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Signup_Screen(
-                    ),
+                    builder: (context) => const Signup_Screen(),
                   ),
                 );
               },
               child: const Text('Register'),
             ),
+            
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -42,12 +46,34 @@ class HomeScreen extends StatelessWidget {
                       phoneController: null,
                       passwordController: passwordController,
                       emailController: null,
-                       isCreatedSuccess: false,
+                      isCreatedSuccess: false,
                     ),
                   ),
                 );
               },
               child: const Text('Login'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Home(),
+                  ),
+                );
+              },
+              child: const Text('Home'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GroupScreen(isAdmin: isAdmin),
+                  ),
+                );
+              },
+              child: const Text('Group'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -65,15 +91,17 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GroupScreen(isAdmin:isAdmin),
+                    builder: (context) => const Friend2Screen(),
                   ),
                 );
               },
-              child: const Text('Group'),
+              child: const Text('Friend2'),
             ),
+            
           ],
         ),
       ),
+      bottomNavigationBar: const BottomMenubar(),
     );
   }
 }

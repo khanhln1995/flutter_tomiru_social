@@ -106,21 +106,21 @@ class _SignupSuccessPageState extends State<SignupSuccessPage> {
           titleRow('Thông tin giới thiệu', 'copy', copyHandler),
           const SizedBox(height: 10),
           infoRow('Mã giới thiệu', signupState.referralCode),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
+          const Padding(
+            padding: EdgeInsets.only(left: 20, right: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Link giới thiệu',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 150,
-                  child: const Text(
+                  child: Text(
                     'https://tomiru.com/ref=Abxxxx',
                     style: TextStyle(
                       fontSize: 16,
