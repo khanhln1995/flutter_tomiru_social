@@ -1,12 +1,11 @@
-
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import '../../state/app_state.dart';
-import '../../ui/theme/theme.dart';
-import './tab_item.dart';
 import 'package:provider/provider.dart';
-
-import '../custom_widgets.dart';
+import 'package:tomiru_social_flutter/state/app_state.dart';
+import 'package:tomiru_social_flutter/ui/theme/theme.dart';
+import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/tab_item.dart';
+import 'package:tomiru_social_flutter/widgets/custom_widgets.dart';
 
 class BottomMenubar extends StatefulWidget {
   const BottomMenubar({

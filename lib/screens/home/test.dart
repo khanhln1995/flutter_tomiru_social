@@ -5,7 +5,6 @@ import 'package:tomiru_social_flutter/screens/Profile_Screen/Profile_Screen.dart
 import 'package:tomiru_social_flutter/state/app_state.dart';
 import 'package:tomiru_social_flutter/widgets/bottomMenuBar/bottom_menu_bar.dart';
 import 'package:tomiru_social_flutter/screens/feed/feedPage.dart';
-import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -31,7 +30,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       key: _scaffoldKey,
       body: _body(),
-      bottomNavigationBar: const BottomMenubar(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 
@@ -44,6 +43,9 @@ class _HomeState extends State<Home> {
   }
 
   Widget getPage(int index) {
+    print('````````````````````````````````````````');
+    print(Provider.of<AppState>(context).pageIndex);
+    print('````````````````````````````````````````');
     switch (index) {
       case 0:
         return FeedPage(
