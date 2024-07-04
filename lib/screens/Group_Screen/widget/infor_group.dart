@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/screens/Group_Screen/infor_group_screen.dart';
-class InforGroup extends StatelessWidget {
+class InforGroup extends StatefulWidget {
+  final bool isAdmin;
+  const InforGroup({Key? key, required this.isAdmin}) : super(key: key);
+  @override
+  State<InforGroup> createState() => _InforGroupState();
+  
+}
+class _InforGroupState extends State<InforGroup> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,7 +71,9 @@ class InforGroup extends StatelessWidget {
                 color: Colors.grey,
               ),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => InforGroupScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => InforGroupScreen(
+                  isAdmin: widget.isAdmin,
+                )));
               },
               title: Text.rich(
                 TextSpan(children: [

@@ -44,7 +44,9 @@ class _GroupScreenState extends State<GroupScreen> {
                   color: Colors.grey[200],
                 ),
                 if (!isJoined)
-                InforGroup(),
+                InforGroup(
+                  isAdmin: widget.isAdmin,
+                ),
                 if (!isJoined)
                 SizedBox(
                   height: 20,
@@ -55,7 +57,7 @@ class _GroupScreenState extends State<GroupScreen> {
                   color: Colors.grey[200],
                 ),
                 if (!isJoined)
-                MembersGroup(),
+                MembersGroup( isAdmin: widget.isAdmin),
                 if (!isJoined)
                   Divider(
                   thickness: 6,
