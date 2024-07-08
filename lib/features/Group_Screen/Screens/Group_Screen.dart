@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/Group/Widgets/button_group.dart';
-import 'package:tomiru_social_flutter/features/Group/Widgets/header_group.dart';
-import 'package:tomiru_social_flutter/features/Group/Widgets/infor_group.dart';
-import 'package:tomiru_social_flutter/features/Group/Widgets/members_group.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/button_group.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/header_group.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/infor_group.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/members_group.dart';
 import 'package:tomiru_social_flutter/features/Profile/Widgets/action_buttons.dart';
 import 'package:tomiru_social_flutter/features/Profile/Widgets/comment_item.dart';
 import 'package:tomiru_social_flutter/features/Profile/Widgets/post_categories.dart';
@@ -44,7 +44,9 @@ class _GroupScreenState extends State<GroupScreen> {
                   color: Colors.grey[200],
                 ),
                 if (!isJoined)
-                InforGroup(),
+                InforGroup(
+                  isAdmin: widget.isAdmin,
+                ),
                 if (!isJoined)
                 SizedBox(
                   height: 20,
@@ -55,7 +57,7 @@ class _GroupScreenState extends State<GroupScreen> {
                   color: Colors.grey[200],
                 ),
                 if (!isJoined)
-                MembersGroup(),
+                MembersGroup( isAdmin: widget.isAdmin),
                 if (!isJoined)
                   Divider(
                   thickness: 6,

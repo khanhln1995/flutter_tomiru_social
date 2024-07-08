@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/member.dart';
 
 class InviteMembersScreen extends StatefulWidget {
   const InviteMembersScreen({super.key});
 
   @override
   State<InviteMembersScreen> createState() => _InviteMembersScreenState();
+}
+
+class Member {
+  final String name;
+  final String avatar;
+  const Member({required this.name, required this.avatar});
 }
 
 class _InviteMembersScreenState extends State<InviteMembersScreen> {
@@ -17,7 +24,8 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
     Member(name: 'Bình Cenhomes', avatar: 'assets/images/Ellipse 11.png'),
     Member(name: 'Lan Anh Cường', avatar: 'assets/images/Ellipse 12.png'),
   ];
-    // Tạo một danh sách để theo dõi trạng thái của các thành viên đã được mời
+
+  // Tạo một danh sách để theo dõi trạng thái của các thành viên đã được mời
   final List<bool> invited = List.generate(7, (index) => false);
 
   @override
@@ -161,11 +169,4 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
       ),
     );
   }
-}
-
-class Member {
-  final String name;
-  final String avatar;
-
-  Member({required this.name, required this.avatar});
 }

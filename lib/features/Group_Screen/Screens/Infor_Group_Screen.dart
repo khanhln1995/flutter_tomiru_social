@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/Group/Screens/members_group_screen.dart';
-import 'package:tomiru_social_flutter/features/Group/Widgets/members_group.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Screens/members_group_screen.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/members_group.dart';
 
 class InforGroupScreen extends StatefulWidget {
-  const InforGroupScreen({super.key});
+  final bool isAdmin;
+  const InforGroupScreen({super.key, required this.isAdmin});
 
   @override
   State<InforGroupScreen> createState() => _InforGroupScreenState();
@@ -118,7 +119,7 @@ class _InforGroupScreenState extends State<InforGroupScreen> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MembersGroupScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MembersGroupScreen(isAdmin: widget.isAdmin)));
               },
               child: Text(
                 "Xem tất cả",

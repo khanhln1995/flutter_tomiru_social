@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/bottomMenuBar/bottom_menu_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:tomiru_social_flutter/features/Friends/Screens/Friend_Screen.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.dart';
+import 'package:tomiru_social_flutter/features/Profile/Screens/Profile_Screen.dart';
+import 'package:tomiru_social_flutter/state/app_state.dart';
+
+import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
 
 class Home extends StatefulWidget {
@@ -11,19 +17,29 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var state = Provider.of<AppState>(context, listen: false);
+      state.setPageIndex = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       body: _body(),
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: const BottomMenubar(),
     );
   }
 
   Widget _body() {
     return SafeArea(
       child: Container(
-        child: getPage(0),
+        child: getPage(Provider.of<AppState>(context).pageIndex),
       ),
     );
   }
@@ -35,6 +51,14 @@ class _HomeState extends State<Home> {
           scaffoldKey: _scaffoldKey,
           refreshIndicatorKey: refreshIndicatorKey,
         );
+      case 1:
+        return ProfileScreen();
+      case 2:
+        return Friend2Screen();
+      case 3:
+        return Friend2Screen();
+      case 4:
+        return GroupPage();
       default:
         return FeedPage(scaffoldKey: _scaffoldKey);
     }

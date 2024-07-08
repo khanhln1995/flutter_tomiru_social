@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/Group/Screens/Invite_Members_Screen.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Invite_Members_Screen.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Screens/manage_group_screen.dart';
+
 
 class ButtonGroup extends StatefulWidget {
   final bool isJoined;
@@ -155,7 +157,12 @@ class _ButtonGroupState extends State<ButtonGroup> {
                   child: SizedBox(
                     height: 42,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        !widget.isAdmin ? null : Navigator.push(context, MaterialPageRoute(builder: (context) => ManageGroupScreen(
+                          isAdmin: true,
+                        )));
+
+                      },
                       child: Text(
                         !widget.isAdmin ? 'Đã Tham Gia' : 'Quản lý',
                         style: TextStyle(
