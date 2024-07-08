@@ -7,7 +7,7 @@ import "state/signup_state.dart";
 import "./state/app_state.dart";
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/widgets/bottomMenuBar/bottom_menu_bar.dart';
-import 'package:tomiru_social_flutter/features/Feed_Screen/Screens/Feed_Screen.dart';
+import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Screen.dart';
-import 'package:tomiru_social_flutter/features/Profile_Screen/Screens/Profile_Screen.dart';
-import 'package:tomiru_social_flutter/features/Signin_Screen/Screens/Signin_Screen.dart';
-import "../../Signup_Screen/Screens/Signup_Screen.dart";
+import 'package:tomiru_social_flutter/features/Group/Screens/Group_Screen.dart';
+import 'package:tomiru_social_flutter/features/Profile/Screens/Profile_Screen.dart';
+import 'package:tomiru_social_flutter/features/Auth/Signin/Screens/Signin_Screen.dart';
+import "../../Auth/Signup/Screens/Signup_Screen.dart";
 
-import "../../../screens/Friend_Screen/Page_View.dart";
+// import "../../../screens/Friend_Screen/Page_View.dart";
 import "../../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
-import "../../Friend2_Screen/Screens/Friend2_Screen.dart";
+import "../../Friends/Screens/Friend_Screen.dart";
 import "../../Home/Screens/Home.dart";
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
