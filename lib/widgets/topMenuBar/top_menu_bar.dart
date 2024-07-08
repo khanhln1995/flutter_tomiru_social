@@ -53,7 +53,7 @@ class TopMenuBar extends StatelessWidget {
       flexibleSpace: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/bg-appbar-silver.jpg'),
+            image: AssetImage('assets/images/Firefly.png'),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.only(

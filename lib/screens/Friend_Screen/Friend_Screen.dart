@@ -10,6 +10,7 @@ import '../../widgets/friends_widget/friends_button.dart';
 import '../../widgets/friends_widget/custom_tabbar.dart';
 import '../../widgets/friends_widget/custom_white_app_bar.dart';
 import 'package:shimmer/shimmer.dart';
+
 class Friends extends StatefulWidget {
   dynamic tabBarView;
   final void Function(BuildContext, int) navigateTo;
@@ -42,7 +43,7 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
     super.initState();
     ReadData();
     _scrollController = ScrollController();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     _tabController.index = widget.tabBarView;
     navigateTo = widget.navigateTo;
 
@@ -73,12 +74,12 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
         child: TextField(
           onChanged: (value) {},
           decoration: InputDecoration(
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               Icons.search,
               color: Color.fromARGB(255, 128, 126, 126),
             ),
             hintText: "Nhập tên bạn bè",
-            hintStyle: const TextStyle(
+            hintStyle: TextStyle(
               color: Color.fromARGB(255, 128, 126, 126),
             ),
             contentPadding: EdgeInsets.only(top: paddingTextInTextField),
@@ -87,7 +88,7 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
               borderSide: BorderSide.none,
             ),
             filled: true,
-            fillColor: const Color.fromARGB(255, 245, 244, 244),
+            fillColor: Color.fromARGB(255, 245, 244, 244),
           ),
         ),
       );
@@ -176,9 +177,9 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
                 child: Text(
                   "Xem tất cả",
                   style: TextStyle(
-                    color: const Color.fromARGB(255, 6, 133, 236),
+                    color: Color.fromARGB(255, 6, 133, 236),
                     decoration: TextDecoration.underline, // Gạch chân
-                    decorationColor: const Color.fromARGB(
+                    decorationColor: Color.fromARGB(
                         255, 6, 133, 236), // Màu gạch chân (tùy chọn)
                     decorationThickness: 1.5, // Độ dày gạch chân (tùy chọn)
                     fontSize: fontSizeStackButton,
@@ -299,7 +300,7 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
                         margin: EdgeInsets.symmetric(horizontal: margin),
                         width: double.infinity,
                         height: 1.3,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             color: Color.fromARGB(255, 243, 241, 241)),
                       )
                     ])
@@ -356,7 +357,7 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
                           margin: EdgeInsets.symmetric(horizontal: margin),
                           width: double.infinity,
                           height: 1.3,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                               color: Color.fromARGB(255, 243, 241, 241)),
                         )
                       ]),
@@ -382,13 +383,13 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
                       context,
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: const Text(
+                        child: Text(
                           "Sắp xếp",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      const Sort()),
+                      Sort()),
                   child: Container(
                     alignment: Alignment.center,
                     width: widthButton,
@@ -459,56 +460,12 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
             ),
           ));
     }
-Widget PageView4() {
-      double widthButton = MediaQuery.of(context).size.width * 0.095;
-      double iconSize = MediaQuery.of(context).size.width * 0.065;
-      double marginStack = MediaQuery.of(context).size.width * 0.061;
-      double heightStack = MediaQuery.of(context).size.height * 0.033;
-      double fontSizeStack = MediaQuery.of(context).size.width * 0.045;
 
-      return BodyTabBarFriend(
-          listName: friends,
-          avatarImage: "avatarImage",
-          friendName: "friendName",
-          mutualFriends: "mutualFriends",
-          topOfTheList: Container(
-            height: heightStack,
-            margin: EdgeInsets.symmetric(horizontal: marginStack),
-            alignment: Alignment.topLeft,
-            child: Text(
-              "Những người bạn có thể biết",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: fontSizeStack,
-              ),
-            ),
-          ),
-          buttonInTheList: GestureDetector(
-            onTap: () {},
-            child: Container(
-              alignment: Alignment.center,
-              width: widthButton,
-              height: widthButton,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.transparent,
-                border: Border.all(
-                  color: Colors.transparent,
-                  width: 0,
-                ),
-              ),
-              child: Icon(
-                Icons.person_add_alt_outlined,
-                size: iconSize,
-              ),
-            ),
-          ));
-    }
     Widget TabBars() {
       double widthTabBar = MediaQuery.of(context).size.width * 0.28;
       double heightTabBar = MediaQuery.of(context).size.width * 0.08;
       double marginTabBar = MediaQuery.of(context).size.height * 0.015;
-      double labelPaddingTabBar = MediaQuery.of(context).size.width * 0.03;
+      double labelPaddingTabBar = MediaQuery.of(context).size.width * 0.05;
       double preferredSize = MediaQuery.of(context).size.height * 0.009;
 
       return Expanded(
@@ -522,11 +479,14 @@ Widget PageView4() {
                 shadowColor: Colors.transparent, // Xóa bỏ màu bóng
                 bottom: PreferredSize(
                   preferredSize: Size.fromHeight(preferredSize),
-                  child: SingleChildScrollView(
-                 padding: const EdgeInsets.only(left: 20),
-                 scrollDirection: Axis.horizontal,
-                    child: Row(         
-                      children: [
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: marginTabBar),
+                    child: TabBar(
+                      indicator: BoxDecoration(), //ẩn thanh chỉ báo
+                      labelPadding: EdgeInsets.only(right: labelPaddingTabBar),
+                      controller: _tabController,
+                      isScrollable: true,
+                      tabs: [
                         CustomTabBar(
                           icon: Icons.mood,
                           title: "Lời mời",
@@ -548,13 +508,6 @@ Widget PageView4() {
                           width: widthTabBar,
                           height: heightTabBar,
                         ),
-                        CustomTabBar(
-                          icon: Icons.lightbulb,
-                          title: "Bài viết",
-                          isSelected: _tabController.index == 3,
-                          width: widthTabBar,
-                          height: heightTabBar,
-                        )
                       ],
                     ),
                   ),
@@ -568,25 +521,24 @@ Widget PageView4() {
               PageView1(),
               PageView2(),
               PageView3(),
-              PageView4(),
             ],
           ),
         ),
       );
     }
 
-    return SizedBox(
+    return Container(
       width: widthPage,
       height: heightPage,
       child: CustomWhiteAppBar(
-        text: "Bạn với chả bè",
+        text: "Bạn bè",
         backButton: IconButton(
           onPressed: () {
             setState(() {
               navigateTo(context, 0);
             });
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
           ),

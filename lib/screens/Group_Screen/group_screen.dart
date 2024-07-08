@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/screens/Group_Screen/widget/button_group.dart';
-import 'package:tomiru_social_flutter/screens/Group_Screen/widget/header_group.dart';
-import 'package:tomiru_social_flutter/screens/Group_Screen/widget/infor_group.dart';
-import 'package:tomiru_social_flutter/screens/Group_Screen/widget/members_group.dart';
-import 'package:tomiru_social_flutter/screens/Profile_Screen/widget/action_buttons.dart';
-import 'package:tomiru_social_flutter/screens/Profile_Screen/widget/comment_item.dart';
-import 'package:tomiru_social_flutter/screens/Profile_Screen/widget/post_categories.dart';
-import 'package:tomiru_social_flutter/screens/Profile_Screen/widget/post_item.dart';
-import 'package:tomiru_social_flutter/screens/Profile_Screen/widget/posting_option.dart';
-import 'package:tomiru_social_flutter/screens/Profile_Screen/widget/profile_header.dart';
-import 'package:tomiru_social_flutter/screens/Profile_Screen/widget/profile_info.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/button_group.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/header_group.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/infor_group.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/members_group.dart';
+import 'package:tomiru_social_flutter/features/Profile_Screen/Widgets/comment_item.dart';
+import 'package:tomiru_social_flutter/features/Profile_Screen/Widgets/post_categories.dart';
+import 'package:tomiru_social_flutter/features/Profile_Screen/Widgets/post_item.dart';
+import 'package:tomiru_social_flutter/features/Profile_Screen/Widgets/posting_option.dart';
+
+
 
 class GroupScreen extends StatefulWidget {
   final bool isAdmin;
