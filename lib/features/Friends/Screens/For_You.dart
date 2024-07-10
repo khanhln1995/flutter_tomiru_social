@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../widgets/time_line/timeLine.dart';
-import "../../../widgets/friends2_widget/group_image.dart";
 
 class ForYou extends StatefulWidget {
   @override
