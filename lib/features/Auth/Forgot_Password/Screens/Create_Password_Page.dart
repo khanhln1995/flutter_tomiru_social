@@ -3,17 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:tomiru_social_flutter/helper/validator.dart';
 import 'package:tomiru_social_flutter/features/Auth/Forgot_Password/Screens/Congratulation_View.dart';
 import 'package:tomiru_social_flutter/features/Auth/Signin/Widgets/custom_text_field.dart';
-import 'package:tomiru_social_flutter/features/Auth/Signup/Screens/SignupSuccessPage.dart';
+import 'package:tomiru_social_flutter/features/Auth/Signup/Screens/Signup_Success_Page.dart';
 import 'package:tomiru_social_flutter/state/signup_state.dart';
 import 'package:tomiru_social_flutter/widgets/custom_appbar.dart';
 import 'package:tomiru_social_flutter/widgets/custom_button.dart';
 
-
 class CreatePasswordPage extends StatefulWidget {
   final String? userAction;
   final String? titlePage;
-  const CreatePasswordPage({Key? key, this.userAction, this.titlePage})
-      : super(key: key);
+  const CreatePasswordPage({super.key, this.userAction, this.titlePage});
 
   @override
   State<CreatePasswordPage> createState() => _CreatePasswordPageState();
@@ -43,8 +41,8 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
 
   Widget _body(BuildContext context) {
     return Column(children: [
-      SizedBox(height: 20),
-      Center(
+      const SizedBox(height: 20),
+      const Center(
         child: Text(
           'Thiết lập mật khẩu',
           style: TextStyle(
@@ -53,8 +51,8 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
           ),
         ),
       ),
-      SizedBox(height: 15),
-      Center(
+      const SizedBox(height: 15),
+      const Center(
         child: Text(
           "Vui lòng thiết lập mật khẩu để \ntruy cập lần sau",
           textAlign: TextAlign.center,
@@ -67,16 +65,16 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
       _inputForm(),
       SizedBox(height: isConfirmPassword() ? 180 : 230),
       Padding(
-        padding: EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: CheckboxListTile(
-          title: Padding(
+          title: const Padding(
             padding: EdgeInsets.only(top: 20),
             child: Text(
               "Lưu mật khẩu",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
           ),
-          subtitle: Text(
+          subtitle: const Text(
             "Thông tin mật khẩu đã mã hóa lưu trữ trên thiết bị trong vòng 30 ngày, giúp bạn đăng nhập dễ dàng và nhanh chóng",
             style: TextStyle(
               fontStyle: FontStyle.italic,
@@ -91,12 +89,12 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
             });
           },
           controlAffinity: ListTileControlAffinity.leading,
-          activeColor: Color(0xFFFFD200),
+          activeColor: const Color(0xFFFFD200),
           checkColor: Colors.white,
           contentPadding: EdgeInsets.zero,
         ),
       ),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
     ]);
   }
 
@@ -126,11 +124,11 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
               });
             },
             controller: _passwordController),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         _message('Mật khẩu hợp lệ',
             validator.isValidPassword(_passwordController.text)),
         if (_passwordController.text != '' && !isConfirmPassword())
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(right: 55, top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +144,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
               ],
             ),
           ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         CustomInputWidget(
             title: 'Xác nhận lại mật khẩu',
             inputType: TextInputType.text,
@@ -169,7 +167,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
       child: Row(
         children: [
           Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 20,
             ),
             child: Image.asset('assets/images/icon-verify-check.png',
@@ -180,7 +178,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
               message,
               softWrap: true,
               overflow: TextOverflow.clip,
-              style: TextStyle(color: Color(0xFF3E9462)),
+              style: const TextStyle(color: Color(0xFF3E9462)),
             ),
           ),
         ],
@@ -195,7 +193,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => SignupSuccessPage(),
+          builder: (context) => const SignupSuccessPage(),
         ),
       );
     }
@@ -203,7 +201,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CongratulationView(),
+          builder: (context) => const CongratulationView(),
         ),
       );
     }
@@ -222,7 +220,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
             child: Column(
               children: [
                 _body(context),
-                SizedBox(height: 80),
+                const SizedBox(height: 80),
               ],
             ),
           ),
@@ -234,7 +232,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
                 ? SizedBox(
                     width: double.infinity,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      padding: const EdgeInsets.only(left: 20, right: 20),
                       child: CustomButton(
                         content: 'Hoàn thành',
                         isEnabled: isConfirmPassword() ? true : false,
@@ -242,7 +240,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage>
                       ),
                     ),
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
           ),
         ],
       ),

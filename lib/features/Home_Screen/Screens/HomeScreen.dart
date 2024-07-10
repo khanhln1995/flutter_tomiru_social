@@ -5,13 +5,12 @@ import 'package:tomiru_social_flutter/features/Profile/Screens/Profile_Screen.da
 
 import "package:tomiru_social_flutter/features/Auth/Signin/Screens/Signin_Screen.dart";
 import "package:tomiru_social_flutter/features/Auth/Signup/Screens/Signup_Screen.dart";
-
-
+import "package:tomiru_social_flutter/features/Home/Screens/Home_Page.dart";
 // import "../../../screens/Friend_Screen/Page_View.dart";
 
 import "../../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
 import "../../Friends/Screens/Friend_Screen.dart";
-import "../../Home/Screens/Home.dart";
+import "../../Home_Social/Screens/Home.dart";
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -62,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Home(),
+                    builder: (context) => const Home(),
                   ),
                 );
               },
@@ -95,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GroupOption(),
+                    builder: (context) => const GroupOption(),
                   ),
                 );
               },
@@ -106,11 +105,22 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Friend2Screen(),
+                    builder: (context) => const Friend2Screen(),
                   ),
                 );
               },
               child: const Text('Friend2'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Homepage(),
+                  ),
+                );
+              },
+              child: const Text('Home2'),
             ),
           ],
         ),

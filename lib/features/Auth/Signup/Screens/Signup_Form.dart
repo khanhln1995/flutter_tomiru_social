@@ -1,4 +1,3 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/features/Auth/Signup/Screens/Referrer_Info_Page.dart';
@@ -6,16 +5,14 @@ import '../../../../helper/validator.dart';
 import '../../../../state/signup_state.dart';
 import 'package:provider/provider.dart';
 
-
 import '../../../../widgets/custom_appbar.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_input.dart';
 
-
 class Signup_Form extends StatefulWidget {
   const Signup_Form({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<Signup_Form> createState() => _Signup_FormState();
@@ -26,7 +23,7 @@ class _Signup_FormState extends State<Signup_Form> {
   late TextEditingController _phoneController;
   late TextEditingController _nameController;
   late TextEditingController _birthDateController;
-  
+
   String _selectedGender = '';
   bool _termsAccepted = false;
   var activeInputName = false;
@@ -72,7 +69,6 @@ class _Signup_FormState extends State<Signup_Form> {
   }
 
   Widget _body(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
@@ -268,7 +264,7 @@ class _Signup_FormState extends State<Signup_Form> {
     signupState.dateOfBirth = _birthDateController.text;
     signupState.gender = _selectedGender;
     // Navigator.pushNamed(context, '/ReferrerInfoPage');
-     Navigator.push(
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => const ReferrerInfoPage(),
@@ -298,15 +294,11 @@ class _Signup_FormState extends State<Signup_Form> {
           Positioned(
             left: 0,
             right: 0,
-            bottom:  0,
+            bottom: 0,
             child: SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    bottom:
-                       10),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                 child: CustomButton(
                   content: 'Tiếp tục',
                   isEnabled: _isFormValid(),
@@ -319,5 +311,4 @@ class _Signup_FormState extends State<Signup_Form> {
       ),
     );
   }
-
 }
