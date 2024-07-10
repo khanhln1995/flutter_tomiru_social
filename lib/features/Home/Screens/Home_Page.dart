@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
-import 'package:tomiru_social_flutter/features/home/Widgets/wallet_info.dart';
-import 'package:tomiru_social_flutter/features/home/Widgets/contact_member.dart';
+import 'package:tomiru_social_flutter/features/Home/Widgets/wallet_info.dart';
+import 'package:tomiru_social_flutter/features/Home/Widgets/contact_member.dart';
 import 'package:tomiru_social_flutter/features/home/widgets/section_header.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Shorts.dart';
 import 'package:tomiru_social_flutter/widgets/products_widget/products_list.dart';
