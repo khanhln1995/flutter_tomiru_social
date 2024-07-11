@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/helper/enum.dart';
-
 import 'package:tomiru_social_flutter/screens/Friend_Screen/Info_Friend_Bottom_Sheet.dart';
 import 'package:tomiru_social_flutter/screens/Friend_Screen/Open_Bottom_Sheet.dart';
 import 'package:tomiru_social_flutter/widgets/friends_widget/friends_button.dart';
@@ -88,6 +87,52 @@ class MemberWidget extends StatefulWidget {
 }
 
 class _MemberWidgetState extends State<MemberWidget> {
+  void _showRemoveDialog(BuildContext context, String memberName) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          title: Center(
+            child: Column(
+              children: [
+                Text(
+                  'Mời ra khỏi nhóm?',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  '$memberName sẽ không thể chat và truy cập bảng tin nhóm!',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text('Hủy'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+              ),
+              child: Text('Xác nhận'),
+              onPressed: () {
+                // Add your remove member logic here
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -160,9 +205,15 @@ class _MemberWidgetState extends State<MemberWidget> {
                   icon: Icons.message,
                   text: "Nhắn tin",
                 ),
-                CustomButton(
-                  icon: Icons.person_remove,
-                  text: "Xóa khỏi nhóm",
+                GestureDetector(
+                  onTap: (){
+                    _showRemoveDialog(context, widget.member.name);
+                  },
+                  child: CustomButton(
+                    icon: Icons.person_remove,
+                    text: "Xóa khỏi nhóm",
+                    
+                  ),
                 ),
                 CustomButton(
                   icon: Icons.block,
