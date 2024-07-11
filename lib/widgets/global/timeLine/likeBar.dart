@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import "../../time_line/load_comment_widget.dart";
 class LikeBar extends StatefulWidget {
   final String likeCount;
   final String shareCount;
@@ -49,7 +49,32 @@ class _LikeBarState extends State<LikeBar> {
             ),
             Row(children: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: MediaQuery.of(context).size.height / 1.9,
+                        padding: EdgeInsets.all(16.0),
+                        child: LoadCommentWidget(
+                          data: {
+                            'userName': 'John Doe',
+                            'avatar': 'https://avatar.iran.liara.run/public/24',
+                            'comment': [
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                            ]
+                          }, // Truyền data vào LoadCommentWidget
+                          onOptionSelected: (String option) {
+                            // Handle option selected here
+                            Navigator.pop(context); // Close modal
+                            // Add your logic based on the selected option
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
                 child: Icon(Icons.messenger_outline, size: 24),
               ),
               SizedBox(width: 10.0),

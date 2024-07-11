@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? titleText;
-  final Function? onBackPress;
+  final Function onBackPress;
   final List<Widget>? widget;
   final IconData? icon;
   final String? image;
   final double? padding;
   const CustomAppBar(
-      {this.titleText, this.onBackPress, this.widget, this.icon, this.image, this.padding});
+      {this.titleText, required this.onBackPress, this.widget, this.icon, this.image, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +25,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 IconButton(
                   icon: image != null && image!.isNotEmpty
                       ? Image.asset(image!)
-                      : Icon(Icons.arrow_back, color: Colors.black),
-                  onPressed: () => onBackPress ?? () {},
+                      : Icon(icon ?? Icons.arrow_back_ios_new, color: Colors.black),
+                  onPressed: () => onBackPress(),
                 ),
                 if (titleText != null && titleText!.isNotEmpty)
                   Text(titleText!,

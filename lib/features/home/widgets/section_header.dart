@@ -13,10 +13,10 @@ class HeaderContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           TextButton(
             onPressed: onPressed,
-            child: Text("Tất cả", style: TextStyle(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.bold)),
+            child: const Text("Tất cả", style: TextStyle(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.bold)),
           )
         ],
       ),
