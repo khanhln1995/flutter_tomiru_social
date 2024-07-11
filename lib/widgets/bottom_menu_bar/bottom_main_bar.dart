@@ -103,7 +103,7 @@ class _BottomMainBarState extends State<BottomMainBar> {
                       icon: isCustomIcon
                           ? customIcon(context,
                               icon: icon!,
-                              size: 22,
+                              size: 25,
                               isTwitterIcon: true,
                               isEnable: index == state.pageIndex)
                           : Icon(
