@@ -68,4 +68,20 @@ class AppIcon {
       IconData(0xf402, fontFamily: 'MaterialIcons');
   static const IconData supervisor_account_rounded =
       IconData(0xf01f4, fontFamily: 'MaterialIcons');
+  static const IconData home_rounded =
+      IconData(0xf7f5, fontFamily: 'MaterialIcons');
+  static const IconData home_outlined =
+      IconData(0xf107, fontFamily: 'MaterialIcons');
+  static const IconData message_rounded =
+      IconData(0xf8b8, fontFamily: 'MaterialIcons');
+  static const IconData message_outlined =
+      IconData(0xf1c6, fontFamily: 'MaterialIcons');
+  static const IconData notifications_none_rounded =
+      IconData(0xf0027, fontFamily: 'MaterialIcons');
+  static const IconData notifications_none_outlined =
+      IconData(0xf235, fontFamily: 'MaterialIcons');
+  static const IconData account_circle_rounded =
+      IconData(0xf522, fontFamily: 'MaterialIcons');
+  static const IconData account_circle_outlined =
+      IconData(0xee35, fontFamily: 'MaterialIcons');
 }
