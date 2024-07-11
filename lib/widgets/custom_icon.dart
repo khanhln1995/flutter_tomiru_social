@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomIcon extends StatelessWidget {
   final VoidCallback? onPressed;
   final int? quantity;
-  final Icon icon;
+  final Widget icon;
   const CustomIcon(
       {super.key, this.onPressed, this.quantity, required this.icon});
 
