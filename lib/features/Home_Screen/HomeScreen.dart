@@ -8,6 +8,7 @@ import "../Friend_Screen/Friend_Screen.dart";
 import "../../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
 import "../Friend2_Screen/Friend2_Screen.dart";
 import 'package:tomiru_social_flutter/features/home/Homepage.dart';
+import 'package:tomiru_social_flutter/screens/Message_Screen/List_Message.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -96,6 +97,17 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               child: const Text('Friend2'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MessageList(),
+                  ),
+                );
+              },
+              child: const Text('Message'),
             ),
           ],
         ),
