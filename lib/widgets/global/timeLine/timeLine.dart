@@ -4,7 +4,7 @@ import 'package:tomiru_social_flutter/widgets/global/buildAvatarWidget.dart';
 import 'package:tomiru_social_flutter/widgets/global/timeLine/userInputAvatarField.dart';
 import 'package:tomiru_social_flutter/widgets/global/timeLine/likeBar.dart';
 // import 'package:tomiru_social_flutter/theme/theme.dart';
-import "../../../features/Profile/Screens/Profile_Screen.dart";
+import "../../../features/Profile-social/Screens/Profile_Screen.dart";
 import "../../time_line/load_comment_widget.dart";
 
 //time line dùng ở các vị trí khác nhau như ở trang chủ , bạn bè , nhóm ...
