@@ -32,7 +32,6 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
     bool firstTime = true;
     _onConnectivityChanged = Connectivity()
         .onConnectivityChanged
@@ -47,11 +46,13 @@ class SplashScreenState extends State<SplashScreen> {
           backgroundColor: isNotConnected ? Colors.red : Colors.green,
           duration: Duration(seconds: isNotConnected ? 6000 : 3),
           content: Text(
-            isNotConnected ? 'no_connection'.tr : 'connected'.tr,
+            isNotConnected ? 'no_connection' : 'connected',
             textAlign: TextAlign.center,
           ),
         ));
+        print("isNotConnected");
         if (!isNotConnected) {
+          print("connected");
           _route();
         }
       }
@@ -82,11 +83,17 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   void _route() {
+    print("splash screen : ");
     Get.find<SplashController>().getConfigData().then((isSuccess) {
       if (isSuccess) {
+        if (Get.find<SplashController>().showIntro()!) {
+          _newlyRegisteredRouteProcess();
+        } else {
+          Get.offNamed(RouteHelper.getSignInRoute("sign-in"));
+        }
+
         Timer(const Duration(seconds: 1), () async {
           double? minimumVersion = 0;
-          Get.offNamed(RouteHelper.getSignInRoute("sign-in"));
           // check version app
           // if (GetPlatform.isAndroid) {
           //   minimumVersion = Get.find<SplashController>()

@@ -165,6 +165,7 @@ class SignInWidgetState extends State<SignInWidget> {
                         //         socialLogInModel: null,
                         //         fromDialog: true)));
                       } else {
+                        print("forgot password");
                         Get.toNamed(
                             RouteHelper.getForgotPassRoute(false, null));
                       }
@@ -232,7 +233,7 @@ class SignInWidgetState extends State<SignInWidget> {
 
                 const SizedBox(height: Dimensions.paddingSizeSmall),
 
-                // const SocialLoginWidget(),
+                const SocialLoginWidget(),
 
                 // isDesktop ? const SizedBox() : const GuestButtonWidget(),
               ]),

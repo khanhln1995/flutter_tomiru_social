@@ -36,18 +36,19 @@ class ForgetPassScreen extends StatefulWidget {
 class _ForgetPassScreenState extends State<ForgetPassScreen> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _numberController = TextEditingController();
-  String? _countryDialCode = CountryCode.fromCountryCode(
-          Get.find<SplashController>().configModel!.country!)
-      .dialCode;
+  // final String? _countryDialCode = CountryCode.fromCountryCode(
+  //         Get.find<SplashController>().configModel!.country!)
+  //     .dialCode;
 
   @override
   Widget build(BuildContext context) {
+    print("ForgetPassScreen");
     return Scaffold(
       backgroundColor: ResponsiveHelper.isDesktop(context)
           ? Colors.transparent
           : Theme.of(context).cardColor,
       appBar: CustomAppBarWidget(
-          title: widget.fromSocialLogin ? 'phone'.tr : 'forgot_password'.tr),
+          title: widget.fromSocialLogin ? 'phone' : 'forgot_password'),
       body: Center(
           child: SingleChildScrollView(
         controller: _scrollController,
@@ -98,7 +99,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                       height: widget.fromDialog ? 160 : 220),
                   Padding(
                     padding: const EdgeInsets.all(30),
-                    child: Text('please_enter_mobile'.tr,
+                    child: Text('please_enter_mobile',
                         style: robotoRegular.copyWith(
                             fontSize: widget.fromDialog
                                 ? Dimensions.fontSizeSmall
@@ -106,7 +107,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                         textAlign: TextAlign.center),
                   ),
                   CustomTextFieldWidget(
-                    titleText: 'enter_phone_number'.tr,
+                    titleText: 'enter_phone_number',
                     controller: _numberController,
                     inputType: TextInputType.phone,
                     inputAction: TextInputAction.done,
@@ -115,17 +116,21 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                     // onCountryChanged: (CountryCode countryCode) {
                     //   _countryDialCode = countryCode.dialCode;
                     // },
-                    countryDialCode: _countryDialCode != null
-                        ? CountryCode.fromCountryCode(
-                                Get.find<SplashController>()
-                                    .configModel!
-                                    .country!)
-                            .code
-                        : Get.find<LocalizationController>().locale.countryCode,
-                    onSubmit: (text) => GetPlatform.isWeb
-                        ? _onPressedForgetPass(_countryDialCode!)
-                        : null,
-                    labelText: 'phone'.tr,
+                    countryDialCode:
+                        // _countryDialCode != null
+                        //     ? CountryCode.fromCountryCode(
+                        //             Get.find<SplashController>()
+                        //                 .configModel!
+                        //                 .country!)
+                        //         .code
+                        //     :
+                        Get.find<LocalizationController>().locale.countryCode,
+                    onSubmit: (text) =>
+                        // GetPlatform.isWeb
+                        //     ? _onPressedForgetPass(_countryDialCode!)
+                        // :
+                        null,
+                    labelText: 'phone',
                     validator: (value) =>
                         ValidateCheck.validateEmptyText(value, null),
                   ),
@@ -136,12 +141,12 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                         builder: (authController) {
                       return CustomButtonWidget(
                         radius: Dimensions.radiusDefault,
-                        buttonText: widget.fromDialog ? 'verify'.tr : 'next'.tr,
+                        buttonText: widget.fromDialog ? 'verify' : 'next',
                         isLoading: widget.fromSocialLogin
                             ? authController.isLoading
                             : verificationController.isLoading,
-                        onPressed: () =>
-                            _onPressedForgetPass(_countryDialCode!),
+                        // onPressed: () =>
+                        //     _onPressedForgetPass(_countryDialCode!),
                       );
                     });
                   }),
@@ -150,13 +155,13 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                       text: TextSpan(children: [
                         TextSpan(
                           text:
-                              '${'if_you_have_any_queries_feel_free_to_contact_with_our'.tr} ',
+                              '${'if_you_have_any_queries_feel_free_to_contact_with_our'} ',
                           style: robotoRegular.copyWith(
                               color: Theme.of(context).hintColor,
                               fontSize: Dimensions.fontSizeSmall),
                         ),
                         TextSpan(
-                          text: 'help_and_support'.tr,
+                          text: 'help_and_support',
                           style: robotoMedium.copyWith(
                               color: Theme.of(context).primaryColor,
                               fontSize: Dimensions.fontSizeDefault),
@@ -185,9 +190,9 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
     numberWithCountryCode = phoneValid.phone;
 
     if (phone.isEmpty) {
-      showCustomSnackBar('enter_phone_number'.tr);
+      showCustomSnackBar('enter_phone_number');
     } else if (!phoneValid.isValid) {
-      showCustomSnackBar('invalid_phone_number'.tr);
+      showCustomSnackBar('invalid_phone_number');
     } else {
       if (widget.fromSocialLogin) {
         widget.socialLogInModel!.phone = numberWithCountryCode;

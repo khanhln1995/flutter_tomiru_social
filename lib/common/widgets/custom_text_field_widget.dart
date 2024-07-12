@@ -233,7 +233,7 @@ class CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                             padding: EdgeInsets.zero,
                             onChanged: widget.onCountryChanged,
                             initialSelection: widget.countryDialCode,
-                            favorite: [widget.countryDialCode!],
+                            // favorite: [widget.countryDialCode!],
                             dialogBackgroundColor: Theme.of(context).cardColor,
                             textStyle: robotoRegular.copyWith(
                               fontSize: Dimensions.fontSizeDefault,

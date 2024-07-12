@@ -77,11 +77,11 @@ class AppConstants {
       'stackfood_restaurant_registration';
 
   static List<LanguageModel> languages = [
-    // LanguageModel(
-    //     imageUrl: Images.vietnam,
-    //     languageName: 'vietnamese',
-    //     countryCode: 'VN',
-    //     languageCode: 'vn'),
+    LanguageModel(
+        imageUrl: Images.vietnam,
+        languageName: 'vietnamese',
+        countryCode: 'VN',
+        languageCode: 'vn'),
     LanguageModel(
         imageUrl: Images.english,
         languageName: 'English',

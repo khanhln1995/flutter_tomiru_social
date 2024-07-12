@@ -51,11 +51,11 @@ import 'package:tomiru_social_flutter/features/notification/domain/repository/no
 import 'package:tomiru_social_flutter/features/notification/domain/repository/notification_repository_interface.dart';
 import 'package:tomiru_social_flutter/features/notification/domain/service/notification_service.dart';
 import 'package:tomiru_social_flutter/features/notification/domain/service/notification_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/onboard/controllers/onboard_controller.dart';
-// import 'package:tomiru_social_flutter/features/onboard/domain/repository/onboard_repository.dart';
-// import 'package:tomiru_social_flutter/features/onboard/domain/repository/onboard_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/onboard/domain/service/notification_service.dart';
-// import 'package:tomiru_social_flutter/features/onboard/domain/service/onboard_service_interface.dart';
+import 'package:tomiru_social_flutter/features/onboard/controllers/onboard_controller.dart';
+import 'package:tomiru_social_flutter/features/onboard/domain/repository/onboard_repository.dart';
+import 'package:tomiru_social_flutter/features/onboard/domain/repository/onboard_repository_interface.dart';
+import 'package:tomiru_social_flutter/features/onboard/domain/service/notification_service.dart';
+import 'package:tomiru_social_flutter/features/onboard/domain/service/onboard_service_interface.dart';
 import 'package:tomiru_social_flutter/features/profile/controllers/profile_controller.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/repositories/profile_repository.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/repositories/profile_repository_interface.dart';
@@ -308,11 +308,11 @@ Future<Map<String, Map<String, String>>> init() async {
   NotificationServiceInterface notificationServiceInterface =
       NotificationService(notificationRepositoryInterface: Get.find());
   Get.lazyPut(() => notificationServiceInterface);
-  // OnboardRepositoryInterface onboardRepositoryInterface = OnboardRepository();
-  // Get.lazyPut(() => onboardRepositoryInterface);
-  // OnboardServiceInterface onboardServiceInterface =
-  //     OnboardService(onboardRepositoryInterface: Get.find());
-  // Get.lazyPut(() => onboardServiceInterface);
+  OnboardRepositoryInterface onboardRepositoryInterface = OnboardRepository();
+  Get.lazyPut(() => onboardRepositoryInterface);
+  OnboardServiceInterface onboardServiceInterface =
+      OnboardService(onboardRepositoryInterface: Get.find());
+  Get.lazyPut(() => onboardServiceInterface);
   // SearchRepositoryInterface searchRepositoryInterface =
   //     SearchRepository(apiClient: Get.find(), sharedPreferences: Get.find());
   // Get.lazyPut(() => searchRepositoryInterface);
@@ -368,7 +368,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => SplashController(splashServiceInterface: Get.find()));
   Get.lazyPut(
       () => LocalizationController(languageServiceInterface: Get.find()));
-  // Get.lazyPut(() => OnBoardingController(onboardServiceInterface: Get.find()));
+  Get.lazyPut(() => OnBoardingController(onboardServiceInterface: Get.find()));
   Get.lazyPut(() => AuthController(authServiceInterface: Get.find()));
   // Get.lazyPut(() => AddressController(addressServiceInterface: Get.find()));
   // Get.lazyPut(() => LocationController(locationServiceInterface: Get.find()));
@@ -417,6 +417,6 @@ Future<Map<String, Map<String, String>>> init() async {
     languages['${languageModel.languageCode}_${languageModel.countryCode}'] =
         json;
   }
-  // return languages;
+
   return languages;
 }

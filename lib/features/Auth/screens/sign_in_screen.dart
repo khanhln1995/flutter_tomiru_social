@@ -132,7 +132,7 @@ class SignInScreenState extends State<SignInScreen> {
                       const SizedBox(height: Dimensions.paddingSizeExtraLarge),
                       Align(
                         alignment: Alignment.center,
-                        child: Text("Đăng nhập",
+                        child: Text("sign_in".tr,
                             style: robotoBold.copyWith(
                                 fontSize: Dimensions.fontSizeExtremelyLarge)),
                       ),

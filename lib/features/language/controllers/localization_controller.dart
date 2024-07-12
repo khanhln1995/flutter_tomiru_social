@@ -1,13 +1,20 @@
+// import 'package:tomiru_social_flutter/features/home/screens/home_screen.dart';
 import 'package:tomiru_social_flutter/features/language/domain/models/language_model.dart';
 import 'package:tomiru_social_flutter/features/language/domain/service/language_service_interface.dart';
+// import 'package:tomiru_social_flutter/helper/address_helper.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LocalizationController extends GetxController implements GetxService {
   final LanguageServiceInterface languageServiceInterface;
+  LocalizationController({required this.languageServiceInterface}) {
+    loadCurrentLanguage();
+  }
 
-  LocalizationController({required this.languageServiceInterface});
+  // LocalizationController({required this.sharedPreferences, required this.apiClient}) {
+  //   loadCurrentLanguage();
+  // }
 
   Locale _locale = Locale(AppConstants.languages[0].languageCode!,
       AppConstants.languages[0].countryCode);
@@ -22,50 +29,74 @@ class LocalizationController extends GetxController implements GetxService {
   int _selectedLanguageIndex = 0;
   int get selectedLanguageIndex => _selectedLanguageIndex;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // Initialize the controller, typically load initial language
-    loadCurrentLanguage();
-  }
-
   void setLanguage(Locale locale, {bool fromBottomSheet = false}) {
-    // Update the application locale and related state variables
     Get.updateLocale(locale);
     _locale = locale;
     _isLtr = languageServiceInterface.setLTR(_locale);
+    // languageServiceInterface.updateHeader(_locale);
 
     if (!fromBottomSheet) {
-      saveLanguage(_locale); // Save the selected language to preferences
+      saveLanguage(_locale);
     }
-
-    update(); // Notify listeners
+    // if (AddressHelper.getAddressFromSharedPref() != null && !fromBottomSheet) {
+    //   HomeScreen.loadData(true);
+    // }
+    update();
   }
 
-  void loadCurrentLanguage() {
+  void loadCurrentLanguage() async {
     _locale = languageServiceInterface.getLocaleFromSharedPref();
-    _isLtr = _locale.languageCode != 'ar'; // Example logic for RTL/LTR
+    _isLtr = _locale.languageCode != 'ar';
     _selectedLanguageIndex = languageServiceInterface.setSelectedLanguageIndex(
         AppConstants.languages, _locale);
-    _languages.addAll(AppConstants.languages); // Populate language list
-    update(); // Notify listeners
+    _languages = [];
+    _languages.addAll(AppConstants.languages);
+    update();
   }
 
-  void saveLanguage(Locale locale) {
-    languageServiceInterface.saveLanguage(locale); // Save selected language
+  void saveLanguage(Locale locale) async {
+    languageServiceInterface.saveLanguage(locale);
+  }
+
+  void saveCacheLanguage(Locale? locale) {
+    languageServiceInterface.saveCacheLanguage(
+        locale ?? languageServiceInterface.getLocaleFromSharedPref());
+  }
+
+  void setSelectLanguageIndex(int index) {
+    _selectedLanguageIndex = index;
+    update();
+  }
+
+  Locale getCacheLocaleFromSharedPref() {
+    return languageServiceInterface.getCacheLocaleFromSharedPref();
+  }
+
+  void searchSelectedLanguage() {
+    for (var language in AppConstants.languages) {
+      if (language.languageCode!
+          .toLowerCase()
+          .contains(_locale.languageCode.toLowerCase())) {
+        _selectedLanguageIndex = AppConstants.languages.indexOf(language);
+      }
+    }
   }
 
   void searchLanguage(String query) {
     if (query.isEmpty) {
-      _languages = AppConstants.languages; // Reset to all languages
+      _languages = [];
+      _languages = AppConstants.languages;
     } else {
-      _selectedLanguageIndex = -1; // Clear selected index
-      _languages = AppConstants.languages
-          .where((language) => language.languageName!
-              .toLowerCase()
-              .contains(query.toLowerCase()))
-          .toList();
+      _selectedLanguageIndex = -1;
+      _languages = [];
+      for (var language in AppConstants.languages) {
+        if (language.languageName!
+            .toLowerCase()
+            .contains(query.toLowerCase())) {
+          _languages.add(language);
+        }
+      }
     }
-    update(); // Notify listeners
+    update();
   }
 }

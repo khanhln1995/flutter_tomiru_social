@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    Get.find<LocalizationController>().saveLanguage(const Locale("en", "US"));
+    Get.find<LocalizationController>().saveLanguage(const Locale("vn", "VN"));
 
     _route();
   }

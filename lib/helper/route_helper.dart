@@ -14,7 +14,7 @@ import 'dart:convert';
 // import 'package:tomiru_social_flutter/features/home/screens/map_view_screen.dart';
 // import 'package:tomiru_social_flutter/features/html/enums/html_type.dart';
 // import 'package:tomiru_social_flutter/features/html/screens/html_viewer_screen.dart';
-// import 'package:tomiru_social_flutter/features/language/screens/language_screen.dart';
+import 'package:tomiru_social_flutter/features/language/screens/language_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/access_location_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/map_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/pick_map_screen.dart';
@@ -24,7 +24,7 @@ import 'package:tomiru_social_flutter/features/Home_Screen/test.dart';
 import 'package:tomiru_social_flutter/features/auth/screens/sign_in_screen.dart';
 import 'package:tomiru_social_flutter/features/notification/domain/models/notification_body_model.dart';
 // import 'package:tomiru_social_flutter/features/notification/screens/notification_screen.dart';
-// import 'package:tomiru_social_flutter/features/onboard/screens/onboarding_screen.dart';
+import 'package:tomiru_social_flutter/features/onboard/screens/onboarding_screen.dart';
 // import 'package:tomiru_social_flutter/features/order/screens/guest_track_order_screen.dart';
 // import 'package:tomiru_social_flutter/features/order/screens/order_details_screen.dart';
 // import 'package:tomiru_social_flutter/features/order/screens/order_screen.dart';
@@ -72,8 +72,8 @@ import 'package:tomiru_social_flutter/features/splash/screens/splash_screen.dart
 // import 'package:tomiru_social_flutter/features/splash/screens/splash_screen.dart';
 // import 'package:tomiru_social_flutter/features/support/screens/support_screen.dart';
 import 'package:tomiru_social_flutter/features/update/screens/update_screen.dart';
-// import 'package:tomiru_social_flutter/features/verification/screens/forget_pass_screen.dart';
-// import 'package:tomiru_social_flutter/features/verification/screens/new_pass_screen.dart';
+import 'package:tomiru_social_flutter/features/verification/screens/forget_pass_screen.dart';
+import 'package:tomiru_social_flutter/features/verification/screens/new_pass_screen.dart';
 import 'package:tomiru_social_flutter/features/verification/screens/verification_screen.dart';
 // import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen.dart';
 // import 'package:tomiru_social_flutter/helper/address_helper.dart';
@@ -182,6 +182,7 @@ class RouteHelper {
     if (fromSocialLogin) {
       data = base64Encode(utf8.encode(jsonEncode(socialLogInModel!.toJson())));
     }
+
     return '$forgotPassword?page=${fromSocialLogin ? 'social-login' : 'forgot-password'}&data=${fromSocialLogin ? data : 'null'}';
   }
 
@@ -364,10 +365,10 @@ class RouteHelper {
           }
           return SplashScreen(notificationBody: data, linkBody: linkData);
         }),
-    //   GetPage(
-    //       name: language,
-    //       page: () => LanguageScreen(fromMenu: Get.parameters['page'] == 'menu')),
-    //   GetPage(name: onBoarding, page: () => OnBoardingScreen()),
+    GetPage(
+        name: language,
+        page: () => LanguageScreen(fromMenu: Get.parameters['page'] == 'menu')),
+    GetPage(name: onBoarding, page: () => OnBoardingScreen()),
     GetPage(
         name: signIn,
         page: () => SignInScreen(
@@ -429,27 +430,27 @@ class RouteHelper {
     //                                 ? 4
     //                                 : 0,
     //           ))),
-    //   GetPage(
-    //       name: forgotPassword,
-    //       page: () {
-    //         SocialLogInBodyModel? data;
-    //         if (Get.parameters['page'] == 'social-login') {
-    //           List<int> decode =
-    //               base64Decode(Get.parameters['data']!.replaceAll(' ', '+'));
-    //           data =
-    //               SocialLogInBodyModel.fromJson(jsonDecode(utf8.decode(decode)));
-    //         }
-    //         return ForgetPassScreen(
-    //             fromSocialLogin: Get.parameters['page'] == 'social-login',
-    //             socialLogInModel: data);
-    //       }),
-    //   GetPage(
-    //       name: resetPassword,
-    //       page: () => NewPassScreen(
-    //             resetToken: Get.parameters['token'],
-    //             number: Get.parameters['phone'],
-    //             fromPasswordChange: Get.parameters['page'] == 'password-change',
-    //           )),
+    GetPage(
+        name: forgotPassword,
+        page: () {
+          SocialLogInBodyModel? data;
+          if (Get.parameters['page'] == 'social-login') {
+            List<int> decode =
+                base64Decode(Get.parameters['data']!.replaceAll(' ', '+'));
+            data =
+                SocialLogInBodyModel.fromJson(jsonDecode(utf8.decode(decode)));
+          }
+          return ForgetPassScreen(
+              fromSocialLogin: Get.parameters['page'] == 'social-login',
+              socialLogInModel: data);
+        }),
+    GetPage(
+        name: resetPassword,
+        page: () => NewPassScreen(
+              resetToken: Get.parameters['token'],
+              number: Get.parameters['phone'],
+              fromPasswordChange: Get.parameters['page'] == 'password-change',
+            )),
     //   GetPage(name: search, page: () => getRoute(const SearchScreen())),
     //   GetPage(
     //       name: restaurant,

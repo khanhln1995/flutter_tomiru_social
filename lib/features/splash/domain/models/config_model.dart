@@ -467,6 +467,7 @@ class BaseUrls {
     this.cuisineImageUrl,
     this.gatewayImageUrl,
     this.orderAttachmentUrl,
+    required String apiUrl,
   });
 
   BaseUrls.fromJson(Map<String, dynamic> json) {

@@ -1,4 +1,5 @@
 import 'package:tomiru_social_flutter/api/api_client.dart';
+import 'package:tomiru_social_flutter/features/splash/domain/models/config_model.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/repositories/splash_repository_interface.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SplashRepository implements SplashRepositoryInterface {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
+  ConfigModel? _configModel;
   SplashRepository({required this.apiClient, required this.sharedPreferences});
 
   @override
