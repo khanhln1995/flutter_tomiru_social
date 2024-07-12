@@ -116,7 +116,7 @@ class _GroupBarState extends State<GroupBar> {
                   CustomTabBar2(
                     title: "Nhóm của bạn",
                     isSelected: _selectedIndex == 1,
-                    width: widthBody * 0.3, // Adjust width as needed
+                    width: widthBody * 0.35, // Adjust width as needed
                     height: tabBarHeight,
                     action: () {
                       setState(() {

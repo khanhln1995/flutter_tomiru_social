@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import "package:tomiru_social_flutter/features/Auth/Signin/Screens/Signin_Screen.dart";
+import "package:tomiru_social_flutter/features/Auth/Signup/Screens/Signup_Screen.dart";
 import "package:tomiru_social_flutter/features/Business_Screen/Screens/Business_Screen.dart";
 import "package:tomiru_social_flutter/features/Group_Screen/Screens/Chat_Group_Screen.dart";
 import "package:tomiru_social_flutter/features/Group_Screen/Screens/Create_Group.dart";
 import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Screen.dart';
 import "package:tomiru_social_flutter/features/Group_Screen/Screens/group_option.dart";
-import 'package:tomiru_social_flutter/features/Profile_Screen/Screens/Profile_Screen.dart';
-import 'package:tomiru_social_flutter/features/Signin_Screen/Screens/Signin_Screen.dart';
-import "package:tomiru_social_flutter/features/Storage_Screen/Screens/Storage_Screen.dart";
-import "../../Signup_Screen/Screens/Signup_Screen.dart";
+import "package:tomiru_social_flutter/features/Home/Screens/Home_Page.dart";
+import "package:tomiru_social_flutter/features/Profile/Screens/Profile_Screen.dart";
 
-import "../../../screens/Friend_Screen/Page_View.dart";
+import "package:tomiru_social_flutter/features/Storage_Screen/Screens/Storage_Screen.dart";
+
+
 import "../../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
-import "../../Friend2_Screen/Screens/Friend2_Screen.dart";
-import "../../Home/Screens/Home.dart";
+import "../../Friends/Screens/Friend_Screen.dart";
+import "../../Home_Social/Screens/Home.dart";
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -26,121 +29,132 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Home Screen'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Welcome to My Flutter App!'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Signup_Screen(),
-                  ),
-                );
-              },
-              child: const Text('Register'),
-            ),
-            
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignIn_Screen(
-                      phoneController: null,
-                      passwordController: passwordController,
-                      emailController: null,
-                      isCreatedSuccess: false,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Welcome to My Flutter App!'),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Signup_Screen(),
                     ),
-                  ),
-                );
-              },
-              child: const Text('Login'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Home(),
-                  ),
-                );
-              },
-              child: const Text('Home'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GroupScreen(isAdmin: isAdmin),
-                  ),
-                );
-              },
-              child: const Text('Group'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfileScreen(),
-                  ),
-                );
-              },
-              child: const Text('Profile'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BusinessScreen(),
-                  ),
-                );
-              },
-              child: const Text('BusinessScreen'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CreateGroup(
-                      
+                  );
+                },
+                child: const Text('Register'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignIn_Screen(
+                        phoneController: null,
+                        passwordController: passwordController,
+                        emailController: null,
+                        isCreatedSuccess: false,
+                      ),
                     ),
-                  ),
-                );
-              },
-              child: const Text('Create Group'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatGroupScreen(
-                      isAdmin: isAdmin,
+                  );
+                },
+                child: const Text('Login'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Home(),
                     ),
-                  ),
-                );
-              },
-              child: const Text('ChatGroup'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>  Friend2Screen(),
-                  ),
-                );
-              },
-              child: const Text('Friend2'),
-            ),
-            
-          ],
+                  );
+                },
+                child: const Text('Home'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GroupScreen(isAdmin: isAdmin),
+                    ),
+                  );
+                },
+                child: const Text('Group'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ),
+                  );
+                },
+                child: const Text('Profile'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BusinessScreen(),
+                    ),
+                  );
+                },
+                child: const Text('BusinessScreen'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CreateGroup(
+                        
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Create Group'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatGroupScreen(
+                        isAdmin: isAdmin,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('ChatGroup'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Friend2Screen(),
+                    ),
+                  );
+                },
+                child: const Text('Friend2'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Homepage(),
+                    ),
+                  );
+                },
+                child: const Text('Home2'),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: const BottomMenubar(),

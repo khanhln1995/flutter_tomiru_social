@@ -44,9 +44,12 @@ dependencies:
     video_player: ^2.9.1
     shimmer: ^3.0.0
     freezed_annotation: ^2.0.3
+    material_symbols_icons: ^4.2768.0
+    iconsax: ^0.0.8
 
     font_awesome_flutter: ^10.7.0
     icons_flutter: ^0.0.4
+    flutter_dash: ^1.0.0
 dev_dependencies:
     flutter_test:
         sdk: flutter

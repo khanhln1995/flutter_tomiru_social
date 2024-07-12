@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Chat_Group_Screen.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Invite_Members_Screen.dart';
-import 'package:tomiru_social_flutter/features/Signin_Screen/Widgets/custom_text_field.dart';
 
 class CreateGroup extends StatefulWidget {
   const CreateGroup({super.key});

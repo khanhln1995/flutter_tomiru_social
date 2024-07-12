@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/helper/enum.dart';
-import 'package:tomiru_social_flutter/screens/Friend_Screen/Info_Friend_Bottom_Sheet.dart';
-import 'package:tomiru_social_flutter/screens/Friend_Screen/Open_Bottom_Sheet.dart';
 import 'package:tomiru_social_flutter/widgets/friends_widget/friends_button.dart';
-
+import 'package:tomiru_social_flutter/widgets/friends_widget/friends_button.dart';
+import "package:tomiru_social_flutter/features/Friends/Widgets/Info_Friend_Bottom_Sheet.dart";
+import "package:tomiru_social_flutter/features/Friends/Widgets/Open_Bottom_Sheet.dart";
 extension RoleExtension on UserRole {
   String get displayName {
     switch (this) {

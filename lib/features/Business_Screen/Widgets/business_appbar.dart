@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class BusinessAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -18,9 +19,9 @@ class BusinessAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       actions: [
-        _buildIconWithBadge(Icons.chat_bubble_outline, '1'),
+        _buildIconWithBadge(Iconsax.message, '1'),
         SizedBox(width: 16),
-        _buildIconWithBadge(Icons.notifications_none, '2'),
+        _buildIconWithBadge(Iconsax.notification, '2'),
         SizedBox(width: 16),
       ],
     );
