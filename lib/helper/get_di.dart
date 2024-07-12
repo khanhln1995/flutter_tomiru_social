@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
-// import 'package:tomiru_social_flutter/features/dashboard/domain/repositories/dashboard_repo.dart';
-// import 'package:tomiru_social_flutter/features/dashboard/domain/repositories/dashboard_repo_interface.dart';
+import 'package:tomiru_social_flutter/features/dashboard/domain/repositories/dashboard_repo.dart';
+import 'package:tomiru_social_flutter/features/dashboard/domain/repositories/dashboard_repo_interface.dart';
 // import 'package:tomiru_social_flutter/features/product/controllers/campaign_controller.dart';
 // import 'package:tomiru_social_flutter/features/cart/controllers/cart_controller.dart';
 // import 'package:tomiru_social_flutter/features/cart/domain/repositories/cart_repository.dart';
@@ -112,9 +112,9 @@ import 'package:tomiru_social_flutter/features/auth/domain/services/auth_service
 // import 'package:tomiru_social_flutter/features/cuisine/domain/repositories/cuisine_repository_interface.dart';
 // import 'package:tomiru_social_flutter/features/cuisine/domain/services/cuisine_service.dart';
 // import 'package:tomiru_social_flutter/features/cuisine/domain/services/cuisine_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/dashboard/controllers/dashboard_controller.dart';
-// import 'package:tomiru_social_flutter/features/dashboard/domain/services/dashboard_service.dart';
-// import 'package:tomiru_social_flutter/features/dashboard/domain/services/dashboard_service_interface.dart';
+import 'package:tomiru_social_flutter/features/dashboard/controllers/dashboard_controller.dart';
+import 'package:tomiru_social_flutter/features/dashboard/domain/services/dashboard_service.dart';
+import 'package:tomiru_social_flutter/features/dashboard/domain/services/dashboard_service_interface.dart';
 // import 'package:tomiru_social_flutter/features/favourite/controllers/favourite_controller.dart';
 // import 'package:tomiru_social_flutter/features/favourite/domain/repositories/favourite_repository.dart';
 // import 'package:tomiru_social_flutter/features/favourite/domain/repositories/favourite_repository_interface.dart';
@@ -184,12 +184,12 @@ Future<Map<String, Map<String, String>>> init() async {
   // AddressServiceInterface addressServiceInterface =
   //     AddressService(addressRepoInterface: Get.find());
   // Get.lazyPut(() => addressServiceInterface);
-  // DashboardRepoInterface dashboardRepoInterface =
-  //     DashboardRepo(sharedPreferences: Get.find());
-  // Get.lazyPut(() => dashboardRepoInterface);
-  // DashboardServiceInterface dashboardServiceInterface =
-  //     DashboardService(dashboardRepoInterface: Get.find());
-  // Get.lazyPut(() => dashboardServiceInterface);
+  DashboardRepoInterface dashboardRepoInterface =
+      DashboardRepo(sharedPreferences: Get.find());
+  Get.lazyPut(() => dashboardRepoInterface);
+  DashboardServiceInterface dashboardServiceInterface =
+      DashboardService(dashboardRepoInterface: Get.find());
+  Get.lazyPut(() => dashboardServiceInterface);
   // BusinessRepoInterface businessRepoInterface =
   //     BusinessRepo(apiClient: Get.find());
   // Get.lazyPut(() => businessRepoInterface);
@@ -364,7 +364,7 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => campaignServiceInterface);
 
   /// Controller
-  // Get.lazyPut(() => ThemeController(splashServiceInterface: Get.find()));
+  Get.lazyPut(() => ThemeController(splashServiceInterface: Get.find()));
   Get.lazyPut(() => SplashController(splashServiceInterface: Get.find()));
   Get.lazyPut(
       () => LocalizationController(languageServiceInterface: Get.find()));
@@ -372,7 +372,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => AuthController(authServiceInterface: Get.find()));
   // Get.lazyPut(() => AddressController(addressServiceInterface: Get.find()));
   // Get.lazyPut(() => LocationController(locationServiceInterface: Get.find()));
-  // Get.lazyPut(() => DashboardController(dashboardServiceInterface: Get.find()));
+  Get.lazyPut(() => DashboardController(dashboardServiceInterface: Get.find()));
   // Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
   // Get.lazyPut(() => DeliverymanRegistrationController(
   //     deliverymanRegistrationServiceInterface: Get.find()));
@@ -390,8 +390,8 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
   // Get.lazyPut(() => LoyaltyController(loyaltyServiceInterface: Get.find()));
   // Get.lazyPut(() => HtmlController(htmlServiceInterface: Get.find()));
-  // Get.lazyPut(
-  //     () => NotificationController(notificationServiceInterface: Get.find()));
+  Get.lazyPut(
+      () => NotificationController(notificationServiceInterface: Get.find()));
   Get.lazyPut(() => ProfileController(profileServiceInterface: Get.find()));
   // Get.lazyPut(() => HomeController(homeServiceInterface: Get.find()));
   // Get.lazyPut(() => CartController(cartServiceInterface: Get.find()));

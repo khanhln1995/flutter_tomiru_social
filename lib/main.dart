@@ -119,68 +119,70 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     print("build context");
-    // return GetBuilder<ThemeController>(builder: (themeController) {
-    print("themeController");
-    return GetBuilder<LocalizationController>(builder: (localizeController) {
-      return GetBuilder<SplashController>(builder: (splashController) {
-        print(splashController.configModel);
-        return (GetPlatform.isWeb && splashController.configModel == null)
-            ? const SizedBox()
-            : GetMaterialApp(
-                title: AppConstants.appName,
-                debugShowCheckedModeBanner: false,
-                navigatorKey: Get.key,
-                scrollBehavior: const MaterialScrollBehavior().copyWith(
-                  dragDevices: {
-                    PointerDeviceKind.mouse,
-                    PointerDeviceKind.touch
-                  },
-                ),
-                // theme: themeController.darkTheme ? dark : light,
-                locale: localizeController.locale,
-                translations: Messages(languages: widget.languages),
-                fallbackLocale: Locale(AppConstants.languages[0].languageCode!,
-                    AppConstants.languages[0].countryCode),
-                initialRoute:
-                    // GetPlatform.isWeb
-                    //     ? RouteHelper.getInitialRoute()
-                    //     :
-                    RouteHelper.getSplashRoute(widget.body, widget.linkBody),
-                getPages: RouteHelper.routes,
-                defaultTransition: Transition.topLevel,
-                transitionDuration: const Duration(milliseconds: 500),
-                builder: (BuildContext context, widget) {
-                  return MediaQuery(
-                    data: MediaQuery.of(context)
-                        .copyWith(textScaler: const TextScaler.linear(1)),
-                    child: Material(
-                        child: Stack(children: [
-                      widget!,
-                      GetBuilder<SplashController>(builder: (splashController) {
-                        // if (
-                        //   !splashController.savedCookiesData ||
-                        //     !splashController.getAcceptCookiesStatus(
-                        //         splashController.configModel?.cookiesText ??
-                        //             "")
-                        //             ) {
-                        //   return const SizedBox();
-                        //   // ResponsiveHelper.isWeb()
-                        //   //     ? const Align(
-                        //   //         alignment: Alignment.bottomCenter,
-                        //   //         child: CookiesViewWidget())
-                        //   //     :
-                        // } else {}
-                        return const SizedBox();
-                      })
-                    ])),
-                  );
-                });
+    return GetBuilder<ThemeController>(builder: (themeController) {
+      print("themeController");
+      return GetBuilder<LocalizationController>(builder: (localizeController) {
+        return GetBuilder<SplashController>(builder: (splashController) {
+          print(splashController.configModel);
+          return (GetPlatform.isWeb && splashController.configModel == null)
+              ? const SizedBox()
+              : GetMaterialApp(
+                  title: AppConstants.appName,
+                  debugShowCheckedModeBanner: false,
+                  navigatorKey: Get.key,
+                  scrollBehavior: const MaterialScrollBehavior().copyWith(
+                    dragDevices: {
+                      PointerDeviceKind.mouse,
+                      PointerDeviceKind.touch
+                    },
+                  ),
+                  theme: themeController.darkTheme ? dark : light,
+                  // theme: dark,
+                  locale: localizeController.locale,
+                  translations: Messages(languages: widget.languages),
+                  fallbackLocale: Locale(
+                      AppConstants.languages[0].languageCode!,
+                      AppConstants.languages[0].countryCode),
+                  initialRoute:
+                      // GetPlatform.isWeb
+                      //     ? RouteHelper.getInitialRoute()
+                      //     :
+                      RouteHelper.getSplashRoute(widget.body, widget.linkBody),
+                  getPages: RouteHelper.routes,
+                  defaultTransition: Transition.topLevel,
+                  transitionDuration: const Duration(milliseconds: 500),
+                  builder: (BuildContext context, widget) {
+                    return MediaQuery(
+                      data: MediaQuery.of(context)
+                          .copyWith(textScaler: const TextScaler.linear(1)),
+                      child: Material(
+                          child: Stack(children: [
+                        widget!,
+                        GetBuilder<SplashController>(
+                            builder: (splashController) {
+                          // if (
+                          //   !splashController.savedCookiesData ||
+                          //     !splashController.getAcceptCookiesStatus(
+                          //         splashController.configModel?.cookiesText ??
+                          //             "")
+                          //             ) {
+                          //   return const SizedBox();
+                          //   // ResponsiveHelper.isWeb()
+                          //   //     ? const Align(
+                          //   //         alignment: Alignment.bottomCenter,
+                          //   //         child: CookiesViewWidget())
+                          //   //     :
+                          // } else {}
+                          return const SizedBox();
+                        })
+                      ])),
+                    );
+                  });
+        });
       });
     });
   }
-  // );
 }
-// }
 
 class MyHttpOverrides extends HttpOverrides {
   @override
