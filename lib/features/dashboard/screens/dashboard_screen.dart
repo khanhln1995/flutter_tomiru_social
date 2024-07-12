@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:tomiru_social_flutter/features/chat/screens/chat_screen.dart';
 // import 'package:tomiru_social_flutter/features/cart/screens/cart_screen.dart';
 // import 'package:tomiru_social_flutter/features/checkout/widgets/congratulation_dialogue.dart';
 import 'package:tomiru_social_flutter/features/dashboard/widgets/registration_success_bottom_sheet.dart';
@@ -45,6 +46,8 @@ class DashboardScreenState extends State<DashboardScreen> {
   late bool _isLogin;
   bool active = false;
 
+  get notificationBody => null;
+
   @override
   void initState() {
     super.initState();
@@ -73,7 +76,8 @@ class DashboardScreenState extends State<DashboardScreen> {
       const Text(" 2"),
       const Text(" 3"),
       const Text(" 4"),
-      const Text(" 5")
+      const Text(" 5"),
+      // const ChatScreen(notificationBody: notificationBody, user: user)
     ];
 
     Future.delayed(const Duration(seconds: 1), () {

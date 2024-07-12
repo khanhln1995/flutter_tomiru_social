@@ -36,11 +36,19 @@ class Images {
   static const String onboardFrame_1 = 'assets/images/app-avatar.png';
   static const String onboardFrame_2 = 'assets/images/app-avatar.png';
   static const String onboardFrame_3 = 'assets/images/app-avatar.png';
-  // static const String languageBg = 'assets/images/app-avatar.png';
-  // static const String languageBg = 'assets/images/app-avatar.png';
-  // static const String languageBg = 'assets/images/app-avatar.png';
-  // static const String languageBg = 'assets/images/app-avatar.png';
-  // static const String languageBg = 'assets/images/app-avatar.png';
-  // static const String languageBg = 'assets/images/app-avatar.png';
-  // static const String languageBg = 'assets/images/app-avatar.png';
+  static const String messageEmpty = 'assets/images/app-avatar.png';
+  static const String image = 'assets/images/app-avatar.png';
+  static const String send = 'assets/images/app-avatar.png';
+  static const String restaurantPlaceholder = 'assets/images/app-avatar.png';
+  static const String foodPlaceholder = 'assets/images/app-avatar.png';
+  static const String placeholderPng = 'assets/images/app-avatar.png';
+  static const String facebook = 'assets/images/app-avatar.png';
+  static const String guest = 'assets/images/app-avatar.png';
+  static const String linkedin = 'assets/images/app-avatar.png';
+  static const String youtube = 'assets/images/app-avatar.png';
+  static const String twitter = 'assets/images/app-avatar.png';
+  static const String instagram = 'assets/images/app-avatar.png';
+  static const String pinterest = 'assets/images/app-avatar.png';
+  static const String landingGooglePlay = 'assets/images/app-avatar.png';
+  static const String landingAppStore = 'assets/images/app-avatar.png';
 }
