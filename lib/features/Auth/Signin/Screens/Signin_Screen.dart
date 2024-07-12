@@ -28,7 +28,7 @@ class SignIn_Screen extends StatefulWidget {
 }
 
 class _SignIn_ScreenState extends State<SignIn_Screen> {
-   String inputShow = '';
+  String inputShow = '';
   bool _rememberMe = false;
   bool isSaveUser = false;
   bool isEmailActive = false;
@@ -94,6 +94,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
     _phoneController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

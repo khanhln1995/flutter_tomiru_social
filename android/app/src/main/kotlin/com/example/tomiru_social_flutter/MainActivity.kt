@@ -1,4 +1,4 @@
-package com.example.tomiru_social_flutter
+package com.tomirusocial.app
 
 import io.flutter.embedding.android.FlutterActivity
 
