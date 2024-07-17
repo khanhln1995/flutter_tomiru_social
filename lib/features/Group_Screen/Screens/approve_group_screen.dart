@@ -26,7 +26,7 @@ class _ApproveGroupScreenState extends State<ApproveGroupScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Cần xét duyệt',
           style: TextStyle(
             color: Colors.black,
@@ -36,7 +36,7 @@ class _ApproveGroupScreenState extends State<ApproveGroupScreen> {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
             size: 20,
@@ -52,8 +52,8 @@ class _ApproveGroupScreenState extends State<ApproveGroupScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Padding chứa phần tiêu đề "Kiểm duyệt" và số lượng yêu cầu
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18, 25, 19, 4),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(18, 25, 19, 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -74,7 +74,7 @@ class _ApproveGroupScreenState extends State<ApproveGroupScreen> {
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Tìm kiếm nhóm',
-                prefixIcon: Icon(Icons.search, color: Colors.grey),
+                prefixIcon: const Icon(Icons.search, color: Colors.grey),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5),
                   borderSide: BorderSide.none,
@@ -99,14 +99,14 @@ class _ApproveGroupScreenState extends State<ApproveGroupScreen> {
                       leading: Image.asset(request["image"]!),
                       title: Text(
                         request["name"]!,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       subtitle: Text(
                         request["time"]!,
-                        style: TextStyle(fontSize: 12),
+                        style: const TextStyle(fontSize: 12),
                       ),
                     ),
                     // Hàng các nút bấm "Phê duyệt", "Từ chối" và biểu tượng chat
@@ -117,14 +117,6 @@ class _ApproveGroupScreenState extends State<ApproveGroupScreen> {
                             height: 35,
                             child: ElevatedButton(
                               onPressed: () {},
-                              child: Text(
-                                'Phê duyệt',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
                               style: ElevatedButton.styleFrom(
                                 side: BorderSide.none,
                                 backgroundColor: Colors.blue,
@@ -132,23 +124,23 @@ class _ApproveGroupScreenState extends State<ApproveGroupScreen> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
+                              child: const Text(
+                                'Phê duyệt',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        SizedBox(width: 11),
+                        const SizedBox(width: 11),
                         Expanded(
                           child: SizedBox(
                             height: 35,
                             child: ElevatedButton(
                               onPressed: () {},
-                              child: Text(
-                                'Từ chối',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
                               style: ElevatedButton.styleFrom(
                                 side: BorderSide.none,
                                 backgroundColor: Colors.grey[200],
@@ -156,19 +148,23 @@ class _ApproveGroupScreenState extends State<ApproveGroupScreen> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
+                              child: const Text(
+                                'Từ chối',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        SizedBox(width: 11),
+                        const SizedBox(width: 11),
                         SizedBox(
                           height: 35,
                           width: 35,
                           child: ElevatedButton(
                             onPressed: () {},
-                            child: Image.asset(
-                              "assets/images/Chat1.png",
-                              fit: BoxFit.cover,
-                            ),
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.zero,
                               side: BorderSide.none,
@@ -177,11 +173,15 @@ class _ApproveGroupScreenState extends State<ApproveGroupScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
+                            child: Image.asset(
+                              "assets/images/Chat1.png",
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                   ],
                 );
               },

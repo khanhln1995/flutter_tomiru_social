@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Setting_Group.dart';
 import 'package:tomiru_social_flutter/widgets/custom_appbar2.dart';
 
 
@@ -76,7 +77,7 @@ class _GroupBarState extends State<GroupBar> {
                         color: Colors.black,
                       ),
                       onPressed: () {
-                        // Handle settings button action
+                       Navigator.push(context,MaterialPageRoute(builder: (context) => SettingGroup()));
                       },
                     ),
                   ],
