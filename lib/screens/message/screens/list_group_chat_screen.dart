@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/Widgets/Custom_Color.dart'
+import 'package:tomiru_social_flutter/screens/message/widgets/custom_color_widget.dart'
     as CustomAppColor;
-import 'package:tomiru_social_flutter/screens/Message_Screen/Widgets/Custom_GroupChatAvatar.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/Widgets/Custom_Inline.dart';
+import 'package:tomiru_social_flutter/screens/message/widgets/custom_group_chat_avatar_widget.dart';
+import 'package:tomiru_social_flutter/screens/message/widgets/custom_inline_widget.dart';
 
 class ListGroupChat extends StatefulWidget {
   const ListGroupChat({super.key});

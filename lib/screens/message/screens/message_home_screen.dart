@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/List_Chat.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/List_Group_Chat.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/Widgets/Custom_AppBar.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/Widgets/Custom_PopupMenuButton.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/Widgets/Custom_Inline.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/Widgets/Custom_Textfield.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/Group_Creation.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/New_Message.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/Group_Calendar_Creation.dart';
-import 'package:tomiru_social_flutter/screens/Message_Screen/Widgets/Custom_Color.dart'
+import 'package:tomiru_social_flutter/screens/message/screens/list_chat_screen.dart';
+import 'package:tomiru_social_flutter/screens/message/screens/list_group_chat_screen.dart';
+import 'package:tomiru_social_flutter/screens/message/widgets/custom_app_bar_widget.dart';
+import 'package:tomiru_social_flutter/screens/message/widgets/custom_popup_menu_button_widget.dart';
+import 'package:tomiru_social_flutter/screens/message/widgets/custom_inline_widget.dart';
+import 'package:tomiru_social_flutter/screens/message/widgets/custom_text_field_widget.dart';
+import 'package:tomiru_social_flutter/screens/message/screens/group_creation_screen.dart';
+import 'package:tomiru_social_flutter/screens/message/screens/new_message_screen.dart';
+import 'package:tomiru_social_flutter/screens/message/screens/group_calendar_creation_screen.dart';
+import 'package:tomiru_social_flutter/screens/message/widgets/custom_color_widget.dart'
     as CustomAppColor;
 
 class MessageList extends StatefulWidget {
