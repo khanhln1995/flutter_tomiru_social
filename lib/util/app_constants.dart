@@ -8,7 +8,8 @@ class AppConstants {
 
   static const String fontFamily = 'Roboto';
   static const bool payInWevView = false;
-  static const String baseUrl = 'http://192.168.102.54:8000';
+  static const String baseUrl = 'http://192.168.102.65:8000';
+  // static const String baseUrl = 'http://192.168.102.132:8000';
 
 // AUTH
   static const String loginUri = '/ui/v1/auth/login';
@@ -42,6 +43,11 @@ class AppConstants {
   static const String subscriptionUri = '/api/v1/newsletter/subscribe';
 
   static const String notificationUri = '/api/v1/customer/notifications';
+  static const String walletTransactionUri =
+      '/api/v1/customer/wallet/transactions';
+
+  static const String addFundUri = '/api/v1/customer/wallet/add-fund';
+  static const String walletBonusUri = '/api/v1/customer/wallet/bonuses';
 
   static const String theme = 'theme';
   static const String token = 'multivendor_token';
@@ -87,5 +93,13 @@ class AppConstants {
         languageName: 'English',
         countryCode: 'US',
         languageCode: 'en'),
+  ];
+
+  static final List<Map<String, String>> walletTransactionSortingList = [
+    {'title': 'all_transactions', 'value': 'all'},
+    {'title': 'order_transactions', 'value': 'order'},
+    {'title': 'converted_from_loyalty_point', 'value': 'loyalty_point'},
+    {'title': 'added_via_payment_method', 'value': 'add_fund'},
+    {'title': 'earned_by_referral', 'value': 'referrer'},
   ];
 }

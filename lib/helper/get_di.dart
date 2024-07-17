@@ -154,11 +154,11 @@ import 'package:tomiru_social_flutter/features/verification/domain/reposotories/
 import 'package:tomiru_social_flutter/features/verification/domain/reposotories/verification_repo_interface.dart';
 import 'package:tomiru_social_flutter/features/verification/domain/services/verification_service.dart';
 import 'package:tomiru_social_flutter/features/verification/domain/services/verification_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
-// import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository.dart';
-// import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service.dart';
-// import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service_interface.dart';
+import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository_interface.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service_interface.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -271,12 +271,12 @@ Future<Map<String, Map<String, String>>> init() async {
   // InterestServiceInterface interestServiceInterface =
   //     InterestService(interestRepositoryInterface: Get.find());
   // Get.lazyPut(() => interestServiceInterface);
-  // WalletRepositoryInterface walletRepositoryInterface =
-  //     WalletRepository(apiClient: Get.find(), sharedPreferences: Get.find());
-  // Get.lazyPut(() => walletRepositoryInterface);
-  // WalletServiceInterface walletServiceInterface =
-  //     WalletService(walletRepositoryInterface: Get.find());
-  // Get.lazyPut(() => walletServiceInterface);
+  WalletRepositoryInterface walletRepositoryInterface =
+      WalletRepository(apiClient: Get.find(), sharedPreferences: Get.find());
+  Get.lazyPut(() => walletRepositoryInterface);
+  WalletServiceInterface walletServiceInterface =
+      WalletService(walletRepositoryInterface: Get.find());
+  Get.lazyPut(() => walletServiceInterface);
   // LoyaltyRepositoryInterface loyaltyRepositoryInterface =
   //     LoyaltyRepository(apiClient: Get.find(), sharedPreferences: Get.find());
   // Get.lazyPut(() => loyaltyRepositoryInterface);
@@ -387,7 +387,7 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => ProductController(productServiceInterface: Get.find()));
   // Get.lazyPut(() => ReviewController(reviewServiceInterface: Get.find()));
   // Get.lazyPut(() => InterestController(interestServiceInterface: Get.find()));
-  // Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
+  Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
   // Get.lazyPut(() => LoyaltyController(loyaltyServiceInterface: Get.find()));
   // Get.lazyPut(() => HtmlController(htmlServiceInterface: Get.find()));
   Get.lazyPut(

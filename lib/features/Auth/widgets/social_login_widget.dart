@@ -111,7 +111,7 @@ class SocialLoginWidget extends StatelessWidget {
                                   blurRadius: 5)
                             ],
                           ),
-                          child: Image.asset(Images.facebookIcon),
+                          child: Image.asset(Images.facebook),
                         ),
                       ),
                     )
