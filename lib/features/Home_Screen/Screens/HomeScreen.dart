@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+
 import 'package:tomiru_social_flutter/features/group_screen/Screens/Group_Screen.dart';
 import "package:tomiru_social_flutter/features/group_screen/Screens/group_option.dart";
-import 'package:tomiru_social_flutter/features/Profile/Screens/Profile_Screen.dart';
+import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart';
 
 import "package:tomiru_social_flutter/features/Auth/sign_in/Screens/sign_in_Screen.dart";
 import "package:tomiru_social_flutter/features/Auth/sign_up/Screens/sign_up_Screen.dart";
+
 
 // import "../../../screens/Friend_Screen/Page_View.dart";
 
 import "../../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
 import "../../Friends/Screens/Friend_Screen.dart";
-
+// import "../../Home/Screens/Home.dart";
+import "package:tomiru_social_flutter/features/auth/screens/sign_in_screen.dart";
 import "../../Home_Social/Screens/Home.dart";
 import "../../home/Screens/Home_Page.dart";
 class HomeScreen extends StatelessWidget {
@@ -30,6 +33,20 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('Welcome to My Flutter App!'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SignInScreen(
+                      exitFromApp: true,
+                      backFromThis: true,
+                    ),
+                  ),
+                );
+              },
+              child: const Text('login_test_api'),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -62,7 +79,9 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
+
                     builder: (context) => const Homepage(),
+
                   ),
                 );
               },
@@ -107,7 +126,9 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
+
                     builder: (context) => Home(),
+
                   ),
                 );
               },

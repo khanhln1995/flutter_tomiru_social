@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "597750087410",
+    "project_id": "tomiru-social-fb916",
+    "storage_bucket": "tomiru-social-fb916.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597750087410:android:332f3e22c14cfd29529a6b",
+        "android_client_info": {
+          "package_name": "com.tomirusocial.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqMSp68Dmwrfik-AmzG3vkgltEpNSpDmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
