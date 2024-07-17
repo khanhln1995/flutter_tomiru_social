@@ -75,9 +75,9 @@ class DashboardScreenState extends State<DashboardScreen> {
     _pageController = PageController(initialPage: widget.pageIndex);
 
     _screens = [
-      // const WalletScreen(),
+      // const Text(" 123456567"),
       const Text(" 123456567"),
-      const Text(" 123456567"),
+      const WalletScreen(),
       const Text(" 2"),
       const Text(" 3"),
       const UpdateScreen(isUpdate: true)
