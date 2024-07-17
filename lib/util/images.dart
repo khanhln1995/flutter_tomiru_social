@@ -3,7 +3,8 @@ class Images {
   static const String logoName = 'assets/images/logo-tomiru.jpg';
   static const String vietnam = 'assets/images/app-avatar.png';
   static const String english = 'assets/images/app-avatar.png';
-  static const String google = 'assets/images/app-avatar.png';
+  static const String google = 'assets/images/google_logo.png';
+  static const String facebook = 'assets/images/facebook_icon.png';
   static const String facebookIcon = 'assets/images/app-avatar.png';
   static const String appleLogo = 'assets/images/app-avatar.png';
   static const String forgot = 'assets/images/app-avatar.png';
@@ -42,7 +43,7 @@ class Images {
   static const String restaurantPlaceholder = 'assets/images/app-avatar.png';
   static const String foodPlaceholder = 'assets/images/app-avatar.png';
   static const String placeholderPng = 'assets/images/app-avatar.png';
-  static const String facebook = 'assets/images/app-avatar.png';
+
   static const String guest = 'assets/images/app-avatar.png';
   static const String linkedin = 'assets/images/app-avatar.png';
   static const String youtube = 'assets/images/app-avatar.png';
@@ -51,4 +52,20 @@ class Images {
   static const String pinterest = 'assets/images/app-avatar.png';
   static const String landingGooglePlay = 'assets/images/app-avatar.png';
   static const String landingAppStore = 'assets/images/app-avatar.png';
+  static const String walletBonus = 'assets/images/app-avatar.png';
+  static const String warning = 'assets/images/app-avatar.png';
+  static const String debitIconWallet = 'assets/images/app-avatar.png';
+  static const String creditIconWallet = 'assets/images/app-avatar.png';
+  static const String walletPay = 'assets/images/app-avatar.png';
+  static const String emptyAddress = 'assets/images/app-avatar.png';
+  static const String emptyCart = 'assets/images/app-avatar.png';
+  static const String emptyChat = 'assets/images/app-avatar.png';
+  static const String emptyOrder = 'assets/images/app-avatar.png';
+  static const String emptyCoupon = 'assets/images/app-avatar.png';
+  static const String emptyFood = 'assets/images/app-avatar.png';
+  static const String emptyNotification = 'assets/images/app-avatar.png';
+  static const String emptyRestaurant = 'assets/images/app-avatar.png';
+  static const String emptySearchFood = 'assets/images/app-avatar.png';
+  static const String emptyTransaction = 'assets/images/app-avatar.png';
+  static const String emptyWishlist = 'assets/images/app-avatar.png';
 }

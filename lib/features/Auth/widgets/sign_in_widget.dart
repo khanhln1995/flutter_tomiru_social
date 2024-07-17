@@ -234,8 +234,6 @@ class SignInWidgetState extends State<SignInWidget> {
                 const SizedBox(height: Dimensions.paddingSizeSmall),
 
                 const SocialLoginWidget(),
-
-                // isDesktop ? const SizedBox() : const GuestButtonWidget(),
               ]),
         ),
       );
@@ -250,17 +248,7 @@ class SignInWidgetState extends State<SignInWidget> {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
-    // String numberWithCountryCode = countryDialCode + phone;
-    // PhoneValid phoneValid =
-    //     await CustomValidator.isPhoneValid(numberWithCountryCode);
-    // numberWithCountryCode = phoneValid.phone;
-
     if (_formKeyLogin!.currentState!.validate()) {
-      // if (phone.isEmpty) {
-      //   showCustomSnackBar('enter_phone_number');
-      // } else if (!phoneValid.isValid) {
-      //   showCustomSnackBar('invalid_phone_number');
-      // }
       if (email.isEmpty) {
         showCustomSnackBar('Vui lòng nhập Email');
       } else if (password.isEmpty) {
@@ -268,44 +256,34 @@ class SignInWidgetState extends State<SignInWidget> {
       } else if (password.length < 6) {
         showCustomSnackBar('Độ dài password phải lớn hơn 6');
       } else {
-        authController
-            .login(email, password, alreadyInApp: widget.backFromThis)
-            .then((status) async {
-          if (status.isSuccess) {
-            print(
-                "------------------------------------------login------------------------");
-            _processSuccessSetup(
-                authController,
-                email,
-                password,
-                // countryDialCode,
-                status
-                // numberWithCountryCode
-                );
-          } else {
-            showCustomSnackBar(status.message);
-          }
-        });
+        // login ko can api
+        Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
+
+        // login with api
+        // authController
+        //     .login(email, password, alreadyInApp: widget.backFromThis)
+        //     .then((status) async {
+        //   print("status$status");
+        //   if (status.isSuccess) {
+        //     print(
+        //         "------------------------------------------login------------------------");
+        //     _processSuccessSetup(authController, email, password, status);
+        //   } else {
+        //     showCustomSnackBar(status.message);
+        //   }
+        // });
       }
     }
   }
 
   void _processSuccessSetup(
     AuthController authController,
-    // String phone,
     String email,
     String password,
-    // String countryDialCode,
     ResponseModel status,
-    // String numberWithCountryCode
   ) {
     if (authController.isActiveRememberMe) {
-      authController.saveUserNumberAndPassword(
-          // phone,
-          email,
-          password
-          // countryDialCode
-          );
+      authController.saveUserNumberAndPassword(email, password);
     } else {
       authController.clearUserNumberAndPassword();
     }

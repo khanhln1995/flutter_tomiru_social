@@ -15,6 +15,8 @@ import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.
 import 'package:tomiru_social_flutter/features/dashboard/controllers/dashboard_controller.dart';
 
 import 'package:tomiru_social_flutter/features/dashboard/widgets/bottom_nav_item.dart';
+import 'package:tomiru_social_flutter/features/update/screens/update_screen.dart';
+import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen.dart';
 
 // import 'package:tomiru_social_flutter/features/favourite/screens/favourite_screen.dart';
 // import 'package:tomiru_social_flutter/features/loyalty/controllers/loyalty_controller.dart';
@@ -52,7 +54,8 @@ class DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
 
-    _isLogin = Get.find<AuthController>().isLoggedIn();
+    // _isLogin = Get.find<AuthController>().isLoggedIn();
+    _isLogin = true;
 
     _showRegistrationSuccessBottomSheet();
 
@@ -72,11 +75,13 @@ class DashboardScreenState extends State<DashboardScreen> {
     _pageController = PageController(initialPage: widget.pageIndex);
 
     _screens = [
-      const Text(" 1"),
+      // const WalletScreen(),
+      const Text(" 123456567"),
+      const Text(" 123456567"),
       const Text(" 2"),
       const Text(" 3"),
-      const Text(" 4"),
-      const Text(" 5"),
+      const UpdateScreen(isUpdate: true)
+
       // const ChatScreen(notificationBody: notificationBody, user: user)
     ];
 
