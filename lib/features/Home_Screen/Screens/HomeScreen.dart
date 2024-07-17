@@ -6,13 +6,13 @@ import 'package:tomiru_social_flutter/features/Profile/Screens/Profile_Screen.da
 import "package:tomiru_social_flutter/features/Auth/sign_in/Screens/sign_in_Screen.dart";
 import "package:tomiru_social_flutter/features/Auth/sign_up/Screens/sign_up_Screen.dart";
 
-
 // import "../../../screens/Friend_Screen/Page_View.dart";
 
 import "../../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
 import "../../Friends/Screens/Friend_Screen.dart";
-import "../../home/Screens/Home.dart";
 
+import "../../Home_Social/Screens/Home.dart";
+import "../../home/Screens/Home_Page.dart";
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Home(),
+                    builder: (context) => const Homepage(),
                   ),
                 );
               },
@@ -95,13 +95,24 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GroupOption(),
+                    builder: (context) => const GroupOption(),
                   ),
                 );
               },
               child: const Text('GroupOption'),
             ),
-            
+           
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Home(),
+                  ),
+                );
+              },
+              child: const Text('Home Social'),
+            ),
           ],
         ),
       ),

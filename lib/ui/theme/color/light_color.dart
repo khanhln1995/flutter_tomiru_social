@@ -17,7 +17,8 @@ class TwitterColor {
 }
 
 class AppColor {
-  static const Color primary = Color(0xffD6B000);
+  // static const Color primary = Color(0xffD6B000);
+  static const Color primary = Color.fromRGBO(0, 132, 180, 1.0);
   static const Color secondary = Color(0xff14171A);
   static const Color darkGrey = Color(0xff1657786);
   static const Color lightGrey = Color(0xffAAB8C2);
