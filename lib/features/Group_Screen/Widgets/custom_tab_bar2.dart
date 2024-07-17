@@ -41,7 +41,7 @@ class CustomTabBar2 extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           color: isSelected
               ? Colors.amber[700]
-              : Color.fromARGB(255, 245, 244, 244),
+              : const Color.fromARGB(255, 245, 244, 244),
         ),
         child: icon == null
             ? Center(
@@ -74,7 +74,7 @@ class CustomTabBar2 extends StatelessWidget {
                     size: iconSize,
                     color: isSelected
                         ? Colors.white
-                        : Color.fromARGB(255, 128, 127, 127),
+                        : const Color.fromARGB(255, 128, 127, 127),
                   ),
                   SizedBox(width: widthSizedBox),
                   Text(
@@ -84,7 +84,7 @@ class CustomTabBar2 extends StatelessWidget {
                       fontFamily: "Avenir",
                       color: isSelected
                           ? Colors.white
-                          : Color.fromARGB(255, 134, 134, 134),
+                          : const Color.fromARGB(255, 134, 134, 134),
                     ),
                   ),
                 ],

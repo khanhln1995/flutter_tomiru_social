@@ -55,7 +55,7 @@ class _LikeBarState extends State<LikeBar> {
                     isScrollControlled: true,
                     builder: (BuildContext context) {
                       return Container(
-                        height: MediaQuery.of(context).size.height * 0.95,
+                        height: MediaQuery.of(context).size.height / 1.9,
                         padding: EdgeInsets.all(16.0),
                         child: LoadCommentWidget(
                           data: {

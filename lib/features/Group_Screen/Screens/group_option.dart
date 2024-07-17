@@ -46,18 +46,18 @@ class _GroupOptionState extends State<GroupOption> {
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Nhóm BĐS Vinhomes',
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Icon(Icons.edit, color: Colors.grey[200]),
                   ],
 
@@ -65,35 +65,35 @@ class _GroupOptionState extends State<GroupOption> {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                optionInAGroup(context, 'Tìm tin nhắn', Icon(Icons.search)),
+                optionInAGroup(context, 'Tìm tin nhắn', const Icon(Icons.search)),
                 optionInAGroup(
-                    context, 'Thêm thành viên', Icon(Icons.person_add), () {
+                    context, 'Thêm thành viên', const Icon(Icons.person_add), () {
                   Navigator.push(
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation1, animation2) =>
-                         GroupMembersWidget(),
-                      transitionDuration: Duration(seconds: 0),
+                         const GroupMembersWidget(),
+                      transitionDuration: const Duration(seconds: 0),
                     ),
                   );
                 }),
-                optionInAGroup(context, 'Gọi theo nhóm', Icon(Icons.video_call)),
+                optionInAGroup(context, 'Gọi theo nhóm', const Icon(Icons.video_call)),
                 optionInAGroup(context, 'Tắt thông báo',
-                    Icon(Icons.notifications_none)),
+                    const Icon(Icons.notifications_none)),
               ],
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Divider(color: Colors.grey[200]),
           ListTile(
-            title: Text('Kho lưu trữ (25)'),
-            trailing: Icon(Icons.arrow_forward),
+            title: const Text('Kho lưu trữ (25)'),
+            trailing: const Icon(Icons.arrow_forward),
             onTap: () {},
           ),
           Container(
@@ -113,61 +113,61 @@ class _GroupOptionState extends State<GroupOption> {
             ),
           ),
           ListTile(
-            title: Text('Lịch nhóm'),
+            title: const Text('Lịch nhóm'),
             onTap: () {},
           ),
           ListTile(
-            title: Text('Thành viên (6)'),
+            title: const Text('Thành viên (6)'),
             onTap: () {
               Navigator.push(
                 context,
                 PageRouteBuilder(
                   pageBuilder: (context, animation1, animation2) =>
-                      GroupMembersWidget(),
-                  transitionDuration: Duration(seconds: 0),
+                      const GroupMembersWidget(),
+                  transitionDuration: const Duration(seconds: 0),
                 ),
               );
             },
           ),
           SwitchListTile(
-            title: Text('Riêng tư'),
+            title: const Text('Riêng tư'),
             value: false,
             onChanged: (bool value) {},
           ),
           SwitchListTile(
-            title: Text('Mật khẩu nhóm'),
+            title: const Text('Mật khẩu nhóm'),
             value: false,
             onChanged: (bool value) {},
           ),
           Divider(color: Colors.grey[200]),
           ListTile(
-            title: Text('Link tham gia nhóm'),
-            subtitle: Text(
+            title: const Text('Link tham gia nhóm'),
+            subtitle: const Text(
               'https://Cenchat/dedebwh016',
               style: TextStyle(decoration: TextDecoration.underline),
             ),
-            trailing: Icon(Icons.link),
+            trailing: const Icon(Icons.link),
             onTap: () {},
           ),
           ListTile(
-            title: Text('Báo xấu'),
+            title: const Text('Báo xấu'),
             onTap: () {},
           ),
           ListTile(
-            title: Text(
+            title: const Text(
               'Xóa lịch sử trò chuyện',
               style: TextStyle(color: Colors.red),
             ),
             onTap: () {},
           ),
           ListTile(
-            title: Text(
+            title: const Text(
               'Rời nhóm',
               style: TextStyle(color: Colors.red),
             ),
             onTap: () {},
           ),
-          SizedBox(height: 50.0),
+          const SizedBox(height: 50.0),
         ],
       ),
     );
@@ -182,11 +182,11 @@ class _GroupOptionState extends State<GroupOption> {
       children: [
         ClipOval(
           child: InkWell(
-            customBorder: CircleBorder(),
+            customBorder: const CircleBorder(),
             onTap: onTap ?? () {},
             splashColor: Colors.red,
             child: Container(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 shape: BoxShape.circle,
@@ -195,11 +195,11 @@ class _GroupOptionState extends State<GroupOption> {
             ),
           ),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Text(
           newWord,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 12.0),
+          style: const TextStyle(fontSize: 12.0),
         ),
       ],
     );
