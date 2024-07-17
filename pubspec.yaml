@@ -46,6 +46,9 @@ dependencies:
     freezed_annotation: ^2.0.3
     material_symbols_icons: ^4.2768.0
     iconsax: ^0.0.8
+    syncfusion_flutter_charts: ^20.0.0
+    fl_chart: ^0.68.0
+    
 
     font_awesome_flutter: ^10.7.0
     icons_flutter: ^0.0.4
@@ -54,6 +57,7 @@ dev_dependencies:
     flutter_test:
         sdk: flutter
     flutter_launcher_icons: ^0.13.1
+      
 
     # The "flutter_lints" package below contains a set of recommended lints to
     # encourage good coding practices. The lint set provided by the package is

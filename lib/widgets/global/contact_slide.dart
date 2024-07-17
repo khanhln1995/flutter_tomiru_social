@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:iconsax/iconsax.dart';
 
 class HorizontalContactMember extends StatelessWidget {
   final String avatar;
@@ -70,11 +71,16 @@ class HorizontalContactMember extends StatelessWidget {
               // mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(height: 4.0),
-                Text(
-                  username,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
-                  overflow: TextOverflow.ellipsis,
-                ),
+                Row(children: [
+                  Text(
+                    username,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(width: 4),
+                  Icon(Iconsax.heart5, color: Colors.red, size: 16),
+                
+                ]),
                 Text(
                   '• $role',
                   style: TextStyle(color: Colors.grey, fontSize: 12),
@@ -83,15 +89,17 @@ class HorizontalContactMember extends StatelessWidget {
                 Row(
                   children: [
                     if (mutual_friend > 0)
-                    Text(mutual_group > 0 ?
-                      '$mutual_friend bạn chung - ' : '$mutual_friend bạn chung',
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
+                      Text(
+                        mutual_group > 0
+                            ? '$mutual_friend bạn chung - '
+                            : '$mutual_friend bạn chung',
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
                     if (mutual_group > 0)
-                    Text(
-                      '$mutual_group nhóm chung',
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
+                      Text(
+                        '$mutual_group nhóm chung',
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
                   ],
                 ),
                 SizedBox(height: 8),

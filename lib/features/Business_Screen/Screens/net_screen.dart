@@ -1,44 +1,152 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text('Business Screen'),
-          backgroundColor: Colors.blue,
-        ),
-        body: NetScreen(),
-      ),
-    );
-  }
-}
+import 'package:iconsax/iconsax.dart';
+import 'package:tomiru_social_flutter/features/Home/widgets/contact_member.dart';
 
 class NetScreen extends StatelessWidget {
   const NetScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SearchBar(),
+              Divider(
+                thickness: 1,
+                color: Colors.grey[300],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(28, 28, 35, 22),
+                child: UserInfoSection(),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.blue[50],
+                ),
+                child: const TabBar(
+                  indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(width: 3.0, color: Colors.blue),
+                  ),
+                  dividerColor: Colors.transparent,
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.grey,
+                  labelStyle: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  tabs: [
+                    Tab(child: Text("Tổng quan",style: TextStyle(fontSize: 16),),),
+                    Tab(child: Text("Mạng lưới",style: TextStyle(fontSize: 16),),),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 400, // Adjust the height as necessary
+                child: TabBarView(
+                  children: [
+                    Padding(padding: 
+                    EdgeInsets.all(20),
+                    child: OverviewTab(),
+                    ),
+                    const Text('Tab 2 content'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class OverviewTab extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      child: Expanded(
+        child: Column(
+          children: [
+            SizedBox(height: 12),
+            StatsSection(),
+            SizedBox(height: 12),
+            IncomeSection(),
+            RecentCustomersSection(title: "Khách hàng gần đây",),
+            SizedBox(height: 12),
+            ContactWithOthers(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class SearchBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      child: Row(
         children: [
-          UserInfoSection(),
-          SizedBox(height: 20),
-          TabBarSection(),
-          SizedBox(height: 20),
-          StatsSection(),
-          SizedBox(height: 20),
-          IncomeSection(),
-          SizedBox(height: 20),
-          RecentCustomersSection(),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(color: Colors.grey[300]!),
+              ),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    child: Icon(Iconsax.search_normal, color: Colors.grey[600]),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Tìm kiếm thông tin hội viên',
+                        hintStyle:
+                            TextStyle(color: Colors.grey[500], fontSize: 13),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(width: 21),
+          Container(
+            height: 42,
+            width: 42,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(50),
+              color: Colors.grey[200],
+            ),
+            child: IconButton(
+              icon: Icon(Icons.settings, color: Colors.black),
+              onPressed: () {},
+            ),
+          ),
+          SizedBox(width: 12),
+          Container(
+            height: 42,
+            width: 42,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(50),
+              color: Colors.grey[200],
+            ),
+            child: IconButton(
+              icon: Icon(Iconsax.menu_1, color: Colors.black),
+              onPressed: () {},
+            ),
+          ),
         ],
       ),
     );
@@ -49,7 +157,7 @@ class UserInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String imageUrl = 'assets/images/Oval Copy 6.png';
-    
+
     return Row(
       children: [
         Stack(
@@ -133,45 +241,6 @@ class UserInfoSection extends StatelessWidget {
     );
   }
 }
-
-class TabBarSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.blue, width: 2),
-              ),
-            ),
-            child: const Center(
-              child: Text(
-                'Tổng quan',
-                style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Center(
-              child: Text(
-                'Mạng lưới',
-                style: TextStyle(color: Colors.grey),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class StatsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -195,7 +264,7 @@ class StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 4,horizontal: 8),
+      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       decoration: BoxDecoration(
         color: Colors.blue[50],
         borderRadius: BorderRadius.circular(20),
@@ -205,8 +274,10 @@ class StatCard extends StatelessWidget {
         children: [
           Text(title, style: TextStyle(color: Colors.blue)),
           SizedBox(height: 10),
-          Text(value,
-          style: TextStyle(color: Colors.blue),),
+          Text(
+            value,
+            style: TextStyle(color: Colors.blue),
+          ),
         ],
       ),
     );
@@ -218,11 +289,21 @@ class IncomeSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        IncomeCard(title: 'F1 (không phải thành viên)', value: '5', buttonText: 'Xem cây'),
-        SizedBox(height: 10),
-        IncomeCard(title: 'Thu nhập từ hệ thống', value: '105 TOMXU', buttonText: 'Xem chi tiết'),
-        SizedBox(height: 10),
-        IncomeCard(title: 'pTOMXU', value: '11,172', buttonText: 'Xem chi tiết'),
+        IncomeCard(
+            title: 'F1 (không phải thành viên)',
+            value: '5',
+            buttonText: 'Xem cây'),
+        SizedBox(height: 22),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text("Thu nhập từ hệ thống",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        ),
+        SizedBox(height: 12),
+        IncomeCard(title: 'TOMXU', value: '105 ', buttonText: 'Xem chi tiết'),
+        SizedBox(height: 12),
+        IncomeCard(
+            title: 'pTOMXU', value: '11,172', buttonText: 'Xem chi tiết'),
       ],
     );
   }
@@ -233,11 +314,14 @@ class IncomeCard extends StatelessWidget {
   final String value;
   final String buttonText;
 
-  IncomeCard({required this.title, required this.value, required this.buttonText});
+  IncomeCard(
+      {required this.title, required this.value, required this.buttonText});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
+      height: 118,
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.blue[50],
@@ -245,18 +329,36 @@ class IncomeCard extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(title, style: TextStyle(color: Colors.grey)),
-              Text(value, style: TextStyle(color: Colors.blue, fontSize: 20)),
+              Text(title,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold)),
+              Text(value,
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold)),
             ],
           ),
           ElevatedButton(
-            onPressed: () {},
-            child: Text(buttonText),
-          ),
+              onPressed: () {},
+              child: Text(
+                buttonText,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+              )),
         ],
       ),
     );
@@ -264,69 +366,22 @@ class IncomeCard extends StatelessWidget {
 }
 
 class RecentCustomersSection extends StatelessWidget {
+  final String title;
+  final VoidCallback? onPressed;
+  RecentCustomersSection({required this.title, this.onPressed});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Khách hàng gần đây', style: TextStyle(fontWeight: FontWeight.bold)),
-            Text('Xem thêm', style: TextStyle(color: Colors.blue)),
-          ],
-        ),
-        SizedBox(height: 10),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              CustomerCard(),
-              CustomerCard(),
-              CustomerCard(),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class CustomerCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 10),
-      padding: EdgeInsets.all(10),
-      width: 150,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 5)],
-      ),
-      child: Column(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: NetworkImage('https://via.placeholder.com/150'),
-          ),
-          SizedBox(height: 10),
-          Text('Vũ Phương Linh', style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('Khách hàng'),
-          Text('28 phút', style: TextStyle(color: Colors.grey)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('Nhắn tin'),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('Gọi điện'),
-              ),
-            ],
-          ),
+          Text(title,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          TextButton(
+            onPressed: onPressed,
+            child: const Text("Xem thêm", style: TextStyle(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.bold)),
+          )
         ],
       ),
     );
