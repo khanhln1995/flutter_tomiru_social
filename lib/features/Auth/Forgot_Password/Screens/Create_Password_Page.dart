@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tomiru_social_flutter/helper/validator.dart';
-import 'package:tomiru_social_flutter/features/Auth/Forgot_Password/Screens/Congratulation_View.dart';
-import 'package:tomiru_social_flutter/features/Auth/Signin/Widgets/custom_text_field.dart';
-import 'package:tomiru_social_flutter/features/Auth/Signup/Screens/SignupSuccessPage.dart';
+import 'package:tomiru_social_flutter/features/Auth/forgot_password/Screens/Congratulation_View.dart';
+import 'package:tomiru_social_flutter/features/Auth/sign_in/Widgets/custom_text_field.dart';
+import 'package:tomiru_social_flutter/features/Auth/sign_up/Screens/sign_up_Success_Page.dart';
 import 'package:tomiru_social_flutter/state/signup_state.dart';
 import 'package:tomiru_social_flutter/widgets/custom_appbar.dart';
 import 'package:tomiru_social_flutter/widgets/custom_button.dart';

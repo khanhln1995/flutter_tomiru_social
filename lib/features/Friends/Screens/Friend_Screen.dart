@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import '../Widgets/Friend_Bar.dart';
-// import 'GroupBar.dart';
-import 'For_You.dart';
-
-// import "ManageGroup.dart";
-import "PageView/Page_View1.dart";
-import "PageView/Page_View2.dart";
-import "PageView/Page_View3.dart";
+import '../widgets/Friend_Bar.dart';
+import 'page_view/page_view0.dart';
+import "page_view/page_view1.dart";
+import "page_view/page_view2.dart";
+import "page_view/page_view3.dart";
 
 class Friend2Screen extends StatefulWidget {
   const Friend2Screen({Key? key}) : super(key: key);
@@ -19,15 +16,11 @@ class _Friend2ScreenState extends State<Friend2Screen> {
   int _innerPageIndex = 0;
 
   final List<Widget> _innerPages = [
-    ForYou(),
-    // MyGroup(),
+    PageView0(),   
     PageView3(),
     PageView2(),
     PageView1(),
-    // ManageGroup(),
-    // ManageEvent(),
-    // EventExist()
-  
+   
   ];
 
   void _navigateTo(int index) {
@@ -39,7 +32,7 @@ class _Friend2ScreenState extends State<Friend2Screen> {
     });
   }
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -55,5 +48,4 @@ class _Friend2ScreenState extends State<Friend2Screen> {
       ),
     );
   }
-
 }

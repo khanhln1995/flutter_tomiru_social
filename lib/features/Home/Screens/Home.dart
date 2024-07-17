@@ -4,7 +4,7 @@ import 'package:tomiru_social_flutter/features/Friends/Screens/Friend_Screen.dar
 import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.dart';
 import 'package:tomiru_social_flutter/features/Profile/Screens/Profile_Screen.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
-
+import "package:tomiru_social_flutter/features/short_video/screens/short_video_page.dart";
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
 
@@ -52,13 +52,17 @@ class _HomeState extends State<Home> {
           refreshIndicatorKey: refreshIndicatorKey,
         );
       case 1:
-        return ProfileScreen();
+        return ShortVideoPage(
+          scaffoldKey: _scaffoldKey,
+          refreshIndicatorKey: refreshIndicatorKey,
+        );
+        
       case 2:
-        return Friend2Screen();
+        return const Friend2Screen();
       case 3:
-        return Friend2Screen();
+        return  ProfileScreen();
       case 4:
-        return GroupPage();
+        return const GroupPage();
       default:
         return FeedPage(scaffoldKey: _scaffoldKey);
     }
