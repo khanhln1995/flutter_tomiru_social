@@ -74,7 +74,7 @@ class HorizontalContactMember extends StatelessWidget {
                 Row(children: [
                   Text(
                     username,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(width: 4),
@@ -83,13 +83,8 @@ class HorizontalContactMember extends StatelessWidget {
                 ]),
                 const SizedBox(height: 4.0),
                 Text(
-                  username,
-                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
                   '• $role',
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  style: const TextStyle(color: Colors.grey, fontSize: 14),
                 ),
                 const SizedBox(height: 4),
                 Row(
