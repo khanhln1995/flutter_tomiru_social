@@ -9,7 +9,7 @@ import 'package:tomiru_social_flutter/features/Business_Screen/Widgets/business_
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
 import 'package:tomiru_social_flutter/features/Friends/Screens/Friend_Screen.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.dart';
-import 'package:tomiru_social_flutter/features/Profile/Screens/Profile_Screen.dart';
+import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
