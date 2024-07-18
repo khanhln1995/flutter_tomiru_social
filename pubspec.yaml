@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+
   provider: ^6.0.0
   url_launcher: ^6.3.0
   # The following adds the Cupertino Icons font to your application.
@@ -59,6 +60,10 @@ dependencies:
   country_code_picker: ^3.0.0
   firebase_messaging: ^15.0.3
   intl: ^0.19.0
+  iconsax: ^0.0.8
+  syncfusion_flutter_charts: ^20.0.0
+  fl_chart: ^0.68.0
+  material_symbols_icons: ^4.2768.0
   image_compression_flutter: ^1.0.4
   url_strategy: ^0.2.0
   expandable_bottom_sheet: ^1.1.1+1
@@ -79,6 +84,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

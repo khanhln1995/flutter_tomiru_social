@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import "package:tomiru_social_flutter/features/group_screen/screens/Manage_My_Group.dart";
 import 'package:tomiru_social_flutter/features/group_screen/screens/setting_components/Following.dart';
 import 'package:tomiru_social_flutter/features/group_screen/screens/setting_components/Group_Notification.dart';
@@ -6,10 +7,12 @@ import 'package:tomiru_social_flutter/features/group_screen/screens/setting_comp
 import 'package:tomiru_social_flutter/features/group_screen/screens/setting_components/Member_List.dart';
 import 'package:tomiru_social_flutter/features/group_screen/screens/setting_components/Pinned_Group.dart';
 
+
 class SettingGroup extends StatefulWidget {
   const SettingGroup({super.key});
 
   @override
+
   _SettingGroupState createState() => _SettingGroupState();
 }
 

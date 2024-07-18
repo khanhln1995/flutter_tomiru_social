@@ -59,8 +59,12 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
+
       appBar: CustomAppBar(
-        onBackPress: () {},
+        onBackPress: () {
+          Navigator.pop(context);
+        },
+
         image: "assets/images/logo-tomiru-v2.png",
         widget: [
           CustomIcon(icon: Icon(Icons.search, color: Colors.black)),

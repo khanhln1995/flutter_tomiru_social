@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Add_Cover_Image_Screen.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/member.dart';
 
 class InviteMembersScreen extends StatefulWidget {
@@ -53,6 +54,20 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          TextButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> MultiStepForm()));
+          }, 
+          child: 
+          Text(
+            'Tiếp',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 15,
+            )
+          )
+          )
+        ]
       ),
       body: Scaffold(
         backgroundColor: Colors.grey[50],
