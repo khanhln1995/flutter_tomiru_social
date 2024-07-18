@@ -30,17 +30,14 @@ class TramsConditionsCheckBoxWidget extends StatelessWidget {
             : MainAxisAlignment.center,
         children: [
           // fromSignUp || fromDmRegistration
-          //     ? Checkbox(
-          //         activeColor: Theme.of(context).primaryColor,
-          //         value: fromDmRegistration
-          //             ? deliverymanRegistrationController?.acceptTerms
-          //             : authController?.acceptTerms,
-          //         onChanged: (bool? isChecked) => fromDmRegistration
-          //             ? deliverymanRegistrationController?.toggleTerms()
-          //             : authController?.toggleTerms(),
-          //       )
-          //     :
-          const SizedBox(),
+          //     ?
+          Checkbox(
+            activeColor: Theme.of(context).primaryColor,
+            value: authController?.acceptTerms,
+            onChanged: (bool? isChecked) => authController?.toggleTerms(),
+          ),
+
+          // const SizedBox(),
           fromSignUp || fromDmRegistration
               ? const SizedBox()
               : Text('* ',
@@ -51,8 +48,8 @@ class TramsConditionsCheckBoxWidget extends StatelessWidget {
               text: TextSpan(children: [
                 TextSpan(
                     text: fromDmRegistration
-                        ? 'by_singing_up_i_agree_with_all_the'
-                        : 'by_login_i_agree_with_all_the',
+                        ? 'by_singing_up_i_agree_with_all_the'.tr
+                        : 'by_login_i_agree_with_all_the'.tr,
                     style: robotoRegular.copyWith(
                         fontSize:
                             fromDialog ? Dimensions.fontSizeExtraSmall : null,
@@ -62,7 +59,7 @@ class TramsConditionsCheckBoxWidget extends StatelessWidget {
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => Get.toNamed(
                         RouteHelper.getHtmlRoute('terms-and-condition')),
-                  text: 'terms_conditions',
+                  text: 'terms_conditions'.tr,
                   style: robotoMedium.copyWith(
                       fontSize:
                           fromDialog ? Dimensions.fontSizeExtraSmall : null,

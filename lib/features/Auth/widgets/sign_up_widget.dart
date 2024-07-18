@@ -52,9 +52,6 @@ class SignUpWidgetState extends State<SignUpWidget> {
   void initState() {
     super.initState();
     _formKeySignUp = GlobalKey<FormState>();
-    // _countryDialCode = CountryCode.fromCountryCode(
-    //         Get.find<SplashController>().configModel!.country!)
-    //     .dialCode;
   }
 
   @override
@@ -79,7 +76,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
               Expanded(
                 child: CustomTextFieldWidget(
                   hintText: 'ex_jhon',
-                  labelText: 'first_name',
+                  labelText: 'first_name'.tr,
                   showLabelText: true,
                   required: true,
                   controller: _firstNameController,
@@ -90,15 +87,15 @@ class SignUpWidgetState extends State<SignUpWidget> {
                   prefixIcon: CupertinoIcons.person_alt_circle_fill,
                   levelTextSize: Dimensions.paddingSizeDefault,
                   validator: (value) => ValidateCheck.validateEmptyText(
-                      value, "first_name_field_is_required"),
+                      value, "first_name_field_is_required".tr),
                 ),
               ),
               const SizedBox(width: Dimensions.paddingSizeSmall),
               Expanded(
                 child: CustomTextFieldWidget(
-                  titleText: 'last_name',
+                  titleText: 'last_name'.tr,
                   hintText: 'ex_doe',
-                  labelText: 'last_name',
+                  labelText: 'last_name'.tr,
                   showLabelText: true,
                   required: true,
                   controller: _lastNameController,
@@ -111,7 +108,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
                   prefixIcon: CupertinoIcons.person_alt_circle_fill,
                   levelTextSize: Dimensions.paddingSizeDefault,
                   validator: (value) => ValidateCheck.validateEmptyText(
-                      value, "last_name_field_is_required"),
+                      value, "last_name_field_is_required".tr),
                 ),
               )
             ]),
@@ -120,8 +117,8 @@ class SignUpWidgetState extends State<SignUpWidget> {
               ResponsiveHelper.isDesktop(context)
                   ? Expanded(
                       child: CustomTextFieldWidget(
-                        hintText: 'enter_email',
-                        labelText: 'email',
+                        hintText: 'enter_email'.tr,
+                        labelText: 'email'.tr,
                         showLabelText: true,
                         required: true,
                         controller: _emailController,
@@ -142,8 +139,8 @@ class SignUpWidgetState extends State<SignUpWidget> {
                       : 0),
               Expanded(
                 child: CustomTextFieldWidget(
-                  hintText: 'enter_phone_number',
-                  labelText: 'phone',
+                  hintText: 'enter_phone_number'.tr,
+                  labelText: 'phone'.tr,
                   showLabelText: true,
                   required: true,
                   controller: _phoneController,
@@ -163,15 +160,15 @@ class SignUpWidgetState extends State<SignUpWidget> {
                   //         .code
                   //     : Get.find<LocalizationController>().locale.countryCode,
                   validator: (value) => ValidateCheck.validateEmptyText(
-                      value, "phone_number_field_is_required"),
+                      value, "phone_number_field_is_required".tr),
                 ),
               ),
             ]),
             const SizedBox(height: Dimensions.paddingSizeLarge),
             !ResponsiveHelper.isDesktop(context)
                 ? CustomTextFieldWidget(
-                    labelText: 'email',
-                    hintText: 'enter_email',
+                    labelText: 'email'.tr,
+                    hintText: 'enter_email'.tr,
                     showLabelText: true,
                     required: true,
                     controller: _emailController,
@@ -191,8 +188,8 @@ class SignUpWidgetState extends State<SignUpWidget> {
               Expanded(
                 child: Column(children: [
                   CustomTextFieldWidget(
-                    hintText: '8+characters',
-                    labelText: 'password',
+                    hintText: '8+characters'.tr,
+                    labelText: 'password'.tr,
                     showLabelText: true,
                     required: true,
                     controller: _passwordController,
@@ -202,7 +199,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
                     prefixIcon: Icons.lock,
                     isPassword: true,
                     validator: (value) => ValidateCheck.validateEmptyText(
-                        value, "password_field_is_required"),
+                        value, "password_field_is_required".tr),
                   ),
                 ]),
               ),
@@ -213,8 +210,8 @@ class SignUpWidgetState extends State<SignUpWidget> {
               ResponsiveHelper.isDesktop(context)
                   ? Expanded(
                       child: CustomTextFieldWidget(
-                      hintText: '8+characters',
-                      labelText: 'confirm_password',
+                      hintText: '8+characters'.tr,
+                      labelText: 'confirm_password'.tr,
                       showLabelText: true,
                       required: true,
                       controller: _confirmPasswordController,
@@ -246,8 +243,8 @@ class SignUpWidgetState extends State<SignUpWidget> {
             const SizedBox(height: Dimensions.paddingSizeLarge),
             !ResponsiveHelper.isDesktop(context)
                 ? CustomTextFieldWidget(
-                    hintText: '8+characters',
-                    labelText: 'confirm_password',
+                    hintText: '8+characters'.tr,
+                    labelText: 'confirm_password'.tr,
                     showLabelText: true,
                     required: true,
                     controller: _confirmPasswordController,
@@ -319,7 +316,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
               fontSize: ResponsiveHelper.isDesktop(context)
                   ? Dimensions.fontSizeExtraSmall
                   : null,
-              buttonText: 'sign_up',
+              buttonText: 'sign_up'.tr,
               isLoading: authController.isLoading,
               onPressed: authController.acceptTerms
                   ? () => _register(authController, _countryDialCode!)
@@ -331,7 +328,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
                     : Dimensions.paddingSizeDefault),
             !ResponsiveHelper.isDesktop(context)
                 ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Text('already_have_account',
+                    Text('already_have_account'.tr,
                         style: robotoRegular.copyWith(
                             color: Theme.of(context).hintColor)),
                     InkWell(
@@ -354,7 +351,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
                       child: Padding(
                         padding: const EdgeInsets.all(
                             Dimensions.paddingSizeExtraSmall),
-                        child: Text('sign_in',
+                        child: Text('sign_in'.tr,
                             style: robotoMedium.copyWith(
                                 color: Theme.of(context).primaryColor)),
                       ),
@@ -418,25 +415,25 @@ class SignUpWidgetState extends State<SignUpWidget> {
 
     if (_formKeySignUp!.currentState!.validate()) {
       if (firstName.isEmpty) {
-        showCustomSnackBar('enter_your_first_name');
+        showCustomSnackBar('enter_your_first_name'.tr);
       } else if (lastName.isEmpty) {
-        showCustomSnackBar('enter_your_last_name');
+        showCustomSnackBar('enter_your_last_name'.tr);
       } else if (email.isEmpty) {
-        showCustomSnackBar('enter_email_address');
+        showCustomSnackBar('enter_email_address'.tr);
       } else if (!GetUtils.isEmail(email)) {
-        showCustomSnackBar('enter_a_valid_email_address');
+        showCustomSnackBar('enter_a_valid_email_address'.tr);
       } else if (number.isEmpty) {
-        showCustomSnackBar('enter_phone_number');
+        showCustomSnackBar('enter_phone_number.tr');
       } else if (!phoneValid.isValid) {
-        showCustomSnackBar('invalid_phone_number');
+        showCustomSnackBar('invalid_phone_number'.tr);
       } else if (password.isEmpty) {
-        showCustomSnackBar('enter_password');
+        showCustomSnackBar('enter_password'.tr);
       } else if (password.length < 8) {
-        showCustomSnackBar('password_should_be_8_characters');
+        showCustomSnackBar('password_should_be_8_characters'.tr);
       } else if (password != confirmPassword) {
-        showCustomSnackBar('confirm_password_does_not_matched');
+        showCustomSnackBar('confirm_password_does_not_matched'.tr);
       } else if (referCode.isNotEmpty && referCode.length != 10) {
-        showCustomSnackBar('invalid_refer_code');
+        showCustomSnackBar('invalid_refer_code'.tr);
       } else {
         SignUpBodyModel signUpBody = SignUpBodyModel(
           fName: firstName,

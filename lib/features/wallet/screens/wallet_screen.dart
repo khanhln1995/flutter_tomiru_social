@@ -106,7 +106,8 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoggedIn = Get.find<AuthController>().isLoggedIn();
+    // bool isLoggedIn = Get.find<AuthController>().isLoggedIn();
+    bool isLoggedIn = true;
 
     return Scaffold(
       backgroundColor: Theme.of(context).cardColor,
@@ -115,145 +116,135 @@ class _WalletScreenState extends State<WalletScreen> {
       endDrawerEnableOpenDragGesture: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: GetBuilder<ProfileController>(builder: (profileController) {
-        return isLoggedIn
-            ? profileController.userInfoModel != null
-                ? SafeArea(
-                    child: RefreshIndicator(
-                      onRefresh: () async {
-                        Get.find<WalletController>().setWalletFilerType('all');
-                        Get.find<WalletController>()
-                            .getWalletTransactionList('1', true, 'all');
-                        Get.find<ProfileController>().getUserInfo();
-                      },
-                      child: SingleChildScrollView(
-                        controller: scrollController,
-                        child: Column(
-                          children: [
-                            // WebScreenTitleWidget(title: 'wallet'.tr),
-                            FooterViewWidget(
-                              child: SizedBox(
-                                width: Dimensions.webMaxWidth,
-                                child: GetBuilder<WalletController>(
-                                    builder: (walletController) {
-                                  return ResponsiveHelper.isDesktop(context)
-                                      ? Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: Dimensions
-                                                  .paddingSizeDefault),
-                                          child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                    flex: 4,
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          decoration:
-                                                              ResponsiveHelper
-                                                                      .isDesktop(
-                                                                          context)
-                                                                  ? BoxDecoration(
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .cardColor,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              Dimensions.radiusSmall),
-                                                                      boxShadow: [
-                                                                        BoxShadow(
-                                                                            color: Colors.grey.withOpacity(
-                                                                                0.1),
-                                                                            spreadRadius:
-                                                                                1,
-                                                                            blurRadius:
-                                                                                10,
-                                                                            offset:
-                                                                                const Offset(0, 1))
-                                                                      ],
-                                                                    )
-                                                                  : null,
-                                                          padding: const EdgeInsets
-                                                              .all(Dimensions
-                                                                  .paddingSizeLarge),
-                                                          child: WalletCardWidget(
-                                                              tooltipController:
-                                                                  tooltipController),
-                                                        ),
+        return
+            // isLoggedIn
+            //     ? profileController.userInfoModel != null
+            //         ?
+            SafeArea(
+          child: RefreshIndicator(
+            onRefresh: () async {
+              // Get.find<WalletController>().setWalletFilerType('all');
+              // Get.find<WalletController>()
+              //     .getWalletTransactionList('1', true, 'all');
+              // Get.find<ProfileController>().getUserInfo();
+            },
+            child: SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                children: [
+                  // WebScreenTitleWidget(title: 'wallet'.tr),
+                  FooterViewWidget(
+                    child: SizedBox(
+                      width: Dimensions.webMaxWidth,
+                      child: GetBuilder<WalletController>(
+                          builder: (walletController) {
+                        return ResponsiveHelper.isDesktop(context)
+                            ? Padding(
+                                padding: const EdgeInsets.only(
+                                    top: Dimensions.paddingSizeDefault),
+                                child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                          flex: 4,
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                decoration: ResponsiveHelper
+                                                        .isDesktop(context)
+                                                    ? BoxDecoration(
+                                                        color: Theme.of(context)
+                                                            .cardColor,
+                                                        borderRadius: BorderRadius
+                                                            .circular(Dimensions
+                                                                .radiusSmall),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                              color: Colors.grey
+                                                                  .withOpacity(
+                                                                      0.1),
+                                                              spreadRadius: 1,
+                                                              blurRadius: 10,
+                                                              offset:
+                                                                  const Offset(
+                                                                      0, 1))
+                                                        ],
+                                                      )
+                                                    : null,
+                                                padding: const EdgeInsets.all(
+                                                    Dimensions
+                                                        .paddingSizeLarge),
+                                                child: WalletCardWidget(
+                                                    tooltipController:
+                                                        tooltipController),
+                                              ),
+                                            ],
+                                          )),
+                                      const SizedBox(
+                                          width: Dimensions.paddingSizeDefault),
+                                      Expanded(
+                                          flex: 6,
+                                          child: Column(children: [
+                                            // const WebBonusBannerViewWidget(),
+                                            Container(
+                                              decoration: ResponsiveHelper
+                                                      .isDesktop(context)
+                                                  ? BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .cardColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              Dimensions
+                                                                  .radiusSmall),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.1),
+                                                            spreadRadius: 1,
+                                                            blurRadius: 10,
+                                                            offset:
+                                                                const Offset(
+                                                                    0, 1))
                                                       ],
-                                                    )),
-                                                const SizedBox(
-                                                    width: Dimensions
-                                                        .paddingSizeDefault),
-                                                Expanded(
-                                                    flex: 6,
-                                                    child: Column(children: [
-                                                      const WebBonusBannerViewWidget(),
-                                                      Container(
-                                                        decoration:
-                                                            ResponsiveHelper
-                                                                    .isDesktop(
-                                                                        context)
-                                                                ? BoxDecoration(
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .cardColor,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            Dimensions.radiusSmall),
-                                                                    boxShadow: [
-                                                                      BoxShadow(
-                                                                          color: Colors.grey.withOpacity(
-                                                                              0.1),
-                                                                          spreadRadius:
-                                                                              1,
-                                                                          blurRadius:
-                                                                              10,
-                                                                          offset: const Offset(
-                                                                              0,
-                                                                              1))
-                                                                    ],
-                                                                  )
-                                                                : null,
-                                                        padding: const EdgeInsets
-                                                            .all(Dimensions
-                                                                .paddingSizeLarge),
-                                                        child:
-                                                            const WalletHistoryWidget(),
-                                                      ),
-                                                    ])),
-                                              ]),
-                                        )
-                                      : Column(children: [
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: Dimensions
-                                                    .paddingSizeLarge),
-                                            child: WalletCardWidget(
-                                                tooltipController:
-                                                    tooltipController),
-                                          ),
-                                          const BonusBannerWidget(),
-                                          const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: Dimensions
-                                                    .paddingSizeLarge),
-                                            child: WalletHistoryWidget(),
-                                          )
-                                        ]);
-                                }),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                                                    )
+                                                  : null,
+                                              padding: const EdgeInsets.all(
+                                                  Dimensions.paddingSizeLarge),
+                                              // child:
+                                              //     const WalletHistoryWidget(),
+                                            ),
+                                          ])),
+                                    ]),
+                              )
+                            : Column(children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Dimensions.paddingSizeLarge),
+                                  child: WalletCardWidget(
+                                      tooltipController: tooltipController),
+                                ),
+                                // const BonusBannerWidget(),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: Dimensions.paddingSizeLarge),
+                                  child: WalletHistoryWidget(),
+                                )
+                              ]);
+                      }),
                     ),
                   )
-                : const Center(child: CircularProgressIndicator())
-            : NotLoggedInScreen(callBack: (value) {
-                _initCall();
-                setState(() {});
-              });
+                ],
+              ),
+            ),
+          ),
+        );
+        // : const Center(child: CircularProgressIndicator())
+        // : NotLoggedInScreen(callBack: (value) {
+        //     _initCall();
+        //     setState(() {});
+        //   });
       }),
     );
   }

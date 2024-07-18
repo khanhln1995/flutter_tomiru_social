@@ -75,19 +75,6 @@ class SignInScreenState extends State<SignInScreen> {
         backgroundColor: ResponsiveHelper.isDesktop(context)
             ? Colors.transparent
             : Theme.of(context).cardColor,
-        // : const Color(0xFFFFFFFF),
-        appBar: ResponsiveHelper.isDesktop(context)
-            ? null
-            : !widget.exitFromApp
-                ? AppBar(
-                    leading: IconButton(
-                      onPressed: () => Get.back(result: false),
-                      icon: Icon(Icons.arrow_back_ios_rounded,
-                          color: Theme.of(context).textTheme.bodyLarge!.color),
-                    ),
-                    elevation: 0,
-                    backgroundColor: Theme.of(context).cardColor)
-                : null,
         body: SafeArea(
             child: Center(
           child: Container(
@@ -117,17 +104,6 @@ class SignInScreenState extends State<SignInScreen> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ResponsiveHelper.isDesktop(context)
-                          ? Align(
-                              alignment: Alignment.topRight,
-                              child: IconButton(
-                                onPressed: () => Get.back(),
-                                icon: const Icon(Icons.clear),
-                              ),
-                            )
-                          : const SizedBox(),
-                      // Image.asset(Images.logo, width: 60),
-                      // const SizedBox(height: Dimensions.paddingSizeSmall),
                       Image.asset(Images.logoName, width: 104),
                       const SizedBox(height: Dimensions.paddingSizeExtraLarge),
                       Align(

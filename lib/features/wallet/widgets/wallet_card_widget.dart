@@ -48,77 +48,78 @@ class WalletCardWidget extends StatelessWidget {
                     Row(children: [
                       Text(
                         PriceConverter.convertPrice(
-                            profileController.userInfoModel?.walletBalance ??
-                                0),
+                            // profileController.userInfoModel?.walletBalance ??
+                            0),
                         textDirection: TextDirection.ltr,
                         style: robotoBold.copyWith(
                             fontSize: Dimensions.fontSizeOverLarge,
                             color: Theme.of(context).cardColor),
                       ),
                       const SizedBox(width: Dimensions.paddingSizeSmall),
-                      Get.find<SplashController>().configModel!.addFundStatus!
-                          ? JustTheTooltip(
-                              backgroundColor: Colors.black87,
-                              controller: tooltipController,
-                              preferredDirection: AxisDirection.down,
-                              tailLength: 14,
-                              tailBaseWidth: 20,
-                              content: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'if_you_want_to_add_fund_to_your_wallet_then_click_add_fund_button'
-                                      .tr,
-                                  style: robotoRegular.copyWith(
-                                      color: Colors.white),
-                                ),
-                              ),
-                              child: InkWell(
-                                onTap: () => tooltipController.showTooltip(),
-                                child: Icon(Icons.info_outline,
-                                    color: Theme.of(context).cardColor),
-                              ),
-                            )
-                          : const SizedBox(),
+                      // Get.find<SplashController>().configModel!.addFundStatus!
+                      //     ?
+                      JustTheTooltip(
+                        backgroundColor: Colors.black87,
+                        controller: tooltipController,
+                        preferredDirection: AxisDirection.down,
+                        tailLength: 14,
+                        tailBaseWidth: 20,
+                        content: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'if_you_want_to_add_fund_to_your_wallet_then_click_add_fund_button'
+                                .tr,
+                            style: robotoRegular.copyWith(color: Colors.white),
+                          ),
+                        ),
+                        child: InkWell(
+                          onTap: () => tooltipController.showTooltip(),
+                          child: Icon(Icons.info_outline,
+                              color: Theme.of(context).cardColor),
+                        ),
+                      )
+                      // : const SizedBox(),
                     ]),
                   ]),
             ),
-            Get.find<SplashController>().configModel!.addFundStatus!
-                ? Positioned(
-                    top: 20,
-                    right: Get.find<LocalizationController>().isLtr ? 20 : null,
-                    left: Get.find<LocalizationController>().isLtr ? null : 10,
-                    bottom: 0,
-                    child: InkWell(
-                      onTap: () {
-                        if (Get.find<SplashController>()
-                            .configModel!
-                            .digitalPayment!) {
-                          Get.dialog(
-                            const Dialog(
-                              shadowColor: Colors.transparent,
-                              backgroundColor: Colors.transparent,
-                              surfaceTintColor: Colors.transparent,
-                              insetPadding: EdgeInsets.zero,
-                              child: SizedBox(
-                                  width: 500, child: AddFundDialogueWidget()),
-                            ),
-                          );
-                        } else {
-                          showCustomSnackBar(
-                              'currently_digital_payment_is_not_available'.tr);
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Theme.of(context).cardColor),
-                        padding: const EdgeInsets.all(
-                            Dimensions.paddingSizeExtraSmall),
-                        child: const Icon(Icons.add),
+            // Get.find<SplashController>().configModel!.addFundStatus!
+            //     ?
+            Positioned(
+              top: 20,
+              right: Get.find<LocalizationController>().isLtr ? 20 : null,
+              left: Get.find<LocalizationController>().isLtr ? null : 10,
+              bottom: 0,
+              child: InkWell(
+                onTap: () {
+                  if (Get.find<SplashController>()
+                      .configModel!
+                      .digitalPayment!) {
+                    Get.dialog(
+                      const Dialog(
+                        shadowColor: Colors.transparent,
+                        backgroundColor: Colors.transparent,
+                        surfaceTintColor: Colors.transparent,
+                        insetPadding: EdgeInsets.zero,
+                        child: SizedBox(
+                            width: 500, child: AddFundDialogueWidget()),
                       ),
-                    ),
-                  )
-                : const SizedBox(),
+                    );
+                  } else {
+                    showCustomSnackBar(
+                        'currently_digital_payment_is_not_available'.tr);
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).cardColor),
+                  padding:
+                      const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                  child: const Icon(Icons.add),
+                ),
+              ),
+            ),
+            // : const SizedBox(),
             Positioned(
               bottom: 0,
               right: 60,
