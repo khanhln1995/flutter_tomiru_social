@@ -40,7 +40,7 @@ class CustomTabBar2 extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: isSelected
-              ? Colors.amber[700]
+              ? Color.fromRGBO(29, 155, 240, 1)
               : Color.fromARGB(255, 245, 244, 244),
         ),
         child: icon == null

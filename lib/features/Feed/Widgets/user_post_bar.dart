@@ -41,20 +41,20 @@ class _UserPostBarState extends State<UserPostBar> {
                             // transitionsBuilder: (context, animation1, animtion2, child) {
                             //   return FadeTransition(opacity: animation1, child: child);
                             // },
-                            transitionDuration: Duration(seconds: 1),
+                            transitionDuration: const Duration(seconds: 1),
                           ),
                         );
                       },
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Color(0xFFDEDEDE))),
-                        enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Color(0xFFDEDEDE))),
+                        enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(30.0)),
                           borderSide:
                               BorderSide(width: 1, color: Color(0xFFDEDEDE)),
                         ),
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         hintText: 'Đăng bài mới',
                       ),
                     ),
@@ -69,8 +69,8 @@ class _UserPostBarState extends State<UserPostBar> {
             ),
             IconButton(
               icon: Container(
-                padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(10.0),
+                decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 240, 238, 238),
                   shape: BoxShape.circle,
                 ),
@@ -80,8 +80,8 @@ class _UserPostBarState extends State<UserPostBar> {
             ),
             IconButton(
               icon: Container(
-                padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(10.0),
+                decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 240, 238, 238),
                   shape: BoxShape.circle,
                 ),

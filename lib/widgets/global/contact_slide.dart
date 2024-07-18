@@ -46,7 +46,7 @@ class HorizontalContactMember extends StatelessWidget {
                 left: 5,
                 right: 5,
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 1),
+                  padding: const EdgeInsets.symmetric(vertical: 1),
                   decoration: BoxDecoration(
                     color: Colors.blue[100],
                     borderRadius: BorderRadius.circular(8.0),
@@ -63,63 +63,63 @@ class HorizontalContactMember extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 16.0),
+          const SizedBox(width: 16.0),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               // mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 4.0),
+                const SizedBox(height: 4.0),
                 Text(
                   username,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   '• $role',
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   children: [
                     if (mutual_friend > 0)
                     Text(mutual_group > 0 ?
                       '$mutual_friend bạn chung - ' : '$mutual_friend bạn chung',
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      style: const TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                     if (mutual_group > 0)
                     Text(
                       '$mutual_group nhóm chung',
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      style: const TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   children: [
                     Expanded(
                       child: TextButton(
                         onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[50],
+                        ),
                         child: Text('Nhắn tin',
                             style: TextStyle(
                                 color: Colors.grey[600],
                                 fontWeight: FontWeight.bold)),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue[50],
-                        ),
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: TextButton(
                         onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[50],
+                        ),
                         child: Text('Gọi điện',
                             style: TextStyle(
                                 color: Colors.grey[600],
                                 fontWeight: FontWeight.bold)),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue[50],
-                        ),
                       ),
                     ),
                   ],

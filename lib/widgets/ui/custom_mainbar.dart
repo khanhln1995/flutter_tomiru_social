@@ -16,6 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: const Size.fromHeight(kToolbarHeight * 1.4),
       child: ClipRRect(
         child: AppBar(
+          scrolledUnderElevation: 0,
           toolbarHeight: kToolbarHeight * 1.4,
           backgroundColor: Color.fromARGB(255, 255, 255, 255),  
           leading: Container(
