@@ -28,7 +28,7 @@ class SocialLoginWidget extends StatelessWidget {
                     .socialLogin![1]
                     .status!)
         ? Column(children: [
-            Center(child: Text('social_login', style: robotoMedium)),
+            Center(child: Text('or_login_with'.tr, style: robotoMedium)),
             const SizedBox(height: Dimensions.paddingSizeSmall),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Get.find<SplashController>().configModel!.socialLogin![0].status!

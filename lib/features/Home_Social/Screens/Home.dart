@@ -8,7 +8,9 @@ import 'package:tomiru_social_flutter/state/app_state.dart';
 import 'package:tomiru_social_flutter/state/home_controller.dart';
 
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.dart';
-import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
+// import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
+import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart'; 
+import 'package:tomiru_social_flutter/features/discovery/screens/discovery_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -48,20 +50,22 @@ class _HomeState extends State<Home> {
   Widget getPage(int index) {
     switch (index) {
       case 0:
-        return FeedPage(
-          scaffoldKey: _scaffoldKey,
-          refreshIndicatorKey: refreshIndicatorKey,
-        );
+        // return FeedPage(
+        //   scaffoldKey: _scaffoldKey,
+        //   refreshIndicatorKey: refreshIndicatorKey,
+        // );
+        return SocialNetworkPage();
       case 1:
         return ProfileScreen();
       case 2:
-        return Friend2Screen();
+        return DiscoveryPage();
       case 3:
         return Friend2Screen();
       case 4:
         return GroupPage();
       default:
-        return FeedPage(scaffoldKey: _scaffoldKey);
+        // return FeedPage(scaffoldKey: _scaffoldKey);
+        return SocialNetworkPage();
     }
   }
 }

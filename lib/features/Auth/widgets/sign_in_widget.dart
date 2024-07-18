@@ -32,26 +32,19 @@ class SignInWidget extends StatefulWidget {
 }
 
 class SignInWidgetState extends State<SignInWidget> {
-  // final FocusNode _phoneFocus = FocusNode();
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
-  // final TextEditingController _phoneController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  // String? _countryDialCode;
+
   GlobalKey<FormState>? _formKeyLogin;
 
   @override
   void initState() {
     super.initState();
     _formKeyLogin = GlobalKey<FormState>();
-    // _countryDialCode =
-    //     Get.find<AuthController>().getUserCountryCode().isNotEmpty
-    //         ? Get.find<AuthController>().getUserCountryCode()
-    //         : CountryCode.fromCountryCode(
-    //                 Get.find<SplashController>().configModel!.country!)
-    //             .dialCode;
-    // _phoneController.text = Get.find<AuthController>().getUserNumber();
+
     _emailController.text = Get.find<AuthController>().getUserEmail();
     _passwordController.text = Get.find<AuthController>().getUserPassword();
   }
@@ -73,7 +66,7 @@ class SignInWidgetState extends State<SignInWidget> {
                 SizedBox(height: isDesktop ? 30 : 0),
 
                 CustomTextFieldWidget(
-                  hintText: 'Nhập email',
+                  hintText: 'enter_email'.tr,
                   controller: _emailController,
                   focusNode: _emailFocus,
                   nextFocus: _passwordFocus,
@@ -108,7 +101,7 @@ class SignInWidgetState extends State<SignInWidget> {
                 const SizedBox(height: Dimensions.paddingSizeExtraLarge),
 
                 CustomTextFieldWidget(
-                  hintText: 'Nhập password',
+                  hintText: 'Nhập password'.tr,
                   controller: _passwordController,
                   focusNode: _passwordFocus,
                   inputAction: TextInputAction.done,
@@ -147,7 +140,7 @@ class SignInWidgetState extends State<SignInWidget> {
                       title: Padding(
                         padding: const EdgeInsets.only(
                             left: Dimensions.paddingSizeSmall),
-                        child: Text('ghi nhớ', style: robotoRegular),
+                        child: Text('remember_me'.tr, style: robotoRegular),
                       ),
                       contentPadding: EdgeInsets.zero,
                       dense: true,
@@ -165,22 +158,22 @@ class SignInWidgetState extends State<SignInWidget> {
                         //         socialLogInModel: null,
                         //         fromDialog: true)));
                       } else {
-                        print("forgot password");
                         Get.toNamed(
                             RouteHelper.getForgotPassRoute(false, null));
                       }
                     },
-                    child: Text('${'quên mật khẩu'}?',
-                        style: robotoRegular.copyWith(
-                            color: Theme.of(context).hintColor)),
+                    child: Text(
+                      'forgot_password'.tr,
+                      style: robotoRegular.copyWith(
+                          color: Theme.of(context).primaryColor,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Theme.of(context).primaryColor),
+                    ),
                   ),
                 ]),
                 const SizedBox(height: Dimensions.paddingSizeLarge),
 
-                isDesktop
-                    ? const SizedBox()
-                    : TramsConditionsCheckBoxWidget(
-                        authController: authController),
+                TramsConditionsCheckBoxWidget(authController: authController),
                 isDesktop
                     ? const SizedBox()
                     : const SizedBox(height: Dimensions.paddingSizeLarge),
@@ -205,7 +198,7 @@ class SignInWidgetState extends State<SignInWidget> {
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                            Text('Bạn chưa có tài khoản ?',
+                            Text('do_not_have_account'.tr,
                                 style: robotoRegular.copyWith(
                                     color: Theme.of(context).hintColor)),
                             InkWell(
@@ -223,7 +216,7 @@ class SignInWidgetState extends State<SignInWidget> {
                               child: Padding(
                                 padding: const EdgeInsets.all(
                                     Dimensions.paddingSizeExtraSmall),
-                                child: Text('Đăng ký',
+                                child: Text('sign_up'.tr,
                                     style: robotoMedium.copyWith(
                                         color: Theme.of(context).primaryColor)),
                               ),

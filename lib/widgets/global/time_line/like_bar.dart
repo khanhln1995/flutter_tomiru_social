@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import "../../time_line/load_comment_widget.dart";
+import "load_comment_widget.dart";
+import 'package:tomiru_social_flutter/util/show_post_comments.dart';
+
 class LikeBar extends StatefulWidget {
   final String likeCount;
   final String shareCount;
@@ -24,9 +26,7 @@ class _LikeBarState extends State<LikeBar> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 5.0,
-        ),
+        const SizedBox(height: 5.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -43,41 +43,18 @@ class _LikeBarState extends State<LikeBar> {
                       : Icon(Icons.thumb_up_alt_rounded,
                           color: Colors.blue, size: 24),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Text(widget.likeCount),
               ],
             ),
             Row(children: [
               InkWell(
                 onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (BuildContext context) {
-                      return Container(
-                        height: MediaQuery.of(context).size.height / 1.9,
-                        padding: EdgeInsets.all(16.0),
-                        child: LoadCommentWidget(
-                          data: {
-                            'userName': 'John Doe',
-                            'avatar': 'https://avatar.iran.liara.run/public/24',
-                            'comment': [
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                            ]
-                          }, // Truyền data vào LoadCommentWidget
-                          onOptionSelected: (String option) {
-                            // Handle option selected here
-                            Navigator.pop(context); // Close modal
-                            // Add your logic based on the selected option
-                          },
-                        ),
-                      );
-                    },
-                  );
+                  showCommentBottomSheet(context);
                 },
                 child: Icon(Icons.messenger_outline, size: 24),
               ),
-              SizedBox(width: 10.0),
+              const SizedBox(width: 10.0),
               Text(widget.commentCount)
             ]),
             Row(children: [
@@ -88,7 +65,7 @@ class _LikeBarState extends State<LikeBar> {
                   size: 24,
                 ),
               ),
-              SizedBox(width: 10.0),
+              const SizedBox(width: 10.0),
               Text(widget.shareCount)
             ]),
           ],

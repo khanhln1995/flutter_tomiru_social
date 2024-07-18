@@ -8,7 +8,8 @@ import 'package:tomiru_social_flutter/widgets/products_widget/products_list.dart
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/features/home/widgets/voucher_list.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_main_bar.dart';
-import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart';
+import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
+import 'package:tomiru_social_flutter/features/Home_Social/Screens/Home.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -33,7 +34,7 @@ class _HomepageState extends State<Homepage> {
 
   Widget _mainHome() {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Column(
           children: [
             const SizedBox(height: 10),
@@ -66,9 +67,9 @@ class _HomepageState extends State<Homepage> {
         },
 
         image: "assets/images/logo-tomiru-v2.png",
-        widget: [
-          CustomIcon(icon: Icon(Icons.search, color: Colors.black)),
-          SizedBox(width: 12.0)
+        widget: <Widget>[
+          customSearch(),
+          const SizedBox(width: 12.0)
         ],
         padding: 12.0,
       ),
@@ -81,7 +82,7 @@ class _HomepageState extends State<Homepage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
+        const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Xin chào",
@@ -116,7 +117,7 @@ class _HomepageState extends State<Homepage> {
       children: [
         Text("Khám phá",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -129,7 +130,8 @@ class _HomepageState extends State<Homepage> {
                 context,
                 PageRouteBuilder(
                   pageBuilder: (context, animation1, animation2) =>
-                      SocialNetworkPage(),
+                      // SocialNetworkPage(),
+                      Home(),
                   transitionDuration: const Duration(seconds: 1),
                 ),
               );
@@ -153,7 +155,7 @@ class _HomepageState extends State<Homepage> {
                 () {}),
           ],
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
       ],
     );
   }
@@ -187,7 +189,7 @@ class _HomepageState extends State<Homepage> {
             padding: EdgeInsets.zero,
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           label,
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),

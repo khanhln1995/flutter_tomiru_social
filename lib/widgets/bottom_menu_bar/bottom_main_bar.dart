@@ -156,7 +156,7 @@ class _BottomMainBarState extends State<BottomMainBar> {
                         ),
                       )
                     : const SizedBox.shrink(),
-                SizedBox(height: 10)
+                const SizedBox(height: 10)
               ],
             ),
           ),
