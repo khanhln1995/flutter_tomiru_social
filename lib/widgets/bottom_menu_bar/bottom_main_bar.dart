@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/state/home_controller.dart';
 import '../../state/app_state.dart';
 import '../../ui/theme/theme.dart';
 import './tab_item.dart';
@@ -22,9 +24,7 @@ class _BottomMainBarState extends State<BottomMainBar> {
   }
 
   Widget _iconRow() {
-    var state = Provider.of<AppState>(
-      context,
-    );
+    final HomeController controller = Get.find();
     return Container(
       height: 80,
       decoration: BoxDecoration(
@@ -38,13 +38,13 @@ class _BottomMainBarState extends State<BottomMainBar> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           _icon(null, 0,
-              icon: 0 == state.pageIndex
+              icon: 0 == controller.pageIndex
                   ? AppIcon.home_rounded
                   : AppIcon.home_outlined,
               title: 'Trang chủ',
               isCustomIcon: true),
           _icon(null, 1,
-              icon: 1 == state.pageIndex
+              icon: 1 == controller.pageIndex
                   ? AppIcon.message_rounded
                   : AppIcon.message_outlined,
               title: 'Tin nhắn',
@@ -52,14 +52,14 @@ class _BottomMainBarState extends State<BottomMainBar> {
               badgeCount: 1),
           _icon(null, 2,
               title: 'Thông báo',
-              icon: 2 == state.pageIndex
+              icon: 2 == controller.pageIndex
                   ? AppIcon.notifications_none_rounded
                   : AppIcon.notifications_none_outlined,
               isCustomIcon: true,
               badgeCount: 2),
           _icon(null, 3,
               title: 'Tài khoản',
-              icon: 3 == state.pageIndex
+              icon: 3 == controller.pageIndex
                   ? AppIcon.account_circle_rounded
                   : AppIcon.account_circle_outlined,
               isCustomIcon: true),
@@ -78,9 +78,7 @@ class _BottomMainBarState extends State<BottomMainBar> {
     } else {
       assert(iconData != null);
     }
-    var state = Provider.of<AppState>(
-      context,
-    );
+  final HomeController controller = Get.find();
     return Expanded(
       child: SizedBox(
         height: double.infinity,
@@ -105,10 +103,10 @@ class _BottomMainBarState extends State<BottomMainBar> {
                               icon: icon!,
                               size: 25,
                               isTwitterIcon: true,
-                              isEnable: index == state.pageIndex)
+                              isEnable: index == controller.pageIndex)
                           : Icon(
                               iconData,
-                              color: index == state.pageIndex
+                              color: index == controller.pageIndex
                                   ? Theme.of(context).primaryColor
                                   : Theme.of(context)
                                       .textTheme
@@ -117,7 +115,7 @@ class _BottomMainBarState extends State<BottomMainBar> {
                             ),
                       onPressed: () {
                         setState(() {
-                          state.setPageIndex = index;
+                          controller.setPageIndex(index);
                         });
                       },
                     ),
@@ -152,7 +150,7 @@ class _BottomMainBarState extends State<BottomMainBar> {
                         title!,
                         style: TextStyle(
                           fontSize: 10,
-                          color: index == state.pageIndex
+                          color: index == controller.pageIndex
                               ? Theme.of(context).primaryColor
                               : Theme.of(context).textTheme.bodySmall!.color,
                         ),

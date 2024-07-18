@@ -14,6 +14,8 @@ import 'dart:convert';
 // import 'package:tomiru_social_flutter/features/home/screens/map_view_screen.dart';
 // import 'package:tomiru_social_flutter/features/html/enums/html_type.dart';
 // import 'package:tomiru_social_flutter/features/html/screens/html_viewer_screen.dart';
+import 'package:tomiru_social_flutter/features/Home/Screens/Home_Page.dart';
+import 'package:tomiru_social_flutter/features/Home_Social/Screens/Home.dart';
 import 'package:tomiru_social_flutter/features/language/screens/language_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/access_location_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/map_screen.dart';
@@ -343,9 +345,9 @@ class RouteHelper {
         // page: () => getRoute(DashboardScreen(
         //     pageIndex: 0,
         //     fromSplash: (Get.parameters['from-splash'] == 'true')))),
-        page: () => DashboardScreen(
-            pageIndex: 0,
-            fromSplash: (Get.parameters['from-splash'] == 'true'))),
+        page: () => const Homepage(
+          
+        )),
     GetPage(
         name: splash,
         page: () {

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:tomiru_social_flutter/features/Friends/Screens/Friend_Screen.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.dart';
 import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
+import 'package:tomiru_social_flutter/state/home_controller.dart';
 
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
@@ -19,11 +21,10 @@ class _HomeState extends State<Home> {
   final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
-  void initState() {
+   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      var state = Provider.of<AppState>(context, listen: false);
-      state.setPageIndex = 0;
+      Get.find<HomeController>().setPageIndex(0);
     });
   }
 
@@ -36,14 +37,14 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _body() {
+   Widget _body() {
     return SafeArea(
-      child: Container(
-        child: getPage(Provider.of<AppState>(context).pageIndex),
-      ),
+      child: Obx(() {
+        final pageIndex = Get.find<HomeController>().pageIndex.value;
+        return getPage(pageIndex);
+      }),
     );
   }
-
   Widget getPage(int index) {
     switch (index) {
       case 0:
