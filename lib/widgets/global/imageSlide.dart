@@ -103,7 +103,7 @@ class HorizontalImageItem extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
         ],
       ),
     );

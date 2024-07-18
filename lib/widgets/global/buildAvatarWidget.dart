@@ -22,7 +22,7 @@ class _buildAvatarWidgetState extends State<BuildAvatarWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 10, left: 5),
+      padding: const EdgeInsets.only(top: 10, left: 5),
       child: Container(
         height: widget.height.toDouble(),
         width: widget.width.toDouble(),

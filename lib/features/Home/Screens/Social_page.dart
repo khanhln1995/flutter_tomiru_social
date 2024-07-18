@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
-// import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
-import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.dart';
 import 'package:tomiru_social_flutter/features/Feed/Widgets/user_post_bar.dart';
-import 'package:tomiru_social_flutter/widgets/global/timeLine/timeLine.dart';
+import 'package:tomiru_social_flutter/widgets/global/time_line/time_line.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Shorts.dart';
 import 'package:tomiru_social_flutter/widgets/global/newWidget/emptyList.dart';
 import 'package:tomiru_social_flutter/widgets/global/newWidget/custom_loader.dart';
+import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
 
 class SocialNetworkPage extends StatefulWidget {
   SocialNetworkPage({super.key});
@@ -75,15 +74,9 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
         titleText: 'Mạng xã hội',
         padding: 0,
         widget: [
-          CustomIcon(
-              icon: Image.asset("assets/images/message.png"),
-              quantity: 1,
-              onPressed: () {}),
-          CustomIcon(
-              icon: Image.asset("assets/images/notification.png"),
-              quantity: 2,
-              onPressed: () {}),
-          SizedBox(width: 12.0)
+          customMessage(),
+          customNotification(),
+          const SizedBox(width: 12.0)
         ],
       ),
       body: ValueListenableBuilder(
@@ -96,7 +89,6 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
           return _body(context, index, child);
         },
       ),
-      bottomNavigationBar: const BottomMenubar(),
     );
   }
 }

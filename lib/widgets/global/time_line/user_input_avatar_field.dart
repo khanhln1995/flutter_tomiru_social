@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/util/show_post_comments.dart';
 
 class UserInputAvatarField extends StatefulWidget {
   final String urlAvatar;
@@ -28,6 +29,10 @@ class _UserInputAvatarFieldState extends State<UserInputAvatarField> {
           child: Padding(
             padding: const EdgeInsets.only(left: 10.0),
             child: TextField(
+              onTap: () {
+                showCommentBottomSheet(context);
+              },
+              readOnly: true,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
