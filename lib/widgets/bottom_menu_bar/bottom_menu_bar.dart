@@ -3,7 +3,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
-import 'package:tomiru_social_flutter/ui/theme/theme.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/tab_item.dart';
 import 'package:tomiru_social_flutter/widgets/custom_widgets.dart';
 
