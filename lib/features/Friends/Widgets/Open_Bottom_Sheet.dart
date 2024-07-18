@@ -36,7 +36,7 @@ void OpenBottomSheet(BuildContext context, Widget header, Widget body) {
             ),
             Container(
               color: const Color.fromARGB(255, 219, 217, 217),
-              height: 1.5,
+              height: 1,
               width: double.infinity,
             ),
             IntrinsicHeight(

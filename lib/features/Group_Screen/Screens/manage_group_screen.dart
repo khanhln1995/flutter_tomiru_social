@@ -18,7 +18,7 @@ class _ManageGroupScreenState extends State<ManageGroupScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Quản lý',
           style: TextStyle(
             color: Colors.black,
@@ -28,7 +28,7 @@ class _ManageGroupScreenState extends State<ManageGroupScreen> {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
             size: 20,
@@ -45,11 +45,11 @@ class _ManageGroupScreenState extends State<ManageGroupScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Kiểm duyệt",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              ListTile(
+              const ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Icon(Icons.article),
                 trailing: Text(
@@ -75,7 +75,7 @@ class _ManageGroupScreenState extends State<ManageGroupScreen> {
                 thickness: 1,
                 color: Colors.grey[300],
               ),
-              ListTile(
+              const ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Icon(Icons.report),
                 title: Text(
@@ -103,22 +103,22 @@ class _ManageGroupScreenState extends State<ManageGroupScreen> {
               ),
               ListTile(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ApproveGroupScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ApproveGroupScreen()));
                 },
                 contentPadding: EdgeInsets.zero,
-                leading: Icon(Icons.notifications),
-                title: Text(
+                leading: const Icon(Icons.notifications),
+                title: const Text(
                   'Thông tin kiểm duyệt',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                subtitle: Text('0 Thông báo mới hôm nay',
+                subtitle: const Text('0 Thông báo mới hôm nay',
                     style: TextStyle(
                       fontSize: 12,
                     )),
-                    trailing: Text(
+                    trailing: const Text(
                       "3",
                       style: TextStyle(
                         fontSize: 12,
@@ -126,40 +126,40 @@ class _ManageGroupScreenState extends State<ManageGroupScreen> {
                       )
                       ),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 "Thành viên",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Row(
                 children: [
                   Image.asset("assets/images/user (3) 1.png"),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   GestureDetector(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) => MembersGroupScreen(
                         isAdmin: widget.isAdmin
                       )));
                     },
-                    child: Text(
+                    child: const Text(
                       "Thành viên",
                       style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                     ),
                   ),
                 ]
               ),
-              SizedBox(height: 25),
-              Text(
+              const SizedBox(height: 25),
+              const Text(
                 "Hoạt động",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Row(
                 children: [
                   Image.asset("assets/images/Vector.png"),
-                  SizedBox(width: 8),
-                  Text(
+                  const SizedBox(width: 8),
+                  const Text(
                     "Nhật ký hoạt động",
                     style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                   ),

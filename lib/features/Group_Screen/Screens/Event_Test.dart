@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Share_Event.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/square_button.dart';
 
 class EventTest extends StatelessWidget {
@@ -6,7 +7,7 @@ class EventTest extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Transform.translate(
-        offset: Offset(0, -35),
+        offset: const Offset(0, -35),
         child: Center(
           child: FractionallySizedBox(
             widthFactor: 0.9,
@@ -21,7 +22,7 @@ class EventTest extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ListTile(
+                    const ListTile(
                       leading: CircleAvatar(
                         backgroundColor: Colors.grey,
                       ),
@@ -32,8 +33,8 @@ class EventTest extends StatelessWidget {
                       subtitle: Text('Sự kiện do Nguyen Nhung tạo'),
                     ),
                     Image.asset('assets/images/Firefly.png'),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16, left: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 16, left: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -61,11 +62,19 @@ class EventTest extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               bottom: 10.0), // Khoảng cách so với đáy màn hình
                           child: SquareButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const ShareEvent(
+                                            isAdmin: true,
+                                          )));
+                            },
                             buttonText: 'Chia sẻ',
-                            buttonColor: Color.fromARGB(197, 201, 201, 201),
+                            buttonColor:
+                                const Color.fromARGB(197, 201, 201, 201),
                             textColor: const Color.fromARGB(255, 0, 0, 0),
-                            width: 340,
+                            width: MediaQuery.of(context).size.width * 0.85,
                             fontWeight: FontWeight.w900,
                           ),
                         ),

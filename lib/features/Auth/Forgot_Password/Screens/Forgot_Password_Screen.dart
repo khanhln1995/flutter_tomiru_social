@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tomiru_social_flutter/features/Auth/Forgot_Password/Screens/Hyperlink_Example.dart';
-import 'package:tomiru_social_flutter/features/Auth/Forgot_Password/Screens/Otp_Verification_Page.dart';
+import 'package:tomiru_social_flutter/features/Auth/forgot_password/Screens/Hyperlink_Example.dart';
+import 'package:tomiru_social_flutter/features/Auth/forgot_password/Screens/Otp_Verification_Page.dart';
 import 'package:tomiru_social_flutter/widgets/custom_appbar.dart';
 import 'package:tomiru_social_flutter/widgets/custom_button.dart';
 

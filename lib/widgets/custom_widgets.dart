@@ -24,7 +24,7 @@ Widget customIcon(
   bool isTwitterIcon = true,
   bool isFontAwesomeSolid = false,
   Color? iconColor,
-  double paddingIcon = 10,
+  double paddingIcon = 5,
 }) {
   iconColor = iconColor ?? Theme.of(context).textTheme.bodySmall!.color;
   return Padding(

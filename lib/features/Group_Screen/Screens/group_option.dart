@@ -50,12 +50,14 @@ class _GroupOptionState extends State<GroupOption> {
                           fit: BoxFit.cover,
                         ),
                       ),
+
                       Positioned(
                         right: -5,
                         bottom: 0,
                         child: Image.asset("assets/images/Group 10036.png"),
                       ),
                     ],
+
                   ),
                   SizedBox(height: 8),
                   Row(
@@ -87,6 +89,7 @@ class _GroupOptionState extends State<GroupOption> {
                 ],
               ),
             ),
+
             SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -299,6 +302,7 @@ class _GroupOptionState extends State<GroupOption> {
             SizedBox(height: 50.0),
           ],
         ),
+
       ),
     );
   }
@@ -312,11 +316,13 @@ class _GroupOptionState extends State<GroupOption> {
       children: [
         ClipOval(
           child: InkWell(
-            customBorder: CircleBorder(),
+            customBorder: const CircleBorder(),
             onTap: onTap ?? () {},
             splashColor: Colors.red,
             child: Container(
+
               padding: EdgeInsets.all(10.0),
+
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 shape: BoxShape.circle,
@@ -325,11 +331,11 @@ class _GroupOptionState extends State<GroupOption> {
             ),
           ),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Text(
           newWord,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 12.0),
+          style: const TextStyle(fontSize: 12.0),
         ),
       ],
     );

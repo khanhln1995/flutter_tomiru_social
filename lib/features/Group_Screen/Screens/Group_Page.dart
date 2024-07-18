@@ -6,15 +6,19 @@ import 'ForYou.dart';
 import "My_Group.dart";
 
 class GroupPage extends StatefulWidget {
-  const GroupPage({Key? key}) : super(key: key);
-
+  final bool showEventExist; // Thêm tham số showEventExist
+  final int initialPageIndex;
+  const GroupPage(
+      {Key? key, this.initialPageIndex = 0, this.showEventExist = false})
+      : super(key: key); 
   @override
   State<GroupPage> createState() => _GroupPageState();
 }
 
 class _GroupPageState extends State<GroupPage> {
   int _innerPageIndex = 0;
-
+  final bool showEventExist = false; // Thêm tham số showEventExist
+  
   final List<Widget> _innerPages = [
     ForYou(),
     MyGroup(),
@@ -29,8 +33,11 @@ class _GroupPageState extends State<GroupPage> {
     // print("===============ERROR================");
     // print(index);
     // print("===============ERROR================");
+    
     setState(() {
+      
       _innerPageIndex = index;
+      // _innerPageIndex = widget.initialPageIndex;
     });
   }
 
@@ -43,7 +50,15 @@ class _GroupPageState extends State<GroupPage> {
           Expanded(
             child: IndexedStack(
               index: _innerPageIndex,
-              children: _innerPages,
+              children: _innerPages.map((page) {
+                if (page is ManageEvent) {
+                  return ManageEvent(
+                      showEventExist: widget
+                          .showEventExist); // Truyền showEventExist cho ManageEvent
+                } else {
+                  return page;
+                }
+              }).toList(),
             ),
           ),
         ],

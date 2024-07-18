@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/helper/enum.dart';
-import './member.dart';
+import 'member.dart';
 
 class TabBarSection extends StatelessWidget {
   final List<Member> members;

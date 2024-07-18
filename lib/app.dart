@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'features/Home_Screen/Screens/HomeScreen.dart';
+import 'features/home_screen/screens/HomeScreen.dart';
 import "ui/theme/theme.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
                 title: const Text('Home Screen'),
                 leading: appLogo, // Sử dụng biểu tượng ứng dụng ở đây
               ),
-              body: const HomeScreen(),
+              body:  HomeScreen(),
             );
           },
         ),

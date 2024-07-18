@@ -8,6 +8,7 @@ import 'package:tomiru_social_flutter/widgets/products_widget/products_list.dart
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/features/home/widgets/voucher_list.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_main_bar.dart';
+import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -58,10 +59,12 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar( 
+
+      appBar: CustomAppBar(
         onBackPress: () {
           Navigator.pop(context);
         },
+
         image: "assets/images/logo-tomiru-v2.png",
         widget: [
           CustomIcon(icon: Icon(Icons.search, color: Colors.black)),
@@ -121,21 +124,33 @@ class _HomepageState extends State<Homepage> {
                 Image.asset('assets/images/tomiru-icon-white.png',
                     width: 30, height: 30),
                 "Mạng xã hội",
-                [Color(0xFF87CEFA), Color(0xFF1E90FF)]),
+                [Color(0xFF87CEFA), Color(0xFF1E90FF)], () {
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) =>
+                      SocialNetworkPage(),
+                  transitionDuration: const Duration(seconds: 1),
+                ),
+              );
+            }),
             _exploreButton(
                 Icon(Icons.shopping_cart, size: 30, color: Colors.white),
                 "Shopping",
-                [Color(0xFFFF6347), Color(0xFFDC143C)]),
+                [Color(0xFFFF6347), Color(0xFFDC143C)],
+                () {}),
             _exploreButton(
                 Icon(Icons.miscellaneous_services,
                     size: 30, color: Colors.white),
                 "Dịch vụ",
-                [Color(0xFF98FB98), Color(0xFF32CD32)]),
+                [Color(0xFF98FB98), Color(0xFF32CD32)],
+                () {}),
             _exploreButton(
                 Icon(Icons.business_center_rounded,
                     size: 30, color: Colors.white),
                 "Kinh doanh",
-                [Color(0xFFFFa500), Color(0xFFFF8C00)]),
+                [Color(0xFFFFa500), Color(0xFFFF8C00)],
+                () {}),
           ],
         ),
         SizedBox(height: 10),
@@ -143,7 +158,8 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  Widget _exploreButton(Widget icon, String label, List<Color> colors) {
+  Widget _exploreButton(
+      Widget icon, String label, List<Color> colors, VoidCallback? onPressed) {
     return Column(
       children: [
         Container(
@@ -166,7 +182,7 @@ class _HomepageState extends State<Homepage> {
             ],
           ),
           child: IconButton(
-            onPressed: () {},
+            onPressed: onPressed,
             icon: icon,
             padding: EdgeInsets.zero,
           ),

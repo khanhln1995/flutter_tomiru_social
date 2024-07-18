@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import "package:tomiru_social_flutter/features/Auth/Signin/Screens/Signin_Screen.dart";
-import "package:tomiru_social_flutter/features/Auth/Signup/Screens/Signup_Screen.dart";
+
+import "package:tomiru_social_flutter/features/Auth/Sign_in/Screens/Sign_in_Screen.dart";
+import "package:tomiru_social_flutter/features/Auth/Sign_up/Screens/Sign_up_Screen.dart";
 import "package:tomiru_social_flutter/features/Business_Screen/Screens/Business_Screen.dart";
 import "package:tomiru_social_flutter/features/Group_Screen/Screens/Chat_Group_Screen.dart";
 import "package:tomiru_social_flutter/features/Group_Screen/Screens/Create_Group.dart";
 import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Screen.dart';
-import "package:tomiru_social_flutter/features/Group_Screen/Screens/group_option.dart";
-import "package:tomiru_social_flutter/features/Home/Screens/Home_Page.dart";
+import "../../Home_Social/Screens/Home.dart";
+import "../../home/Screens/Home_Page.dart";
 import "package:tomiru_social_flutter/features/Profile/Screens/Profile_Screen.dart";
-
-import "package:tomiru_social_flutter/features/Storage_Screen/Screens/Storage_Screen.dart";
 
 
 import "../../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
 import "../../Friends/Screens/Friend_Screen.dart";
-import "../../Home_Social/Screens/Home.dart";
+
+
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -94,43 +94,7 @@ class HomeScreen extends StatelessWidget {
                 },
                 child: const Text('Profile'),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BusinessScreen(),
-                    ),
-                  );
-                },
-                child: const Text('BusinessScreen'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CreateGroup(
-                        
-                      ),
-                    ),
-                  );
-                },
-                child: const Text('Create Group'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChatGroupScreen(
-                        isAdmin: isAdmin,
-                      ),
-                    ),
-                  );
-                },
-                child: const Text('ChatGroup'),
-              ),
+              
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -152,6 +116,41 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 child: const Text('Home2'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BusinessScreen(),
+                    ),
+                  );
+                },
+                child: const Text('BusinessScreen'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CreateGroup(),
+                    ),
+                  );
+                },
+                child: const Text('Create Group'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatGroupScreen(
+                        isAdmin: isAdmin,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('ChatGroup'),
               ),
             ],
           ),

@@ -17,13 +17,13 @@ class Member {
 
 class _InviteMembersScreenState extends State<InviteMembersScreen> {
   final List<Member> members = [
-    Member(name: 'Anh Cường', avatar: 'assets/images/Ellipse 10.png'),
-    Member(name: 'Phạm Đình Chương', avatar: 'assets/images/Ellipse 10 (1).png'),
-    Member(name: 'Bình Cenhomes', avatar: 'assets/images/Ellipse 10 (2).png'),
-    Member(name: 'Lan Anh Cường', avatar: 'assets/images/Ellipse 10 (3).png'),
-    Member(name: 'Mạnh Cường', avatar: 'assets/images/Ellipse 10 (4).png'),
-    Member(name: 'Bình Cenhomes', avatar: 'assets/images/Ellipse 11.png'),
-    Member(name: 'Lan Anh Cường', avatar: 'assets/images/Ellipse 12.png'),
+    const Member(name: 'Anh Cường', avatar: 'assets/images/Ellipse 10.png'),
+    const Member(name: 'Phạm Đình Chương', avatar: 'assets/images/Ellipse 10 (1).png'),
+    const Member(name: 'Bình Cenhomes', avatar: 'assets/images/Ellipse 10 (2).png'),
+    const Member(name: 'Lan Anh Cường', avatar: 'assets/images/Ellipse 10 (3).png'),
+    const Member(name: 'Mạnh Cường', avatar: 'assets/images/Ellipse 10 (4).png'),
+    const Member(name: 'Bình Cenhomes', avatar: 'assets/images/Ellipse 11.png'),
+    const Member(name: 'Lan Anh Cường', avatar: 'assets/images/Ellipse 12.png'),
   ];
 
   // Tạo một danh sách để theo dõi trạng thái của các thành viên đã được mời
@@ -35,7 +35,7 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Mời thành viên',
           style: TextStyle(
             color: Colors.black,
@@ -45,7 +45,7 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
             size: 20,
@@ -81,14 +81,14 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(side: BorderSide.none),
-                      padding: EdgeInsets.all(10),
+                      shape: const CircleBorder(side: BorderSide.none),
+                      padding: const EdgeInsets.all(10),
                       backgroundColor: Colors.grey[100],
                     ),
                     child: Image.asset("assets/images/Group.png"),
                   ),
-                  SizedBox(width: 10),
-                  Text(
+                  const SizedBox(width: 10),
+                  const Text(
                     "Chia sẻ nhóm",
                     style: TextStyle(
                       fontSize: 16,
@@ -98,9 +98,9 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 18),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+              const SizedBox(height: 18),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
                   "Gợi ý",
                   style: TextStyle(
@@ -110,16 +110,16 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Expanded(
                 child: ListView.separated(
                   itemCount: members.length,
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     return ListTile(
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 8),
                       onTap: () {},
                       leading: CircleAvatar(
@@ -128,7 +128,7 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
                       ),
                       title: Text(
                         members[index].name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
@@ -137,7 +137,7 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor:  Colors.grey[100],
                           elevation: 0,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             vertical: 10,
                             horizontal: 14,
                           ),
@@ -154,7 +154,7 @@ class _InviteMembersScreenState extends State<InviteMembersScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(invited[index]? Icons.check: Icons.add, size: 18),
-                            SizedBox(width: 4),
+                            const SizedBox(width: 4),
                             Text(
                              invited[index]? 'Đã mời': 'Mời',
                               style: TextStyle(
