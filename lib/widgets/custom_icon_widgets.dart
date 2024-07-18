@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
+import 'package:tomiru_social_flutter/util/images.dart';
 
 Widget customMessage() {
   return CustomIcon(
@@ -27,4 +28,8 @@ Widget customSetting() {
 Widget customSearch() {
   return CustomIcon(
       icon: Icon(Icons.search, color: Colors.black), onPressed: () {});
+}
+
+Widget customQr() {
+  return CustomIcon(icon: Image.asset(Images.qrIcon), onPressed: () {});
 }

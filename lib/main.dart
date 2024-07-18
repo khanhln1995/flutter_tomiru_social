@@ -17,6 +17,7 @@ import 'package:tomiru_social_flutter/features/splash/domain/models/deep_link_bo
 import 'package:tomiru_social_flutter/helper/notification_helper.dart';
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
+import 'package:tomiru_social_flutter/state/home_controller.dart';
 import 'package:tomiru_social_flutter/theme/dark_theme.dart';
 import 'package:tomiru_social_flutter/theme/light_theme.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
@@ -31,6 +32,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
+   Get.put(HomeController());
   WidgetsFlutterBinding.ensureInitialized();
 
   if (ResponsiveHelper.isMobilePhone()) {

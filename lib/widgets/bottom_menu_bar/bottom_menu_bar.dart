@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
+import 'package:tomiru_social_flutter/state/home_controller.dart';
+import 'package:tomiru_social_flutter/ui/theme/theme.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/tab_item.dart';
 import 'package:tomiru_social_flutter/widgets/custom_widgets.dart';
 
@@ -21,9 +24,6 @@ class _BottomMenubarState extends State<BottomMenubar> {
   }
 
   Widget _iconRow() {
-    var state = Provider.of<AppState>(
-      context,
-    );
     return Container(
       height: 80,
       decoration: BoxDecoration(
@@ -47,9 +47,7 @@ class _BottomMenubarState extends State<BottomMenubar> {
   }
 
   Widget _icon(IconData iconData, int index, {String? title}) {
-    var state = Provider.of<AppState>(
-      context,
-    );
+   final HomeController controller = Get.find();
     return Expanded(
       child: SizedBox(
         height: double.infinity,
@@ -70,13 +68,13 @@ class _BottomMenubarState extends State<BottomMenubar> {
                   // alignment: const Alignment(0, 0),
                   icon: Icon(
                     iconData,
-                    color: index == state.pageIndex
+                     color: index == controller.pageIndex.value
                         ? Theme.of(context).primaryColor
                         : Theme.of(context).textTheme.bodySmall!.color,
                   ),
                   onPressed: () {
                     setState(() {
-                      state.setPageIndex = index;
+                     controller.setPageIndex(index);
                     });
                   },
                 ),
@@ -85,7 +83,7 @@ class _BottomMenubarState extends State<BottomMenubar> {
                         title,
                         style: TextStyle(
                           fontSize: 10,
-                          color: index == state.pageIndex
+                          color: index == controller.pageIndex.value
                               ? Theme.of(context).primaryColor
                               : Theme.of(context).textTheme.bodySmall!.color,
                         ),
@@ -102,6 +100,6 @@ class _BottomMenubarState extends State<BottomMenubar> {
 
   @override
   Widget build(BuildContext context) {
-    return _iconRow();
+    return Obx(() => _iconRow());
   }
 }
