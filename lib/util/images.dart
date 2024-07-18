@@ -68,6 +68,7 @@ class Images {
   static const String emptySearchFood = 'assets/images/icon-tomiru.png';
   static const String emptyTransaction = 'assets/images/icon-tomiru.png';
   static const String emptyWishlist = 'assets/images/icon-tomiru.png';
+  static const String iconTomiru = 'assets/images/icon-tomiru.png';
   static const String walletReceive = 'assets/images/wallet-receive.jpg';
   static const String walletTransfer = 'assets/images/wallet-transfer.jpg';
   static const String walletExchange = 'assets/images/wallet-exchange.jpg';
