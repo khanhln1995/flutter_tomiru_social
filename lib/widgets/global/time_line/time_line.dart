@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/widgets/global/buildAvatarWidget.dart';
 import 'package:tomiru_social_flutter/widgets/global/time_line/user_input_avatar_field.dart';
 import 'package:tomiru_social_flutter/widgets/global/time_line/like_bar.dart';
-// import 'package:tomiru_social_flutter/theme/theme.dart';
-import "../../../features/Profile/Screens/Profile_Screen.dart";
-import "load_comment_widget.dart";
 import 'package:tomiru_social_flutter/util/show_post_comments.dart';
+import "../../../features/Profile-social/Screens/Profile_Screen.dart";
 
 //time line dùng ở các vị trí khác nhau như ở trang chủ , bạn bè , nhóm ...
 //sẽ có khác nhau ở tham số truyền vào để check xem người dùng đang ở page nào để call API

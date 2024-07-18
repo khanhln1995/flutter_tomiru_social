@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
+
+
 import 'package:tomiru_social_flutter/features/group_screen/Screens/Group_Screen.dart';
 import "package:tomiru_social_flutter/features/group_screen/Screens/group_option.dart";
-import 'package:tomiru_social_flutter/features/Profile/Screens/Profile_Screen.dart';
+import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart';
 
-import "package:tomiru_social_flutter/features/Auth/sign_in/Screens/sign_in_Screen.dart";
-import "package:tomiru_social_flutter/features/Auth/sign_up/Screens/sign_up_Screen.dart";
 
-// import "../../../screens/Friend_Screen/Page_View.dart";
-
-import "../../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
-import "../../Friends/Screens/Friend_Screen.dart";
-
+import "package:tomiru_social_flutter/features/Auth/Sign_in/Screens/Sign_in_Screen.dart";
+import "package:tomiru_social_flutter/features/Auth/Sign_up/Screens/Sign_up_Screen.dart";
+import "package:tomiru_social_flutter/features/Business_Screen/Screens/Business_Screen.dart";
+import "package:tomiru_social_flutter/features/Group_Screen/Screens/Chat_Group_Screen.dart";
+import "package:tomiru_social_flutter/features/Group_Screen/Screens/Create_Group.dart";
+// import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Screen.dart';
 import "../../Home_Social/Screens/Home.dart";
 import "../../home/Screens/Home_Page.dart";
+
+//
+import "../../../widgets/bottom_menu_bar/bottom_menu_bar.dart";
+//
+// import "../../../screens/Friend_Screen/Page_View.dart";
+
+// import "../../Home/Screens/Home.dart";
+import "package:tomiru_social_flutter/features/auth/screens/sign_in_screen.dart";
+
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +36,25 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Home Screen'),
       ),
       body: Center(
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('Welcome to My Flutter App!'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SignInScreen(
+                      exitFromApp: true,
+                      backFromThis: true,
+                    ),
+                  ),
+                );
+              },
+              child: const Text('login_test_api'),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -62,7 +87,9 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
+
                     builder: (context) => const Homepage(),
+
                   ),
                 );
               },
@@ -95,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const GroupOption(),
+                    builder: (context) => const GroupOption(isAdmin: true),
                   ),
                 );
               },
@@ -107,13 +134,51 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
+
                     builder: (context) => Home(),
+
                   ),
                 );
               },
               child: const Text('Home Social'),
             ),
+             ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BusinessScreen(),
+                  ),
+                );
+              },
+              child: const Text('BusinessScreen'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CreateGroup(),
+                  ),
+                );
+              },
+              child: const Text('Create Group'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatGroupScreen(
+                      isAdmin: isAdmin,
+                    ),
+                  ),
+                );
+              },
+              child: const Text('ChatGroup'),
+            ),
           ],
+
         ),
       ),
       bottomNavigationBar: const BottomMenubar(),

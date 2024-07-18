@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:iconsax/iconsax.dart';
 
 class HorizontalContactMember extends StatelessWidget {
   final String avatar;
@@ -69,6 +70,17 @@ class HorizontalContactMember extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               // mainAxisSize: MainAxisSize.min,
               children: [
+                SizedBox(height: 4.0),
+                Row(children: [
+                  Text(
+                    username,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(width: 4),
+                  Icon(Iconsax.heart5, color: Colors.red, size: 16),
+                
+                ]),
                 const SizedBox(height: 4.0),
                 Text(
                   username,
