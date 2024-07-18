@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tomiru_social_flutter/features/Auth/Signin/Screens/Signin_Screen.dart';
+import 'package:tomiru_social_flutter/features/Auth/sign_in/Screens/sign_in_Screen.dart';
 import 'package:tomiru_social_flutter/widgets/custom_appbar.dart';
 import 'package:tomiru_social_flutter/widgets/custom_button.dart';
 

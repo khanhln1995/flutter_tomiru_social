@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Event_Test.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Invite_Members_Screen.dart';
-import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Manage_Event.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/custom_button_1.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/cutom_input_event.dart';
-
 
 class CreateEventPage extends StatefulWidget {
   @override
@@ -13,14 +11,17 @@ class CreateEventPage extends StatefulWidget {
 
 class _CreateEventPageState extends State<CreateEventPage> {
   final List<Member> members = [
-    Member(name: 'Anh Cường', avatar: 'assets/images/Ellipse 10.png'),
-    Member(
+    const Member(name: 'Anh Cường', avatar: 'assets/images/Ellipse 10.png'),
+    const Member(
         name: 'Phạm Đình Chương', avatar: 'assets/images/Ellipse 10 (1).png'),
-    Member(name: 'Bình Cenhomes', avatar: 'assets/images/Ellipse 10 (2).png'),
-    Member(name: 'Lan Anh Cường', avatar: 'assets/images/Ellipse 10 (3).png'),
-    Member(name: 'Mạnh Cường', avatar: 'assets/images/Ellipse 10 (4).png'),
-    Member(name: 'Bình Cenhomes', avatar: 'assets/images/Ellipse 11.png'),
-    Member(name: 'Lan Anh Cường', avatar: 'assets/images/Ellipse 12.png'),
+    const Member(
+        name: 'Bình Cenhomes', avatar: 'assets/images/Ellipse 10 (2).png'),
+    const Member(
+        name: 'Lan Anh Cường', avatar: 'assets/images/Ellipse 10 (3).png'),
+    const Member(
+        name: 'Mạnh Cường', avatar: 'assets/images/Ellipse 10 (4).png'),
+    const Member(name: 'Bình Cenhomes', avatar: 'assets/images/Ellipse 11.png'),
+    const Member(name: 'Lan Anh Cường', avatar: 'assets/images/Ellipse 12.png'),
   ];
   final List<bool> invited = List.generate(7, (index) => false);
   String? selectedOption = 'link';
@@ -28,9 +29,32 @@ class _CreateEventPageState extends State<CreateEventPage> {
   String? selectedLocation;
   TextEditingController locationController = TextEditingController();
   bool inviteAllMembers = false;
-  bool _showEventExist = false;
+  final _formKey = GlobalKey<FormState>(); // Khởi tạo GlobalKey cho Form
 
+//!
+  @override
+  void dispose() {
+    linkController.dispose();
+    super.dispose();
+  }
 
+  String? _validateLink(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Vui lòng nhập liên kết';
+    }
+
+    // Sử dụng biểu thức chính quy (Regular Expression) để kiểm tra định dạng URL
+    // Biểu thức này có thể cần được điều chỉnh để phù hợp với yêu cầu của bạn
+    const urlPattern =
+        r'(https?|ftp)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:,.;]*)?';
+    final regExp = RegExp(urlPattern, caseSensitive: false);
+    if (!regExp.hasMatch(value)) {
+      return 'Liên kết không hợp lệ';
+    }
+
+    return null; // Trả về null nếu không có lỗi
+  }
+//!
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +62,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.close),
+          icon: const Icon(Icons.close),
           color: Colors.black,
           iconSize: 30,
           onPressed: () {
@@ -46,7 +70,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
             Navigator.of(context).pop();
           },
         ),
-        bottom: PreferredSize(
+        bottom: const PreferredSize(
           preferredSize: Size.fromHeight(1.0),
           child: Divider(
             color: Colors.grey,
@@ -73,7 +97,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   // Change event name
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               CustomInputEventWidget(
                 controller: TextEditingController(),
                 title: 'Ngày và giờ bắt đầu',
@@ -82,7 +106,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   // Change event start date and time
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Align(
                 alignment: Alignment.centerLeft,
                 child: CustomButtonTime(
@@ -92,9 +116,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -115,8 +139,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             hintStyle: TextStyle(
                                 color: Colors.grey[400], fontSize: 14),
                             hintText: "Đây là sự kiện trực tiếp hay trên mạng",
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.all(10),
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.all(10),
                             filled: true,
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -132,13 +156,13 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 0),
                       child: Text(
                         "Ai có thể nhìn thấy sự kiện này",
@@ -146,14 +170,14 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextField(
                       decoration: InputDecoration(
                         hintStyle:
                             TextStyle(color: Colors.grey[400], fontSize: 14),
                         hintText: "Nhóm Tomiru",
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(10),
+                        border: const OutlineInputBorder(),
+                        contentPadding: const EdgeInsets.all(10),
                         filled: true,
                         fillColor: Colors.grey[100],
                         enabledBorder: OutlineInputBorder(
@@ -163,60 +187,79 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         ),
                       ),
                       readOnly: true, // Make the TextField read-only
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (BuildContext context) {
-                            return _buildBottomSheetForGroup(context);
-                          },
-                        );
-                      },
+                      onTap: () {},
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 20),
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 5),
+                padding: const EdgeInsets.only(left: 20, right: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    InkWell(
+                        child: const Text(
+                          'Mời những thành viên nào ?',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              decoration: TextDecoration.underline),
+                        ),
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (BuildContext context) {
+                              return _buildBottomSheetForGroup(context);
+                            },
+                          );
+                        }),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
                       'Mời tất cả thành viên nhóm',
                       style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     Checkbox(
                       value: inviteAllMembers,
                       onChanged: (bool? value) {
                         setState(() {
                           inviteAllMembers = value!;
+                          invited.fillRange(0, invited.length, value); 
                         });
                       },
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Mô tả về sự kiện",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextField(
                       decoration: InputDecoration(
                         hintStyle:
                             TextStyle(color: Colors.grey[400], fontSize: 14),
                         hintText: "Hãy mô tả chi tiết về sự kiện",
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(10),
+                        border: const OutlineInputBorder(),
+                        contentPadding: const EdgeInsets.all(10),
                         filled: true,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -231,22 +274,30 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 width: 374,
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ManageEvent()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const GroupPage(
+                            initialPageIndex: 2,
+                            showEventExist: true), // Truyền showEventExist
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFF6891F), // Background color
+                    backgroundColor:
+                        const Color(0xFFF6891F), // Background color
                     shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.circular(6.0), // Rounded corners
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Tạo sự kiện',
                     style: TextStyle(
                       color: Colors.white,
@@ -256,7 +307,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),
@@ -264,36 +315,38 @@ class _CreateEventPageState extends State<CreateEventPage> {
     );
   }
 
-  Widget _buildBottomSheet(BuildContext context) {
+ Widget _buildBottomSheet(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          TabBar(
+          const TabBar(
             tabs: [
               Tab(text: "Gặp mặt trực tiếp"),
               Tab(text: "Trên mạng"),
             ],
           ),
-          Container(
-            height: 400,
+          SizedBox(
+            height: 500,
             child: TabBarView(
               children: [
+                // Tab "Gặp mặt trực tiếp"
                 Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 20, right: 20),
                       child: SizedBox(
                         width: 374,
                         height: 38,
                         child: TextField(
                           decoration: InputDecoration(
                             hintText: 'Nhập vị trí',
-                            contentPadding: EdgeInsets.all(10),
+                            contentPadding: const EdgeInsets.all(10),
                             filled: true,
-                            fillColor: const Color(0xF5F5F5),
-                            prefixIcon: Icon(Icons.search),
+                            fillColor: const Color(0xFFF5F5F5),
+                            prefixIcon: const Icon(Icons.search),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
@@ -302,151 +355,58 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       ),
                     ),
                     Expanded(
-                      child: _buildLocationList(),
+                      child:
+                          _buildLocationList(), // Thay bằng widget hiển thị danh sách vị trí của bạn
                     ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
+
+                // Tab "Trên mạng"
+                StatefulBuilder(
+                  // Bọc toàn bộ nội dung TabBarView trong StatefulBuilder
+                  builder: (BuildContext context, StateSetter setState) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
+                          Column(
                             children: [
-                              Image.asset("assets/images/Ellipse 10.png",
-                                  width: 44),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Liên kết ngoài",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16),
-                                    ),
-                                    Text(
-                                      "Thêm liên kết để mọi người có thể truy cập vào đâu khi sự kiện bắt đầu",
-                                      style: TextStyle(fontSize: 12),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Radio(
-                                value: 'link',
-                                groupValue: selectedOption,
-                                activeColor: Color(0xFFF6891F), // Active color
-                                onChanged: (String? value) {
-                                  setState(() {
-                                    selectedOption = value;
-                                    linkController
-                                        .clear(); // Clear the link controller
-                                  });
-                                },
-                              ),
+                              _buildLinkOption(
+                                  setState), // Widget tùy chọn "Liên kết ngoài"
+                              const SizedBox(height: 20),
+                              _buildOtherOption(
+                                  setState), // Widget tùy chọn "Khác"
                             ],
                           ),
-                          SizedBox(height: 20),
-                          if (selectedOption == 'link')
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextField(
-                                  controller:
-                                      linkController, // Use the link controller
-                                  decoration: InputDecoration(
-                                    hintStyle: TextStyle(
-                                        color: Colors.grey[400], fontSize: 14),
-                                    hintText: "Nhập liên kết tại đây",
-                                    border: OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.all(10),
-                                    filled: true,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.grey[300]!,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                  ),
+                          SizedBox(
+                            width: 374,
+                            height: 48,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                // Xử lý khi nhấn nút "Xong"
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFF6891F),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6.0),
                                 ),
-                                SizedBox(
-                                    height:
-                                        20), // Add this SizedBox for spacing
-                              ],
+                              ),
+                              child: const Text(
+                                'Xong',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                          Row(
-                            children: [
-                              Image.asset("assets/images/Ellipse 10.png",
-                                  width: 44),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Khác",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16),
-                                    ),
-                                    Text(
-                                      "Thêm hướng dẫn vào phần chi tiết sự kiện để chỉ rõ cách tham gia",
-                                      style: TextStyle(fontSize: 12),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Radio(
-                                value: 'other',
-                                groupValue: selectedOption,
-                                activeColor: Color(0xFFF6891F), // Active color
-                                onChanged: (String? value) {
-                                  setState(() {
-                                    selectedOption = value;
-                                    linkController
-                                        .clear(); // Clear the link controller
-                                  });
-                                },
-                              ),
-                            ],
                           ),
                         ],
                       ),
-                      SizedBox(
-                        width: 374,
-                        height: 48,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Add your onPressed logic here
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Color(0xFFF6891F), // Background color
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(6.0), // Rounded corners
-                            ),
-                          ),
-                          child: Text(
-                            'Xong',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -456,12 +416,138 @@ class _CreateEventPageState extends State<CreateEventPage> {
     );
   }
 
+ Widget _buildLinkOption(StateSetter setState) {
+
+    return Column(
+      // Thay Row bằng Column
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Image.asset("assets/images/Ellipse 10.png", width: 44),
+            const SizedBox(width: 10),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Liên kết ngoài",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  Text(
+                    "Thêm liên kết để mọi người có thể truy cập vào đâu khi sự kiện bắt đầu",
+                    style: TextStyle(fontSize: 12),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
+                ],
+              ),
+            ),
+            Radio<String>(
+              value: 'link',
+              groupValue: selectedOption,
+              activeColor: const Color(0xFFF6891F),
+              onChanged: (String? value) {
+                setState(() {
+                  selectedOption = value;
+                  linkController.clear();
+                });
+              },
+            ),
+          ],
+        ),
+        if (selectedOption == 'link') ...[
+          const SizedBox(height: 20),
+          Form(
+            // Thêm Form để quản lý xác thực
+            key: _formKey, // Gán GlobalKey cho Form
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: TextFormField(
+              controller: linkController,
+              decoration: InputDecoration(
+                
+                hintStyle: TextStyle(color: Colors.grey[400], fontSize: 14),
+                hintText: "Nhập liên kết tại đây",
+                border: const OutlineInputBorder(),
+                errorBorder:const OutlineInputBorder(
+                  // Thêm errorBorder cho viền đỏ
+                  borderSide: BorderSide(color: Colors.red),
+                ),
+                contentPadding: const EdgeInsets.all(10),
+                filled: true,
+                fillColor: Colors.white,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(color: Colors.grey[300]!),
+                ),
+                suffixIcon: _validateLink(linkController.text) != null ? const Icon(Icons.warning, color: Colors.red) : null,
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Vui lòng nhập liên kết';
+                }
+                // Kiểm tra định dạng URL (bạn có thể tùy chỉnh regex này)
+                const urlPattern =
+                    r'(https?|ftp)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:,.;]*)?';
+                final regExp = RegExp(urlPattern, caseSensitive: false);
+                if (!regExp.hasMatch(value)) {
+                  return 'Liên kết không hợp lệ';
+                }
+                return null; // Trả về null nếu không có lỗi
+              },
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+
+  Widget _buildOtherOption(StateSetter setState) {
+    return Row(
+      children: [
+        Image.asset("assets/images/Ellipse 10.png", width: 44),
+        const SizedBox(width: 10),
+        const Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Khác",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                "Thêm hướng dẫn vào phần chi tiết sự kiện để chỉ rõ cách tham gia",
+                style: TextStyle(fontSize: 12),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ],
+          ),
+        ),
+        Radio<String>(
+          value: 'other',
+          groupValue: selectedOption,
+          activeColor: const Color(0xFFF6891F),
+          onChanged: (String? value) {
+            setState(() {
+              selectedOption = value;
+              linkController.clear();
+            });
+          },
+        ),
+      ],
+    );
+  }
   Widget _buildBottomSheetForGroup(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 400,
       child: Column(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(15),
             child: Text(
               'Mời mọi người',
@@ -472,16 +558,16 @@ class _CreateEventPageState extends State<CreateEventPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
               width: 374,
               height: 38,
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Tìm kiếm thành viên để mời',
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search),
                   filled: true,
-                  contentPadding: EdgeInsets.all(10),
+                  contentPadding: const EdgeInsets.all(10),
                   fillColor: const Color(0xF5F5F5),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0),
@@ -495,11 +581,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
               itemCount: members.length,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return ListTile(
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   onTap: () {},
                   leading: CircleAvatar(
                     radius: 28,
@@ -507,7 +593,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   ),
                   title: Text(
                     members[index].name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -516,7 +602,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.grey[100],
                       elevation: 0,
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 10,
                         horizontal: 14,
                       ),
@@ -526,17 +612,19 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     ),
                     onPressed: () {
                       setState(() {
-                        invited[index] = true;
+                        // invited[index] = true;
+                        invited[index] = !invited[index];
+                        inviteAllMembers=invited.every((element) => element);
                       });
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(invited[index] ? Icons.check : Icons.add,
+                       Icon(invited[index] ? Icons.check : Icons.add,
                             size: 18),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
-                          invited[index] ? 'Đã mời' : 'Mời',
+                          invited[index] ? 'Đã mời' : 'Mời',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -586,14 +674,14 @@ class _CreateEventPageState extends State<CreateEventPage> {
             ),
             title: Text(
               locations[index],
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
             ),
             subtitle: Text(
               locations[index],
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
               ),

@@ -91,7 +91,7 @@ class _BottomMenubarState extends State<BottomMenubar> {
                         ),
                       )
                     : const SizedBox.shrink(),
-                SizedBox(height: 10)
+                const SizedBox(height: 10)
               ],
             ),
           ),

@@ -16,7 +16,7 @@ class _CreatedFeedState extends State<CreatedFeed> {
   final List<String> items = ['Công khai', 'Chỉ mình tôi'];
   String? _selectedValue = 'Công khai';
   final FocusNode fieldFocus = FocusNode();
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -45,15 +45,15 @@ class _CreatedFeedState extends State<CreatedFeed> {
             Column(children: [
               Row(
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     backgroundImage: AssetImage('assets/images/kem.jpg'),
                     radius: 20,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Tony Nguyen',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -78,25 +78,25 @@ class _CreatedFeedState extends State<CreatedFeed> {
                                 height: 30,
                                 decoration: BoxDecoration(
                                     color: Colors.blue[100],
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)))),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20)))),
                             dropdownStyleData: DropdownStyleData(
                                 maxHeight: MediaQuery.of(context).size.height,
                                 decoration:
-                                    BoxDecoration(color: Colors.white))),
+                                    const BoxDecoration(color: Colors.white))),
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 12.0),
+              const SizedBox(height: 12.0),
               TextField(
                 controller: _controller,
                 onTapOutside: (event) {
                   FocusManager.instance.primaryFocus?.unfocus();
                 },
                 focusNode: fieldFocus,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Bạn đang nghĩ gì?',
                   border: InputBorder.none,
                 ),
@@ -108,37 +108,39 @@ class _CreatedFeedState extends State<CreatedFeed> {
                 child: Column(
                   children: [
                     ListTile(
-                      leading: Icon(Icons.photo, color: Colors.blue),
-                      title: Text('Ảnh/video'),
+                      leading: const Icon(Icons.photo, color: Colors.blue),
+                      title: const Text('Ảnh/video'),
                       onTap: () {
                         Navigator.push(
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) =>
-                                GalleryImage(),
-                            transitionDuration: Duration(seconds: 1),
+                                const GalleryImage(),
+                            transitionDuration: const Duration(seconds: 1),
                           ),
                         );
                       },
                     ),
                     ListTile(
-                      leading: Icon(Icons.camera_alt, color: Colors.red),
-                      title: Text('Chụp ảnh'),
+                      leading: const Icon(Icons.camera_alt, color: Colors.red),
+                      title: const Text('Chụp ảnh'),
                       onTap: () {},
                     ),
                     ListTile(
-                      leading: Icon(Icons.person_add, color: Colors.yellow),
-                      title: Text('Gắn thẻ người khác'),
+                      leading:
+                          const Icon(Icons.person_add, color: Colors.yellow),
+                      title: const Text('Gắn thẻ người khác'),
                       onTap: () {},
                     ),
                     ListTile(
-                      leading: Icon(Icons.music_note, color: Colors.purple),
-                      title: Text('Âm nhạc'),
+                      leading:
+                          const Icon(Icons.music_note, color: Colors.purple),
+                      title: const Text('Âm nhạc'),
                       onTap: () {},
                     ),
                     ListTile(
-                      leading: Icon(Icons.location_on, color: Colors.red),
-                      title: Text('Thêm vị trí'),
+                      leading: const Icon(Icons.location_on, color: Colors.red),
+                      title: const Text('Thêm vị trí'),
                       onTap: () {},
                     ),
                   ],
@@ -151,7 +153,7 @@ class _CreatedFeedState extends State<CreatedFeed> {
                   isEnabled: true,
                   action: () {},
                   width: MediaQuery.of(context).size.width,
-                  textStyle: TextStyle(color: Colors.white))
+                  textStyle: const TextStyle(color: Colors.white))
           ],
         ));
   }

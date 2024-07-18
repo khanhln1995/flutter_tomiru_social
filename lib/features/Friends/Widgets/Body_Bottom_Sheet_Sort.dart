@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 
@@ -22,7 +21,6 @@ class _SortState extends State<Sort> {
     double iconSize = MediaQuery.of(context).size.width * 0.065;
     double sizedBoxWidth = MediaQuery.of(context).size.width * 0.032;
     double fontSize = MediaQuery.of(context).size.width * 0.039;
-
     return Row(
       children: [
         Icon(

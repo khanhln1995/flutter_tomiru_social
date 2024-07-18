@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/helper/validator.dart';
-import 'package:tomiru_social_flutter/features/Auth/Forgot_Password/Screens/Create_Password_Page.dart';
-import 'package:tomiru_social_flutter/features/Auth/Forgot_Password/Widgets/otpWidget.dart';
+import 'package:tomiru_social_flutter/features/Auth/forgot_password/Screens/Create_Password_Page.dart';
+import 'package:tomiru_social_flutter/features/Auth/forgot_password/Widgets/otpWidget.dart';
 import 'package:tomiru_social_flutter/widgets/custom_appbar.dart';
 import 'package:tomiru_social_flutter/widgets/custom_button.dart';
 

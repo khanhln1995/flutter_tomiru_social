@@ -18,7 +18,7 @@ import 'package:tomiru_social_flutter/features/language/screens/language_screen.
 // import 'package:tomiru_social_flutter/features/location/screens/access_location_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/map_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/pick_map_screen.dart';
-import 'package:tomiru_social_flutter/features/Home/Screens/Home.dart';
+//! import 'package:tomiru_social_flutter/features/Home/Screens/Home.dart';
 import 'package:tomiru_social_flutter/features/Home_Screen/Screens/HomeScreen.dart';
 import 'package:tomiru_social_flutter/features/Home_Screen/test.dart';
 import 'package:tomiru_social_flutter/features/auth/screens/sign_in_screen.dart';

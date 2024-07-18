@@ -172,7 +172,14 @@ class _TimeLineState extends State<TimeLine> {
                       Container(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                             Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProfileScreen(),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue[50], // Button color
                             shape: RoundedRectangleBorder(
