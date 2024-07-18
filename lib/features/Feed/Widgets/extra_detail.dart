@@ -36,23 +36,23 @@ class _ExtraDetailState extends State<ExtraDetail> {
               ],
             ),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Container(
             height: 40,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               border: Border(
                 right: BorderSide(width: 1.0, color: Colors.grey),
               ),
             ),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Expanded(
             flex: 2,
             child: GestureDetector(
               onTap: () {
                 walletHandler();
               },
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -77,16 +77,16 @@ class _ExtraDetailState extends State<ExtraDetail> {
               ),
             ),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Container(
             height: 40,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               border: Border(
                 right: BorderSide(width: 1.0, color: Colors.grey),
               ),
             ),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Expanded(
             flex: 2,
             child: GestureDetector(

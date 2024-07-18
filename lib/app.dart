@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
                 title: const Text('Home Screen'),
                 leading: appLogo, // Sử dụng biểu tượng ứng dụng ở đây
               ),
-              body: const HomeScreen(),
+              body:  HomeScreen(),
             );
           },
         ),

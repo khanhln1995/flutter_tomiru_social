@@ -22,7 +22,7 @@ class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 12.0),
+      margin: const EdgeInsets.only(right: 12.0),
       width: MediaQuery.of(context).size.width * 1/2,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -34,7 +34,7 @@ class _ProductItemState extends State<ProductItem> {
           Stack(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.vertical(
+                borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(10),
                 ),
                 child: Image.network(
@@ -63,16 +63,16 @@ class _ProductItemState extends State<ProductItem> {
             ],
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.product_name,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   children: [
                     Text(
@@ -83,7 +83,7 @@ class _ProductItemState extends State<ProductItem> {
                         fontSize: 18
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     if (widget.sale > 0)
                       Text(
                         '${widget.price}đ',
@@ -95,12 +95,12 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                   ],
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   children: [
                     Icon(Icons.location_on,
                         size: 16, color: Colors.indigo[600]),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     Expanded(
                       child: Text(
                         widget.address,

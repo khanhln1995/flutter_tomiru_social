@@ -1,23 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_twitter_clone/ui/theme/theme.dart';
-import '../build_avatar_widget.dart';
-import './UserInputAvatarField.dart';
-import './likeBar.dart';
+import 'package:tomiru_social_flutter/widgets/global/buildAvatarWidget.dart';
+import 'package:tomiru_social_flutter/widgets/global/time_line/user_input_avatar_field.dart';
+import 'package:tomiru_social_flutter/widgets/global/time_line/like_bar.dart';
+import 'package:tomiru_social_flutter/util/show_post_comments.dart';
+import "../../../features/Profile-social/Screens/Profile_Screen.dart";
 
 //time line dùng ở các vị trí khác nhau như ở trang chủ , bạn bè , nhóm ...
 //sẽ có khác nhau ở tham số truyền vào để check xem người dùng đang ở page nào để call API
-class timeLine extends StatefulWidget {
-  const timeLine({super.key});
+class TimeLine extends StatefulWidget {
+  const TimeLine({Key? key}) : super(key: key);
 
   @override
-  State<timeLine> createState() => _timeLineState();
+  State<TimeLine> createState() => _TimeLineState();
 }
 
-class _timeLineState extends State<timeLine> {
-  final List<Map<String, dynamic>> DEMO_CONTENT = [
+class _TimeLineState extends State<TimeLine> {
+  final List<Map<String, dynamic>> demoData = [
     {
-      "userName": "Trương Tam Phong",
+      "userName": "Trương Thanh Phong",
       "avatar":
           "https://assets.monica.im/tools-web/static/imageGeneratorFeatureIntro1-AQU1zYPO.webp",
       "content":
@@ -83,11 +84,9 @@ class _timeLineState extends State<timeLine> {
     },
   ];
 
-  @override
   Widget build(BuildContext context) {
     return Column(
-      children:
-          DEMO_CONTENT.map((data) => _buildFeedCard(context, data)).toList(),
+      children: demoData.map((data) => _buildFeedCard(context, data)).toList(),
     );
   }
 
@@ -98,24 +97,41 @@ class _timeLineState extends State<timeLine> {
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
             child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.only(left: 15, right: 15),
                 child: IntrinsicHeight(
                   child: Column(
                     children: [
                       Row(
                         children: [
-                          BuildAvatarWidget(urlAvatar: data['avatar']),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfileScreen()));
+                            },
+                            child: BuildAvatarWidget(urlAvatar: data['avatar']),
+                          ),
                           const SizedBox(width: 10),
                           Expanded(
                             flex: 2,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(data["userName"].toString()),
+                                GestureDetector(
+                                  child: Text(data["userName"].toString()),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProfileScreen()));
+                                  },
+                                ),
                                 const Row(
                                   children: [
                                     Text(
-                                      'Short video * vừa xong * ',
+                                      'Moi gioi * vừa xong * ',
                                       style: TextStyle(
                                           color: Color(0xff6E7191),
                                           fontSize: 12),
@@ -148,17 +164,42 @@ class _timeLineState extends State<timeLine> {
                       ),
                       const SizedBox(height: 10),
                       _buildContent(data['content']),
-                      SizedBox(
+                      Container(
                         height: 250,
                         child: _buildImages(data['images']),
                       ),
+                      Container(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue[50], // Button color
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                            elevation: 0,
+                          ),
+                          child: const Text(
+                            'Gửi tin nhắn',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 5),
                       LikeBar(
                         likeCount: data['like'],
                         shareCount: data['share'],
                         commentCount: data['comment'].length.toString(),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                        padding:
+                            const EdgeInsets.only(left: 10, right: 10, top: 10),
                         child: Container(
                           height: 1,
                           color: const Color(0xFFDDDEE6),
@@ -200,7 +241,7 @@ class _timeLineState extends State<timeLine> {
               ),
               GestureDetector(
                 onTap: () {
-                  print('click');
+                  showCommentBottomSheet(context);
                 },
                 child: const Text(
                   'Xem thêm bình luận',
@@ -212,22 +253,24 @@ class _timeLineState extends State<timeLine> {
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              data['comment'][0].length > 50
-                  ? Positioned(
-                      top: 0,
-                      left: 0,
-                      child: BuildAvatarWidget(
-                        urlAvatar: data['avatar'],
-                        width: 30,
-                        height: 30,
-                      ),
-                    )
-                  : BuildAvatarWidget(
-                      urlAvatar: data['avatar'],
-                      width: 30,
-                      height: 30,
-                    ),
+              // data['comment'][0].length > 50
+              //     ? Positioned(
+              //         top: 0,
+              //         left: 0,
+              //         child: BuildAvatarWidget(
+              //           urlAvatar: data['avatar'],
+              //           width: 40,
+              //           height: 40,
+              //         ),
+              //       )
+              //     :
+              BuildAvatarWidget(
+                urlAvatar: data['avatar'],
+                width: 40,
+                height: 40,
+              ),
               const SizedBox(width: 10),
               data['comment'][0].length > 50
                   ? Expanded(
@@ -238,7 +281,8 @@ class _timeLineState extends State<timeLine> {
                             constraints: BoxConstraints(
                               maxWidth: MediaQuery.of(context).size.width,
                             ),
-                            padding: const EdgeInsets.only(left: 5, right: 5),
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, bottom: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
                               color: const Color(0xffECECEC),
@@ -264,17 +308,35 @@ class _timeLineState extends State<timeLine> {
                               ),
                             ),
                           ),
-                          const Row(),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                InkWell(
+                                    onTap: () {},
+                                    child: const Text('Thích',
+                                        style: TextStyle(fontSize: 12))),
+                                const SizedBox(width: 10.0),
+                                InkWell(
+                                    onTap: () {},
+                                    child: const Text('Trả lời',
+                                        style: TextStyle(fontSize: 12))),
+                                const SizedBox(width: 10.0),
+                                const Text('5 giờ trước',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 12))
+                              ])
                         ],
                       ),
                     )
                   : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           constraints: BoxConstraints(
                             maxWidth: MediaQuery.of(context).size.width,
                           ),
-                          padding: const EdgeInsets.only(left: 5, right: 5),
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, bottom: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
                             color: const Color(0xffECECEC),
@@ -300,7 +362,23 @@ class _timeLineState extends State<timeLine> {
                             ),
                           ),
                         ),
-                        const Row(),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                  onTap: () {},
+                                  child: const Text('Thích',
+                                      style: TextStyle(fontSize: 12))),
+                              const SizedBox(width: 10.0),
+                              InkWell(
+                                  onTap: () {},
+                                  child: const Text('Trả lời',
+                                      style: TextStyle(fontSize: 12))),
+                              const SizedBox(width: 10.0),
+                              const Text('5 giờ trước',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 12))
+                            ])
                       ],
                     ),
               const Expanded(
@@ -315,7 +393,8 @@ class _timeLineState extends State<timeLine> {
   }
 
   Widget _buildYourComment() {
-    return const UserInputAvatarField(urlAvatar: 'assets/images/mark-zuckerberg.jpg');
+    return const UserInputAvatarField(
+        urlAvatar: 'assets/images/mark-zuckerberg.jpg');
   }
 
   Widget _buildContent(String content) {
@@ -330,7 +409,7 @@ class _timeLineState extends State<timeLine> {
             Text(
               showFullText || !isLongText
                   ? content
-                  : "${content.substring(0, 180)}...",
+                  : content.substring(0, 180) + "...",
               style: const TextStyle(fontSize: 14),
             ),
             if (isLongText)
@@ -379,7 +458,8 @@ class _timeLineState extends State<timeLine> {
                 borderRadius: BorderRadius.circular(8.0),
                 child: CachedNetworkImage(
                   imageUrl: image,
-                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                   fit: BoxFit.cover,
                   height: double.infinity,
@@ -405,7 +485,8 @@ class _timeLineState extends State<timeLine> {
                         imageUrl: image,
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         fit: BoxFit.cover,
                         height: double.infinity,
                         width: double.infinity,
@@ -429,7 +510,8 @@ class _timeLineState extends State<timeLine> {
                         imageUrl: image,
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -451,7 +533,8 @@ class _timeLineState extends State<timeLine> {
                 borderRadius: BorderRadius.circular(8.0),
                 child: CachedNetworkImage(
                   imageUrl: images[0],
-                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                   fit: BoxFit.cover,
                   width: double.infinity,
@@ -471,7 +554,8 @@ class _timeLineState extends State<timeLine> {
                         imageUrl: images[1],
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -486,7 +570,8 @@ class _timeLineState extends State<timeLine> {
                         imageUrl: images[2],
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -545,7 +630,8 @@ class _timeLineState extends State<timeLine> {
                         imageUrl: images[0],
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         fit: BoxFit.cover,
                         width: double.infinity,
                       ),
@@ -567,7 +653,8 @@ class _timeLineState extends State<timeLine> {
                         imageUrl: image,
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         fit: BoxFit.cover,
                         height: double.infinity,
                         width: double.infinity,

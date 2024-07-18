@@ -22,6 +22,7 @@ class CustomIcon extends StatelessWidget {
               border: Border.all(color: Colors.black, width: 1),
             ),
             child: IconButton(
+              padding: EdgeInsets.zero,
               onPressed: onPressed,
               icon: icon,
               iconSize: 30,
@@ -32,18 +33,18 @@ class CustomIcon extends StatelessWidget {
               top: 0,
               right: 0,
               child: Container(
-                padding: EdgeInsets.all(2),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(2),
+                decoration: const BoxDecoration(
                   color: Colors.red,
                   shape: BoxShape.circle,
                 ),
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   minWidth: 16,
                   minHeight: 16,
                 ),
                 child: Text(
                   quantity.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 10,
                     fontWeight: FontWeight.bold,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../../widgets/time_line/timeLine.dart';
 import "../../../../widgets/friends2_widget/group_image.dart";
-
+import 'package:tomiru_social_flutter/widgets/global/time_line/time_line.dart';
 
 class PageView0 extends StatefulWidget {
   @override
@@ -21,7 +19,7 @@ class _PageView0State extends State<PageView0> {
                 child: Column(
                   children: [
                     // GroupImageList(),
-                   timeLine(),
+                   TimeLine(),
                   ],
                 ),
               ),

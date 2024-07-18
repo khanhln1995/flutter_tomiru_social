@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tomiru_social_flutter/widgets/friends2_widget/group_image.dart';
-import 'package:tomiru_social_flutter/widgets/time_line/timeLine.dart';
+import 'package:tomiru_social_flutter/widgets/global/time_line/time_line.dart';
 
 
 class ForYou extends StatefulWidget {
@@ -23,7 +23,7 @@ class _ForYouState extends State<ForYou> {
                 child: Column(
                   children: [
                     GroupImageList(),
-                    timeLine(),
+                    TimeLine(),
                   ],
                 ),
               ),

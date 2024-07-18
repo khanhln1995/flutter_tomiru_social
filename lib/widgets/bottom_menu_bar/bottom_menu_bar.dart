@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
-import 'package:tomiru_social_flutter/ui/theme/theme.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/tab_item.dart';
 import 'package:tomiru_social_flutter/widgets/custom_widgets.dart';
 
@@ -36,11 +36,11 @@ class _BottomMenubarState extends State<BottomMenubar> {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _icon(FontAwesomeIcons.clock, 0, title: 'Nhật ký'),
-          _icon(FontAwesomeIcons.video, 1, title: 'Short'),
-          _icon(FontAwesomeIcons.compass, 2, title: 'Khám phá'),
-          _icon(FontAwesomeIcons.userGroup, 3, title: 'Bạn bè'),
-          _icon(FontAwesomeIcons.users, 4, title: 'Nhóm'),
+          _icon(Iconsax.clock, 0, title: 'Nhật ký'),
+          _icon(Iconsax.video_play, 1, title: 'Short'),
+          _icon(Iconsax.discover_1, 2, title: 'Khám phá'),
+          _icon(Iconsax.profile_2user, 3, title: 'Bạn bè'),
+          _icon(Iconsax.people, 4, title: 'Nhóm'),
         ],
       ),
     );
