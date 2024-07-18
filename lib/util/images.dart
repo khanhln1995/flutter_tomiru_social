@@ -77,4 +77,5 @@ class Images {
       'assets/images/wallet-waiting-request.jpg';
   static const String walletBackgroundScreen =
       'assets/images/wallet-background-screen.jpg';
+  static const String qrIcon = 'assets/images/qr 1.png';
 }

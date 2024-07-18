@@ -5,7 +5,6 @@ import 'package:tomiru_social_flutter/features/Home/Widgets/contact_member.dart'
 import 'package:tomiru_social_flutter/features/home/widgets/section_header.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Shorts.dart';
 import 'package:tomiru_social_flutter/widgets/products_widget/products_list.dart';
-import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/features/home/widgets/voucher_list.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_main_bar.dart';
 import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
@@ -33,8 +32,9 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget _mainHome() {
-    return Padding(
+    return Container(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        color: Colors.white,
         child: Column(
           children: [
             const SizedBox(height: 10),
@@ -65,16 +65,16 @@ class _HomepageState extends State<Homepage> {
         onBackPress: () {
           Navigator.pop(context);
         },
-
         image: "assets/images/logo-tomiru-v2.png",
         widget: <Widget>[
-          customSearch(),
+          customQr(),
+          customMessage(),
+          customNotification(),
           const SizedBox(width: 12.0)
         ],
         padding: 12.0,
       ),
       body: _body(context),
-      bottomNavigationBar: const BottomMainBar(),
     );
   }
 
@@ -94,16 +94,8 @@ class _HomepageState extends State<Homepage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              // Cir
-              IconButton(
-                onPressed: () {},
-                icon: Image.asset(
-                  "assets/images/icon-scan.jpg",
-                  height: 20,
-                  width: 20,
-                ),
-              ),
-              Text("QR Code"),
+              customSearch(),
+              Text("Tìm kiếm"),
             ],
           ),
         ),
