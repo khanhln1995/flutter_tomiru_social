@@ -40,7 +40,7 @@ class _HomepageState extends State<Homepage> {
             const SizedBox(height: 10),
             welcomeToPage(),
             const SizedBox(height: 20),
-            WalletInfo(),
+            const WalletInfo(),
             const SizedBox(height: 20),
             exploreContent(),
             const HeaderContent(title: "Nhật ký"),
@@ -50,7 +50,7 @@ class _HomepageState extends State<Homepage> {
             const HeaderContent(title: "Gian hàng Tomiru"),
             HorizontalProductListScreen(),
             const HeaderContent(title: "Khuyến mãi"),
-            VerticalVoucherList()
+            VerticalVoucherList(),
           ],
         ));
   }
@@ -65,16 +65,12 @@ class _HomepageState extends State<Homepage> {
         onBackPress: () {
           Navigator.pop(context);
         },
-
         image: "assets/images/logo-tomiru-v2.png",
-        widget: <Widget>[
-          customSearch(),
-          const SizedBox(width: 12.0)
-        ],
+        widget: <Widget>[customSearch(), const SizedBox(width: 12.0)],
         padding: 12.0,
       ),
       body: _body(context),
-      bottomNavigationBar: const BottomMainBar(),
+      // bottomNavigationBar: const BottomMainBar(),
     );
   }
 
@@ -103,7 +99,7 @@ class _HomepageState extends State<Homepage> {
                   width: 20,
                 ),
               ),
-              Text("QR Code"),
+              const Text("QR Code"),
             ],
           ),
         ),
@@ -115,7 +111,7 @@ class _HomepageState extends State<Homepage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Khám phá",
+        const Text("Khám phá",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         const SizedBox(height: 10),
         Row(
@@ -125,33 +121,33 @@ class _HomepageState extends State<Homepage> {
                 Image.asset('assets/images/tomiru-icon-white.png',
                     width: 30, height: 30),
                 "Mạng xã hội",
-                [Color(0xFF87CEFA), Color(0xFF1E90FF)], () {
+                [const Color(0xFF87CEFA), const Color(0xFF1E90FF)], () {
               Navigator.push(
                 context,
                 PageRouteBuilder(
                   pageBuilder: (context, animation1, animation2) =>
                       // SocialNetworkPage(),
-                      Home(),
+                      const Home(),
                   transitionDuration: const Duration(seconds: 1),
                 ),
               );
             }),
             _exploreButton(
-                Icon(Icons.shopping_cart, size: 30, color: Colors.white),
+                const Icon(Icons.shopping_cart, size: 30, color: Colors.white),
                 "Shopping",
-                [Color(0xFFFF6347), Color(0xFFDC143C)],
+                [const Color(0xFFFF6347), const Color(0xFFDC143C)],
                 () {}),
             _exploreButton(
-                Icon(Icons.miscellaneous_services,
+                const Icon(Icons.miscellaneous_services,
                     size: 30, color: Colors.white),
                 "Dịch vụ",
-                [Color(0xFF98FB98), Color(0xFF32CD32)],
+                [const Color(0xFF98FB98), const Color(0xFF32CD32)],
                 () {}),
             _exploreButton(
-                Icon(Icons.business_center_rounded,
+                const Icon(Icons.business_center_rounded,
                     size: 30, color: Colors.white),
                 "Kinh doanh",
-                [Color(0xFFFFa500), Color(0xFFFF8C00)],
+                [const Color(0xFFFFa500), const Color(0xFFFF8C00)],
                 () {}),
           ],
         ),
@@ -179,7 +175,7 @@ class _HomepageState extends State<Homepage> {
                 color: colors[1].withOpacity(0.3),
                 spreadRadius: 1,
                 blurRadius: 3,
-                offset: Offset(0, 2),
+                offset: const Offset(0, 2),
               ),
             ],
           ),
@@ -192,7 +188,7 @@ class _HomepageState extends State<Homepage> {
         const SizedBox(height: 4),
         Text(
           label,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ],
