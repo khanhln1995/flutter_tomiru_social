@@ -68,4 +68,13 @@ class Images {
   static const String emptySearchFood = 'assets/images/icon-tomiru.png';
   static const String emptyTransaction = 'assets/images/icon-tomiru.png';
   static const String emptyWishlist = 'assets/images/icon-tomiru.png';
+  static const String walletReceive = 'assets/images/wallet-receive.jpg';
+  static const String walletTransfer = 'assets/images/wallet-transfer.jpg';
+  static const String walletExchange = 'assets/images/wallet-exchange.jpg';
+  static const String walletLiquidity = 'assets/images/wallet-liquidity.jpg';
+  static const String walletHistory = 'assets/images/wallet-history.jpg';
+  static const String walletWaitingRequest =
+      'assets/images/wallet-waiting-request.jpg';
+  static const String walletBackgroundScreen =
+      'assets/images/wallet-background-screen.jpg';
 }

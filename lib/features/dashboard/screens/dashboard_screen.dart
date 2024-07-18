@@ -18,6 +18,7 @@ import 'package:tomiru_social_flutter/features/dashboard/widgets/bottom_nav_item
 import 'package:tomiru_social_flutter/features/update/screens/update_screen.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen.dart';
 import "package:tomiru_social_flutter/features/group_screen/screens/Group_Page.dart";
+import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.dart';
 // import 'package:tomiru_social_flutter/features/favourite/screens/favourite_screen.dart';
 // import 'package:tomiru_social_flutter/features/loyalty/controllers/loyalty_controller.dart';
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
@@ -77,11 +78,12 @@ class DashboardScreenState extends State<DashboardScreen> {
     _screens = [
       // const Text(" 123456567"),
       const Text(" 123456567"),
-      const WalletScreen(),
+      const WalletScreenUi(),
+
       const Text(" 2"),
       // const Text(" 3"),
       const UpdateScreen(isUpdate: true),
-      GroupPage(),
+      const GroupPage(),
       // const ChatScreen(notificationBody: notificationBody, user: user)
     ];
 
