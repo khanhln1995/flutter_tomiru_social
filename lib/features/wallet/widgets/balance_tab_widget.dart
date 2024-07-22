@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/camera/screen/qr_scanner_screen.dart';
+import 'package:tomiru_social_flutter/features/wallet/screens/qr_transaction_screen.dart';
+import 'package:tomiru_social_flutter/features/wallet/screens/transactions_history_screen.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/withdrawal_screen.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
-
-import 'dynamic_modal_widget.dart'; // Import the new widget
+import 'dynamic_modal_widget.dart';
 
 class BalanceTabWidget extends StatelessWidget {
   const BalanceTabWidget({super.key});
@@ -98,6 +100,8 @@ class BalanceTabWidget extends StatelessWidget {
                           'title': 'Chuyển Tomxu bằng QR',
                           'description':
                               'Chuyển khoản số dư Tomiru trong hệ thống\nApp ngay tức thì',
+                          'onTap':
+                              'navigateToQrScanner', // Pass this value to identify navigation
                         },
                         {
                           'title': 'Tới người nhận mới',
@@ -122,11 +126,14 @@ class BalanceTabWidget extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const WithdrawalScreen()),
+                        builder: (context) => const WithdrawalScreen(),
+                      ),
                     );
                   }),
                   _buildActionButton(
-                      'Transaction History', Images.walletHistory, () {}),
+                      'Transaction History', Images.walletHistory, () {
+                    Get.to(() => const TransactionsHistoryScreen());
+                  }),
                   _buildActionButton(
                       'Pending Requests', Images.walletWaitingRequest, () {}),
                   _buildActionButton(
@@ -285,6 +292,23 @@ class BalanceTabWidget extends StatelessWidget {
           title: title,
           options: allOptions,
           icon: icon,
+          onOptionTap: (option) {
+            if (option['onTap'] == 'navigateToQrTransaction') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const QrTransactionScreen(),
+                ),
+              );
+            } else if (option['onTap'] == 'navigateToQrScanner') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const QrScannerScreen(),
+                ),
+              );
+            }
+          },
         );
       },
     );
