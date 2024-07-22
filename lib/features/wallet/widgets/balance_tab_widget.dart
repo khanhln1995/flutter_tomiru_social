@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/wallet/screens/withdrawal_screen.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
+
 import 'dynamic_modal_widget.dart'; // Import the new widget
 
 class BalanceTabWidget extends StatelessWidget {
@@ -67,7 +69,7 @@ class BalanceTabWidget extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(16.0),
                 children: [
-                  _buildActionButton('Nhận', Images.walletReceive, () {
+                  _buildActionButton('Receive', Images.walletReceive, () {
                     _showDynamicModal(
                       context,
                       'Nhận Tomxu (Giao dịch tức thời 24/7)',
@@ -75,6 +77,8 @@ class BalanceTabWidget extends StatelessWidget {
                         {
                           'title': 'Mã QR nhận tiền theo giao dịch',
                           'description': 'Nhận thanh toán với số tiền',
+                          'onTap':
+                              'navigateToQrTransaction', // Pass this value to identify navigation
                         },
                         {
                           'title': 'Mã QR nhận tiền',
@@ -85,7 +89,7 @@ class BalanceTabWidget extends StatelessWidget {
                       Icons.qr_code,
                     );
                   }),
-                  _buildActionButton('Chuyển', Images.walletTransfer, () {
+                  _buildActionButton('Transfer', Images.walletTransfer, () {
                     _showDynamicModal(
                       context,
                       'Chuyển Tomxu (miễn phí 24/7)',
@@ -114,18 +118,23 @@ class BalanceTabWidget extends StatelessWidget {
                       Icons.qr_code,
                     );
                   }),
+                  _buildActionButton('Withdraw', Images.walletLiquidity, () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WithdrawalScreen()),
+                    );
+                  }),
                   _buildActionButton(
-                      'Thanh khoản', Images.walletLiquidity, () {}),
+                      'Transaction History', Images.walletHistory, () {}),
                   _buildActionButton(
-                      'Lịch sử\nGiao dịch', Images.walletHistory, () {}),
+                      'Pending Requests', Images.walletWaitingRequest, () {}),
                   _buildActionButton(
-                      'Chờ\nxác nhận', Images.walletWaitingRequest, () {}),
-                  _buildActionButton(
-                      'Trao đổi\nTomxu', Images.walletExchange, () {}),
+                      'Exchange Tomxu', Images.walletExchange, () {}),
                 ],
               ),
               ListTile(
-                title: const Text('Giới thiệu về Tomxu'),
+                title: const Text('About Tomxu'),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {},
               ),
@@ -155,7 +164,7 @@ class BalanceTabWidget extends StatelessWidget {
                 text: const TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Khả dụng: ',
+                      text: 'Available: ',
                       style: TextStyle(color: Colors.black),
                     ),
                     TextSpan(
@@ -172,7 +181,7 @@ class BalanceTabWidget extends StatelessWidget {
                 text: const TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Đóng băng: ',
+                      text: 'Frozen: ',
                       style: TextStyle(color: Colors.black),
                     ),
                     TextSpan(
@@ -208,7 +217,7 @@ class BalanceTabWidget extends StatelessWidget {
                 text: const TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Khả dụng: ',
+                      text: 'Available: ',
                       style: TextStyle(color: Colors.black),
                     ),
                     TextSpan(
@@ -225,7 +234,7 @@ class BalanceTabWidget extends StatelessWidget {
                 text: const TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Đóng băng: ',
+                      text: 'Frozen: ',
                       style: TextStyle(color: Colors.black),
                     ),
                     TextSpan(
@@ -269,9 +278,12 @@ class BalanceTabWidget extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       builder: (BuildContext context) {
+        final List<Map<String, String>> allOptions = [
+          ...options,
+        ];
         return DynamicModalWidget(
           title: title,
-          options: options,
+          options: allOptions,
           icon: icon,
         );
       },
