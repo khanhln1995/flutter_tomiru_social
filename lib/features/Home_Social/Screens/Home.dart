@@ -6,10 +6,10 @@ import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.d
 import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
 import 'package:tomiru_social_flutter/state/home_controller.dart';
-
+import "package:tomiru_social_flutter/features/short_video/screens/short_video_page.dart";
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.dart';
 // import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
-import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart'; 
+import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart';
 import 'package:tomiru_social_flutter/features/discovery/screens/discovery_page.dart';
 
 class Home extends StatefulWidget {
@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
-   void initState() {
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<HomeController>().setPageIndex(0);
@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-   Widget _body() {
+  Widget _body() {
     return SafeArea(
       child: Obx(() {
         final pageIndex = Get.find<HomeController>().pageIndex.value;
@@ -47,6 +47,7 @@ class _HomeState extends State<Home> {
       }),
     );
   }
+
   Widget getPage(int index) {
     switch (index) {
       case 0:
@@ -56,13 +57,15 @@ class _HomeState extends State<Home> {
         // );
         return SocialNetworkPage();
       case 1:
-        return ProfileScreen();
+        return ShortVideoPage(
+          scaffoldKey: _scaffoldKey,
+        );
       case 2:
-        return DiscoveryPage();
+        return const DiscoveryPage();
       case 3:
-        return Friend2Screen();
+        return const Friend2Screen();
       case 4:
-        return GroupPage();
+        return const GroupPage();
       default:
         // return FeedPage(scaffoldKey: _scaffoldKey);
         return SocialNetworkPage();

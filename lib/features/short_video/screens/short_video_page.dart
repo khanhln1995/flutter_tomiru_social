@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:tomiru_social_flutter/state/app_state.dart';
 
@@ -7,8 +8,8 @@ import 'package:tomiru_social_flutter/features/short_video/widgets/boxPositionTo
 import 'package:tomiru_social_flutter/features/short_video/widgets/boxPositionBottom.dart';
 import 'package:tomiru_social_flutter/features/short_video/widgets/boxPositionRight.dart';
 
-
 import 'package:provider/provider.dart';
+import 'package:tomiru_social_flutter/state/home_controller.dart';
 import 'video_playing.dart';
 
 class ShortVideoPage extends StatefulWidget {
@@ -16,26 +17,28 @@ class ShortVideoPage extends StatefulWidget {
   final Key? refreshIndicatorKey;
 
   const ShortVideoPage({
-    Key? key,
+    super.key,
     required this.scaffoldKey,
     this.refreshIndicatorKey,
-  }) : super(key: key);
+  });
 
   @override
   State<ShortVideoPage> createState() => _ShortVideoPageState();
 }
 
 class _ShortVideoPageState extends State<ShortVideoPage> {
-  late AppState state;
+  // late AppState state;
   int actionPage = 0;
   double _opacity = 1.0;
   @override
   void initState() {
     super.initState();
-    state = Provider.of<AppState>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<HomeController>().setPageIndex(0);
+    });
   }
 
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   List<dynamic> videoUrls = [
     {
       'url': 'assets/videos/test-video-1.mp4',
@@ -54,7 +57,7 @@ class _ShortVideoPageState extends State<ShortVideoPage> {
       'userName': 'Trần Đắc Hiếu',
       'content':
           'Reloaded 39 of 2018 libraries in 5,968ms (compile: 856 ms,xyz)Reloaded 39 of 2018 libraries in 5,968ms (compile: 856 ms,xyz)',
-      'tag': 'supperman',
+      'tag': 'superman',
       'music': 'test music',
       'singer': 'singer A',
       'like': "300",
@@ -123,14 +126,12 @@ class _ShortVideoPageState extends State<ShortVideoPage> {
         itemBuilder: (context, index) {
           return Stack(
             children: [
-              Container(
-                child: VideoPlayerScreen(
-                  videoUrl: videoUrls[index]['url'],
-                ),
+              VideoPlayerScreen(
+                videoUrl: videoUrls[index]['url'],
               ),
               AnimatedOpacity(
                   opacity: _opacity,
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -143,7 +144,7 @@ class _ShortVideoPageState extends State<ShortVideoPage> {
                 right: 0,
                 child: AnimatedOpacity(
                     opacity: _opacity,
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [BoxButtomRight(data: videoUrls[index])],
