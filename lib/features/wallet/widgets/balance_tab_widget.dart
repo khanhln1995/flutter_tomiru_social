@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
+import 'dynamic_modal_widget.dart'; // Import the new widget
 
 class BalanceTabWidget extends StatelessWidget {
   const BalanceTabWidget({super.key});
@@ -66,14 +67,61 @@ class BalanceTabWidget extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(16.0),
                 children: [
-                  _buildActionButton('Nhận', Images.walletReceive),
-                  _buildActionButton('Chuyển', Images.walletTransfer),
-                  _buildActionButton('Thanh khoản', Images.walletLiquidity),
+                  _buildActionButton('Nhận', Images.walletReceive, () {
+                    _showDynamicModal(
+                      context,
+                      'Nhận Tomxu (Giao dịch tức thời 24/7)',
+                      [
+                        {
+                          'title': 'Mã QR nhận tiền theo giao dịch',
+                          'description': 'Nhận thanh toán với số tiền',
+                        },
+                        {
+                          'title': 'Mã QR nhận tiền',
+                          'description':
+                              'Gửi mã QR cho người chuyển tiền để nhận Tomxu ngay tức thì',
+                        },
+                      ],
+                      Icons.qr_code,
+                    );
+                  }),
+                  _buildActionButton('Chuyển', Images.walletTransfer, () {
+                    _showDynamicModal(
+                      context,
+                      'Chuyển Tomxu (miễn phí 24/7)',
+                      [
+                        {
+                          'title': 'Chuyển Tomxu bằng QR',
+                          'description':
+                              'Chuyển khoản số dư Tomiru trong hệ thống\nApp ngay tức thì',
+                        },
+                        {
+                          'title': 'Tới người nhận mới',
+                          'description':
+                              'Chuyển khoản số dư Tomiru trong hệ thống\nApp ngay tức thì',
+                        },
+                        {
+                          'title': 'Tới danh sách đã lưu',
+                          'description':
+                              'Chuyển khoản số dư Tomiru trong hệ thống\nApp ngay tức thì',
+                        },
+                        {
+                          'title': 'Dịch vụ/ Phí thành viên',
+                          'description':
+                              'Chuyển khoản số dư Tomiru trong hệ thống\nApp ngay tức thì',
+                        },
+                      ],
+                      Icons.qr_code,
+                    );
+                  }),
                   _buildActionButton(
-                      'Lịch sử\nGiao dịch', Images.walletHistory),
+                      'Thanh khoản', Images.walletLiquidity, () {}),
                   _buildActionButton(
-                      'Chờ\nxác nhận', Images.walletWaitingRequest),
-                  _buildActionButton('Trao đổi\nTomxu', Images.walletExchange),
+                      'Lịch sử\nGiao dịch', Images.walletHistory, () {}),
+                  _buildActionButton(
+                      'Chờ\nxác nhận', Images.walletWaitingRequest, () {}),
+                  _buildActionButton(
+                      'Trao đổi\nTomxu', Images.walletExchange, () {}),
                 ],
               ),
               ListTile(
@@ -194,17 +242,39 @@ class BalanceTabWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButton(String label, String imagePath) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Align(
-          alignment: Alignment.center,
-          child: Image.asset(imagePath, width: 40.0, height: 40.0),
-        ),
-        const SizedBox(height: 8.0),
-        Text(label, textAlign: TextAlign.center),
-      ],
+  Widget _buildActionButton(
+      String label, String imagePath, VoidCallback onPressed) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Image.asset(imagePath, width: 40.0, height: 40.0),
+          ),
+          const SizedBox(height: 8.0),
+          Text(label, textAlign: TextAlign.center),
+        ],
+      ),
+    );
+  }
+
+  void _showDynamicModal(BuildContext context, String title,
+      List<Map<String, String>> options, IconData icon) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      builder: (BuildContext context) {
+        return DynamicModalWidget(
+          title: title,
+          options: options,
+          icon: icon,
+        );
+      },
     );
   }
 }

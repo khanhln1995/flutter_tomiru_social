@@ -4,7 +4,7 @@ import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_control
 import 'package:tomiru_social_flutter/features/wallet/widgets/bonus_banner_widget.dart';
 import 'package:tomiru_social_flutter/features/wallet/widgets/wallet_card_widget.dart';
 import 'package:tomiru_social_flutter/features/wallet/widgets/wallet_history_widget.dart';
-import 'package:tomiru_social_flutter/features/wallet/widgets/web_bonus_banner_view_widget.dart';
+
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
 import 'package:tomiru_social_flutter/common/widgets/custom_app_bar_widget.dart';
