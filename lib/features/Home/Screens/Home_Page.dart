@@ -69,7 +69,7 @@ class _HomepageState extends State<Homepage> {
         widget: <Widget>[
           customQr(),
           customMessage(),
-          customNotification(),
+          customNotification(context),
           const SizedBox(width: 12.0)
         ],
         padding: 12.0,

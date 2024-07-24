@@ -77,6 +77,8 @@ import 'package:tomiru_social_flutter/features/update/screens/update_screen.dart
 import 'package:tomiru_social_flutter/features/verification/screens/forget_pass_screen.dart';
 import 'package:tomiru_social_flutter/features/verification/screens/new_pass_screen.dart';
 import 'package:tomiru_social_flutter/features/verification/screens/verification_screen.dart';
+import 'package:tomiru_social_flutter/features/Notify_Screen/screens/notify_screen.dart';
+
 // import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen.dart';
 // import 'package:tomiru_social_flutter/helper/address_helper.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
@@ -87,6 +89,8 @@ import "package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.d
 // import 'package:meta_seo/meta_seo.dart';
 
 class RouteHelper {
+  
+  static const String notifyScreen = '/notifyScreen';
   static const String walletTest = '/walletTest';
   static const String initial = '/';
   static const String splash = '/splash';
@@ -291,6 +295,8 @@ class RouteHelper {
   // }
 //!
   static String getWalletTest() => walletTest;
+  static String getListNotify() => notifyScreen;
+
 //!
   static String getReferAndEarnRoute() => referAndEarn;
   static String getChatRoute(
@@ -382,6 +388,10 @@ class RouteHelper {
                   Get.parameters['page'] != onBoarding,
             )),
     GetPage(name: signUp, page: () => const SignUpScreen()),
+    //!
+    GetPage(name: notifyScreen, page: () => const NotifyScreen()),
+
+    //!
     GetPage(
         name: verification,
         page: () {

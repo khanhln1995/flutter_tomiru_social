@@ -75,7 +75,7 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
         padding: 0,
         widget: [
           customMessage(),
-          customNotification(),
+          customNotification(context),
           const SizedBox(width: 12.0)
         ],
       ),
