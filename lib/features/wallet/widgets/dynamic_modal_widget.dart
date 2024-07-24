@@ -46,14 +46,12 @@ class DynamicModalWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildOption(
-    BuildContext context, {
-    required IconData icon,
-    required String title,
-    required String description,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
+  Widget _buildOption(BuildContext context,
+      {required IconData icon,
+      required String title,
+      required String description,
+      required Color color,
+      required VoidCallback onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
