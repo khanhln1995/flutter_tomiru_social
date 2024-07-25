@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:tomiru_social_flutter/features/Business_Screen/Screens/fund_screen.dart';
 import 'package:tomiru_social_flutter/features/Business_Screen/Screens/income_screen.dart';
+import 'package:tomiru_social_flutter/features/Business_Screen/Screens/membership_package.dart';
 import 'package:tomiru_social_flutter/features/Business_Screen/Screens/net_screen.dart';
 import 'package:tomiru_social_flutter/features/Business_Screen/Widgets/business_appbar.dart';
 import 'package:tomiru_social_flutter/features/Business_Screen/Widgets/business_bottom_navbar.dart';
@@ -11,10 +13,9 @@ import 'package:tomiru_social_flutter/features/Friends/Screens/Friend_Screen.dar
 import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.dart';
 import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
+import 'package:tomiru_social_flutter/state/home_controller.dart';
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
-
-
 
 class BusinessScreen extends StatefulWidget {
   const BusinessScreen({super.key});
@@ -28,11 +29,10 @@ class _BusinessScreenState extends State<BusinessScreen> {
   final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
-  void initState() {
+ void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      var state = Provider.of<AppState>(context, listen: false);
-      state.setPageIndex = 0;
+      Get.find<HomeController>().setPageIndex(0);
     });
   }
 
@@ -46,7 +46,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
         padding: 0,
         widget: [
           CustomIcon(
-              icon: Image.asset("assets/images/qr 1.png"),
+              icon: Image.asset("assets/images/qr_1.png"),
               quantity: null,
               onPressed: () {}),
           CustomIcon(
@@ -57,7 +57,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
               icon: Image.asset("assets/images/notification.png"),
               quantity: 2,
               onPressed: () {}),
-          SizedBox(width: 12.0)
+          const SizedBox(width: 12.0)
         ],
       ),
       key: _scaffoldKey,
@@ -68,29 +68,31 @@ class _BusinessScreenState extends State<BusinessScreen> {
           ),
         ],
       ),
-      bottomNavigationBar:  BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 
   Widget _body() {
     return SafeArea(
-      child: SizedBox(
-        width: double.infinity,
-        child: getPage(Provider.of<AppState>(context).pageIndex),
-      ),
+      child: Obx(() {
+        final pageIndex = Get.find<HomeController>().pageIndex.value;
+        return getPage(pageIndex);
+      }),
     );
   }
 
   Widget getPage(int index) {
     switch (index) {
       case 0:
-        return NetScreen();
+        return const NetScreen();
       case 1:
-        return FundScreen();
+        return const FundScreen();
       case 2:
         return IncomeScreen();
       case 3:
-        return Friend2Screen();
+
+        return MembershipPackage();
+
       default:
         return FeedPage(scaffoldKey: _scaffoldKey);
     }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/wallet/screens/transactions_history_screen.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
 import 'transaction_item_widget.dart';
 
@@ -113,9 +115,15 @@ class OverviewTabWidget extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 TextButton(
                   onPressed: () {},
-                  child: Text(
-                    'Xem tất cả',
-                    style: TextStyle(color: theme.primaryColor),
+                  child: TextButton(
+                    onPressed: () {
+                      Get.to(() => const TransactionsHistoryScreen());
+                    },
+                    child: Text('Xem tất cả',
+                        style: TextStyle(
+                            color: theme.primaryColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -131,6 +139,8 @@ class OverviewTabWidget extends StatelessWidget {
                 status: 'Thành công',
                 startTime: '14:00 - 08/06/2024',
                 endTime: '14:00 - 08/07/2024',
+                balanceAfter: '660 Tomxu',
+                isPackage: true,
               ),
               const TransactionItemWidget(
                 description: 'Chuyển Tomxu',
@@ -138,6 +148,8 @@ class OverviewTabWidget extends StatelessWidget {
                 status: 'Thành công',
                 startTime: '14:00 - 08/06/2024',
                 endTime: '',
+                balanceAfter: '660 Tomxu',
+                isPackage: false,
               ),
               const TransactionItemWidget(
                 description: 'Nhận Tomxu',
@@ -145,6 +157,8 @@ class OverviewTabWidget extends StatelessWidget {
                 status: 'Thành công',
                 startTime: '14:00 - 08/06/2024',
                 endTime: '',
+                balanceAfter: '660 Tomxu',
+                isPackage: false,
               ),
             ],
           ),
@@ -158,6 +172,8 @@ class OverviewTabWidget extends StatelessWidget {
                 status: 'Thành công',
                 startTime: '14:00 - 08/06/2024',
                 endTime: '14:00 - 08/07/2024',
+                balanceAfter: '660 Tomxu',
+                isPackage: true,
               ),
             ],
           ),
