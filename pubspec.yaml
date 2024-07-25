@@ -85,6 +85,7 @@ dependencies:
   multi_image_picker: ^4.8.01
   camera: ^0.11.0+1
   permission_handler: ^11.3.1
+  zego_uikit_prebuilt_live_streaming: ^3.11.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
