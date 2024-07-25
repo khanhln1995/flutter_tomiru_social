@@ -1,4 +1,6 @@
+import 'package:comment_tree/comment_tree.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fancy_tree_view/flutter_fancy_tree_view.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tomiru_social_flutter/features/Home/widgets/contact_member.dart';
 
@@ -37,8 +39,18 @@ class NetScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   tabs: [
-                    Tab(child: Text("Tổng quan",style: TextStyle(fontSize: 16),),),
-                    Tab(child: Text("Mạng lưới",style: TextStyle(fontSize: 16),),),
+                    Tab(
+                      child: Text(
+                        "Tổng quan",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    Tab(
+                      child: Text(
+                        "Mạng lưới",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -46,11 +58,11 @@ class NetScreen extends StatelessWidget {
                 height: 400, // Adjust the height as necessary
                 child: TabBarView(
                   children: [
-                    Padding(padding: 
-                    EdgeInsets.all(20),
-                    child: OverviewTab(),
+                    Padding(
+                      padding: EdgeInsets.all(20),
+                      child: OverviewTab(),
                     ),
-                    const Text('Tab 2 content'),
+                    NetTab(),
                   ],
                 ),
               ),
@@ -61,6 +73,7 @@ class NetScreen extends StatelessWidget {
     );
   }
 }
+
 class OverviewTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -74,7 +87,9 @@ class OverviewTab extends StatelessWidget {
             StatsSection(),
             SizedBox(height: 12),
             IncomeSection(),
-            RecentCustomersSection(title: "Khách hàng gần đây",),
+            RecentCustomersSection(
+              title: "Khách hàng gần đây",
+            ),
             SizedBox(height: 12),
             ContactWithOthers(),
           ],
@@ -84,6 +99,121 @@ class OverviewTab extends StatelessWidget {
   }
 }
 
+class NetTab extends StatefulWidget {
+  @override
+  _NetTabState createState() => _NetTabState();
+}
+
+class _NetTabState extends State<NetTab> {
+  late final TreeController<String> treeController;
+
+  @override
+  void initState() {
+    super.initState();
+    treeController = TreeController<String>(
+      roots: ['Danh sách F1', 'Danh sách F2'],
+      childrenProvider: (String node) {
+        if (node == 'Danh sách F1' || node == 'Danh sách F2') {
+          return ['Nguyễn Hữu Kiên'];
+        } else if (node == 'Nguyễn Hữu Kiên') {
+          return ['Nguyễn Văn A', 'Nguyễn Văn A'];
+        } else if (node == 'Nguyễn Văn A') {
+          return ['Nguyễn Văn B', 'Nguyễn Văn B', 'Nguyễn Văn B'];
+        }
+        return [];
+      },
+    );
+
+    // Expand all nodes initially
+    treeController.expandAll();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Row(children: [
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Cây sinh lời", style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+              SizedBox(width: 10),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Cây giới thiệu", style: TextStyle(color: Colors.black)),
+                  ],
+                ),
+              )
+            ]),
+            SizedBox(height: 12),
+            Expanded(
+              child: TreeView<String>(
+                treeController: treeController,
+                nodeBuilder: (BuildContext context, TreeEntry<String> entry) {
+                  return TreeIndentation(
+                    entry: entry,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(width: entry.level * 20), // Adjust indentation based on level
+                        if (entry.level > 0) ...[
+                          CircleAvatar(
+                            backgroundImage: AssetImage('assets/images/Ellipse 17.png'),
+                            radius: entry.level == 1 ? 20 : (entry.level == 2 ? 15 : 10),
+                          ),
+                          SizedBox(width: 8),
+                        ],
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              entry.node,
+                              style: TextStyle(
+                                fontWeight: entry.level == 0 ? FontWeight.bold : FontWeight.normal,
+                                fontSize: entry.level == 0 ? 18 : (entry.level == 1 ? 16 : 14),
+                              ),
+                            ),
+                            if (entry.node == 'Nguyễn Hữu Kiên')
+                              Text(
+                                'Gói kinh doanh',
+                                style: TextStyle(
+                                  fontSize: entry.level == 0 ? 16 : (entry.level == 1 ? 14 : 12),
+                                  color: Colors.grey,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class SearchBar extends StatelessWidget {
   @override
@@ -241,6 +371,7 @@ class UserInfoSection extends StatelessWidget {
     );
   }
 }
+
 class StatsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -377,10 +508,15 @@ class RecentCustomersSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              style:
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           TextButton(
             onPressed: onPressed,
-            child: const Text("Xem thêm", style: TextStyle(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.bold)),
+            child: const Text("Xem thêm",
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold)),
           )
         ],
       ),
