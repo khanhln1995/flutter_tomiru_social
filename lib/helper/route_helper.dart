@@ -84,9 +84,11 @@ import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import "package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.dart";
 // import 'package:meta_seo/meta_seo.dart';
 
 class RouteHelper {
+  static const String walletTest = '/walletTest';
   static const String initial = '/';
   static const String socialNetwork = '/socical_network';
   static const String business = '/business';
@@ -284,8 +286,7 @@ class RouteHelper {
       '$restaurantReview?id=$restaurantID';
   static String getAllRestaurantRoute(String page) =>
       '$allRestaurants?page=$page';
-  static String getWalletRoute({String? fundStatus}) =>
-      '$wallet?payment_status=$fundStatus';
+  static String getWalletRoute() => wallet;
   static String getLoyaltyRoute() => loyalty;
   static String getSearchRestaurantProductRoute(int? productID) =>
       '$searchRestaurantItem?id=$productID';
@@ -293,7 +294,9 @@ class RouteHelper {
   //   String data = base64Url.encode(utf8.encode(jsonEncode(product.toJson())));
   //   return '$productImages?item=$data';
   // }
-
+//!
+  static String getWalletTest() => walletTest;
+//!
   static String getReferAndEarnRoute() => referAndEarn;
   static String getChatRoute(
       {required NotificationBodyModel? notificationBody,
@@ -362,6 +365,7 @@ class RouteHelper {
       name: business,
       page: () => const BusinessScreen(),
     ),
+
     GetPage(
         name: splash,
         page: () {
@@ -685,13 +689,7 @@ class RouteHelper {
     //               isOrderAgain: Get.parameters['page'] == 'order_again',
     //             ),
     //           )),
-    //   GetPage(
-    //       name: wallet,
-    //       page: () {
-    //         return getRoute(WalletScreen(
-    //             fundStatus:
-    //                 Get.parameters['flag'] ?? Get.parameters['payment_status']));
-    //       }),
+    GetPage(name: wallet, page: () => const WalletScreenUi()),
     //   GetPage(name: loyalty, page: () => getRoute(const LoyaltyScreen())),
     //   GetPage(
     //       name: searchRestaurantItem,

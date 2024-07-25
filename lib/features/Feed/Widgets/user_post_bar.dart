@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Create_Feed_Screen.dart';
 
 class UserPostBar extends StatefulWidget {
-  const UserPostBar({Key? key}) : super(key: key);
+  const UserPostBar({super.key});
 
   @override
   State<UserPostBar> createState() => _UserPostBarState();
@@ -37,7 +37,7 @@ class _UserPostBarState extends State<UserPostBar> {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) =>
-                                CreatedFeed(),
+                                const CreatedFeed(),
                             // transitionsBuilder: (context, animation1, animtion2, child) {
                             //   return FadeTransition(opacity: animation1, child: child);
                             // },
@@ -48,7 +48,8 @@ class _UserPostBarState extends State<UserPostBar> {
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(color: Color(0xFFDEDEDE))),
+                            borderSide:
+                                const BorderSide(color: Color(0xFFDEDEDE))),
                         enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(30.0)),
                           borderSide:
@@ -59,7 +60,7 @@ class _UserPostBarState extends State<UserPostBar> {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.image),
+                      icon: const Icon(Icons.image),
                       color: Colors.blue,
                       onPressed: () {},
                     ),
@@ -74,7 +75,7 @@ class _UserPostBarState extends State<UserPostBar> {
                   color: Color.fromARGB(255, 240, 238, 238),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.search),
+                child: const Icon(Icons.search),
               ),
               onPressed: () {},
             ),
@@ -85,7 +86,7 @@ class _UserPostBarState extends State<UserPostBar> {
                   color: Color.fromARGB(255, 240, 238, 238),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.display_settings),
+                child: const Icon(Icons.display_settings),
               ),
               onPressed: () {},
             ),
