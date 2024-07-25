@@ -21,9 +21,10 @@ import 'package:tomiru_social_flutter/features/language/screens/language_screen.
 // import 'package:tomiru_social_flutter/features/location/screens/map_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/pick_map_screen.dart';
 //! import 'package:tomiru_social_flutter/features/Home/Screens/Home.dart';
-import 'package:tomiru_social_flutter/features/Home_Screen/Screens/HomeScreen.dart';
-import 'package:tomiru_social_flutter/features/Home_Screen/test.dart';
+// import 'package:tomiru_social_flutter/features/Home_Screen/Screens/HomeScreen.dart';
+// import 'package:tomiru_social_flutter/features/Home_Screen/test.dart';
 import 'package:tomiru_social_flutter/features/auth/screens/sign_in_screen.dart';
+import 'package:tomiru_social_flutter/features/message_app/screens/message_screen.dart';
 import 'package:tomiru_social_flutter/features/notification/domain/models/notification_body_model.dart';
 // import 'package:tomiru_social_flutter/features/notification/screens/notification_screen.dart';
 import 'package:tomiru_social_flutter/features/onboard/screens/onboarding_screen.dart';
@@ -90,6 +91,7 @@ import "package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.d
 
 class RouteHelper {
   
+  static const String messageScreen = '/messageScreen';
   static const String notifyScreen = '/notifyScreen';
   static const String walletTest = '/walletTest';
   static const String initial = '/';
@@ -296,6 +298,7 @@ class RouteHelper {
 //!
   static String getWalletTest() => walletTest;
   static String getListNotify() => notifyScreen;
+  static String getMessage() => messageScreen;
 
 //!
   static String getReferAndEarnRoute() => referAndEarn;
@@ -390,6 +393,7 @@ class RouteHelper {
     GetPage(name: signUp, page: () => const SignUpScreen()),
     //!
     GetPage(name: notifyScreen, page: () => const NotifyScreen()),
+    GetPage(name: messageScreen, page: () => const MessageScreen()),
 
     //!
     GetPage(

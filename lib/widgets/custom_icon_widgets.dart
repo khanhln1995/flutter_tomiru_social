@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/features/Notify_Screen/screens/notify_screen.dart';
+import 'package:tomiru_social_flutter/features/message_app/screens/message_screen.dart';
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 
-Widget customMessage() {
+Widget customMessage(BuildContext context) {
   return CustomIcon(
     icon: Image.asset("assets/images/message.png"),
     quantity: 1,
-    onPressed: () {},
+    onPressed: () {
+       Get.toNamed(RouteHelper.getMessage());
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) => const MessageScreen()));
+    },
   );
 }
 

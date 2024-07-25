@@ -6,6 +6,8 @@ class TransactionItemWidget extends StatelessWidget {
   final String status;
   final String startTime;
   final String endTime;
+  final String balanceAfter;
+  final bool isPackage;
 
   const TransactionItemWidget({
     super.key,
@@ -14,11 +16,22 @@ class TransactionItemWidget extends StatelessWidget {
     required this.status,
     required this.startTime,
     required this.endTime,
+    required this.balanceAfter,
+    required this.isPackage,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    const smallerTextStyle = TextStyle(color: Colors.grey, fontSize: 12.0);
+    const boldTextStyle =
+        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0);
+    final amountTextStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 16.0,
+      color: amount.startsWith('-') ? Colors.red : Colors.green,
+    );
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       padding: const EdgeInsets.all(16.0),
@@ -35,32 +48,48 @@ class TransactionItemWidget extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(description, style: const TextStyle(color: Colors.black)),
-          const SizedBox(height: 8.0),
-          if (startTime.isNotEmpty && endTime.isNotEmpty) ...[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Ngày bắt đầu: $startTime',
-                    style: const TextStyle(color: Colors.grey)),
-                Text('Ngày kết thúc: $endTime',
-                    style: const TextStyle(color: Colors.grey)),
-              ],
-            ),
-            const SizedBox(height: 8.0),
-          ],
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Text(description, style: boldTextStyle),
               Text(status, style: const TextStyle(color: Colors.green)),
-              Text(amount,
-                  style: TextStyle(
-                      color:
-                          amount.startsWith('-') ? Colors.red : Colors.green)),
             ],
           ),
+          const SizedBox(height: 8.0),
+          if (isPackage) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Ngày gia hạn: $startTime', style: smallerTextStyle),
+                Text(amount, style: amountTextStyle),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Ngày hết hạn: $endTime', style: smallerTextStyle),
+                Text('Sau GD: $balanceAfter', style: smallerTextStyle),
+              ],
+            ),
+          ] else ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Ngày GD: $startTime', style: smallerTextStyle),
+                Text(amount, style: amountTextStyle),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(), // Placeholder to align "Sau GD"
+                Text('Sau GD: $balanceAfter', style: smallerTextStyle),
+              ],
+            ),
+          ],
         ],
       ),
     );

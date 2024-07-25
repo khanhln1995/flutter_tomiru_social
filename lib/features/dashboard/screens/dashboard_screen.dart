@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:tomiru_social_flutter/features/Business_Screen/Screens/Business_Screen.dart';
 import 'package:tomiru_social_flutter/features/Business_Screen/Screens/fund_screen.dart';
 import 'package:tomiru_social_flutter/features/Business_Screen/Screens/income_screen.dart';
-import 'package:tomiru_social_flutter/features/Home_Screen/Screens/HomeScreen.dart';
+// import 'package:tomiru_social_flutter/features/Home_Screen/Screens/HomeScreen.dart';
 import 'package:tomiru_social_flutter/features/Home_Social/Screens/Home.dart';
 
 // import 'package:tomiru_social_flutter/features/cart/screens/cart_screen.dart';
