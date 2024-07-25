@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
 import 'package:tomiru_social_flutter/features/Home/Widgets/wallet_info.dart';
 import 'package:tomiru_social_flutter/features/Home/Widgets/contact_member.dart';
@@ -9,7 +10,7 @@ import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/features/home/widgets/voucher_list.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_main_bar.dart';
 import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
-import 'package:tomiru_social_flutter/features/Home_Social/Screens/Home.dart';
+
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -126,15 +127,7 @@ class _HomepageState extends State<Homepage> {
                     width: 30, height: 30),
                 "Mạng xã hội",
                 [Color(0xFF87CEFA), Color(0xFF1E90FF)], () {
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) =>
-                      // SocialNetworkPage(),
-                      Home(),
-                  transitionDuration: const Duration(seconds: 1),
-                ),
-              );
+                   Navigator.pushNamed(context,  RouteHelper.getSocicalNetworkRoute());
             }),
             _exploreButton(
                 Icon(Icons.shopping_cart, size: 30, color: Colors.white),
@@ -152,7 +145,9 @@ class _HomepageState extends State<Homepage> {
                     size: 30, color: Colors.white),
                 "Kinh doanh",
                 [Color(0xFFFFa500), Color(0xFFFF8C00)],
-                () {}),
+                () {
+                  Navigator.pushNamed(context,  RouteHelper.getBusinessRoute());
+                }),
           ],
         ),
         const SizedBox(height: 10),

@@ -82,11 +82,7 @@ class HorizontalContactMember extends StatelessWidget {
                 
                 ]),
                 const SizedBox(height: 4.0),
-                Text(
-                  username,
-                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
-                  overflow: TextOverflow.ellipsis,
-                ),
+              
                 Text(
                   '• $role',
                   style: const TextStyle(color: Colors.grey, fontSize: 12),
