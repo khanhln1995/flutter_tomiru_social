@@ -14,8 +14,6 @@ import 'package:tomiru_social_flutter/state/app_state.dart';
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
 
-
-
 class BusinessScreen extends StatefulWidget {
   const BusinessScreen({super.key});
 
@@ -46,7 +44,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
         padding: 0,
         widget: [
           CustomIcon(
-              icon: Image.asset("assets/images/qr 1.png"),
+              icon: Image.asset("assets/images/qr_1.png"),
               quantity: null,
               onPressed: () {}),
           CustomIcon(
@@ -57,7 +55,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
               icon: Image.asset("assets/images/notification.png"),
               quantity: 2,
               onPressed: () {}),
-          SizedBox(width: 12.0)
+          const SizedBox(width: 12.0)
         ],
       ),
       key: _scaffoldKey,
@@ -68,7 +66,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
           ),
         ],
       ),
-      bottomNavigationBar:  BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 
@@ -84,13 +82,13 @@ class _BusinessScreenState extends State<BusinessScreen> {
   Widget getPage(int index) {
     switch (index) {
       case 0:
-        return NetScreen();
+        return const NetScreen();
       case 1:
-        return FundScreen();
+        return const FundScreen();
       case 2:
         return IncomeScreen();
       case 3:
-        return Friend2Screen();
+        return const Friend2Screen();
       default:
         return FeedPage(scaffoldKey: _scaffoldKey);
     }

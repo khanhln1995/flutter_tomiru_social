@@ -1,8 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:tomiru_social_flutter/features/camera/screen/camera_screen.dart';
 import 'package:tomiru_social_flutter/widgets/ui/customAppBar.dart';
 import 'package:tomiru_social_flutter/widgets/ui/customButton.dart';
-import 'package:tomiru_social_flutter/widgets/global/imagePicker.dart';
 
 class CreatedFeed extends StatefulWidget {
   const CreatedFeed({super.key});
@@ -17,6 +18,7 @@ class _CreatedFeedState extends State<CreatedFeed> {
   String? _selectedValue = 'Công khai';
   final FocusNode fieldFocus = FocusNode();
   final TextEditingController _controller = TextEditingController();
+  List<XFile> images = [];
 
   @override
   void initState() {
@@ -35,14 +37,38 @@ class _CreatedFeedState extends State<CreatedFeed> {
     // print(fieldFocus.hasFocus);
   }
 
+  Future<void> _pickImages() async {
+    final ImagePicker picker = ImagePicker();
+    final List<XFile> pickedImages = await picker.pickMultiImage();
+
+    if (pickedImages.isNotEmpty) {
+      setState(() {
+        images.addAll(pickedImages);
+      });
+    }
+  }
+
+  void _removeImage(int index) {
+    setState(() {
+      images.removeAt(index);
+    });
+  }
+
+  void _onPictureTaken(XFile picture) {
+    setState(() {
+      images.add(picture);
+    });
+  }
+
   Widget _body(BuildContext context) {
     return Container(
-        color: Colors.white,
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(children: [
+      color: Colors.white,
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: [
               Row(
                 children: [
                   const CircleAvatar(
@@ -58,32 +84,28 @@ class _CreatedFeedState extends State<CreatedFeed> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       DropdownButtonHideUnderline(
-                        child: DropdownButton2<String>(
-                            value: _selectedValue,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedValue = value;
-                              });
-                            },
-                            items: items.map((String e) {
-                              return DropdownMenuItem<String>(
-                                value: e,
-                                child: Text(e),
-                              );
-                            }).toList(),
-                            style: TextStyle(
-                                color: Colors.blue[800],
-                                fontWeight: FontWeight.bold),
-                            buttonStyleData: ButtonStyleData(
-                                height: 30,
-                                decoration: BoxDecoration(
-                                    color: Colors.blue[100],
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)))),
-                            dropdownStyleData: DropdownStyleData(
-                                maxHeight: MediaQuery.of(context).size.height,
-                                decoration:
-                                    const BoxDecoration(color: Colors.white))),
+                        child: DropdownButton<String>(
+                          value: _selectedValue,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedValue = value;
+                            });
+                          },
+                          items: items.map((String e) {
+                            return DropdownMenuItem<String>(
+                              value: e,
+                              child: Text(e),
+                            );
+                          }).toList(),
+                          style: TextStyle(
+                            color: Colors.blue[800],
+                            fontWeight: FontWeight.bold,
+                          ),
+                          dropdownColor: Colors.blue[100],
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -102,60 +124,93 @@ class _CreatedFeedState extends State<CreatedFeed> {
                 ),
                 maxLines: null,
                 minLines: 4,
-                // onTap: () => fieldFocus.requestFocus(),
               ),
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.photo, color: Colors.blue),
-                      title: const Text('Ảnh/video'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation1, animation2) =>
-                                const GalleryImage(),
-                            transitionDuration: const Duration(seconds: 1),
+              if (images.isNotEmpty)
+                Container(
+                  height: 100.0,
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: images.length,
+                    itemBuilder: (context, index) {
+                      return Stack(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: Image.file(
+                              File(images[index].path),
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.camera_alt, color: Colors.red),
-                      title: const Text('Chụp ảnh'),
-                      onTap: () {},
-                    ),
-                    ListTile(
-                      leading:
-                          const Icon(Icons.person_add, color: Colors.yellow),
-                      title: const Text('Gắn thẻ người khác'),
-                      onTap: () {},
-                    ),
-                    ListTile(
-                      leading:
-                          const Icon(Icons.music_note, color: Colors.purple),
-                      title: const Text('Âm nhạc'),
-                      onTap: () {},
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.location_on, color: Colors.red),
-                      title: const Text('Thêm vị trí'),
-                      onTap: () {},
-                    ),
-                  ],
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: GestureDetector(
+                              onTap: () => _removeImage(index),
+                              child: Container(
+                                color: Colors.black54,
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
+              ListTile(
+                leading: const Icon(Icons.photo, color: Colors.blue),
+                title: const Text('Ảnh/video'),
+                onTap: _pickImages,
               ),
-            ]),
-            if (_controller.text.isNotEmpty)
-              CustomButton(
-                  content: 'Đăng tin',
-                  isEnabled: true,
-                  action: () {},
-                  width: MediaQuery.of(context).size.width,
-                  textStyle: const TextStyle(color: Colors.white))
-          ],
-        ));
+              ListTile(
+                leading: const Icon(Icons.camera_alt, color: Colors.red),
+                title: const Text('Chụp ảnh'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CameraScreen(
+                        onPictureTaken: _onPictureTaken,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.person_add, color: Colors.yellow),
+                title: const Text('Gắn thẻ người khác'),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.music_note, color: Colors.purple),
+                title: const Text('Âm nhạc'),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.location_on, color: Colors.red),
+                title: const Text('Thêm vị trí'),
+                onTap: () {},
+              ),
+            ],
+          ),
+          if (_controller.text.isNotEmpty || images.isNotEmpty)
+            CustomButton(
+              content: 'Đăng tin',
+              isEnabled: true,
+              action: () {},
+              width: MediaQuery.of(context).size.width,
+              textStyle: const TextStyle(color: Colors.white),
+            ),
+        ],
+      ),
+    );
   }
 
   @override
