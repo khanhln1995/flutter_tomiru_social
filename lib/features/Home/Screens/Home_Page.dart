@@ -10,6 +10,7 @@ import 'package:tomiru_social_flutter/features/home/widgets/voucher_list.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_main_bar.dart';
 import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
 import 'package:tomiru_social_flutter/widgets/global/newWidget/service_content.dart';
+import 'package:tomiru_social_flutter/features/settings/screens/settings_screen.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -113,7 +114,11 @@ class _HomepageState extends State<Homepage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    customSetting(onPressed: (){}),
+                    customSetting(
+                      onPressed: (){
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=>SettingsScreen()));
+                      },
+                    ),
                     const Text("Cài đặt", style: TextStyle(fontSize: 12)),
                   ],
                 )
