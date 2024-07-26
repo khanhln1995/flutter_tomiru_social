@@ -8,8 +8,8 @@ import 'package:tomiru_social_flutter/features/settings/screens/change_password/
 import 'package:tomiru_social_flutter/features/message/widgets/custom_color_widget.dart'
     as CustomAppColor;
 
-class SettingCreen extends StatelessWidget {
-  const SettingCreen({super.key});
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
