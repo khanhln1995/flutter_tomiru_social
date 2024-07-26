@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/body_message.dart';
 import 'package:tomiru_social_flutter/features/message_app/widgets/bottom_bar_message.dart';
 import 'package:tomiru_social_flutter/features/message_app/widgets/phonebook_page/body_phonebook.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/reminder_page/body_reminder.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
 
@@ -17,6 +18,7 @@ import "package:tomiru_social_flutter/features/short_video/screens/short_video_p
 // import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
 import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart';
 import 'package:tomiru_social_flutter/features/discovery/screens/discovery_page.dart';
+
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
 
@@ -70,7 +72,7 @@ class _MessageScreenState extends State<MessageScreen> {
       case 1:
         return BodyPhonebook();
       case 2:
-        return const DiscoveryPage();
+        return  BodyReminder();
       case 3:
         return const Friend2Screen();
      
