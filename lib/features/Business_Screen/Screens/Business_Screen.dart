@@ -14,8 +14,8 @@ import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.d
 import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
 import 'package:tomiru_social_flutter/state/home_controller.dart';
-import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
+import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
 
 class BusinessScreen extends StatefulWidget {
   const BusinessScreen({super.key});
@@ -45,18 +45,9 @@ class _BusinessScreenState extends State<BusinessScreen> {
         titleText: 'Kinh doanh',
         padding: 0,
         widget: [
-          CustomIcon(
-              icon: Image.asset("assets/images/qr_1.png"),
-              quantity: null,
-              onPressed: () {}),
-          CustomIcon(
-              icon: Image.asset("assets/images/message.png"),
-              quantity: 1,
-              onPressed: () {}),
-          CustomIcon(
-              icon: Image.asset("assets/images/notification.png"),
-              quantity: 2,
-              onPressed: () {}),
+          customQr(),
+          customMessage(),
+          customNotification(),
           const SizedBox(width: 12.0)
         ],
       ),
@@ -90,9 +81,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
       case 2:
         return IncomeScreen();
       case 3:
-
         return MembershipPackage();
-
       default:
         return FeedPage(scaffoldKey: _scaffoldKey);
     }
