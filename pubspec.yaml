@@ -81,10 +81,14 @@ dependencies:
   animated_flip_counter: ^0.3.4
   carousel_slider: ^4.2.1
   comment_tree: ^0.3.0
+  flutter_fancy_tree_view: ^1.6.0
+  dotted_border: ^2.0.0
   qr_code_scanner: ^1.0.1
   multi_image_picker: ^4.8.01
   camera: ^0.11.0+1
   permission_handler: ^11.3.1
+  zego_uikit_prebuilt_live_streaming: ^3.11.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

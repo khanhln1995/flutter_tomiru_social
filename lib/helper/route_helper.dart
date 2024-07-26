@@ -14,8 +14,9 @@ import 'dart:convert';
 // import 'package:tomiru_social_flutter/features/home/screens/map_view_screen.dart';
 // import 'package:tomiru_social_flutter/features/html/enums/html_type.dart';
 // import 'package:tomiru_social_flutter/features/html/screens/html_viewer_screen.dart';
+import 'package:tomiru_social_flutter/features/Business_Screen/Screens/Business_Screen.dart';
 import 'package:tomiru_social_flutter/features/Home/Screens/Home_Page.dart';
-import 'package:tomiru_social_flutter/features/Home_Social/Screens/Home.dart';
+import 'package:tomiru_social_flutter/features/social_network/Screens/social_network.dart';
 import 'package:tomiru_social_flutter/features/language/screens/language_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/access_location_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/map_screen.dart';
@@ -90,6 +91,9 @@ import 'package:tomiru_social_flutter/features/search/screens/search_page.dart';
 class RouteHelper {
   static const String walletTest = '/walletTest';
   static const String initial = '/';
+  static const String socialNetwork = '/socical_network';
+  static const String business = '/business';
+
   static const String splash = '/splash';
   static const String language = '/language';
   static const String onBoarding = '/on-boarding';
@@ -152,6 +156,7 @@ class RouteHelper {
 
   static String getInitialRoute({bool fromSplash = false}) =>
       '$initial?from-splash=$fromSplash';
+
   static String getSplashRoute(
       NotificationBodyModel? body, DeepLinkBody? linkBody) {
     String data = 'null';
@@ -213,7 +218,7 @@ class RouteHelper {
   static String getOrderDetailsRoute(int? orderID,
       {bool? fromOffline, String? contactNumber, bool fromGuestTrack = false}) {
     return '$orderDetails?id=$orderID&from_offline=$fromOffline&contact=$contactNumber&from_guest_track=$fromGuestTrack';
-  }
+  } //homePage
 
   static String getProfileRoute() => profile;
   static String getUpdateProfileRoute() => updateProfile;
@@ -312,6 +317,9 @@ class RouteHelper {
     return '$messages?notification=$notificationBody0&user=$user0&conversation_id=$conversationID&index=$index';
   }
 
+  static String getSocicalNetworkRoute() => socialNetwork; // mạng xã hội
+  static String getBusinessRoute() => business; // mạng xã hội
+
   static String getConversationRoute() => conversation;
   static String getMapViewRoute() => mapView;
   static String getRestaurantRegistrationRoute() => restaurantRegistration;
@@ -351,6 +359,15 @@ class RouteHelper {
         //     pageIndex: 0,
         //     fromSplash: (Get.parameters['from-splash'] == 'true')))),
         page: () => const Homepage()),
+    GetPage(
+      name: socialNetwork,
+      page: () => const SocialNetwork(),
+    ),
+    GetPage(
+      name: business,
+      page: () => const BusinessScreen(),
+    ),
+
     GetPage(
         name: splash,
         page: () {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import "package:tomiru_social_flutter/features/Business_Screen/Screens/Business_Screen.dart";
+
 
 
 import 'package:tomiru_social_flutter/features/group_screen/Screens/Group_Screen.dart';
@@ -8,11 +10,11 @@ import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Sc
 
 import "package:tomiru_social_flutter/features/Auth/Sign_in/Screens/Sign_in_Screen.dart";
 import "package:tomiru_social_flutter/features/Auth/Sign_up/Screens/Sign_up_Screen.dart";
-import "package:tomiru_social_flutter/features/Business_Screen/Screens/Business_Screen.dart";
+
 import "package:tomiru_social_flutter/features/Group_Screen/Screens/Chat_Group_Screen.dart";
 import "package:tomiru_social_flutter/features/Group_Screen/Screens/Create_Group.dart";
+import "package:tomiru_social_flutter/features/social_network/Screens/social_network.dart";
 // import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Screen.dart';
-import "../../Home_Social/Screens/Home.dart";
 import "../../home/Screens/Home_Page.dart";
 
 //
@@ -135,7 +137,7 @@ class HomeScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
 
-                    builder: (context) => Home(),
+                    builder: (context) => SocialNetwork(),
 
                   ),
                 );

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/state/home_controller.dart';
 import 'package:tomiru_social_flutter/widgets/custom_button.dart';
-
-import 'package:tomiru_social_flutter/state/app_state.dart';
-
-import "package:tomiru_social_flutter/features/short_video/screens/create_short_video/create_short_video_page.dart";
-import 'package:provider/provider.dart';
+import 'package:tomiru_social_flutter/features/short_video/screens/create_short_video/create_short_video_page.dart';
 
 class BoxPositionTop extends StatefulWidget {
   final GlobalKey scaffoldKey;
@@ -16,13 +14,8 @@ class BoxPositionTop extends StatefulWidget {
 }
 
 class _BoxPositionTopState extends State<BoxPositionTop> {
-  late AppState state;
+  final HomeController homeController = Get.find<HomeController>();
   int actionPage = 0;
-  @override
-  void initState() {
-    super.initState();
-    state = Provider.of<AppState>(context, listen: false);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +31,7 @@ class _BoxPositionTopState extends State<BoxPositionTop> {
             ),
             onPressed: () {
               setState(() {
-                state.setPageIndex = 0;
+                homeController.setPageIndex(0); // Use function from HomeController
               });
             },
           ),
