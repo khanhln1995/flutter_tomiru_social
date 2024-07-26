@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:tomiru_social_flutter/features/short_video/controller/short_video_controller.dart';
 import 'package:tomiru_social_flutter/features/short_video/widgets/boxPositionTop.dart';
 import 'package:tomiru_social_flutter/features/short_video/widgets/boxPositionBottom.dart';
 import 'package:tomiru_social_flutter/features/short_video/widgets/boxPositionRight.dart';
+
 import 'video_playing.dart';
 
 class ShortVideoPage extends StatelessWidget {
@@ -11,15 +13,16 @@ class ShortVideoPage extends StatelessWidget {
   final Key? refreshIndicatorKey;
 
   const ShortVideoPage({
-    Key? key,
+    super.key,
     required this.scaffoldKey,
     this.refreshIndicatorKey,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     // Ensure the controller is put only once
     final ShortVideoController controller = Get.put(ShortVideoController());
+
 
     return Scaffold(
       body: GetBuilder<ShortVideoController>(
@@ -54,6 +57,7 @@ class ShortVideoPage extends StatelessWidget {
                           BoxPositionBottom(data: controller.videoUrls[index]),
                         ],
                       ),
+
                     )),
                     Positioned(
                       bottom: 80,

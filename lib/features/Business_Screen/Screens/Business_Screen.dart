@@ -46,8 +46,8 @@ class _BusinessScreenState extends State<BusinessScreen> {
         padding: 0,
         widget: [
           customQr(),
-          customMessage(),
-          customNotification(),
+          customMessage(context),
+          customNotification(context),
           const SizedBox(width: 12.0)
         ],
       ),

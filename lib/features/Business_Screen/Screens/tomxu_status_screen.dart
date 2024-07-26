@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/features/Business_Screen/Screens/subscription_page.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 
 class TomxuStatusScreen extends StatelessWidget {
@@ -116,7 +117,7 @@ class TomxuStatusScreen extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushNamed(context, RouteHelper.getInitialRoute());
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> SubscriptionPage()));
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,

@@ -1,30 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/features/search/screens/search_page.dart';
-import 'package:tomiru_social_flutter/helper/route_helper.dart';
+
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
+import 'package:tomiru_social_flutter/helper/route_helper.dart';
 
-Widget customMessage() {
+Widget customMessage(BuildContext context) {
   return CustomIcon(
     icon: Image.asset(Images.messageIcon),
     quantity: 1,
-    onPressed: () {},
+    onPressed: () {
+       Get.toNamed(RouteHelper.getMessage());
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) => const MessageScreen()));
+    },
   );
 }
 
-Widget customNotification() {
+Widget customNotification(BuildContext context) {
   return CustomIcon(
     icon: Image.asset(Images.notificationIcon),
     quantity: 2,
-    onPressed: () {},
+    onPressed: () {
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) => const NotifyScreen()));
+       Get.toNamed(RouteHelper.getListNotify());
+      // Get.toNamed(RouteHelper.getWalletRoute());
+    },
   );
 }
 
-Widget customSetting() {
+Widget customSetting({
+   VoidCallback? onPressed,
+  IconData icon = Icons.settings,
+  Color iconColor = Colors.grey,
+}) {
   return CustomIcon(
-    icon: Icon(Icons.settings, color: Colors.grey[700]),
-    onPressed: () {},
+    icon: Icon(icon, color: iconColor),
+    onPressed: onPressed,
   );
 }
 

@@ -43,8 +43,8 @@ class _Friend2ScreenState extends State<Friend2Screen> {
         padding: 0,
         widget: [
           customQr(),
-          customMessage(),
-          customNotification(),
+          customMessage(context),
+          customNotification(context),
           const SizedBox(width: 12.0)
         ],
       ),

@@ -24,8 +24,8 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
         padding: 0,
         widget: [
           customSetting(),
-          customMessage(),
-          customNotification(),
+          customMessage(context),
+          customNotification(context),
           const SizedBox(width: 12.0)
         ],
       ),

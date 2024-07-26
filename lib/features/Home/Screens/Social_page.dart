@@ -74,8 +74,8 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
         titleText: 'Mạng xã hội',
         padding: 0,
         widget: [
-          customMessage(),
-          customNotification(),
+          customMessage(context),
+          customNotification(context),
           const SizedBox(width: 12.0)
         ],
       ),
