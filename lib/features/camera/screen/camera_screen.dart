@@ -71,47 +71,72 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var scale = MediaQuery.of(context).size.aspectRatio *
+        _controller!.value.aspectRatio;
+    if (scale < 1) scale = 1 / scale;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Camera'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        title: const Text('Camera', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: Colors.black,
       ),
       body: _isCameraInitialized
-          ? Stack(
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                CameraPreview(_controller!),
-                Positioned(
-                  bottom: 20,
-                  left: 20,
-                  right: 20,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.camera_alt,
-                            size: 30, color: Colors.white),
-                        onPressed: _takePicture,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.switch_camera,
-                            size: 30, color: Colors.white),
-                        onPressed: _swapCamera,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back,
-                            size: 30, color: Colors.white),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
+                Expanded(
+                  flex: 5,
+                  child: Transform.scale(
+                    scale: scale,
+                    child: Center(
+                      child: CameraPreview(_controller!),
+                    ),
                   ),
                 ),
+                Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.black,
+                      padding: const EdgeInsets.only(left: 12.0, right: 24.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            child: const Text('Hủy',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white)),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          InkWell(
+                            onTap: _takePicture,
+                            child: Container(
+                              padding: const EdgeInsets.all(2.5),
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: Colors.white, width: 2.0)),
+                              child: const CircleAvatar(
+                                backgroundColor: Colors.white,
+                              ),
+                            ),
+                          ),
+                          CircleAvatar(
+                            backgroundColor:
+                                const Color.fromARGB(120, 120, 128, 1),
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              icon: const Icon(Icons.swap_horiz_outlined,
+                                  size: 30, color: Colors.white),
+                              onPressed: _swapCamera,
+                            ),
+                          )
+                        ],
+                      ),
+                    ))
               ],
             )
           : const Center(child: CircularProgressIndicator()),

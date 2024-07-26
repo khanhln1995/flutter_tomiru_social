@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/features/Notify_Screen/screens/notify_screen.dart';
-import 'package:tomiru_social_flutter/features/message_app/screens/message_screen.dart';
+
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 
 Widget customMessage(BuildContext context) {
   return CustomIcon(
-    icon: Image.asset("assets/images/message.png"),
+    icon: Image.asset(Images.messageIcon),
     quantity: 1,
     onPressed: () {
        Get.toNamed(RouteHelper.getMessage());
@@ -20,7 +19,7 @@ Widget customMessage(BuildContext context) {
 
 Widget customNotification(BuildContext context) {
   return CustomIcon(
-    icon: Image.asset("assets/images/notification.png"),
+    icon: Image.asset(Images.notificationIcon),
     quantity: 2,
     onPressed: () {
       // Navigator.push(context,
@@ -44,7 +43,12 @@ Widget customSetting({
 
 Widget customSearch() {
   return CustomIcon(
-      icon: Icon(Icons.search, color: Colors.black), onPressed: () {});
+      icon: Icon(Icons.search, color: Colors.black),
+      onPressed: () {
+        print("11111111111");
+        Get.toNamed(RouteHelper.getSearchRoute());
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
+      });
 }
 
 Widget customQr() {

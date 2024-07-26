@@ -6,6 +6,8 @@ import 'package:tomiru_social_flutter/widgets/global/time_line/like_bar.dart';
 import 'package:tomiru_social_flutter/util/show_post_comments.dart';
 import "../../../features/Profile-social/Screens/Profile_Screen.dart";
 import "show_detail_images/image_gallery_screen.dart";
+import 'package:tomiru_social_flutter/widgets/global/time_line/bar_under_cmt.dart';
+
 
 //time line dùng ở các vị trí khác nhau như ở trang chủ , bạn bè , nhóm ...
 //sẽ có khác nhau ở tham số truyền vào để check xem người dùng đang ở page nào để call API
@@ -245,7 +247,7 @@ class _TimeLineState extends State<TimeLine> {
               ),
               GestureDetector(
                 onTap: () {
-                  showCommentBottomSheet(context);
+                  showUnderBottomSheet(context, 0);
                 },
                 child: const Text(
                   'Xem thêm bình luận',
@@ -312,23 +314,7 @@ class _TimeLineState extends State<TimeLine> {
                               ),
                             ),
                           ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                InkWell(
-                                    onTap: () {},
-                                    child: const Text('Thích',
-                                        style: TextStyle(fontSize: 12))),
-                                const SizedBox(width: 10.0),
-                                InkWell(
-                                    onTap: () {},
-                                    child: const Text('Trả lời',
-                                        style: TextStyle(fontSize: 12))),
-                                const SizedBox(width: 10.0),
-                                const Text('5 giờ trước',
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 12))
-                              ])
+                          CommentBar(likes: int.parse(data['like']), time: '5 giờ')
                         ],
                       ),
                     )
@@ -366,23 +352,7 @@ class _TimeLineState extends State<TimeLine> {
                             ),
                           ),
                         ),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              InkWell(
-                                  onTap: () {},
-                                  child: const Text('Thích',
-                                      style: TextStyle(fontSize: 12))),
-                              const SizedBox(width: 10.0),
-                              InkWell(
-                                  onTap: () {},
-                                  child: const Text('Trả lời',
-                                      style: TextStyle(fontSize: 12))),
-                              const SizedBox(width: 10.0),
-                              const Text('5 giờ trước',
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 12))
-                            ])
+                        CommentBar(likes: int.parse(data['like']), time: '5 giờ')
                       ],
                     ),
               const Expanded(

@@ -9,7 +9,7 @@ import 'package:tomiru_social_flutter/widgets/products_widget/products_list.dart
 import 'package:tomiru_social_flutter/features/home/widgets/voucher_list.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_main_bar.dart';
 import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
-
+import 'package:tomiru_social_flutter/widgets/global/newWidget/service_content.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -25,6 +25,14 @@ class _HomepageState extends State<Homepage> {
   Widget _body(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
+        SliverPersistentHeader(
+          delegate: PersistentHeader(
+            child: welcomeToPage(),
+            minHeight: 80,
+            maxHeight: 80,
+          ),
+          pinned: true,
+        ),
         SliverToBoxAdapter(
           child: _mainHome(),
         )
@@ -34,14 +42,14 @@ class _HomepageState extends State<Homepage> {
 
   Widget _mainHome() {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
         color: Colors.white,
         child: Column(
           children: [
-            const SizedBox(height: 10),
-            welcomeToPage(),
             const SizedBox(height: 20),
-            const WalletInfo(),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: const WalletInfo(),
+            ),
             const SizedBox(height: 20),
             exploreContent(),
             const HeaderContent(title: "Nhật ký"),
@@ -61,10 +69,9 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
-
       appBar: CustomAppBar(
         onBackPress: () {
-          Navigator.pop(context);
+          print("mnsd");
         },
         image: "assets/images/logo-tomiru-v2.png",
         widget: <Widget>[
@@ -80,112 +87,91 @@ class _HomepageState extends State<Homepage> {
   }
 
   Widget welcomeToPage() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Xin chào",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text("Hôm nay 30°C")
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Xin chào",
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Text("Hôm nay 30°C")
+              ],
+            ),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    customSearch(),
+                    const Text("Tìm kiếm", style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    customSetting(onPressed: (){}),
+                    const Text("Cài đặt", style: TextStyle(fontSize: 12)),
+                  ],
+                )
+              ],
+            )
           ],
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              customSearch(),
-              Text("Tìm kiếm"),
-            ],
-          ),
-        ),
-      ],
-    );
+        ));
   }
 
   Widget exploreContent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Khám phá",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _exploreButton(
-                Image.asset('assets/images/tomiru-icon-white.png',
-                    width: 30, height: 30),
-                "Mạng xã hội",
-
-                [Color(0xFF87CEFA), Color(0xFF1E90FF)], () {
-                   Navigator.pushNamed(context,  RouteHelper.getSocicalNetworkRoute());
-            }),
-            _exploreButton(
-                const Icon(Icons.shopping_cart, size: 30, color: Colors.white),
-                "Shopping",
-                [const Color(0xFFFF6347), const Color(0xFFDC143C)],
-                () {}),
-            _exploreButton(
-                const Icon(Icons.miscellaneous_services,
-                    size: 30, color: Colors.white),
-                "Dịch vụ",
-                [const Color(0xFF98FB98), const Color(0xFF32CD32)],
-                () {}),
-            _exploreButton(
-                const Icon(Icons.business_center_rounded,
-                    size: 30, color: Colors.white),
-                "Kinh doanh",
-
-                [Color(0xFFFFa500), Color(0xFFFF8C00)],
-                () {
-                  Navigator.pushNamed(context,  RouteHelper.getBusinessRoute());
-                }),
-
+            Text("Khám phá",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: 10),
+            ServiceContent(),
+            SizedBox(height: 10),
           ],
-        ),
-        const SizedBox(height: 10),
-      ],
+        ));
+  }
+}
+
+class PersistentHeader extends SliverPersistentHeaderDelegate {
+  final Widget child;
+  final double minHeight;
+  final double maxHeight;
+  PersistentHeader(
+      {required this.child, required this.minHeight, required this.maxHeight});
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final progress = shrinkOffset / maxExtent;
+    return Container(
+      padding: const EdgeInsets.only(top: 12.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            bottom: BorderSide.lerp(
+                const BorderSide(color: Colors.transparent),
+                BorderSide(color: Colors.grey[300] ?? Colors.transparent),
+                progress),
+          )),
+      child: child,
     );
   }
 
-  Widget _exploreButton(
-      Widget icon, String label, List<Color> colors, VoidCallback? onPressed) {
-    return Column(
-      children: [
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: colors,
-            ),
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                color: colors[1].withOpacity(0.3),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: IconButton(
-            onPressed: onPressed,
-            icon: icon,
-            padding: EdgeInsets.zero,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  bool shouldRebuild(PersistentHeader oldDelegate) {
+    return child != oldDelegate.child;
   }
 }

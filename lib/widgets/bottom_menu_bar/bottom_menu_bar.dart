@@ -100,6 +100,6 @@ class _BottomMenubarState extends State<BottomMenubar> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => _iconRow());
+    return Obx  (() => _iconRow());
   }
 }

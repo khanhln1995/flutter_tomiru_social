@@ -11,18 +11,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double? padding;
   final double leadingWidth;
   const CustomAppBar(
-
-      {this.titleText,
+      {super.key,
+      this.titleText,
+      this.mainTitle,
       required this.onBackPress,
       this.widget,
       this.icon,
       this.image,
       this.padding,
       this.centerText,
-      this.mainTitle,
-      
       this.leadingWidth = 0});
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +30,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: const Size.fromHeight(kToolbarHeight * 1.4),
       child: ClipRRect(
         child: AppBar(
-
-          title:
-              Text(centerText ?? titleText ??mainTitle?? '', textAlign: TextAlign.center),
-              centerTitle: true,
-
+          title: Text(centerText ?? titleText ?? mainTitle ?? '',
+              textAlign: TextAlign.center),
+          centerTitle: true,
           scrolledUnderElevation: 0,
           toolbarHeight: kToolbarHeight * 1.4,
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           leading: Container(
             padding: EdgeInsets.only(left: padding ?? 8.0),
             child: Row(
@@ -53,13 +49,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 if (titleText != null && titleText!.isNotEmpty)
                   Text(titleText!,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600))
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w600))
               ],
             ),
           ),
-
-          leadingWidth: (mainTitle == null || mainTitle!.isEmpty) && titleText != null && titleText!.isNotEmpty
+          leadingWidth: (mainTitle == null || mainTitle!.isEmpty) &&
+                  ((titleText != null && titleText!.isNotEmpty) ||
+                      (image != null && image!.isNotEmpty))
               ? MediaQuery.of(context).size.width / 2
               : 56,
           actions: widget,

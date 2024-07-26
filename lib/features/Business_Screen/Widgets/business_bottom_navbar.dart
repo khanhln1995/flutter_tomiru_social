@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
@@ -39,15 +38,15 @@ class _BottomMenubarState extends State<BottomNavBar> {
         children: <Widget>[
           _icon(Iconsax.share, 0, title: 'Mạng lưới'),
           _icon(Iconsax.hierarchy_square_2, 1, title: 'Quỹ đồng chia'),
-          _icon( Iconsax.frame_3, 2, title: 'Thu nhập'),
-          _icon( Iconsax.award, 3, title: 'Gói thành viên'),
+          _icon(Iconsax.frame_3, 2, title: 'Thu nhập'),
+          _icon(Iconsax.award, 3, title: 'Gói thành viên'),
         ],
       ),
     );
   }
 
   Widget _icon(IconData iconData, int index, {String? title}) {
- final HomeController controller = Get.find();
+    final HomeController controller = Get.find();
     return Expanded(
       child: SizedBox(
         height: double.infinity,
@@ -68,7 +67,7 @@ class _BottomMenubarState extends State<BottomNavBar> {
                   // alignment: const Alignment(0, 0),
                   icon: Icon(
                     iconData,
-                    color: index == controller.pageIndex
+                    color: index == controller.pageIndex.value
                         ? Theme.of(context).primaryColor
                         : Theme.of(context).textTheme.bodySmall!.color,
                   ),
@@ -83,13 +82,13 @@ class _BottomMenubarState extends State<BottomNavBar> {
                         title,
                         style: TextStyle(
                           fontSize: 10,
-                          color: index == controller.pageIndex
+                          color: index == controller.pageIndex.value
                               ? Theme.of(context).primaryColor
                               : Theme.of(context).textTheme.bodySmall!.color,
                         ),
                       )
                     : const SizedBox.shrink(),
-                SizedBox(height: 10)
+                const SizedBox(height: 10)
               ],
             ),
           ),
@@ -100,6 +99,6 @@ class _BottomMenubarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return _iconRow();
+    return Obx(() => _iconRow());
   }
 }

@@ -88,6 +88,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.dart";
+import 'package:tomiru_social_flutter/features/search/screens/search_page.dart';
 // import 'package:meta_seo/meta_seo.dart';
 
 class RouteHelper {
@@ -111,7 +112,7 @@ class RouteHelper {
   static const String main = '/main';
   static const String forgotPassword = '/forgot-password';
   static const String resetPassword = '/reset-password';
-  static const String search = '/search';
+  // static const String search = '/search';
   static const String restaurant = '/restaurant';
   static const String orderDetails = '/order-details';
   static const String profile = '/profile';
@@ -156,6 +157,7 @@ class RouteHelper {
   static const String subscriptionSuccess = '/subscription-success';
   static const String offlinePaymentScreen = '/offline-payment-screen';
   static const String guestTrackOrderScreen = '/guest-track-order-screen';
+  static const String searchScreen = '/search';
   static const String test = '/test';
 
   static String getInitialRoute({bool fromSplash = false}) =>
@@ -204,7 +206,7 @@ class RouteHelper {
   static String getResetPasswordRoute(
           String? phone, String token, String page) =>
       '$resetPassword?phone=$phone&token=$token&page=$page';
-  static String getSearchRoute() => search;
+  static String getSearchRoute() => searchScreen;
   // static String getRestaurantRoute(int? id) {
   //   if (kIsWeb) {
   //     // Define MetaSEO object
@@ -398,6 +400,8 @@ class RouteHelper {
         name: language,
         page: () => LanguageScreen(fromMenu: Get.parameters['page'] == 'menu')),
     GetPage(name: onBoarding, page: () => OnBoardingScreen()),
+    GetPage(name: searchScreen, page: () => SearchPage()),
+
     GetPage(
         name: signIn,
         page: () => SignInScreen(
