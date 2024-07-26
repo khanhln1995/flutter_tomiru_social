@@ -85,16 +85,8 @@ class ActionWallet extends StatelessWidget {
               }),
             ],
           ),
-          const SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildActionButton('Transaction History', Images.walletHistory,
-                  () {
-                Get.to(() => const TransactionsHistoryScreen());
-              }),
-            ],
-          ),
+      
+          
         ],
       ),
     );
