@@ -38,7 +38,7 @@ class _NewMessageState extends State<NewMessage> {
       backgroundColor: Colors.white,
       appBar: mainbar.CustomAppBar(
         onBackPress: () => Navigator.of(context).pop(),
-        centerText: 'Tin nhắn mới',
+        mainTitle: 'Tin nhắn mới',
         padding: 0,
         leadingWidth: MediaQuery.of(context).size.width / 3,
         widget: const [],

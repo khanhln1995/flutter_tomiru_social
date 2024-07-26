@@ -21,7 +21,7 @@ class _NotifyScreenState extends State<NotifyScreen> {
       backgroundColor: const Color.fromRGBO(230, 236, 240, 1.0),
       appBar: CustomAppBar(
         onBackPress: () => Navigator.of(context).pop(),
-        centerText: 'Thông báo',
+        mainTitle: 'Thông báo',
         padding: 0,
         leadingWidth: MediaQuery.of(context).size.width / 3,
         widget: [
