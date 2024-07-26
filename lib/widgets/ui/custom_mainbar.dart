@@ -9,7 +9,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? image;
   final double? padding;
   const CustomAppBar(
-      {this.titleText, this.mainTitle,required this.onBackPress, this.widget, this.icon, this.image, this.padding});
+      {this.titleText,
+      this.mainTitle,
+      required this.onBackPress,
+      this.widget,
+      this.icon,
+      this.image,
+      this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           centerTitle: true,
           scrolledUnderElevation: 0,
           toolbarHeight: kToolbarHeight * 1.4,
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),  
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
           leading: Container(
             padding: EdgeInsets.only(left: padding ?? 8.0),
             child: Row(
@@ -29,7 +35,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 IconButton(
                   icon: image != null && image!.isNotEmpty
                       ? Image.asset(image!)
-                      : Icon(icon ?? Icons.arrow_back_ios_new, color: Colors.black),
+                      : Icon(icon ?? Icons.arrow_back_ios_new,
+                          color: Colors.black),
                   onPressed: () => onBackPress(),
                 ),
                 if (titleText != null && titleText!.isNotEmpty)
@@ -39,7 +46,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
           ),
-          leadingWidth: (mainTitle == null || mainTitle!.isEmpty) && titleText != null && titleText!.isNotEmpty
+          leadingWidth: (mainTitle == null || mainTitle!.isEmpty) &&
+                  ((titleText != null && titleText!.isNotEmpty) ||
+                      (image != null && image!.isNotEmpty))
               ? MediaQuery.of(context).size.width / 2
               : 56,
           actions: widget,
