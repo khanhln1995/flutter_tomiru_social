@@ -12,10 +12,18 @@ class LiveStreamScreen extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LivePage(isHost: isHost, userID: userID),
+        builder: (context) => LivePage(isHost: false, userID: userID),
       ),
     );
   }
+  // void jumpToHostPage(BuildContext context, {required bool isHost}) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => LivePage(isHost: true, userID: userID),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

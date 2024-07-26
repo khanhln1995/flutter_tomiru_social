@@ -209,7 +209,7 @@ class _CreatedFeedState extends State<CreatedFeed> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          LiveStreamScreen(), // Navigate to LiveStreamScreen
+                          const LivePage(isHost: true, userID: "Khanh"),
                     ),
                   );
                 },

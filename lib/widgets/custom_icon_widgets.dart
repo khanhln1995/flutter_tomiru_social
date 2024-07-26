@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/camera/screen/qr_scanner_screen.dart';
 
 import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
@@ -10,7 +11,7 @@ Widget customMessage(BuildContext context) {
     icon: Image.asset(Images.messageIcon),
     quantity: 1,
     onPressed: () {
-       Get.toNamed(RouteHelper.getMessage());
+      Get.toNamed(RouteHelper.getMessage());
       // Navigator.push(context,
       //     MaterialPageRoute(builder: (context) => const MessageScreen()));
     },
@@ -24,14 +25,14 @@ Widget customNotification(BuildContext context) {
     onPressed: () {
       // Navigator.push(context,
       //     MaterialPageRoute(builder: (context) => const NotifyScreen()));
-       Get.toNamed(RouteHelper.getListNotify());
+      Get.toNamed(RouteHelper.getListNotify());
       // Get.toNamed(RouteHelper.getWalletRoute());
     },
   );
 }
 
 Widget customSetting({
-   VoidCallback? onPressed,
+  VoidCallback? onPressed,
   IconData icon = Icons.settings,
   Color iconColor = Colors.grey,
 }) {
@@ -51,6 +52,8 @@ Widget customSearch() {
       });
 }
 
-Widget customQr() {
-  return CustomIcon(icon: Image.asset(Images.qrIcon), onPressed: () {});
+Widget customQr(BuildContext context) {
+  return CustomIcon(icon: Image.asset(Images.qrIcon), onPressed:(){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>QrScannerScreen()));
+  });
 }
