@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/Home_Social/Screens/Home.dart';
+import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart';
 
 class ServiceContent extends StatelessWidget {
   const ServiceContent({super.key});
@@ -18,7 +18,7 @@ class ServiceContent extends StatelessWidget {
             context,
             PageRouteBuilder(
               pageBuilder: (context, animation1, animation2) =>
-                  const Home(),
+                  SocialNetworkPage(),
               transitionDuration: const Duration(seconds: 1),
             ),
           );

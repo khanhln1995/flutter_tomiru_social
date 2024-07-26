@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
 import 'package:tomiru_social_flutter/features/Home/Widgets/wallet_info.dart';
 import 'package:tomiru_social_flutter/features/Home/Widgets/contact_member.dart';
@@ -125,14 +126,14 @@ class _HomepageState extends State<Homepage> {
   Widget exploreContent() {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Khám phá",
+            Text("Khám phá",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             ServiceContent(),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
           ],
         ));
   }

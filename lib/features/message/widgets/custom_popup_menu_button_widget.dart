@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/screens/message/widgets/custom_color_widget.dart'
+import 'package:tomiru_social_flutter/features/message/widgets/custom_color_widget.dart'
     as CustomAppColor;
 
 class CustomPopupMenuButton extends StatelessWidget {
@@ -16,6 +16,7 @@ class CustomPopupMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final List<Map<String, dynamic>> items = [
       {'icon': Icon(Icons.people_alt_outlined), 'title': 'Tạo nhóm'},
       {'icon': Icon(Icons.note_alt_outlined), 'title': 'Tin nhắn mới'},
@@ -53,7 +54,7 @@ class CustomPopupMenuButton extends StatelessWidget {
         final Size buttonSize = button.size;
 
         final RelativeRect position = RelativeRect.fromLTRB(
-          buttonPosition.dx + buttonSize.width - 183,
+          buttonPosition.dx + buttonSize.width - (size.width * 0.44),
           buttonPosition.dy + buttonSize.height,
           buttonPosition.dx + buttonSize.width,
           buttonPosition.dy + buttonSize.height,
@@ -68,7 +69,7 @@ class CustomPopupMenuButton extends StatelessWidget {
               child: Row(
                 children: [
                   item['icon'],
-                  SizedBox(width: 10),
+                  SizedBox(width: size.width / 60),
                   Text(item['title']),
                 ],
               ),
@@ -76,8 +77,12 @@ class CustomPopupMenuButton extends StatelessWidget {
           }).toList(),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            side: BorderSide(
+              width: 1,
+              color: CustomAppColor.inline,
+            ),
           ),
-          elevation: 0,
+          elevation: 10,
           color: CustomAppColor.backgroundTextField,
         ).then((String? result) {
           _navigateToPage(result!);

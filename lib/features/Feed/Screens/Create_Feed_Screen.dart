@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tomiru_social_flutter/features/camera/screen/camera_screen.dart';
+import 'package:tomiru_social_flutter/features/camera/screen/livestream_screen.dart';
+
 import 'package:tomiru_social_flutter/widgets/ui/customAppBar.dart';
 import 'package:tomiru_social_flutter/widgets/ui/customButton.dart';
 
@@ -197,6 +199,20 @@ class _CreatedFeedState extends State<CreatedFeed> {
                 leading: const Icon(Icons.location_on, color: Colors.red),
                 title: const Text('Thêm vị trí'),
                 onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.live_tv,
+                    color: Colors.red), // Changed the icon for LiveStream
+                title: const Text('LiveStream'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          LiveStreamScreen(), // Navigate to LiveStreamScreen
+                    ),
+                  );
+                },
               ),
             ],
           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "../../../home_social/Screens/Home.dart";
+import 'package:tomiru_social_flutter/features/social_network/Screens/social_network.dart';
 class LoginButton extends StatelessWidget {
 
   @override
@@ -8,9 +8,10 @@ class LoginButton extends StatelessWidget {
       width: double.infinity,
       height: 48,
       child: ElevatedButton(
+        
         onPressed: () {
          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Home(
+              builder: (context) => SocialNetwork(
                     
                   )));
         },
