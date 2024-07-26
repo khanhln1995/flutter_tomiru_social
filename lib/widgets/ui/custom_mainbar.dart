@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? mainTitle;
   final String? titleText;
-  final String? centerText;
+  // final String? centerText;
   final Function onBackPress;
   final List<Widget>? widget;
   final IconData? icon;
@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.icon,
       this.image,
       this.padding,
-      this.centerText,
+      // this.centerText,
       this.leadingWidth = 0});
 
   @override
@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: const Size.fromHeight(kToolbarHeight * 1.4),
       child: ClipRRect(
         child: AppBar(
-          title: Text(centerText ?? titleText ?? mainTitle ?? '',
+          title: Text(mainTitle ?? '',
               textAlign: TextAlign.center),
           centerTitle: true,
           scrolledUnderElevation: 0,
