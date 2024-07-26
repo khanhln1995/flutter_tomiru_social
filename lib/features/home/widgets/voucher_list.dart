@@ -40,7 +40,7 @@ class _VerticalVoucherListState extends State<VerticalVoucherList> {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 2/5,
+          height: MediaQuery.of(context).size.height * 2 / 5,
           child: PageView.builder(
             controller: _pageController,
             onPageChanged: (int page) {

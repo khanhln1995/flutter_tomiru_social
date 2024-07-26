@@ -31,6 +31,7 @@ class _SearchPageState extends State<SearchPage> {
                   children: [
                     Expanded(
                       child: TextField(
+                        cursorColor: Theme.of(context).primaryColor,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey[400]!),
@@ -79,48 +80,48 @@ class _SearchPageState extends State<SearchPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-              child: Text('Từ khóa phổ biến',
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              child: const Text('Từ khóa phổ biến',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey)),
             ),
-            Container(
-              padding: const EdgeInsets.only(bottom: 24.0),
-              height: 100,
-              child: ListView.separated(
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox();
-                },
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                scrollDirection: Axis.horizontal,
-                itemCount: recentlyKeys.length,
-                itemBuilder: (context, index) {
-                  return SizedBox(
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(
+                  recentlyKeys.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: TextButton(
                       onPressed: () {},
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
                         decoration: BoxDecoration(
                           color: index == 0 ? Colors.blue : Colors.white,
                           borderRadius: BorderRadius.circular(20.0),
                           border: Border.all(color: Colors.grey),
                         ),
-                        child: Center(
-                          child: Text(
-                            recentlyKeys[index],
-                            style: TextStyle(
-                              color: index == 0 ? Colors.white : Colors.black,
-                            ),
+                        child: Text(
+                          recentlyKeys[index],
+                          style: TextStyle(
+                            color: index == 0 ? Colors.white : Colors.black,
                           ),
                         ),
                       ),
                     ),
-                  );
-                },
+                  ),
+                ),
               ),
-            )
+            ),
           ],
         ));
   }
@@ -153,3 +154,24 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 }
+
+
+// TextButton(
+//                     onPressed: () {},
+//                     child: Container(
+//                       padding: EdgeInsets.symmetric(horizontal: 16.0),
+//                       decoration: BoxDecoration(
+//                         color: index == 0 ? Colors.blue : Colors.white,
+//                         borderRadius: BorderRadius.circular(20.0),
+//                         border: Border.all(color: Colors.grey),
+//                       ),
+//                       child: Center(
+//                         child: Text(
+//                           recentlyKeys[index],
+//                           style: TextStyle(
+//                             color: index == 0 ? Colors.white : Colors.black,
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   );
