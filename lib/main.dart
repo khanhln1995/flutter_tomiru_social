@@ -22,7 +22,7 @@ import 'package:tomiru_social_flutter/theme/dark_theme.dart';
 import 'package:tomiru_social_flutter/theme/light_theme.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:tomiru_social_flutter/util/messages.dart';
-
+import "package:tomiru_social_flutter/state/message_controller.dart";
 import 'helper/get_di.dart' as di;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -91,6 +91,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     Get.find<LocalizationController>().saveLanguage(const Locale("vn", "VN"));
+      Get.put(MessageController()); // Register MessageController
 
     _route();
   }

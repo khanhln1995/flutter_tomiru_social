@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/new_message.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/new_message.dart';
 import 'package:tomiru_social_flutter/widgets/custom_appbar2.dart';
 
 class MessageBar extends StatefulWidget {

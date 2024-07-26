@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
-import 'package:tomiru_social_flutter/state/home_controller.dart';
+import 'package:tomiru_social_flutter/state/message_controller.dart';
 import 'package:tomiru_social_flutter/ui/theme/theme.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/tab_item.dart';
 import 'package:tomiru_social_flutter/widgets/custom_widgets.dart';
@@ -46,7 +46,7 @@ class _BottomBarMessageState extends State<BottomBarMessage> {
   }
 
   Widget _icon(IconData iconData, int index, {String? title}) {
-    final HomeController controller = Get.find();
+    final MessageController controller = Get.find();
     return Expanded(
       child: SizedBox(
         height: double.infinity,

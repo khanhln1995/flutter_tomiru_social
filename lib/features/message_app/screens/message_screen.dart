@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/body_message.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/body_message.dart';
 import 'package:tomiru_social_flutter/features/message_app/widgets/bottom_bar_message.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/phonebook_page/body_phonebook.dart';
 import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
 
 import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
 
+//!
+import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/Friends/Screens/Friend_Screen.dart';
+import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.dart';
+
+import 'package:tomiru_social_flutter/state/message_controller.dart';
+import "package:tomiru_social_flutter/features/short_video/screens/short_video_page.dart";
+// import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
+import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart';
+import 'package:tomiru_social_flutter/features/discovery/screens/discovery_page.dart';
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
 
@@ -34,14 +45,38 @@ class _MessageScreenState extends State<MessageScreen> {
         ],
         padding: 12.0,
       ),
-      body: SafeArea(
-          child: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child:  BodyMessage(),
-      )),
+      body: _body(),
       bottomNavigationBar: const BottomBarMessage(),
 
     );
+  }
+  Widget _body() {
+    return SafeArea(
+      child: Obx(() {
+        final pageIndex = Get.find<MessageController>().pageIndex.value;
+        return getPage(pageIndex);
+      }),
+    );
+  }
+
+  Widget getPage(int index) {
+    switch (index) {
+      case 0:
+        // return FeedPage(
+        //   scaffoldKey: _scaffoldKey,
+        //   refreshIndicatorKey: refreshIndicatorKey,
+        // );
+        return BodyMessage();
+      case 1:
+        return BodyPhonebook();
+      case 2:
+        return const DiscoveryPage();
+      case 3:
+        return const Friend2Screen();
+     
+      default:
+        // return FeedPage(scaffoldKey: _scaffoldKey);
+        return BodyMessage();
+    }
   }
 }

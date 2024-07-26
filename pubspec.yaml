@@ -79,6 +79,11 @@ dependencies:
     comment_tree: ^0.3.0
     qr_code_scanner: ^1.0.1
     animated_toggle_switch: ^0.8.2
+
+    multi_image_picker: ^4.8.01
+    camera: ^0.11.0+1
+    permission_handler: ^11.3.1
+    zego_uikit_prebuilt_live_streaming: ^3.11.0
     # The following adds the Cupertino Icons font to your application.
 dev_dependencies:
     flutter_test:

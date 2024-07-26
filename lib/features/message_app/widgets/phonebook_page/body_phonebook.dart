@@ -1,27 +1,28 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/pageview_nhomchat/page_view4.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/pageview_nhomchat/page_view5.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/pageview_nhomchat/page_view6.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/pageview_nhomchat/page_view4.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/pageview_nhomchat/page_view5.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/pageview_nhomchat/page_view6.dart';
 //
-import 'package:tomiru_social_flutter/features/message_app/widgets/pageview_trochuyen/pageview1.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/pageview_trochuyen/pageview2.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/pageview_trochuyen/pageview3.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/message_bar.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/phonebook_page/pageview_banbe/pageview_1.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/pageview_trochuyen/pageview2.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/pageview_trochuyen/pageview3.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/message_bar2.dart';
 
-class BodyMessage extends StatefulWidget {
+class BodyPhonebook extends StatefulWidget {
   @override
-  _BodyMessageState createState() => _BodyMessageState();
+  _BodyPhonebookState createState() => _BodyPhonebookState();
 }
 
-class _BodyMessageState extends State<BodyMessage>
+class _BodyPhonebookState extends State<BodyPhonebook>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -50,12 +51,15 @@ class _BodyMessageState extends State<BodyMessage>
             tabs: [
               Tab(
                 child: Text(
-                  'Cuộc trò chuyện'.tr,
+                  'Bạn bè'.tr,
                   style: TextStyle(fontSize: 16),
                 ),
               ),
               Tab(
-                child: Text('Nhóm chat'.tr, style: TextStyle(fontSize: 16)),
+                child: Text('Lời mời'.tr, style: TextStyle(fontSize: 16)),
+              ),
+              Tab(
+                child: Text('Danh bạ máy'.tr, style: TextStyle(fontSize: 16)),
               ),
             ],
           ),
@@ -64,6 +68,7 @@ class _BodyMessageState extends State<BodyMessage>
               controller: _tabController,
               children: [
                 HomeTab(),
+                SettingsTab(),
                 SettingsTab(),
               ],
             ),
@@ -93,8 +98,8 @@ class _HomeTabState extends State<HomeTab> {
 
   final List<Widget> _innerPages = [
     PageView1(),
-    PageView2(),
-    PageView3(),
+    // PageView2(),
+    // PageView3(),
     // EventExist()
     // timeLine(),
     // Add more pages if needed
@@ -106,7 +111,7 @@ class _HomeTabState extends State<HomeTab> {
       backgroundColor: Colors.white, // Set white background color
       body: Column(
         children: [
-          MessageBar(navigateTo: _navigateTo),
+          MessageBar2(navigateTo: _navigateTo),
           Expanded(
             child: IndexedStack(
               index: _innerPageIndex,
@@ -118,7 +123,6 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 }
-
 
 class SettingsTab extends StatefulWidget {
   final int initialPageIndex;
@@ -138,9 +142,9 @@ class _SettingsTabState extends State<SettingsTab> {
   }
 
   final List<Widget> _innerPages = [
-    PageView4(),
-    PageView5(),
-    PageView6(),
+    // PageView4(),
+    // PageView5(),
+    // PageView6(),
     // EventExist()
     // timeLine(),
     // Add more pages if needed
@@ -152,7 +156,7 @@ class _SettingsTabState extends State<SettingsTab> {
       backgroundColor: Colors.white, // Set white background color
       body: Column(
         children: [
-          MessageBar(navigateTo: _navigateTo),
+          
           Expanded(
             child: IndexedStack(
               index: _innerPageIndex,
