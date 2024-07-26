@@ -218,6 +218,7 @@ class _CreatedFeedState extends State<CreatedFeed> {
           ),
           if (_controller.text.isNotEmpty || images.isNotEmpty)
             CustomButton(
+              backgroundColor: Colors.blue,
               content: 'Đăng tin',
               isEnabled: true,
               action: () {},
