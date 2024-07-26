@@ -19,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
           preferredSize: Size.fromHeight(size.height / 13.6),
           child: CustomAppbar(
             title: 'Cài đặt',
-            redirect: () {},
+            redirect: () => Navigator.pop(context),
           )),
       body: Column(
         children: [

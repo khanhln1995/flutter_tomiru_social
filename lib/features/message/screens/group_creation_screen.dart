@@ -15,7 +15,8 @@ class _GroupCreationState extends State<GroupCreation> {
       appBar: AppBar(
         title: Text('Group View'),
         centerTitle: true,
-        leading: TextButton(onPressed: () {}, child: Text('Hủy')),
+        leading: TextButton(
+            onPressed: () => Navigator.pop(context), child: Text('Hủy')),
       ),
       body: Center(
         child: Text('This is Group View'),
