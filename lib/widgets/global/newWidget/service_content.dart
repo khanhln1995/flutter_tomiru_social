@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart';
+import 'package:tomiru_social_flutter/features/social_network/Screens/social_network.dart';
+import 'package:tomiru_social_flutter/helper/route_helper.dart';
 
 class ServiceContent extends StatelessWidget {
   const ServiceContent({super.key});
@@ -18,7 +19,7 @@ class ServiceContent extends StatelessWidget {
             context,
             PageRouteBuilder(
               pageBuilder: (context, animation1, animation2) =>
-                  SocialNetworkPage(),
+                  const SocialNetwork(),
               transitionDuration: const Duration(seconds: 1),
             ),
           );
@@ -39,7 +40,9 @@ class ServiceContent extends StatelessWidget {
                 size: 30, color: Colors.white),
             "Kinh doanh",
             [const Color(0xFFFFa500), const Color(0xFFFF8C00)],
-            () {}),
+            () {
+              Navigator.pushNamed(context, RouteHelper.getBusinessRoute());
+            }),
       ],
     );
   }
