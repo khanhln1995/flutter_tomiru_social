@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/features/short_video/screens/short_video_page.dart';
 import 'package:tomiru_social_flutter/widgets/global/imageSlide.dart';
 
 class HorizontalImageListScreen extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final List<Map<String, String>> images = [
     {
       "url": "https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg",
@@ -51,19 +54,26 @@ class HorizontalImageListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+
+      return Container(
       height: 180,
       color: Colors.white,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: images.length,
         itemBuilder: (context, index) {
-          return HorizontalImageItem(
-            imageUrl: images[index]['url']!,
-            showPlusButtonAdd: images[index]['showPlusButtonAdd']! == 'true',
-            imageAvatarUrl: images[index]['imageAvatarUrl']!,
-            userName: images[index]['userName']!,
-            caption: images[index]['caption']!,
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(context,MaterialPageRoute(builder: (context)=> ShortVideoPage(scaffoldKey: _scaffoldKey,)));
+              print('Tapped on item $index');
+            },
+            child: HorizontalImageItem(
+              imageUrl: images[index]['url']!,
+              showPlusButtonAdd: images[index]['showPlusButtonAdd']! == 'true',
+              imageAvatarUrl: images[index]['imageAvatarUrl']!,
+              userName: images[index]['userName']!,
+              caption: images[index]['caption']!,
+            ),
           );
         },
       ),
