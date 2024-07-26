@@ -21,7 +21,7 @@ class HorizontalContactMember extends StatelessWidget {
     return Container(
       padding: EdgeInsets.fromLTRB(16.0, 12.0, 24.0, 0),
       margin: EdgeInsets.only(right: 12.0),
-      width: MediaQuery.of(context).size.width * 3 / 4,
+      width: MediaQuery.of(context).size.width * 4/5,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),

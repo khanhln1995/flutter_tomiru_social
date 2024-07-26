@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:iconsax/iconsax.dart';
 import "load_comment_widget.dart";
 import 'package:tomiru_social_flutter/util/show_post_comments.dart';
 
@@ -39,9 +41,10 @@ class _LikeBarState extends State<LikeBar> {
                     });
                   },
                   child: widget.isLikeActive
-                      ? Icon(Icons.thumb_up_alt_outlined, size: 25)
-                      : Icon(Icons.thumb_up_alt_rounded,
-                          color: Colors.blue, size: 28),
+                      ? Icon(FontAwesomeIcons.thumbsUp, size: 25)
+                      : Icon(FontAwesomeIcons.solidThumbsUp,
+                          color: Colors.blue, size: 25,
+                          ),
                 ),
                 const SizedBox(width: 10),
                 Text(widget.likeCount),
@@ -52,7 +55,7 @@ class _LikeBarState extends State<LikeBar> {
                 onTap: () {
                   showUnderBottomSheet(context, 0);
                 },
-                child: Icon(Icons.messenger_outline, size: 25),
+                child: Icon(Iconsax.message, size: 25),
               ),
               const SizedBox(width: 10.0),
               Text(widget.commentCount)
@@ -60,7 +63,7 @@ class _LikeBarState extends State<LikeBar> {
             Row(children: [
               InkWell(
                 onTap: () {},
-                child: Icon(Icons.share, size: 25),
+                child: Icon(Iconsax.send_2, size: 25),
               ),
               const SizedBox(width: 10.0),
               Text(widget.shareCount)
