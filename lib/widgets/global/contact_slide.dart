@@ -70,18 +70,15 @@ class HorizontalContactMember extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               // mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 4.0),
                 Row(children: [
                   Text(
                     username,
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(width: 4),
-                  Icon(Iconsax.heart5, color: Colors.red, size: 16),
-                
+                  const SizedBox(width: 4),
+                  const Icon(Iconsax.heart5, color: Colors.red, size: 16),
                 ]),
-                const SizedBox(height: 4.0),
                 Text(
                   '• $role',
                   style: const TextStyle(color: Colors.grey, fontSize: 14),
@@ -90,44 +87,44 @@ class HorizontalContactMember extends StatelessWidget {
                 Row(
                   children: [
                     if (mutual_friend > 0)
-                    Text(mutual_group > 0 ?
-                      '$mutual_friend bạn chung - ' : '$mutual_friend bạn chung',
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
+                      Text(
+                        mutual_group > 0
+                            ? '$mutual_friend bạn chung - '
+                            : '$mutual_friend bạn chung',
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
                     if (mutual_group > 0)
-                    Text(
-                      '$mutual_group nhóm chung',
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
+                      Text(
+                        '$mutual_group nhóm chung',
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 4),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue[50],
-                        ),
-                        child: Text('Nhắn tin',
-                            style: TextStyle(
-                                color: Colors.grey[600],
-                                fontWeight: FontWeight.bold)),
+                    TextButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[50],
                       ),
+                      child: Text('Nhắn tin',
+                          style: TextStyle(
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.bold)),
                     ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue[50],
-                        ),
-                        child: Text('Gọi điện',
-                            style: TextStyle(
-                                color: Colors.grey[600],
-                                fontWeight: FontWeight.bold)),
+                    TextButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[50],
                       ),
+                      child: Text('Gọi điện',
+                          style: TextStyle(
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),

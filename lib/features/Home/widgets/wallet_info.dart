@@ -95,6 +95,7 @@ class _WalletInfoState extends State<WalletInfo> {
               margin: const EdgeInsets.only(top: 20),
               alignment: Alignment.center,
               child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('Xem thêm'),
                   Icon(Icons.arrow_forward_ios),

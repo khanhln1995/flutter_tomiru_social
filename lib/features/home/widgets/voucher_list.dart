@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/widgets/global/voucher/custom_voucher.dart';
 
-class VerticalVoucherList extends StatelessWidget {
-  // const VerticalVoucherList({super.key});
+class VerticalVoucherList extends StatefulWidget {
+  const VerticalVoucherList({super.key});
+  @override
+  State<VerticalVoucherList> createState() => _VerticalVoucherListState();
+}
+
+class _VerticalVoucherListState extends State<VerticalVoucherList> {
+  final PageController _pageController = PageController(initialPage: 0);
+  int _activePage = 0;
+
   final List<Map<String, dynamic>> vouchers = [
     {
       "voucher_name": "Voucher bạn mới",
@@ -29,27 +37,83 @@ class VerticalVoucherList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20.0),
-      height: MediaQuery.of(context).size.height / 2.8,
-      child: GridView.builder(
-        physics: PageScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, 
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          childAspectRatio: (MediaQuery.of(context).size.width * 0.78)/ MediaQuery.of(context).size.height ,
+    return Column(
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height / 3,
+          child: PageView.builder(
+            controller: _pageController,
+            onPageChanged: (int page) {
+              setState(() {
+                _activePage = page;
+              });
+            },
+            itemCount: (vouchers.length / 2).ceil(),
+            itemBuilder: (context, pageIndex) {
+              final startIndex = pageIndex * 2;
+              return Column(
+                children: [
+                  for (var i = startIndex;
+                      i < startIndex + 2 && i < vouchers.length;
+                      i++)
+                    Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 12.0),
+                        child: Voucher(
+                          voucherName: vouchers[i]['voucher_name'],
+                          description: vouchers[i]['voucher_description'],
+                          salePrice: vouchers[i]['voucher_sale'],
+                          saleDescription: vouchers[i]['sale_description'],
+                          end: vouchers[i]['date_end'],
+                        ),
+                      ),
+                    ),
+                  if (startIndex + 1 >= vouchers.length)
+                    const Flexible(flex: 1, child: SizedBox()),
+                ],
+              );
+            },
+          ),
         ),
-        scrollDirection: Axis.horizontal,
-        itemCount: vouchers.length,
-        itemBuilder: (context, index) {
-          return Voucher(
-              voucherName: vouchers[index]['voucher_name'],
-              description: vouchers[index]['voucher_description'],
-              salePrice: vouchers[index]['voucher_sale'],
-              saleDescription: vouchers[index]['sale_description'],
-              end: vouchers[index]['date_end']);
-        }),
+        pageViewIndicator(),
+        const SizedBox(height: 16.0)
+      ],
+    );
+  }
+
+  Widget pageViewIndicator() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List<Widget>.generate(
+          (vouchers.length / 2).ceil(),
+          (index) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: InkWell(
+                    onTap: () {
+                      _pageController.animateToPage(index,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn);
+                    },
+                    child: Container(
+                      decoration:
+                          BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                        BoxShadow(
+                          color: _activePage == index
+                              ? Colors.red.withOpacity(0.6)
+                              : Colors.transparent,
+                          spreadRadius: 3,
+                          blurRadius: 5,
+                        ),
+                      ]),
+                      child: CircleAvatar(
+                        radius: 5,
+                        backgroundColor: _activePage == index
+                            ? Colors.red[300]
+                            : Colors.grey,
+                      ),
+                    )),
+              )),
     );
   }
 }
