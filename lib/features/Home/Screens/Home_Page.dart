@@ -115,7 +115,9 @@ class _HomepageState extends State<Homepage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     customSetting(
-                      onPressed: () => SettingsScreen(),
+                      onPressed: (){
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=>SettingsScreen()));
+                      },
                     ),
                     const Text("Cài đặt", style: TextStyle(fontSize: 12)),
                   ],
