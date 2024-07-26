@@ -1,13 +1,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/pageview_nhomchat/page_view4.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/pageview_nhomchat/page_view5.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/pageview_nhomchat/page_view6.dart';
+
+
 //
 import 'package:tomiru_social_flutter/features/message_app/widgets/phonebook_page/pageview_banbe/pageview_1.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/pageview_trochuyen/pageview2.dart';
-import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/pageview_trochuyen/pageview3.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/phonebook_page/pageview_banbe/pageview_2.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/phonebook_page/pageview_banbe/pageview_3.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/phonebook_page/pageview_banbe/pageview_4.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/phonebook_page/pageview_danhbamay/pageview_5.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/phonebook_page/pageview_loimoi/pageview_6.dart';
+
 import 'package:tomiru_social_flutter/features/message_app/widgets/message_bar2.dart';
 
 class BodyPhonebook extends StatefulWidget {
@@ -69,7 +72,7 @@ class _BodyPhonebookState extends State<BodyPhonebook>
               children: [
                 HomeTab(),
                 SettingsTab(),
-                SettingsTab(),
+                SettingsTab2(),
               ],
             ),
           ),
@@ -98,8 +101,9 @@ class _HomeTabState extends State<HomeTab> {
 
   final List<Widget> _innerPages = [
     PageView1(),
-    // PageView2(),
-    // PageView3(),
+    PageView2(),
+    PageView3(),
+    PageView4(),
     // EventExist()
     // timeLine(),
     // Add more pages if needed
@@ -142,9 +146,53 @@ class _SettingsTabState extends State<SettingsTab> {
   }
 
   final List<Widget> _innerPages = [
-    // PageView4(),
+   PageView5(),
     // PageView5(),
     // PageView6(),
+    // EventExist()
+    // timeLine(),
+    // Add more pages if needed
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white, // Set white background color
+      body: Column(
+        children: [
+          
+          Expanded(
+            child: IndexedStack(
+              index: _innerPageIndex,
+              children: _innerPages,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+class SettingsTab2 extends StatefulWidget {
+  final int initialPageIndex;
+  const SettingsTab2({Key? key, this.initialPageIndex = 0}) : super(key: key);
+
+  @override
+  State<SettingsTab2> createState() => _SettingsTab2State();
+}
+
+class _SettingsTab2State extends State<SettingsTab2> {
+  int _innerPageIndex = 0;
+
+  void _navigateTo(int index) {
+    setState(() {
+      _innerPageIndex = index;
+    });
+  }
+
+  final List<Widget> _innerPages = [
+    // PageView4(),
+    // PageView5(),
+    PageView6(),
     // EventExist()
     // timeLine(),
     // Add more pages if needed

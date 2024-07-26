@@ -28,13 +28,10 @@ class _PageView1State extends State<PageView1> {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       children: <TextSpan>[
                         TextSpan(
-                            text: 'Mới',
-                            style: TextStyle(color: Colors.black)),
-                       
+                            text: 'Mới', style: TextStyle(color: Colors.black)),
                       ],
                     ),
                   ),
-                 
                 ],
               ),
             ),
@@ -61,11 +58,16 @@ class _PageView1State extends State<PageView1> {
                       height: 56, // Đặt chiều cao mong muốn
                       child: CircleAvatar(
                         backgroundImage:
-                            AssetImage('assets/images/icon-tomiru-appbar.jpg'),
+                            AssetImage('assets/images/mark-zuckerberg.jpg'),
                       ),
                     ),
-                    title: Text('Nguyễn Hữu Kiên',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                    subtitle: Text('Khách hàng', style: TextStyle(fontSize: 12)),
+                    title: Text(
+                      'Nguyễn Hữu Kiên',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle:
+                        Text('Khách hàng', style: TextStyle(fontSize: 12)),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -103,7 +105,7 @@ class _PageView1State extends State<PageView1> {
                 mainAxisAlignment:
                     MainAxisAlignment.spaceBetween, // Align right
                 children: [
-                 RichText(
+                  RichText(
                     text: TextSpan(
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -119,7 +121,6 @@ class _PageView1State extends State<PageView1> {
                       ],
                     ),
                   ),
-                 
                 ],
               ),
             ),
@@ -127,7 +128,7 @@ class _PageView1State extends State<PageView1> {
             //Recent Group Activities Section
             ListView.builder(
               shrinkWrap: true,
-              itemCount: 1,
+              itemCount: 3,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return Container(
@@ -146,20 +147,115 @@ class _PageView1State extends State<PageView1> {
                       height: 56, // Đặt chiều cao mong muốn
                       child: CircleAvatar(
                         backgroundImage:
-                            AssetImage('assets/images/icon-tomiru-appbar.jpg'),
+                            AssetImage('assets/images/mark-zuckerberg.jpg'),
                       ),
                     ),
-                    title: Text('Tomiru'),
-                    subtitle: RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: 'Mới ',
-                              style: TextStyle(color: Colors.blue)),
-                          TextSpan(text: '- Cập nhật khoảng 1h trước'),
-                        ],
+                    title: Text(
+                      'Nguyễn Hữu Kiên',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle:
+                        Text('Khách hàng', style: TextStyle(fontSize: 12)),
+                    trailing: TextButton(
+                      onPressed: () {
+                        // Handle the "Kết bạn" action
+                      },
+                      child: Text(
+                        'Kết bạn',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+            SizedBox(height: 16),
+             Container(
+              padding: EdgeInsets.only(top: 16, left: 16),
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween, // Align right
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Online',
+                            style: TextStyle(color: Colors.black)),
+                        TextSpan(
+                          text: '(3)',
+                          style: TextStyle(
+                              color: Colors.grey), // Đặt màu xám cho (4)
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            //Recent Group Activities Section
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: 4,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Container(
+                  // padding: EdgeInsets.all(8.0), // Adjust padding as needed
+                  margin: EdgeInsets.symmetric(
+                      horizontal: 10.0), // Adjust margin as needed
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Set background color
+                    borderRadius:
+                        BorderRadius.circular(10.0), // Add rounded corners
+                  ),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    leading: SizedBox(
+                      width: 56, // Đặt chiều rộng mong muốn
+                      height: 56, // Đặt chiều cao mong muốn
+                      child: CircleAvatar(
+                        backgroundImage:
+                            AssetImage('assets/images/mark-zuckerberg.jpg'),
+                      ),
+                    ),
+                    title: Text(
+                      'Nguyễn Hữu Kiên',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle:
+                        Text('Khách hàng', style: TextStyle(fontSize: 12)),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.call_outlined),
+                          onPressed: () {
+                            // Handle settings action
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.videocam_outlined),
+                          onPressed: () {
+                            // Handle message action
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 );
@@ -181,60 +277,33 @@ class _PageView1State extends State<PageView1> {
                 mainAxisAlignment:
                     MainAxisAlignment.spaceBetween, // Align right
                 children: [
-                  Text(
-                    'Nhóm bạn đã tham gia',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  RichText(
+                    text: TextSpan(
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Chờ kết bạn',
+                            style: TextStyle(color: Colors.black)),
+                        TextSpan(
+                          text: '(3)',
+                          style: TextStyle(
+                              color: Colors.grey), // Đặt màu xám cho (4)
+                        ),
+                      ],
                     ),
                   ),
-                  TextButton(
-                      onPressed: () {
-                        // Handle Edit button press
-                      },
-                      child: Icon(
-                        Icons.swap_vert,
-                        color: Colors.black,
-                        size: 30.0,
-                      )),
                 ],
               ),
             ),
-            FractionallySizedBox(
-              // Bọc TextField trong FractionallySizedBox
-              widthFactor: 0.9, // Chiều rộng 80% màn hình
-              child: SizedBox(
-                  width: 38,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Color.fromARGB(255, 128, 126, 126),
-                      ),
-                      hintText: "Tìm tên",
-                      hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 128, 126, 126),
-                      ),
-                      contentPadding: EdgeInsets.only(
-                          top: paddingTextInTextField,
-                          bottom: paddingTextInTextField),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 245, 244, 244),
-                    ),
-                  )),
-            ),
+
             //Recent Group Activities Section
             ListView.builder(
               shrinkWrap: true,
+              itemCount: 3,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 4,
               itemBuilder: (context, index) {
                 return Container(
-                  // padding: EdgeInsets.all(8.0), // Adjust padding as needed
                   margin: EdgeInsets.symmetric(
                       horizontal: 10.0), // Adjust margin as needed
                   decoration: BoxDecoration(
@@ -249,15 +318,67 @@ class _PageView1State extends State<PageView1> {
                       height: 56, // Đặt chiều cao mong muốn
                       child: CircleAvatar(
                         backgroundImage:
-                            AssetImage('assets/images/icon-tomiru-appbar.jpg'),
+                            AssetImage('assets/images/mark-zuckerberg.jpg'),
                       ),
                     ),
-                    title: Text('Hội Saler Sun Tower'),
-                    subtitle: Text('126 Members - 530 Posts'),
+                    title: Text(
+                      'Nguyễn Hữu Kiên',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle:
+                        Text('Khách hàng', style: TextStyle(fontSize: 12)),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            // Handle the "Đồng ý" action
+                          },
+                          child: Text(
+                            'Đồng ý',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 4.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            width: 8), // Add some space between the buttons
+                        TextButton(
+                          onPressed: () {
+                            // Handle the "Từ chối" action
+                          },
+                          child: Text(
+                            'Từ chối',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.grey,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 4.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
-            ),
+            )
           ],
         ),
       ),

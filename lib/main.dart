@@ -11,12 +11,14 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:tomiru_social_flutter/features/language/controllers/localization_controller.dart';
 import 'package:tomiru_social_flutter/features/notification/domain/models/notification_body_model.dart';
+import 'package:tomiru_social_flutter/features/short_video/controller/short_video_controller.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/splash_controller.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/theme_controller.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/models/deep_link_body.dart';
 import 'package:tomiru_social_flutter/helper/notification_helper.dart';
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
+import 'package:tomiru_social_flutter/state/app_state.dart';
 import 'package:tomiru_social_flutter/state/home_controller.dart';
 import 'package:tomiru_social_flutter/theme/dark_theme.dart';
 import 'package:tomiru_social_flutter/theme/light_theme.dart';
@@ -33,6 +35,8 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 Future<void> main() async {
    Get.put(HomeController());
+   Get.put(ShortVideoController());
+   Get.put(AppState());
   WidgetsFlutterBinding.ensureInitialized();
 
   if (ResponsiveHelper.isMobilePhone()) {

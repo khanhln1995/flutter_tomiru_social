@@ -88,8 +88,8 @@ class _MessageBar2State extends State<MessageBar2> {
                     height: tabBarHeight,
                     action: () {
                       setState(() {
-                        _selectedIndex = 2;
-                        widget.navigateTo(2); // Notify parent widget
+                        _selectedIndex = 3;
+                        widget.navigateTo(3); // Notify parent widget
                       });
                     },
                   ),

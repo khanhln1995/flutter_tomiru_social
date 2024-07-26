@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tomiru_social_flutter/features/Friends/Screens/Friend_Screen.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.dart';
 import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart';
+import 'package:tomiru_social_flutter/features/short_video/screens/short_video_page.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
 import 'package:tomiru_social_flutter/state/home_controller.dart';
 import "package:tomiru_social_flutter/features/short_video/screens/short_video_page.dart";
@@ -12,13 +13,13 @@ import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.da
 import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart';
 import 'package:tomiru_social_flutter/features/discovery/screens/discovery_page.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class SocialNetwork extends StatefulWidget {
+  const SocialNetwork({super.key});
   @override
-  State<Home> createState() => _HomeState();
+  State<SocialNetwork> createState() => _SocialNetworkState();
 }
 
-class _HomeState extends State<Home> {
+class _SocialNetworkState extends State<SocialNetwork> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 

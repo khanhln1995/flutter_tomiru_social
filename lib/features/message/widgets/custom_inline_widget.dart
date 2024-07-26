@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tomiru_social_flutter/screens/message/widgets/custom_color_widget.dart'
+import 'package:tomiru_social_flutter/features/message/widgets/custom_color_widget.dart'
     as CustomAppColor;
 
 class CustomInline extends StatelessWidget {
@@ -11,7 +11,7 @@ class CustomInline extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 0.9,
+      height: 0.97,
       decoration: BoxDecoration(color: CustomAppColor.inline),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String? mainTitle;
   final String? titleText;
   final String? centerText;
   final Function onBackPress;
@@ -10,6 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double? padding;
   final double leadingWidth;
   const CustomAppBar(
+
       {this.titleText,
       required this.onBackPress,
       this.widget,
@@ -17,7 +19,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.image,
       this.padding,
       this.centerText,
+      this.mainTitle,
+      
       this.leadingWidth = 0});
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +32,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: const Size.fromHeight(kToolbarHeight * 1.4),
       child: ClipRRect(
         child: AppBar(
+
           title:
-              Text(centerText ?? titleText ?? '', textAlign: TextAlign.center),
+              Text(centerText ?? titleText ??mainTitle?? '', textAlign: TextAlign.center),
+              centerTitle: true,
+
           scrolledUnderElevation: 0,
           toolbarHeight: kToolbarHeight * 1.4,
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -50,7 +58,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
           ),
-          leadingWidth: finalLeadingWidth,
+
+          leadingWidth: (mainTitle == null || mainTitle!.isEmpty) && titleText != null && titleText!.isNotEmpty
+              ? MediaQuery.of(context).size.width / 2
+              : 56,
           actions: widget,
           elevation: 0,
           bottom: PreferredSize(
