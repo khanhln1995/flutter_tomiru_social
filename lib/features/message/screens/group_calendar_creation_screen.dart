@@ -15,7 +15,8 @@ class _GroupCalendarCreationState extends State<GroupCalendarCreation> {
       appBar: AppBar(
         title: Text('Group Calendar View'),
         centerTitle: true,
-        leading: TextButton(onPressed: () {}, child: Text('Hủy')),
+        leading: TextButton(
+            onPressed: () => Navigator.pop(context), child: Text('Hủy')),
       ),
       body: Center(
         child: Text('This is Group Calendar View'),
