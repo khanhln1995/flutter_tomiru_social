@@ -5,17 +5,25 @@ import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_stre
 class LiveStreamScreen extends StatelessWidget {
   LiveStreamScreen({super.key});
 
-  // final String userID = Random().nextInt(10000).toString();
-  final String userID = "Lam";
+  final String userID = Random().nextInt(10000).toString();
+  // final String userID = "Lam";
 
   void jumpToLivePage(BuildContext context, {required bool isHost}) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LivePage(isHost: isHost, userID: userID),
+        builder: (context) => LivePage(isHost: false, userID: userID),
       ),
     );
   }
+  // void jumpToHostPage(BuildContext context, {required bool isHost}) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => LivePage(isHost: true, userID: userID),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
