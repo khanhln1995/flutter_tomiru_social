@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/widgets/comment_bottom_sheet.dart';
 
-void showCommentBottomSheet(BuildContext context) {
+Widget getPage(int index) {
+  switch (index) {
+    case 0:
+      return CommentArea();
+    case 1:
+      return CommentArea();
+    default:
+      return CommentArea();
+  }
+}
+
+void showUnderBottomSheet(BuildContext context, int index) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -17,7 +28,7 @@ void showCommentBottomSheet(BuildContext context) {
         ),
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.55,
-          child: CommentArea(),
+          child: getPage(index),
         ),
       );
     },

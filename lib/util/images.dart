@@ -80,4 +80,6 @@ class Images {
       'assets/images/wallet-background-screen.jpg';
   static const String qrIcon = 'assets/images/qr_1.png';
   static const String qrIconTest = 'assets/images/qr_1.png';
+  static const String messageIcon = 'assets/images/message.png';
+  static const String notificationIcon = 'assets/images/notification.png';
 }
