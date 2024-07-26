@@ -3,32 +3,39 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? mainTitle;
   final String? titleText;
+  final String? centerText;
   final Function onBackPress;
   final List<Widget>? widget;
   final IconData? icon;
   final String? image;
   final double? padding;
+  final double leadingWidth;
   const CustomAppBar(
-      {this.titleText,
+      {super.key,
+      this.titleText,
       this.mainTitle,
       required this.onBackPress,
       this.widget,
       this.icon,
       this.image,
-      this.padding});
+      this.padding,
+      this.centerText,
+      this.leadingWidth = 0});
 
   @override
   Widget build(BuildContext context) {
+    final double finalLeadingWidth =
+        leadingWidth > 0 ? leadingWidth : MediaQuery.of(context).size.width / 2;
     return PreferredSize(
       preferredSize: const Size.fromHeight(kToolbarHeight * 1.4),
       child: ClipRRect(
         child: AppBar(
-          title: Text(mainTitle ?? '',
-              style: const TextStyle(fontWeight: FontWeight.w600)),
+          title: Text(centerText ?? titleText ?? mainTitle ?? '',
+              textAlign: TextAlign.center),
           centerTitle: true,
           scrolledUnderElevation: 0,
           toolbarHeight: kToolbarHeight * 1.4,
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           leading: Container(
             padding: EdgeInsets.only(left: padding ?? 8.0),
             child: Row(
@@ -42,8 +49,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 if (titleText != null && titleText!.isNotEmpty)
                   Text(titleText!,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600))
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w600))
               ],
             ),
           ),

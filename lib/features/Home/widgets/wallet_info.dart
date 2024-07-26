@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
-
+import "action_wallet.dart";
 class WalletInfo extends StatefulWidget {
   const WalletInfo({super.key});
 
@@ -71,15 +71,16 @@ class _WalletInfoState extends State<WalletInfo> {
             ],
           ),
           const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _iconButton(Icons.swap_horiz, 'Chuyển', 'Tomxu', Colors.blue),
-              _iconButton(Icons.call_received, 'Nhận', 'Tomxu', Colors.green),
-              _iconButton(Icons.history, 'Lịch sử', 'giao dịch', Colors.orange),
-              _iconButton(Icons.sync, 'Trao đổi', 'Tomxu', Colors.purple),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     _iconButton(Icons.swap_horiz, 'Chuyển', 'Tomxu', Colors.blue),
+          //     _iconButton(Icons.call_received, 'Nhận', 'Tomxu', Colors.green),
+          //     _iconButton(Icons.history, 'Lịch sử', 'giao dịch', Colors.orange),
+          //     _iconButton(Icons.sync, 'Trao đổi', 'Tomxu', Colors.purple),
+          //   ],
+          // ),
+         ActionWallet(),
           GestureDetector(
             onTap: () {
               // Navigator.pushNamed(context, RouteHelper.getWalletRoute());

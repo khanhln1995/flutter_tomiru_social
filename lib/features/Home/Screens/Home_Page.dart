@@ -76,8 +76,8 @@ class _HomepageState extends State<Homepage> {
         image: "assets/images/logo-tomiru-v2.png",
         widget: <Widget>[
           customQr(),
-          customMessage(),
-          customNotification(),
+          customMessage(context),
+          customNotification(context),
           const SizedBox(width: 12.0)
         ],
         padding: 12.0,
@@ -113,7 +113,7 @@ class _HomepageState extends State<Homepage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    customSetting(),
+                    customSetting(onPressed: (){}),
                     const Text("Cài đặt", style: TextStyle(fontSize: 12)),
                   ],
                 )
