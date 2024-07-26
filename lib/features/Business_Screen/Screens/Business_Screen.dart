@@ -29,7 +29,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
   final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
- void initState() {
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<HomeController>().setPageIndex(0);
@@ -45,7 +45,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
         titleText: 'Kinh doanh',
         padding: 0,
         widget: [
-          customQr(),
+          customQr(context),
           customMessage(context),
           customNotification(context),
           const SizedBox(width: 12.0)

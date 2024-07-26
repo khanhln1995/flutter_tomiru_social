@@ -76,7 +76,7 @@ class _HomepageState extends State<Homepage> {
         },
         image: "assets/images/logo-tomiru-v2.png",
         widget: <Widget>[
-          customQr(),
+          customQr(context),
           customMessage(context),
           customNotification(context),
           const SizedBox(width: 12.0)
