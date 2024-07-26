@@ -71,6 +71,11 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_controller == null || !_controller!.value.isInitialized) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
     var scale = MediaQuery.of(context).size.aspectRatio *
         _controller!.value.aspectRatio;
     if (scale < 1) scale = 1 / scale;
