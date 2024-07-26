@@ -72,19 +72,21 @@ class PostStatusFriend extends StatelessWidget {
         ),
         child: ClipRect(
           child: Container(
-            width: qrIconSize,
-            height: qrIconSize,
-            child: Image.asset(
-              "assets/images/icon-QRcode.png",
-              fit: BoxFit.cover,
+            padding: EdgeInsets.all(8),
+            // width: qrIconSize,
+            // height: qrIconSize,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(50)
             ),
+            child: Icon(Icons.sort, size: 30, color: Colors.black),
           ),
         ),
       );
     }
 
     return LayoutBuilder(
-      builder:( BuildContext context,BoxConstraints constraints) {
+        builder: (BuildContext context, BoxConstraints constraints) {
       double height = constraints.maxHeight;
       return Container(
         height: MediaQuery.of(context).size.height * 0.1,

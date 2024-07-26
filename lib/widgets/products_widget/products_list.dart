@@ -35,9 +35,10 @@ class HorizontalProductListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final filterProduct = isShoppingSale ? products.where((e)=>e['sale'] > 0).toList() : products; 
     return Container(
-      margin: EdgeInsets.only(bottom: 20.0),
+      margin: const EdgeInsets.only(bottom: 20.0),
       height: 200,
       child: ListView.builder(
+          padding: const EdgeInsets.only(left: 12.0),
           scrollDirection: Axis.horizontal,
           itemCount: filterProduct.length,
           itemBuilder: (context, index) {

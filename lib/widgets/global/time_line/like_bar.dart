@@ -39,9 +39,9 @@ class _LikeBarState extends State<LikeBar> {
                     });
                   },
                   child: widget.isLikeActive
-                      ? Icon(Icons.thumb_up_alt_outlined, size: 24)
+                      ? Icon(Icons.thumb_up_alt_outlined, size: 25)
                       : Icon(Icons.thumb_up_alt_rounded,
-                          color: Colors.blue, size: 24),
+                          color: Colors.blue, size: 28),
                 ),
                 const SizedBox(width: 10),
                 Text(widget.likeCount),
@@ -50,9 +50,9 @@ class _LikeBarState extends State<LikeBar> {
             Row(children: [
               InkWell(
                 onTap: () {
-                  showCommentBottomSheet(context);
+                  showUnderBottomSheet(context, 0);
                 },
-                child: Icon(Icons.messenger_outline, size: 24),
+                child: Icon(Icons.messenger_outline, size: 25),
               ),
               const SizedBox(width: 10.0),
               Text(widget.commentCount)
@@ -60,10 +60,7 @@ class _LikeBarState extends State<LikeBar> {
             Row(children: [
               InkWell(
                 onTap: () {},
-                child: Icon(
-                  Icons.reply_outlined,
-                  size: 24,
-                ),
+                child: Icon(Icons.share, size: 25),
               ),
               const SizedBox(width: 10.0),
               Text(widget.shareCount)

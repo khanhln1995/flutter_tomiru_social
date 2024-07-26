@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Create_Feed_Screen.dart';
+import 'package:tomiru_social_flutter/features/search/screens/search_page.dart';
+import 'package:tomiru_social_flutter/helper/route_helper.dart';
 
 class UserPostBar extends StatefulWidget {
   const UserPostBar({super.key});
@@ -77,7 +80,7 @@ class _UserPostBarState extends State<UserPostBar> {
                 ),
                 child: const Icon(Icons.search),
               ),
-              onPressed: () {},
+              onPressed: () => Get.toNamed(RouteHelper.getSearchRoute()),
             ),
             IconButton(
               icon: Container(
