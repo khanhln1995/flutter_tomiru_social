@@ -40,7 +40,7 @@ class _MessageScreenState extends State<MessageScreen> {
         },
         image: "assets/images/logo-tomiru-v2.png",
         widget: <Widget>[
-          customQr(),
+          customQr(context),
           customMessage(context),
           customNotification(context),
           const SizedBox(width: 12.0)
@@ -73,8 +73,7 @@ class _MessageScreenState extends State<MessageScreen> {
         return BodyPhonebook();
       case 2:
         return  BodyReminder();
-      case 3:
-        return const Friend2Screen();
+     
      
       default:
         // return FeedPage(scaffoldKey: _scaffoldKey);

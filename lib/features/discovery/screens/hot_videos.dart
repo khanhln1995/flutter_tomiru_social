@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/features/camera/screen/livestream_screen.dart';
 import 'package:tomiru_social_flutter/features/discovery/widgets/live_slide.dart';
 
 class HotVideos extends StatelessWidget {
@@ -45,11 +46,22 @@ class HotVideos extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: hotVideos.length,
             itemBuilder: (context, index) {
-              return HorizontalStreaming(
-                height: 270,
-                image: hotVideos[index]['image'],
-                seenNow: hotVideos[index]['seen_now'],
-                intro: hotVideos[index]['intro'],
+              return GestureDetector(
+                onTap:(){
+                   Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          LivePage(isHost: false, userID: "Lam"),
+                    ),
+                  );
+                },
+                child: HorizontalStreaming(
+                  height: 270,
+                  image: hotVideos[index]['image'],
+                  seenNow: hotVideos[index]['seen_now'],
+                  intro: hotVideos[index]['intro'],
+                ),
               );
             },
           ),

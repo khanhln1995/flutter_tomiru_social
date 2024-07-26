@@ -42,7 +42,7 @@ class _Friend2ScreenState extends State<Friend2Screen> {
         titleText: 'Bạn bè',
         padding: 0,
         widget: [
-          customQr(),
+          customQr(context),
           customMessage(context),
           customNotification(context),
           const SizedBox(width: 12.0)
