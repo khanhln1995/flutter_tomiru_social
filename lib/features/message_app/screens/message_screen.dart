@@ -17,7 +17,7 @@ import 'package:tomiru_social_flutter/state/message_controller.dart';
 import "package:tomiru_social_flutter/features/short_video/screens/short_video_page.dart";
 // import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
 import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart';
-import 'package:tomiru_social_flutter/features/discovery/screens/discovery_page.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/setting_page/body_setting.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -73,7 +73,8 @@ class _MessageScreenState extends State<MessageScreen> {
         return BodyPhonebook();
       case 2:
         return  BodyReminder();
-     
+      case 3:
+      return BodySetting(isAdmin: true);
      
       default:
         // return FeedPage(scaffoldKey: _scaffoldKey);
