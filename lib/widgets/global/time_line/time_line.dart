@@ -41,6 +41,7 @@ class _TimeLineState extends State<TimeLine> {
         "xyz",
         '123'
       ],
+      "createAt":"1h trước"
     },
     {
       "userName": "Test ABC",
@@ -54,6 +55,8 @@ class _TimeLineState extends State<TimeLine> {
       "like": "321",
       "share": "58",
       "comment": ["abc", "xyz", '123', '459'],
+      "createAt": "2h trước"
+
     },
     {
       "userName": "Nguyễn Đắc Hiếu",
@@ -68,6 +71,8 @@ class _TimeLineState extends State<TimeLine> {
       "like": "322",
       "share": "58",
       "comment": ["abc", "xyz", '123', '459'],
+      "createAt": "15p trước"
+
     },
     {
       "userName": "Đặng Tuấn Anh",
@@ -84,6 +89,8 @@ class _TimeLineState extends State<TimeLine> {
       "like": "3222",
       "share": "158",
       "comment": ["bài viết hay quá", "xyz", '123', '459'],
+      "createAt": "12h trước"
+
     },
   ];
 

@@ -8,8 +8,7 @@ import "package:tomiru_social_flutter/features/group_screen/Screens/group_option
 import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart';
 
 
-import "package:tomiru_social_flutter/features/Auth/Sign_in/Screens/Sign_in_Screen.dart";
-import "package:tomiru_social_flutter/features/Auth/Sign_up/Screens/Sign_up_Screen.dart";
+
 
 import "package:tomiru_social_flutter/features/Group_Screen/Screens/Chat_Group_Screen.dart";
 import "package:tomiru_social_flutter/features/Group_Screen/Screens/Create_Group.dart";
@@ -57,33 +56,7 @@ class HomeScreen extends StatelessWidget {
               },
               child: const Text('login_test_api'),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Signup_Screen(),
-                  ),
-                );
-              },
-              child: const Text('Register'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignIn_Screen(
-                      phoneController: null,
-                      passwordController: passwordController,
-                      emailController: null,
-                      isCreatedSuccess: false,
-                    ),
-                  ),
-                );
-              },
-              child: const Text('Login'),
-            ),
+           
             ElevatedButton(
               onPressed: () {
                 Navigator.push(

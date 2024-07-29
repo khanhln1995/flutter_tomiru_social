@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconsax/iconsax.dart';
-import "load_comment_widget.dart";
+// import "load_comment_widget.dart";
 import 'package:tomiru_social_flutter/util/show_post_comments.dart';
 
 class LikeBar extends StatefulWidget {

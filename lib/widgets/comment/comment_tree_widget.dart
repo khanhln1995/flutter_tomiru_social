@@ -1,8 +1,8 @@
 // src: https://github.com/dangngocduc/comment_tree
 
 import 'package:flutter/material.dart';
-import './comment_child_widget.dart';
-import './root_comment_widget.dart';
+import 'comment_child_widget.dart';
+import 'root_comment_widget.dart';
 import 'package:tomiru_social_flutter/ui/theme/tree_theme.dart';
 import 'package:provider/provider.dart';
 

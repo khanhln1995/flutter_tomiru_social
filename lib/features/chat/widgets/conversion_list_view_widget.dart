@@ -270,10 +270,10 @@ import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:tomiru_social_flutter/common/enums/user_type.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
 import 'package:tomiru_social_flutter/util/styles.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_image_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_ink_well_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_snackbar_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/paginated_list_view_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_image_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_ink_well_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/paginated_list_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

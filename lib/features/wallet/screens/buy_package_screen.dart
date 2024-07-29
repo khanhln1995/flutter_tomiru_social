@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/wallet/widgets/transaction_item_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets/transaction_item_widget.dart';
 
 class BuyPackageScreen extends StatelessWidget {
   const BuyPackageScreen({super.key});

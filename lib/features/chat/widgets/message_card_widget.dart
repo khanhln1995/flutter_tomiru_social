@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_image_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_ink_well_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_image_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_ink_well_widget.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
 import 'package:tomiru_social_flutter/util/styles.dart';
 

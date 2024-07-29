@@ -1,16 +1,16 @@
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
 import 'package:tomiru_social_flutter/features/profile/controllers/profile_controller.dart';
 import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
-import 'package:tomiru_social_flutter/features/wallet/widgets/bonus_banner_widget.dart';
-import 'package:tomiru_social_flutter/features/wallet/widgets/wallet_card_widget.dart';
-import 'package:tomiru_social_flutter/features/wallet/widgets/wallet_history_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets/bonus_banner_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets/wallet_card_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets/wallet_history_widget.dart';
 
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_app_bar_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/footer_view_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/menu_drawer_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/not_logged_in_screen.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_app_bar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/footer_view_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/menu_drawer_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/not_logged_in_screen.dart';
 // import 'package:tomiru_social_flutter/common/widgets/web_page_title_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

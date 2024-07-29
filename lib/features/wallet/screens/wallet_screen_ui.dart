@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/features/wallet/widgets/balance_tab_widget.dart';
-import 'package:tomiru_social_flutter/features/wallet/widgets/overview_tab_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets/balance_tab_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets/overview_tab_widget.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
 
 class WalletScreenUi extends StatefulWidget {

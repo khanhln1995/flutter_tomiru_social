@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_button_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_button_widget.dart';
 import 'package:tomiru_social_flutter/features/Business_Screen/Screens/service_register.dart';
 import 'package:tomiru_social_flutter/state/membership_controller.dart';
 import 'package:tomiru_social_flutter/widgets/ui/customButton.dart';

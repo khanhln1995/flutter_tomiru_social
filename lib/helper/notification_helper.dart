@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:tomiru_social_flutter/common/widgets/demo_reset_dialog_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/demo_reset_dialog_widget.dart';
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
 import 'package:tomiru_social_flutter/features/chat/controllers/chat_controller.dart';
 // import 'package:tomiru_social_flutter/features/dashboard/screens/dashboard_screen.dart';

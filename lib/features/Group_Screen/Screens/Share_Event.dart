@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:tomiru_social_flutter/features/Group_Screen/Screens/Event_Test.dart";
 import "package:tomiru_social_flutter/features/Group_Screen/Widgets/square_button.dart";
-import "package:tomiru_social_flutter/widgets/friends_widget/friends_button.dart";
+import "package:tomiru_social_flutter/widgets/friends2_widget/friends_button.dart";
 import "share_event_components/infor2.dart";
 import "share_event_components/button2.dart";
 import "share_event_components/posting2.dart";

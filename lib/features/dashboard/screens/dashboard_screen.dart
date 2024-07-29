@@ -32,7 +32,7 @@ import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
 // import 'package:tomiru_social_flutter/common/widgets/cart_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_dialog_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_dialog_widget.dart';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

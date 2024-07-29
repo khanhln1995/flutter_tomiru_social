@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/Auth/Forgot_Password/Screens/Otp_Verification_Page.dart';
-import 'package:tomiru_social_flutter/features/Auth/Forgot_Password/Widgets/otpWidget.dart';
+
 import 'package:tomiru_social_flutter/features/Business_Screen/Widgets/otp_verification.dart';
 import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/cutom_input_event.dart';
 import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';

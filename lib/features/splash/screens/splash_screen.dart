@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:tomiru_social_flutter/common/widgets/no_internet_screen_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/no_internet_screen_widget.dart';
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
 // import 'package:tomiru_social_flutter/features/cart/controllers/cart_controller.dart';
 // import 'package:tomiru_social_flutter/features/favourite/controllers/favourite_controller.dart';
