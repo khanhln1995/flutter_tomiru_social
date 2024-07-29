@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/features/short_video/screens/short_video_page.dart';
-import 'package:tomiru_social_flutter/widgets/global/imageSlide.dart';
+import 'package:tomiru_social_flutter/widgets/global/image_slide.dart';
 
 class HorizontalImageListScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

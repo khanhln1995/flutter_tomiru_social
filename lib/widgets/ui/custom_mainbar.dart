@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? mainTitle;
   final String? titleText;
-  // final String? centerText;
   final Function onBackPress;
   final List<Widget>? widget;
   final IconData? icon;
@@ -19,13 +18,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.icon,
       this.image,
       this.padding,
-      // this.centerText,
       this.leadingWidth = 0});
 
   @override
   Widget build(BuildContext context) {
-    final double finalLeadingWidth =
-        leadingWidth > 0 ? leadingWidth : MediaQuery.of(context).size.width / 2;
     return PreferredSize(
       preferredSize: const Size.fromHeight(kToolbarHeight * 1.4),
       child: ClipRRect(
