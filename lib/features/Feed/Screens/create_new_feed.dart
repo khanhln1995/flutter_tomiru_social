@@ -6,6 +6,8 @@ import 'package:tomiru_social_flutter/features/camera/screen/livestream_screen.d
 
 import 'package:tomiru_social_flutter/common/widgets/ui/customAppBar.dart';
 import 'package:tomiru_social_flutter/common/widgets/ui/customButton.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+
 
 class CreatedFeed extends StatefulWidget {
   const CreatedFeed({super.key});
@@ -72,10 +74,17 @@ class _CreatedFeedState extends State<CreatedFeed> {
           Column(
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/kem.jpg'),
-                    radius: 20,
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/kem.jpg'),
+                          fit: BoxFit.fill),
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Column(
@@ -83,10 +92,29 @@ class _CreatedFeedState extends State<CreatedFeed> {
                     children: [
                       const Text(
                         'Tony Nguyen',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
+                        child: DropdownButton2<String>(
+                          buttonStyleData: ButtonStyleData(
+                              decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: Colors.black26,
+                            ),
+                          )),
+                          dropdownStyleData: DropdownStyleData(
+                            // maxHeight: 50.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            // scrollbarTheme: ScrollbarThemeData(
+                            //   radius: const Radius.circular(40),
+                            //   thickness: MaterialStateProperty.all(6),
+                            //   thumbVisibility: MaterialStateProperty.all(true),
+                            // ),
+                          ),
                           value: _selectedValue,
                           onChanged: (value) {
                             setState(() {
@@ -102,10 +130,6 @@ class _CreatedFeedState extends State<CreatedFeed> {
                           style: TextStyle(
                             color: Colors.blue[800],
                             fontWeight: FontWeight.bold,
-                          ),
-                          dropdownColor: Colors.blue[100],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(20),
                           ),
                         ),
                       ),
