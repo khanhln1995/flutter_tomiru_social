@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/global/time_line/time_line.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/time_line/time_line.dart';
 
 class AroundUser extends StatelessWidget {
   @override

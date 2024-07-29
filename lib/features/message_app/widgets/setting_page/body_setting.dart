@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:tomiru_social_flutter/features/Group_Screen/Screens/group_members.dart';
-import 'package:tomiru_social_flutter/features/Group_Screen/Widgets/add_member.dart';
-import 'package:tomiru_social_flutter/widgets/ui/customAppBar.dart';
+import 'package:tomiru_social_flutter/features/group/Screens/group_members.dart';
+import 'package:tomiru_social_flutter/features/group/Widgets/add_member.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/customAppBar.dart';
 
 class BodySetting extends StatefulWidget {
   final bool isAdmin;

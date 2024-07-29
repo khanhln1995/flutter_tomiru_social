@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/features/Feed/Widgets/user_post_bar.dart';
-import 'package:tomiru_social_flutter/widgets/global/newWidget/custom_loader.dart';
-import 'package:tomiru_social_flutter/widgets/global/newWidget/emptyList.dart';
-import 'package:tomiru_social_flutter/widgets/custom_appbar2.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/newWidget/custom_loader.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/newWidget/emptyList.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_appbar2.dart';
 import 'package:tomiru_social_flutter/features/discovery/screens/hashtag_list.dart';
 import 'package:tomiru_social_flutter/features/discovery/widgets/streaming_members.dart';
 import 'package:tomiru_social_flutter/features/discovery/screens/hot_videos.dart';

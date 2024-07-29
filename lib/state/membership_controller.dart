@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/features/Business_Screen/Screens/service_register.dart';
+import 'package:tomiru_social_flutter/features/bussiness/Screens/service_register.dart';
 
 class MembershipController extends GetxController {
   void registerMembership(String title) {
