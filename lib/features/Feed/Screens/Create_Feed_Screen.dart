@@ -4,8 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tomiru_social_flutter/features/camera/screen/camera_screen.dart';
 import 'package:tomiru_social_flutter/features/camera/screen/livestream_screen.dart';
 
-import 'package:tomiru_social_flutter/widgets/ui/customAppBar.dart';
-import 'package:tomiru_social_flutter/widgets/ui/customButton.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/customAppBar.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/customButton.dart';
 
 class CreatedFeed extends StatefulWidget {
   const CreatedFeed({super.key});

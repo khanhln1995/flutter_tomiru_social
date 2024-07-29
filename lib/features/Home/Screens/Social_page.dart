@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
-import 'package:tomiru_social_flutter/widgets/custom_icon.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/features/Feed/Widgets/user_post_bar.dart';
-import 'package:tomiru_social_flutter/widgets/global/time_line/time_line.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/time_line/time_line.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Shorts.dart';
-import 'package:tomiru_social_flutter/widgets/global/newWidget/emptyList.dart';
-import 'package:tomiru_social_flutter/widgets/global/newWidget/custom_loader.dart';
-import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/newWidget/emptyList.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/newWidget/custom_loader.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
 
 class SocialNetworkPage extends StatefulWidget {
   SocialNetworkPage({super.key});

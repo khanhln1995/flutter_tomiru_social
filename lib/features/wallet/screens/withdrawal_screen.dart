@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/common/widgets/create_withdrawal_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/withdrawal_history_widget.dart';
+import 'package:tomiru_social_flutter/features/wallet/widgets/create_withdrawal_widget.dart';
+import 'package:tomiru_social_flutter/features/wallet/widgets/withdrawal_history_widget.dart';
 
 class WithdrawalScreen extends StatefulWidget {
   const WithdrawalScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
-import 'package:tomiru_social_flutter/common/widgets/dynamic_modal_widget.dart';
+import 'package:tomiru_social_flutter/features/wallet/widgets/dynamic_modal_widget.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/qr_transaction_screen.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/transfer_screen.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/buy_package_screen.dart';

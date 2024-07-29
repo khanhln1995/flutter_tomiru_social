@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
-import 'package:tomiru_social_flutter/widgets/global/newWidget/service_content.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/newWidget/service_content.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

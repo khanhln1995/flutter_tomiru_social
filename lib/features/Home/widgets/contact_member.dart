@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/global/contact_slide.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/contact_slide.dart';
 
 class ContactWithOthers extends StatelessWidget {
   // ContactWithOthers({super.key});
