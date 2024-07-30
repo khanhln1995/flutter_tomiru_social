@@ -32,34 +32,14 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
     );
   }
 
-  Widget _body(context, state, child) {
+ Widget _body(context, state, child) {
     final List? list = [];
     return CustomScrollView(
       slivers: <Widget>[
         if (child != null) child,
-        list == null
-            ? SliverToBoxAdapter(
-                child: SizedBox(
-                  height: context.height - 135,
-                  child: const CustomScreenLoader(
-                    height: double.infinity,
-                    width: double.infinity,
-                    backgroundColor: Colors.white,
-                  ),
-                ),
-              )
-            : list == null
-                ? const SliverToBoxAdapter(
-                    child: EmptyList(
-                      'No Tweet added yet',
-                      subTitle:
-                          'When new Tweet added, they\'ll show up here \n Tap tweet button to add new',
-                    ),
-                  )
-                : SliverToBoxAdapter(
-                    // child: getPage(widget.pageIndexNotifier.value),
-                    child: _home(),
-                  ),
+        SliverToBoxAdapter(
+          child: _home(),
+        ),
       ],
     );
   }

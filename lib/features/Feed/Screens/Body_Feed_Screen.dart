@@ -68,36 +68,19 @@ class _FeedPageBodyState extends State<FeedPageBody> {
     );
   }
 
-  // Widget getPage(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       return _home();
-  //     case 1:
-  //       return Text('test page 2');
-  //     case 2:
-  //       return Text('test page 3');
-  //     case 3:
-  //       return Text('test page 4');
-  //     case 4:
-  //       return Text('test page 5');
-  //     case 5:
-  //       return Text('test page 6');
-  //     default:
-  //       return _home();
-  //   }
-  // }
+ 
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: widget.pageIndexNotifier,
-      builder: (context, index, child) {
+      builder:( (context, index, child) {
         // return Consumer<FeedState>(
         //   builder: (context, state, child) {
         //     return _body(context, state, child);
         //   },
         return _body(context, index, child);
-      },
+      }),
       child: const TopMenuBar(),
     );
   }

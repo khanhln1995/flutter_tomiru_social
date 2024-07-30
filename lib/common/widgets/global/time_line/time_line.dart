@@ -23,7 +23,7 @@ class TimeLine extends StatefulWidget {
 }
 
 class _TimeLineState extends State<TimeLine> {
-   List<Post> demoData = [];
+  List<Post> demoData = [];
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
   int _page = 0;
@@ -42,7 +42,7 @@ class _TimeLineState extends State<TimeLine> {
     });
   }
 
-   Future<void> _loadPosts() async {
+  Future<void> _loadPosts() async {
     if (_isLoading) return;
 
     setState(() {
@@ -76,144 +76,167 @@ class _TimeLineState extends State<TimeLine> {
 
   @override
   Widget build(BuildContext context) {
-    
-    return Column(
-      children: demoData.map((data) => _buildFeedCard(context, data)).toList()+
-                  [_buildLoadingIndicator()],
+    return Container(
+      height: MediaQuery.of(context).size.height, // Or any specific height
+      child: ListView.builder(
+        shrinkWrap: true, // Important to wrap content
+        // physics: NeverScrollableScrollPhysics(),
+        controller: _scrollController,
+        itemCount: demoData.length + 1,
+        itemBuilder: (context, index) {
+          if (index == demoData.length) {
+            return _buildLoadingIndicator();
+          }
+          return _buildFeedCard(context, demoData[index]);
+        },
+      ),
     );
   }
+
   Widget _buildLoadingIndicator() {
     return _isLoading
         ? Center(child: CircularProgressIndicator())
         : SizedBox.shrink();
   }
+
   Widget _buildFeedCard(BuildContext context, Post data) {
-    //  Post data = demoData[index];
     return Column(
       children: [
         Container(
-            color: Colors.white,
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: IntrinsicHeight(
-                  child: Column(
+          color: Colors.white,
+          width: MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15),
+            child: IntrinsicHeight(
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfileScreen(),
+                            ),
+                          );
+                        },
+                        child: BuildAvatarWidget(urlAvatar: data.avatar),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              child: Text(data.userName.toString()),
+                              onTap: () {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ProfileScreen()));
-                            },
-                            child: BuildAvatarWidget(urlAvatar: data.avatar),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            flex: 2,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                                    builder: (context) => ProfileScreen(),
+                                  ),
+                                );
+                              },
+                            ),
+                            const Row(
                               children: [
-                                GestureDetector(
-                                  child: Text(data.userName.toString()),
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProfileScreen()));
-                                  },
+                                Text(
+                                  ' ',
+                                  style: TextStyle(
+                                    color: Color(0xff6E7191),
+                                    fontSize: 12,
+                                  ),
                                 ),
-                                const Row(
-                                  children: [
-                                    Text(
-                                      ' ',
-                                      style: TextStyle(
-                                          color: Color(0xff6E7191),
-                                          fontSize: 12),
-                                    ),
-                                    Icon(
-                                      Icons.language,
-                                      size: 12,
-                                    )
-                                  ],
+                                Icon(
+                                  Icons.language,
+                                  size: 12,
                                 ),
                               ],
                             ),
-                          ),
-                          const Expanded(
-                              child: Row(
-                            children: [
-                              Text(
-                                'Theo dõi',
-                                style: TextStyle(
-                                    color: Color(0xffF6891F), fontSize: 14),
+                          ],
+                        ),
+                      ),
+                      const Expanded(
+                        child: Row(
+                          children: [
+                            Text(
+                              'Theo dõi',
+                              style: TextStyle(
+                                color: Color(0xffF6891F),
+                                fontSize: 14,
                               ),
-                              Icon(
-                                Icons.arrow_drop_down_rounded,
-                                size: 25,
-                                color: Color(0xff6E7191),
-                              )
-                            ],
-                          )),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      _buildContent(data.content),
-                      GestureDetector(
-                        onTap: () {},
-                        child: SizedBox(
-                          height: 250,
-                          child: _buildImages(data.images),
-                        ),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue[50], // Button color
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 10.0),
-                            elevation: 0,
-                          ),
-                          child: const Text(
-                            'Gửi tin nhắn',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue,
+                            Icon(
+                              Icons.arrow_drop_down_rounded,
+                              size: 25,
+                              color: Color(0xff6E7191),
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 5),
-                      LikeBar(
-                        likeCount: data.like,
-                        shareCount: data.share,
-                        commentCount: data.comment.length.toString(),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 10, right: 10, top: 10),
-                        child: Container(
-                          height: 1,
-                          color: const Color(0xFFDDDEE6),
-                        ),
-                      ),
-                      _buildComment(context, data),
-                      const SizedBox(height: 10),
-                      _buildYourComment(),
-                      const SizedBox(height: 10),
                     ],
                   ),
-                ))),
-        const SizedBox(height: 10)
+                  const SizedBox(height: 10),
+                  _buildContent(data.content),
+                  GestureDetector(
+                    onTap: () {},
+                    child: SizedBox(
+                      height: 250,
+                      child: _buildImages(data.images),
+                    ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[50], // Button color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 10.0),
+                        elevation: 0,
+                      ),
+                      child: const Text(
+                        'Gửi tin nhắn',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  LikeBar(
+                    likeCount: data.like,
+                    shareCount: data.share,
+                    commentCount: data.comment.length.toString(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      top: 10,
+                    ),
+                    child: Container(
+                      height: 1,
+                      color: const Color(0xFFDDDEE6),
+                    ),
+                  ),
+                  _buildComment(context, data),
+                  const SizedBox(height: 10),
+                  _buildYourComment(),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
       ],
     );
   }
