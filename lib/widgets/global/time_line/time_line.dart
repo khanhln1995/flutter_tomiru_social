@@ -8,7 +8,6 @@ import "../../../features/Profile-social/Screens/Profile_Screen.dart";
 import "show_detail_images/image_gallery_screen.dart";
 import 'package:tomiru_social_flutter/widgets/global/time_line/bar_under_cmt.dart';
 
-
 //time line dùng ở các vị trí khác nhau như ở trang chủ , bạn bè , nhóm ...
 //sẽ có khác nhau ở tham số truyền vào để check xem người dùng đang ở page nào để call API
 class TimeLine extends StatefulWidget {
@@ -174,29 +173,29 @@ class _TimeLineState extends State<TimeLine> {
                           child: _buildImages(data['images']),
                         ),
                       ),
-                      Container(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue[50], // Button color
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 10.0),
-                            elevation: 0,
-                          ),
-                          child: const Text(
-                            'Gửi tin nhắn',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   width: double.infinity,
+                      //   child: ElevatedButton(
+                      //     onPressed: () {},
+                      //     style: ElevatedButton.styleFrom(
+                      //       backgroundColor: Colors.blue[50], // Button color
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(5.0),
+                      //       ),
+                      //       padding: const EdgeInsets.symmetric(
+                      //           horizontal: 20.0, vertical: 10.0),
+                      //       elevation: 0,
+                      //     ),
+                      //     child: const Text(
+                      //       'Gửi tin nhắn',
+                      //       style: TextStyle(
+                      //         fontSize: 16.0,
+                      //         fontWeight: FontWeight.bold,
+                      //         color: Colors.blue,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(height: 5),
                       LikeBar(
                         likeCount: data['like'],
@@ -314,7 +313,8 @@ class _TimeLineState extends State<TimeLine> {
                               ),
                             ),
                           ),
-                          CommentBar(likes: int.parse(data['like']), time: '5 giờ')
+                          CommentBar(
+                              likes: int.parse(data['like']), time: '5 giờ')
                         ],
                       ),
                     )
@@ -352,7 +352,8 @@ class _TimeLineState extends State<TimeLine> {
                             ),
                           ),
                         ),
-                        CommentBar(likes: int.parse(data['like']), time: '5 giờ')
+                        CommentBar(
+                            likes: int.parse(data['like']), time: '5 giờ')
                       ],
                     ),
               const Expanded(

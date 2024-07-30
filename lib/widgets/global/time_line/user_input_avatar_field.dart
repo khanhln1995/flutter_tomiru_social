@@ -18,12 +18,14 @@ class _UserInputAvatarFieldState extends State<UserInputAvatarField> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        CircleAvatar(
-          backgroundImage: AssetImage(
-            //fake data , changer widget.urlAvatar
-            'assets/images/kem.jpg',
+        Container(
+          width: 45,
+          height: 45,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+                image: AssetImage('assets/images/kem.jpg'), fit: BoxFit.fill),
           ),
-          radius: 25,
         ),
         Expanded(
           child: Padding(
@@ -34,6 +36,7 @@ class _UserInputAvatarFieldState extends State<UserInputAvatarField> {
               },
               readOnly: true,
               decoration: InputDecoration(
+                isDense: true,
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(color: Color(0xFFFFD200))),
@@ -43,6 +46,7 @@ class _UserInputAvatarFieldState extends State<UserInputAvatarField> {
                 ),
                 border: OutlineInputBorder(),
                 hintText: 'Viết bình luận',
+                hintStyle: TextStyle(color: Colors.grey),
                 suffixIcon: Icon(Icons.tag_faces_outlined),
               ),
             ),
