@@ -62,7 +62,9 @@ class _LikeBarState extends State<LikeBar> {
             ]),
             Row(children: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  showUnderBottomSheet(context, 1);
+                },
                 child: Icon(Iconsax.send_2, size: 25),
               ),
               const SizedBox(width: 10.0),
