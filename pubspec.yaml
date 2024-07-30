@@ -118,6 +118,7 @@ flutter:
         - assets/data-friend/dataFriends.json
         - assets/language/
         - assets/map/
+        - assets/timeline.json
 
     fonts:
         - family: Roboto
