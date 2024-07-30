@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/global/voucher/custom_voucher.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/voucher/custom_voucher.dart';
 
 class VerticalVoucherList extends StatefulWidget {
   const VerticalVoucherList({super.key});

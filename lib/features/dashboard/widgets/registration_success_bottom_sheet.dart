@@ -1,5 +1,5 @@
-import 'package:tomiru_social_flutter/common/widgets/custom_asset_image_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_button_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_asset_image_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_button_widget.dart';
 import 'package:tomiru_social_flutter/features/dashboard/controllers/dashboard_controller.dart';
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';

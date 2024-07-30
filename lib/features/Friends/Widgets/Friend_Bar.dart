@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../widgets/custom_appbar2.dart';
-import "../../../widgets/friends2_widget/post_status_friend.dart";
-import "../../../widgets/friends2_widget/search_input_friend.dart";
+import '../../../common/widgets/custom_appbar2.dart';
+import "../../../common/widgets/friends2_widget/post_status_friend.dart";
+import "../../../common/widgets/friends2_widget/search_input_friend.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 

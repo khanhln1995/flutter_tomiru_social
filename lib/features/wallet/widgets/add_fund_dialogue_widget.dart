@@ -2,10 +2,10 @@ import 'package:tomiru_social_flutter/features/splash/controllers/splash_control
 import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
 import 'package:tomiru_social_flutter/util/styles.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_button_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_image_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_snackbar_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_text_field_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_button_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_image_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

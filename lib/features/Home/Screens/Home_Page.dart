@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
-import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
 import 'package:tomiru_social_flutter/features/Home/Widgets/wallet_info.dart';
 import 'package:tomiru_social_flutter/features/Home/Widgets/contact_member.dart';
 import 'package:tomiru_social_flutter/features/home/widgets/section_header.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Shorts.dart';
-import 'package:tomiru_social_flutter/widgets/products_widget/products_list.dart';
+import 'package:tomiru_social_flutter/features/Home/widgets/products_widget/products_list.dart';
 import 'package:tomiru_social_flutter/features/home/widgets/voucher_list.dart';
-import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_main_bar.dart';
-import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
-import 'package:tomiru_social_flutter/widgets/global/newWidget/service_content.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/newWidget/service_content.dart';
 import 'package:tomiru_social_flutter/features/settings/screens/settings_screen.dart';
 
 class Homepage extends StatefulWidget {

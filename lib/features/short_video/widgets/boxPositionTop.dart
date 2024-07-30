@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/state/home_controller.dart';
-import 'package:tomiru_social_flutter/widgets/custom_button.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_button.dart';
 import 'package:tomiru_social_flutter/features/short_video/screens/create_short_video/create_short_video_page.dart';
 
 class BoxPositionTop extends StatefulWidget {

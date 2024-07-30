@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/comment_bottom_sheet.dart';
+import 'package:tomiru_social_flutter/common/widgets/comment_bottom_sheet.dart';
 import 'package:tomiru_social_flutter/widgets/global/time_line/sharing_post.dart';
 
 Widget getPage(int index) {

@@ -8,7 +8,7 @@ import 'package:tomiru_social_flutter/features/chat/domain/services/chat_service
 import 'package:tomiru_social_flutter/features/chat/enums/user_type_enum.dart';
 import 'package:tomiru_social_flutter/helper/date_converter.dart';
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_snackbar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
