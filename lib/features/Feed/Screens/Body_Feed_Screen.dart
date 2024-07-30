@@ -62,7 +62,7 @@ class _FeedPageBodyState extends State<FeedPageBody> {
         const SizedBox(height: 10),
         const ExtraDetail(),
         const SizedBox(height: 10),
-        const TimeLine(),
+        // const TimeLine(),
         const SizedBox(height: 10)
       ],
     );

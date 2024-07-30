@@ -16,54 +16,54 @@ import "test.dart";
 //time line dùng ở các vị trí khác nhau như ở trang chủ , bạn bè , nhóm ...
 //sẽ có khác nhau ở tham số truyền vào để check xem người dùng đang ở page nào để call API
 class TimeLine extends StatefulWidget {
-  const TimeLine({super.key});
+    final ScrollController scrollController;
+  final List<Post> demoData;
+  final bool isLoading;
+
+  TimeLine({
+    required this.scrollController,
+    required this.demoData,
+    required this.isLoading,
+  });
 
   @override
-  State<TimeLine> createState() => _TimeLineState();
+  _TimeLineState createState() => _TimeLineState();
 }
 
 class _TimeLineState extends State<TimeLine> {
-  List<Post> demoData = [];
-  final ScrollController _scrollController = ScrollController();
+  late final ScrollController _scrollController;
   bool _isLoading = false;
-  int _page = 0;
-  final int _limit = 3;
 
   @override
   void initState() {
     super.initState();
-    _loadPosts();
+    _scrollController = widget.scrollController;
+
     _scrollController.addListener(() {
+      debugPrint('Scroll position: ${_scrollController.position.pixels}');
       if (_scrollController.position.pixels ==
               _scrollController.position.maxScrollExtent &&
-          !_isLoading) {
-        _loadPosts();
+          !_isLoading &&
+          !widget.isLoading) {
+        debugPrint('==============================');
+        debugPrint('Reached bottom of the list. Loading more posts...');
+        _loadMorePosts();
       }
     });
   }
 
-  Future<void> _loadPosts() async {
-    if (_isLoading) return;
-
+  Future<void> _loadMorePosts() async {
     setState(() {
       _isLoading = true;
     });
 
-    // Simulate a network call
+    // Simulate network call and data update
     await Future.delayed(Duration(seconds: 1));
-    String jsonData = await rootBundle.loadString('assets/timeline.json');
-    List<dynamic> jsonList = jsonDecode(jsonData)['post'];
 
-    List<Post> loadedPosts = jsonList
-        .skip(_page * _limit)
-        .take(_limit)
-        .map((json) => Post.fromJson(json))
-        .toList();
-    // print("=======================");
-    // print('Loaded Posts: $loadedPosts[1]'); // Thêm dòng này để debug
+    // Notify parent to load more posts (if needed)
+    // For example, use a callback or a state management solution
+
     setState(() {
-      demoData.addAll(loadedPosts);
-      _page++;
       _isLoading = false;
     });
   }
@@ -76,30 +76,29 @@ class _TimeLineState extends State<TimeLine> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height, // Or any specific height
-      child: ListView.builder(
-        shrinkWrap: true, // Important to wrap content
-        // physics: NeverScrollableScrollPhysics(),
-        controller: _scrollController,
-        itemCount: demoData.length + 1,
-        itemBuilder: (context, index) {
-          if (index == demoData.length) {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          if (index == widget.demoData.length) {
             return _buildLoadingIndicator();
           }
-          return _buildFeedCard(context, demoData[index]);
+          return _buildFeedCard(context, widget.demoData[index]);
         },
+        childCount: widget.demoData.length + 1,
       ),
     );
   }
 
   Widget _buildLoadingIndicator() {
-    return _isLoading
+    return widget.isLoading
         ? Center(child: CircularProgressIndicator())
         : SizedBox.shrink();
   }
 
   Widget _buildFeedCard(BuildContext context, Post data) {
+    debugPrint(_scrollController.position.pixels.toString());
+    debugPrint("===============================");
+
     return Column(
       children: [
         Container(

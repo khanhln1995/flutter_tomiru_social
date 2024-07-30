@@ -23,7 +23,7 @@ class _ForYouState extends State<ForYou> {
                 child: Column(
                   children: [
                     GroupImageList(),
-                    TimeLine(),
+                    // TimeLine(),
                   ],
                 ),
               ),
