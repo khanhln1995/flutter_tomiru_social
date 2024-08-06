@@ -16,11 +16,12 @@ import "test.dart";
 //time line dùng ở các vị trí khác nhau như ở trang chủ , bạn bè , nhóm ...
 //sẽ có khác nhau ở tham số truyền vào để check xem người dùng đang ở page nào để call API
 class TimeLine extends StatefulWidget {
-    final ScrollController scrollController;
+  final ScrollController scrollController;
   final List<Post> demoData;
   final bool isLoading;
 
-  TimeLine({
+  const TimeLine({
+    super.key,
     required this.scrollController,
     required this.demoData,
     required this.isLoading,
@@ -58,7 +59,7 @@ class _TimeLineState extends State<TimeLine> {
     });
 
     // Simulate network call and data update
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
 
     // Notify parent to load more posts (if needed)
     // For example, use a callback or a state management solution
@@ -91,13 +92,13 @@ class _TimeLineState extends State<TimeLine> {
 
   Widget _buildLoadingIndicator() {
     return widget.isLoading
-        ? Center(child: CircularProgressIndicator())
-        : SizedBox.shrink();
+        ? const Center(child: CircularProgressIndicator())
+        : const SizedBox.shrink();
   }
 
   Widget _buildFeedCard(BuildContext context, Post data) {
-    debugPrint(_scrollController.position.pixels.toString());
-    debugPrint("===============================");
+    // debugPrint(_scrollController.position.pixels.toString());
+    // debugPrint("===============================");
 
     return Column(
       children: [

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/common/widgets/global/time_line/test.dart';
 import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/features/Feed/Widgets/user_post_bar.dart';
 import 'package:tomiru_social_flutter/common/widgets/global/time_line/time_line.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Shorts.dart';
-import 'package:tomiru_social_flutter/common/widgets/global/newWidget/emptyList.dart';
-import 'package:tomiru_social_flutter/common/widgets/global/newWidget/custom_loader.dart';
 import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
@@ -36,8 +33,6 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
       if (_scrollController.position.pixels ==
               _scrollController.position.maxScrollExtent &&
           !_isLoading) {
-        debugPrint('==============================');
-        debugPrint('Reached bottom of the list. Loading more posts...');
         _loadPosts();
       }
     });
@@ -51,7 +46,7 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
     });
 
     // Simulate a network call
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     String jsonData = await rootBundle.loadString('assets/timeline.json');
     List<dynamic> jsonList = jsonDecode(jsonData)['post'];
 
@@ -61,13 +56,19 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
         .map((json) => Post.fromJson(json))
         .toList();
 
-    print("=======================");
-    print('Loaded Posts: $loadedPosts'); // Thêm dòng này để
     setState(() {
       demoData.addAll(loadedPosts);
       _page++;
       _isLoading = false;
     });
+  }
+
+  Future<void> _refreshPosts() async {
+    setState(() {
+      _page = 0;
+      demoData.clear();
+    });
+    await _loadPosts();
   }
 
   @override
@@ -78,8 +79,6 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint(_scrollController.position.pixels.toString());
-    // debugPrint("===============================");
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: const Color.fromRGBO(230, 236, 240, 1.0),
@@ -93,29 +92,32 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
           const SizedBox(width: 12.0),
         ],
       ),
-      body: ValueListenableBuilder<int>(
-        valueListenable: widget.pageIndexNotifier,
-
-        builder: (context, index, child) {
-          return CustomScrollView(
-             controller: _scrollController, 
-            slivers: [
-              const SliverToBoxAdapter(
-                child: UserPostBar(),
-              ),
-              SliverToBoxAdapter(
-                child: HorizontalImageListScreen(),
-              ),
-              TimeLine(
+      body: RefreshIndicator(
+        onRefresh: _refreshPosts,
+        child: ValueListenableBuilder<int>(
+          valueListenable: widget.pageIndexNotifier,
+          builder: (context, index, child) {
+            return CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                const SliverToBoxAdapter(
+                  child: UserPostBar(),
+                ),
+                SliverToBoxAdapter(
+                  child: HorizontalImageListScreen(),
+                ),
+                TimeLine(
                   scrollController: _scrollController,
                   demoData: demoData,
-                  isLoading: _isLoading),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 10), // Add spacing if needed
-              ),
-            ],
-          );
-        },
+                  isLoading: _isLoading,
+                ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 10), // Add spacing if needed
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
