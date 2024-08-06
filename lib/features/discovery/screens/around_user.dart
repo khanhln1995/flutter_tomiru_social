@@ -14,7 +14,7 @@ class AroundUser extends StatelessWidget {
           child: Text('Xung quanh bạn',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         ),
-        TimeLine()
+        // TimeLine()
       ],
     );
   }

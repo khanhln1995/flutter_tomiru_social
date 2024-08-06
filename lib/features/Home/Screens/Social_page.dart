@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/time_line/test.dart';
 import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_icon.dart';
 import 'package:tomiru_social_flutter/features/Feed/Widgets/user_post_bar.dart';
 import 'package:tomiru_social_flutter/common/widgets/global/time_line/time_line.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Shorts.dart';
-import 'package:tomiru_social_flutter/common/widgets/global/newWidget/emptyList.dart';
-import 'package:tomiru_social_flutter/common/widgets/global/newWidget/custom_loader.dart';
 import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
+
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
 
 class SocialNetworkPage extends StatefulWidget {
   SocialNetworkPage({super.key});
@@ -18,50 +19,62 @@ class SocialNetworkPage extends StatefulWidget {
 
 class _SocialNetworkPageState extends State<SocialNetworkPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final ScrollController _scrollController = ScrollController();
+  bool _isLoading = false;
+  int _page = 0;
+  final int _limit = 2;
+  List<Post> demoData = [];
 
-  Widget _home() {
-    return Column(
-      children: [
-        const UserPostBar(),
-        const SizedBox(height: 10),
-        HorizontalImageListScreen(),
-        const SizedBox(height: 10),
-        const TimeLine(),
-        const SizedBox(height: 10)
-      ],
-    );
+  @override
+  void initState() {
+    super.initState();
+    _loadPosts();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+              _scrollController.position.maxScrollExtent &&
+          !_isLoading) {
+        _loadPosts();
+      }
+    });
   }
 
-  Widget _body(context, state, child) {
-    final List? list = [];
-    return CustomScrollView(
-      slivers: <Widget>[
-        if (child != null) child,
-        list == null
-            ? SliverToBoxAdapter(
-                child: SizedBox(
-                  height: context.height - 135,
-                  child: const CustomScreenLoader(
-                    height: double.infinity,
-                    width: double.infinity,
-                    backgroundColor: Colors.white,
-                  ),
-                ),
-              )
-            : list == null
-                ? const SliverToBoxAdapter(
-                    child: EmptyList(
-                      'No Tweet added yet',
-                      subTitle:
-                          'When new Tweet added, they\'ll show up here \n Tap tweet button to add new',
-                    ),
-                  )
-                : SliverToBoxAdapter(
-                    // child: getPage(widget.pageIndexNotifier.value),
-                    child: _home(),
-                  ),
-      ],
-    );
+  Future<void> _loadPosts() async {
+    if (_isLoading) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    // Simulate a network call
+    await Future.delayed(const Duration(seconds: 1));
+    String jsonData = await rootBundle.loadString('assets/timeline.json');
+    List<dynamic> jsonList = jsonDecode(jsonData)['post'];
+
+    List<Post> loadedPosts = jsonList
+        .skip(_page * _limit)
+        .take(_limit)
+        .map((json) => Post.fromJson(json))
+        .toList();
+
+    setState(() {
+      demoData.addAll(loadedPosts);
+      _page++;
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _refreshPosts() async {
+    setState(() {
+      _page = 0;
+      demoData.clear();
+    });
+    await _loadPosts();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -76,18 +89,35 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
         widget: [
           customMessage(context),
           customNotification(context),
-          const SizedBox(width: 12.0)
+          const SizedBox(width: 12.0),
         ],
       ),
-      body: ValueListenableBuilder(
-        valueListenable: widget.pageIndexNotifier,
-        builder: (context, index, child) {
-          // return Consumer<FeedState>(
-          //   builder: (context, state, child) {
-          //     return _body(context, state, child);
-          //   },
-          return _body(context, index, child);
-        },
+      body: RefreshIndicator(
+        onRefresh: _refreshPosts,
+        child: ValueListenableBuilder<int>(
+          valueListenable: widget.pageIndexNotifier,
+          builder: (context, index, child) {
+            return CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                const SliverToBoxAdapter(
+                  child: UserPostBar(),
+                ),
+                SliverToBoxAdapter(
+                  child: HorizontalImageListScreen(),
+                ),
+                TimeLine(
+                  scrollController: _scrollController,
+                  demoData: demoData,
+                  isLoading: _isLoading,
+                ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 10), // Add spacing if needed
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
