@@ -36,19 +36,18 @@ class AuthController extends GetxController implements GetxService {
     _isLoading = true;
     update();
     ResponseModel responseModel = await authServiceInterface.login(
-      email: email,
-      // phone: phone,
-      password: password,
-      // customerVerification:
-      //     Get.find<SplashController>().configModel!.customerVerification!,
-      // alreadyInApp: alreadyInApp
-    );
-    // if (responseModel.isSuccess &&
-    //     !Get.find<SplashController>().configModel!.customerVerification! &&
-    //     int.parse(responseModel.message![0]) != 0) {
-    //   // Get.find<CartController>().getCartDataOnline();
-    // }
-    Get.find<ProfileController>().getUserInfo();
+        email: email,
+        // phone: phone,
+        password: password,
+        customerVerification:
+            Get.find<SplashController>().configModel!.customerVerification!,
+        alreadyInApp: alreadyInApp);
+    if (responseModel.isSuccess &&
+        !Get.find<SplashController>().configModel!.customerVerification! &&
+        int.parse(responseModel.message![0]) != 0) {
+      // Get.find<CartController>().getCartDataOnline();
+      Get.find<ProfileController>().getUserInfo();
+    }
     _isLoading = false;
     update();
     return responseModel;
