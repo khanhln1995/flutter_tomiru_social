@@ -250,21 +250,21 @@ class SignInWidgetState extends State<SignInWidget> {
         showCustomSnackBar('Độ dài password phải lớn hơn 6');
       } else {
         // login ko can api
-        Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
+        // Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
 
         // login with api
-        // authController
-        //     .login(email, password, alreadyInApp: widget.backFromThis)
-        //     .then((status) async {
-        //   print("status$status");
-        //   if (status.isSuccess) {
-        //     print(
-        //         "------------------------------------------login------------------------");
-        //     _processSuccessSetup(authController, email, password, status);
-        //   } else {
-        //     showCustomSnackBar(status.message);
-        //   }
-        // });
+        authController
+            .login(email, password, alreadyInApp: widget.backFromThis)
+            .then((status) async {
+          print("status$status");
+          if (status.isSuccess) {
+            print(
+                "------------------------------------------login------------------------");
+            _processSuccessSetup(authController, email, password, status);
+          } else {
+            showCustomSnackBar(status.message);
+          }
+        });
       }
     }
   }
@@ -281,11 +281,12 @@ class SignInWidgetState extends State<SignInWidget> {
       authController.clearUserNumberAndPassword();
     }
     if (widget.backFromThis) {
-      if (ResponsiveHelper.isDesktop(context)) {
-        Get.offAllNamed(RouteHelper.getInitialRoute(fromSplash: false));
-      } else {
-        Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
-      }
+      // if (ResponsiveHelper.isDesktop(context)) {
+      //   Get.offAllNamed(RouteHelper.getInitialRoute(fromSplash: false));
+      // } else {
+      //   Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
+      // }
+      Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
     } else {
       Get.find<SplashController>()
           .navigateToLocationScreen('sign-in', offNamed: true);

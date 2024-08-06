@@ -8,7 +8,6 @@ import 'package:tomiru_social_flutter/common/widgets/ui/customAppBar.dart';
 import 'package:tomiru_social_flutter/common/widgets/ui/customButton.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
-
 class CreatedFeed extends StatefulWidget {
   const CreatedFeed({super.key});
 
@@ -142,6 +141,9 @@ class _CreatedFeedState extends State<CreatedFeed> {
                 controller: _controller,
                 onTapOutside: (event) {
                   FocusManager.instance.primaryFocus?.unfocus();
+                },
+                onChanged: (value) {
+                  setState(() {});
                 },
                 focusNode: fieldFocus,
                 decoration: const InputDecoration(

@@ -83,7 +83,12 @@ class _TimeLineState extends State<TimeLine> {
           if (index == widget.demoData.length) {
             return _buildLoadingIndicator();
           }
-          return _buildFeedCard(context, widget.demoData[index]);
+          return Column(
+            children: [
+              SizedBox(height: 8.0),
+              _buildFeedCard(context, widget.demoData[index])
+            ],
+          );
         },
         childCount: widget.demoData.length + 1,
       ),
@@ -97,9 +102,6 @@ class _TimeLineState extends State<TimeLine> {
   }
 
   Widget _buildFeedCard(BuildContext context, Post data) {
-    // debugPrint(_scrollController.position.pixels.toString());
-    // debugPrint("===============================");
-
     return Column(
       children: [
         Container(
@@ -129,27 +131,33 @@ class _TimeLineState extends State<TimeLine> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GestureDetector(
-                              child: Text(data.userName.toString()),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProfileScreen(),
-                                  ),
-                                );
-                              },
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  child: Text(data.userName.toString()),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ProfileScreen(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                const SizedBox(width: 10),
+                                Image.asset('assets/images/crown.png')
+                              ],
                             ),
-                            const Row(
+                            Row(
                               children: [
                                 Text(
-                                  ' ',
-                                  style: TextStyle(
+                                  'Ke thủ - ${data.createAt} - ',
+                                  style: const TextStyle(
                                     color: Color(0xff6E7191),
                                     fontSize: 12,
                                   ),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.language,
                                   size: 12,
                                 ),
@@ -236,7 +244,7 @@ class _TimeLineState extends State<TimeLine> {
             ),
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 4),
       ],
     );
   }
