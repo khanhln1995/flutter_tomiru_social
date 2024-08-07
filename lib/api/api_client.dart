@@ -22,7 +22,8 @@ class ApiClient extends GetxService {
   final int timeoutInSeconds = 30;
 
   String? token;
-  late Map<String, String> _mainHeaders;
+  // late Map<String, String> _mainHeaders;
+  Map<String, String>? _mainHeaders;
 
   // Constructor to initialize the ApiClient with base URL and shared preferences
   ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
@@ -122,10 +123,10 @@ class ApiClient extends GetxService {
           '====> API Body: $body with ${multipartBody.length} and multipart ${otherFile.length}');
       http.MultipartRequest request =
           http.MultipartRequest('POST', Uri.parse(appBaseUrl + uri));
-      request.headers.addAll(headers ?? _mainHeaders);
+      request.headers.addAll(headers ?? _mainHeaders ?? {});
       for (MultipartBody multipart in multipartBody) {
         if (multipart.file != null) {
-          if (foundation.kIsWeb) {
+          if (foundation.kIsWeb) { 
             Uint8List list = await multipart.file!.readAsBytes();
             http.MultipartFile part = http.MultipartFile(
               multipart.key,

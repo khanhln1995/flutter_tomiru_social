@@ -12,9 +12,10 @@ class AppConstants {
   // static const String baseUrl = 'http://192.168.102.132:8000';
 
 // AUTH
+  // static const String loginUri = '/ui/v1/auth/login';
   static const String loginUri = '/ui/v1/auth/login';
-
-  static const String registerUri = '/api/register';
+  // static const String registerUri = '/api/register';
+  static const String registerUri = '/api/v1.0/auth/register';
   static const String socialLoginUri = '/api/v1/auth/social-login';
   static const String socialRegisterUri = '/api/v1/auth/social-register';
 

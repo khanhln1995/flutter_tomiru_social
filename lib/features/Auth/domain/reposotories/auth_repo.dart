@@ -106,7 +106,7 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
     if (guestId.isNotEmpty) {
       data.addAll({"guest_id": guestId});
     }
-    return await apiClient.postData(AppConstants.loginUri, data,
+    return await apiClient.postData(AppConstants.loginUri, data, headers: {'Content-Type': 'application/json; charset=UTF-8'},
         handleError: false);
   }
 
