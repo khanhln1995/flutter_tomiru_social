@@ -30,6 +30,19 @@ class Post {
         createAt: json['createAt']);
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'userName': userName,
+      'avatar': avatar,
+      'content': content,
+      'images': images,
+      'comment': comment,
+      'like': like,
+      'share': share,
+      'createAt': createAt,
+    };
+  }
+
   @override
   String toString() {
     return 'Post(userName: $userName, avatar: $avatar, content: $content, images: $images, comment: $comment, like: $like, share: $share, createAt: $createAt)';

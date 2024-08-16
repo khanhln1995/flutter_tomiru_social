@@ -37,7 +37,7 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     getPositionAndWeather();
-    username = Get.find<AuthController>().getUserSelfInfo().fullname ?? '';
+    username = Get.find<AuthController>().getUserSelfInfo()?.fullname ?? '';
   }
 
   Future<Position> _requestPermissionsAndInitializeLocation() async {

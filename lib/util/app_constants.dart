@@ -10,10 +10,11 @@ class AppConstants {
   static const bool payInWevView = false;
   static const String baseUrl = 'http://192.168.102.65:8000';
   // static const String baseUrl = 'http://192.168.102.132:8000';
+  // static const String baseUrl = 'http://192.168.102.14:8080';
 
 // AUTH
-  // static const String loginUri = '/ui/v1/auth/login';
   static const String loginUri = '/ui/v1/auth/login';
+  // static const String loginUri = '/api/v1.0/users/me';
   // static const String registerUri = '/api/register';
   static const String registerUri = '/api/v1.0/auth/register';
   static const String socialLoginUri = '/api/v1/auth/social-login';

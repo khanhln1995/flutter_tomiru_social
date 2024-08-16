@@ -5,9 +5,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:tomiru_social_flutter/util/show_post_comments.dart';
 
 class LikeBar extends StatefulWidget {
-  final String likeCount;
-  final String shareCount;
-  final String commentCount;
+  final int likeCount;
+  final int shareCount;
+  final int commentCount;
   LikeBar(
       {required this.likeCount,
       required this.commentCount,
@@ -47,7 +47,7 @@ class _LikeBarState extends State<LikeBar> {
                           ),
                 ),
                 const SizedBox(width: 10),
-                Text(widget.likeCount),
+                Text(widget.likeCount.toString()),
               ],
             ),
             Row(children: [
@@ -58,7 +58,7 @@ class _LikeBarState extends State<LikeBar> {
                 child: Icon(Iconsax.message, size: 25),
               ),
               const SizedBox(width: 10.0),
-              Text(widget.commentCount)
+              Text(widget.commentCount.toString())
             ]),
             Row(children: [
               InkWell(
@@ -68,7 +68,7 @@ class _LikeBarState extends State<LikeBar> {
                 child: Icon(Iconsax.send_2, size: 25),
               ),
               const SizedBox(width: 10.0),
-              Text(widget.shareCount)
+              Text(widget.shareCount.toString())
             ]),
           ],
         ),

@@ -17,7 +17,7 @@ abstract class AuthServiceInterface {
   // String getUserNumber();
   String getUserPassword();
   String getUserEmail();
-  SelfInfoModel getUserSelfInfo();
+  SelfInfoModel? getUserSelfInfo();
   void saveUserNumberAndPassword(String number, String password
       // , String countryCode
       );

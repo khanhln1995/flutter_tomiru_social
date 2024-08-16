@@ -110,6 +110,8 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
     return await apiClient.postData(AppConstants.loginUri, data,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         handleError: false);
+    // return await apiClient.getData(AppConstants.loginUri, headers: {'Content-Type': 'application/json; charset=UTF-8'},
+    //     handleError: false);
   }
 
   @override
@@ -176,11 +178,18 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
   }
 
   @override
-  SelfInfoModel getUserSelfInfo() {
-    String? selfInfoJson =
-        sharedPreferences.getString(AppConstants.userSelfInfo);
-    Map<String, dynamic> selfInfoMap = jsonDecode(selfInfoJson!);
-    return SelfInfoModel.fromJson(selfInfoMap);
+  SelfInfoModel? getUserSelfInfo() {
+    try {
+      String? selfInfoJson =
+          sharedPreferences.getString(AppConstants.userSelfInfo);
+      if (selfInfoJson != null) {
+        Map<String, dynamic> selfInfoMap = jsonDecode(selfInfoJson);
+        return SelfInfoModel.fromJson(selfInfoMap);
+      }
+    } catch (e) {
+      print('Error getting self info: $e');
+    }
+    return null;
   }
 
   @override

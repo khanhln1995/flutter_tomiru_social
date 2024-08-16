@@ -14,7 +14,7 @@ abstract class AuthRepoInterface<SignUpModel>
   String getUserPassword();
   String getUserEmail();
   String getGuestId();
-  SelfInfoModel getUserSelfInfo();
+  SelfInfoModel? getUserSelfInfo();
   Future<Response> registration(SignUpModel signUpModel);
   Future<Response> login({String? email, String? password});
   Future<void> saveUserNumberAndPassword(String email, String password);

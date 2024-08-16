@@ -98,7 +98,7 @@ class AuthController extends GetxController implements GetxService {
     return authServiceInterface.getUserPassword();
   }
 
-  SelfInfoModel getUserSelfInfo() {
+  SelfInfoModel? getUserSelfInfo() {
     return authServiceInterface.getUserSelfInfo();
   }
 

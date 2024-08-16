@@ -18,6 +18,8 @@ class AuthService implements AuthServiceInterface {
       SignUpBodyModel signUpModel, bool isCustomerVerificationOn) async {
     Response response = await authRepoInterface.registration(signUpModel);
     if (response.statusCode == 200) {
+      // print(response.body["token"]);
+      // print("==========>>>>>>");
       if (!isCustomerVerificationOn) {
         authRepoInterface.saveUserToken(response.body["token"]);
         await authRepoInterface.updateToken();
@@ -40,12 +42,14 @@ class AuthService implements AuthServiceInterface {
     if (response.statusCode == 200) {
       if (customerVerification && response.body['is_phone_verified'] == 0) {
       } else {
+
         authRepoInterface.saveUserToken(response.body['token'],
             alreadyInApp: alreadyInApp);
         SelfInfoModel userInfo = SelfInfoModel.fromJson(response.body['user']);
         await authRepoInterface.saveSelfInfo(userInfo);
         await authRepoInterface.updateToken();
         await authRepoInterface.clearGuestId();
+
       }
       return ResponseModel(true,
           '${response.body['is_phone_verified']}${response.body['token']}');
@@ -96,7 +100,7 @@ class AuthService implements AuthServiceInterface {
   }
 
   @override
-  SelfInfoModel getUserSelfInfo() {
+  SelfInfoModel? getUserSelfInfo() {
     return authRepoInterface.getUserSelfInfo();
   }
 
