@@ -11,19 +11,21 @@ import "show_detail_images/image_gallery_screen.dart";
 import 'package:tomiru_social_flutter/common/widgets/global/time_line/bar_under_cmt.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
-import "test.dart";
+import "post2.dart";
 
 //time line dùng ở các vị trí khác nhau như ở trang chủ , bạn bè , nhóm ...
 //sẽ có khác nhau ở tham số truyền vào để check xem người dùng đang ở page nào để call API
 class TimeLine extends StatefulWidget {
   final ScrollController scrollController;
-  final List<Post> demoData;
+  final List<Post2> demoData;
+  final List<Author> userData;
   final bool isLoading;
 
   const TimeLine({
     super.key,
     required this.scrollController,
     required this.demoData,
+    required this.userData,
     required this.isLoading,
   });
 
@@ -32,61 +34,63 @@ class TimeLine extends StatefulWidget {
 }
 
 class _TimeLineState extends State<TimeLine> {
-  late final ScrollController _scrollController;
-  bool _isLoading = false;
+  // late final ScrollController _scrollController;
+  // bool _isLoading = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = widget.scrollController;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _scrollController = widget.scrollController;
 
-    _scrollController.addListener(() {
-      debugPrint('Scroll position: ${_scrollController.position.pixels}');
-      if (_scrollController.position.pixels ==
-              _scrollController.position.maxScrollExtent &&
-          !_isLoading &&
-          !widget.isLoading) {
-        debugPrint('==============================');
-        debugPrint('Reached bottom of the list. Loading more posts...');
-        _loadMorePosts();
-      }
-    });
-  }
+  //   _scrollController.addListener(() {
+  //     debugPrint('Scroll position: ${_scrollController.position.pixels}');
+  //     if (_scrollController.position.pixels ==
+  //             _scrollController.position.maxScrollExtent &&
+  //         !_isLoading &&
+  //         !widget.isLoading) {
+  //       debugPrint('==============================');
+  //       debugPrint('Reached bottom of the list. Loading more posts...');
+  //       _loadMorePosts();
+  //     }
+  //   });
+  // }
 
-  Future<void> _loadMorePosts() async {
-    setState(() {
-      _isLoading = true;
-    });
+  // Future<void> _loadMorePosts() async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
 
-    // Simulate network call and data update
-    await Future.delayed(const Duration(seconds: 1));
+  //   // Simulate network call and data update
+  //   await Future.delayed(const Duration(seconds: 1));
 
-    // Notify parent to load more posts (if needed)
-    // For example, use a callback or a state management solution
+  //   // Notify parent to load more posts (if needed)
+  //   // For example, use a callback or a state management solution
 
-    setState(() {
-      _isLoading = false;
-    });
-  }
+  //   setState(() {
+  //     _isLoading = false;
+  //   });
+  // }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _scrollController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
+          // print("============================>>>");
+          // print(widget.userData);
           if (index == widget.demoData.length) {
             return _buildLoadingIndicator();
           }
           return Column(
             children: [
               SizedBox(height: 8.0),
-              _buildFeedCard(context, widget.demoData[index])
+              _buildFeedCard(context, widget.demoData[index], widget.userData[index])
             ],
           );
         },
@@ -101,7 +105,26 @@ class _TimeLineState extends State<TimeLine> {
         : const SizedBox.shrink();
   }
 
-  Widget _buildFeedCard(BuildContext context, Post data) {
+  Widget _buildFeedCard(BuildContext context, Post2 data, Author userData) {
+// Giả sử bạn đã lấy thời gian từ file JSON và gán cho biến createdAtString
+    String createdAtString = data.createdAt.toString();
+
+// Chuyển đổi chuỗi thời gian thành đối tượng DateTime
+    DateTime createdAtDateTime = DateTime.parse(createdAtString);
+    // Lấy thời gian hiện tại
+    DateTime now = DateTime.now();
+
+// Tính thời gian đã trôi qua từ thời điểm tạo bài viết đến thời điểm hiện tại
+    Duration difference = now.difference(createdAtDateTime);
+    String timeAgoString(Duration difference) {
+      if (difference.inDays >= 2) {
+        return '${difference.inDays} ngày trước';
+      } else if (difference.inDays >= 1) {
+        return 'hôm qua';
+      } else {
+        return '${difference.inHours} giờ ${difference.inMinutes.remainder(60)} phút trước';
+      }
+    }
     return Column(
       children: [
         Container(
@@ -123,7 +146,7 @@ class _TimeLineState extends State<TimeLine> {
                             ),
                           );
                         },
-                        child: BuildAvatarWidget(urlAvatar: data.avatar),
+                        child: BuildAvatarWidget(urlAvatar: userData.avatar),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
@@ -134,7 +157,7 @@ class _TimeLineState extends State<TimeLine> {
                             Row(
                               children: [
                                 GestureDetector(
-                                  child: Text(data.userName.toString()),
+                                  child: Text(userData.username.toString()),
                                   onTap: () {
                                     Navigator.push(
                                       context,
@@ -148,10 +171,11 @@ class _TimeLineState extends State<TimeLine> {
                                 Image.asset('assets/images/crown.png')
                               ],
                             ),
+                            
                             Row(
                               children: [
                                 Text(
-                                  'Ke thủ - ${data.createAt} - ',
+                                  'Ke thủ - ${timeAgoString(difference)}',
                                   style: const TextStyle(
                                     color: Color(0xff6E7191),
                                     fontSize: 12,
@@ -187,7 +211,7 @@ class _TimeLineState extends State<TimeLine> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  _buildContent(data.content),
+                  _buildContent(data.text),
                   GestureDetector(
                     onTap: () {},
                     child: SizedBox(
@@ -220,9 +244,9 @@ class _TimeLineState extends State<TimeLine> {
                   ),
                   const SizedBox(height: 5),
                   LikeBar(
-                    likeCount: data.like,
-                    shareCount: data.share,
-                    commentCount: data.comment.length.toString(),
+                    likeCount: data.likesCount,
+                    shareCount: data.retweetsCount,
+                    commentCount: data.repliesCount,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -235,7 +259,7 @@ class _TimeLineState extends State<TimeLine> {
                       color: const Color(0xFFDDDEE6),
                     ),
                   ),
-                  _buildComment(context, data),
+                  _buildComment(context, data,userData),
                   const SizedBox(height: 10),
                   _buildYourComment(),
                   const SizedBox(height: 10),
@@ -249,8 +273,8 @@ class _TimeLineState extends State<TimeLine> {
     );
   }
 
-  Widget _buildComment(BuildContext context, Post data) {
-    if (data.comment.isEmpty) {
+  Widget _buildComment(BuildContext context, Post2 data, Author userData) {
+    if (data.repliesCount==0) {
       return Container();
     }
 
@@ -292,12 +316,12 @@ class _TimeLineState extends State<TimeLine> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BuildAvatarWidget(
-                urlAvatar: data.avatar,
+                urlAvatar: userData.avatar,
                 width: 40,
                 height: 40,
               ),
               const SizedBox(width: 10),
-              data.comment[0].length > 50
+              data.repliesCount > 50
                   ? Expanded(
                       flex: 8,
                       child: Column(
@@ -318,14 +342,14 @@ class _TimeLineState extends State<TimeLine> {
                                 children: [
                                   const SizedBox(height: 10),
                                   Text(
-                                    data.userName,
+                                    userData.username,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12,
                                     ),
                                   ),
                                   Text(
-                                    data.comment[0],
+                                    data.repliesCount.toString(),
                                     softWrap: true,
                                     overflow: TextOverflow.visible,
                                   ),
@@ -333,7 +357,7 @@ class _TimeLineState extends State<TimeLine> {
                               ),
                             ),
                           ),
-                          CommentBar(likes: int.parse(data.like), time: '5 giờ')
+                          CommentBar(likes: data.likesCount, time: '5 giờ')
                         ],
                       ),
                     )
@@ -356,14 +380,14 @@ class _TimeLineState extends State<TimeLine> {
                               children: [
                                 const SizedBox(height: 10),
                                 Text(
-                                  data.userName,
+                                  userData.username,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12,
                                   ),
                                 ),
                                 Text(
-                                  data.comment[0],
+                                  data.repliesCount.toString(),
                                   softWrap: true,
                                   overflow: TextOverflow.visible,
                                 ),
@@ -371,7 +395,7 @@ class _TimeLineState extends State<TimeLine> {
                             ),
                           ),
                         ),
-                        CommentBar(likes: int.parse(data.like), time: '5 giờ')
+                        CommentBar(likes: data.likesCount, time: '5 giờ')
                       ],
                     ),
               const Expanded(
@@ -427,7 +451,7 @@ class _TimeLineState extends State<TimeLine> {
   }
 
   /// check box image case 1/2/4/ >4
-  Widget _buildImages(List<String> images) {
+ Widget _buildImages(List<ImageItem> images) {
     if (images.isEmpty) {
       return Container();
     } else if (images.length == 1) {
@@ -437,7 +461,7 @@ class _TimeLineState extends State<TimeLine> {
             context,
             MaterialPageRoute(
               builder: (context) => ImageGalleryScreen(
-                images: images,
+                images: images.map((image) => image.src).toList(),
                 initialIndex: 0,
               ),
             ),
@@ -446,7 +470,8 @@ class _TimeLineState extends State<TimeLine> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: CachedNetworkImage(
-            imageUrl: images[0],
+            imageUrl:
+                images[0].src, // Accessing the `src` property of ImageItem
             placeholder: (context, url) => const CircularProgressIndicator(),
             errorWidget: (context, url, error) => const Icon(Icons.error),
             fit: BoxFit.cover,
@@ -458,7 +483,8 @@ class _TimeLineState extends State<TimeLine> {
       return Row(
         children: images.asMap().entries.map((entry) {
           int index = entry.key;
-          String image = entry.value;
+          String imageUrl =
+              entry.value.src; // Accessing the `src` property of ImageItem
           return Expanded(
             child: GestureDetector(
               onTap: () {
@@ -466,7 +492,7 @@ class _TimeLineState extends State<TimeLine> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ImageGalleryScreen(
-                      images: images,
+                      images: images.map((image) => image.src).toList(),
                       initialIndex: index,
                     ),
                   ),
@@ -477,7 +503,7 @@ class _TimeLineState extends State<TimeLine> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: CachedNetworkImage(
-                    imageUrl: image,
+                    imageUrl: imageUrl,
                     placeholder: (context, url) =>
                         const CircularProgressIndicator(),
                     errorWidget: (context, url, error) =>
@@ -499,7 +525,8 @@ class _TimeLineState extends State<TimeLine> {
             child: Row(
               children: images.sublist(0, 2).asMap().entries.map((entry) {
                 int index = entry.key;
-                String image = entry.value;
+                String imageUrl = entry
+                    .value.src; // Accessing the `src` property of ImageItem
                 return Expanded(
                   child: GestureDetector(
                     onTap: () {
@@ -507,7 +534,7 @@ class _TimeLineState extends State<TimeLine> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ImageGalleryScreen(
-                            images: images,
+                            images: images.map((image) => image.src).toList(),
                             initialIndex: index,
                           ),
                         ),
@@ -518,7 +545,7 @@ class _TimeLineState extends State<TimeLine> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: CachedNetworkImage(
-                          imageUrl: image,
+                          imageUrl: imageUrl,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
@@ -539,7 +566,8 @@ class _TimeLineState extends State<TimeLine> {
             child: Row(
               children: images.sublist(2).asMap().entries.map((entry) {
                 int index = entry.key + 2;
-                String image = entry.value;
+                String imageUrl = entry
+                    .value.src; // Accessing the `src` property of ImageItem
                 return Expanded(
                   child: GestureDetector(
                     onTap: () {
@@ -547,7 +575,7 @@ class _TimeLineState extends State<TimeLine> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ImageGalleryScreen(
-                            images: images,
+                            images: images.map((image) => image.src).toList(),
                             initialIndex: index,
                           ),
                         ),
@@ -558,7 +586,7 @@ class _TimeLineState extends State<TimeLine> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: CachedNetworkImage(
-                          imageUrl: image,
+                          imageUrl: imageUrl,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
@@ -587,7 +615,7 @@ class _TimeLineState extends State<TimeLine> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ImageGalleryScreen(
-                      images: images,
+                      images: images.map((image) => image.src).toList(),
                       initialIndex: 0,
                     ),
                   ),
@@ -598,7 +626,8 @@ class _TimeLineState extends State<TimeLine> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: CachedNetworkImage(
-                    imageUrl: images[0],
+                    imageUrl: images[0]
+                        .src, // Accessing the `src` property of ImageItem
                     placeholder: (context, url) =>
                         const CircularProgressIndicator(),
                     errorWidget: (context, url, error) =>
@@ -620,7 +649,7 @@ class _TimeLineState extends State<TimeLine> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ImageGalleryScreen(
-                            images: images,
+                            images: images.map((image) => image.src).toList(),
                             initialIndex: 1,
                           ),
                         ),
@@ -631,7 +660,8 @@ class _TimeLineState extends State<TimeLine> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: CachedNetworkImage(
-                          imageUrl: images[1],
+                          imageUrl: images[1]
+                              .src, // Accessing the `src` property of ImageItem
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
@@ -649,7 +679,7 @@ class _TimeLineState extends State<TimeLine> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ImageGalleryScreen(
-                            images: images,
+                            images: images.map((image) => image.src).toList(),
                             initialIndex: 2,
                           ),
                         ),
@@ -660,7 +690,8 @@ class _TimeLineState extends State<TimeLine> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: CachedNetworkImage(
-                          imageUrl: images[2],
+                          imageUrl: images[2]
+                              .src, // Accessing the `src` property of ImageItem
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
@@ -679,7 +710,7 @@ class _TimeLineState extends State<TimeLine> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => ImageGalleryScreen(
-                              images: images,
+                              images: images.map((image) => image.src).toList(),
                               initialIndex: 4,
                             ),
                           ),
@@ -692,7 +723,8 @@ class _TimeLineState extends State<TimeLine> {
                           child: Stack(
                             children: [
                               CachedNetworkImage(
-                                imageUrl: images[4],
+                                imageUrl: images[4]
+                                    .src, // Accessing the `src` property of ImageItem
                                 placeholder: (context, url) =>
                                     const CircularProgressIndicator(),
                                 errorWidget: (context, url, error) =>
@@ -732,7 +764,7 @@ class _TimeLineState extends State<TimeLine> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ImageGalleryScreen(
-                      images: images,
+                      images: images.map((image) => image.src).toList(),
                       initialIndex: 0,
                     ),
                   ),
@@ -743,7 +775,8 @@ class _TimeLineState extends State<TimeLine> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: CachedNetworkImage(
-                    imageUrl: images[0],
+                    imageUrl: images[0]
+                        .src, // Accessing the `src` property of ImageItem
                     placeholder: (context, url) =>
                         const CircularProgressIndicator(),
                     errorWidget: (context, url, error) =>
@@ -759,7 +792,8 @@ class _TimeLineState extends State<TimeLine> {
             child: Row(
               children: images.sublist(1).asMap().entries.map((entry) {
                 int index = entry.key + 1;
-                String image = entry.value;
+                String imageUrl = entry
+                    .value.src; // Accessing the `src` property of ImageItem
                 return Expanded(
                   child: GestureDetector(
                     onTap: () {
@@ -767,7 +801,7 @@ class _TimeLineState extends State<TimeLine> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ImageGalleryScreen(
-                            images: images,
+                            images: images.map((image) => image.src).toList(),
                             initialIndex: index,
                           ),
                         ),
@@ -778,7 +812,7 @@ class _TimeLineState extends State<TimeLine> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: CachedNetworkImage(
-                          imageUrl: image,
+                          imageUrl: imageUrl,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
@@ -798,4 +832,5 @@ class _TimeLineState extends State<TimeLine> {
       );
     }
   }
+
 }

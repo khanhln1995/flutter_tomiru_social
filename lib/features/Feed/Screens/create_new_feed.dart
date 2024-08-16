@@ -1,12 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:tomiru_social_flutter/features/camera/screen/camera_screen.dart';
 import 'package:tomiru_social_flutter/features/camera/screen/livestream_screen.dart';
 
 import 'package:tomiru_social_flutter/common/widgets/ui/customAppBar.dart';
 import 'package:tomiru_social_flutter/common/widgets/ui/customButton.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+// import 'post.dart';
+import "package:tomiru_social_flutter/common/widgets/global/time_line/post.dart";
 
 class CreatedFeed extends StatefulWidget {
   const CreatedFeed({super.key});
@@ -63,6 +68,41 @@ class _CreatedFeedState extends State<CreatedFeed> {
     });
   }
 
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/posts.json');
+  }
+
+  Future<void> _writePost() async {
+    final post = Post(
+      userName: "Tony Nguyen",
+      avatar: "assets/images/kem.jpg",
+      content: _controller.text,
+      images: images.map((image) => image.path).toList(),
+      comment: [],
+      like: "0",
+      share: "0",
+      createAt: DateTime.now().toIso8601String(),
+    );
+
+    final file = await _localFile;
+    List<Map<String, dynamic>> posts = [];
+
+    if (await file.exists()) {
+      final contents = await file.readAsString();
+      posts = List<Map<String, dynamic>>.from(json.decode(contents));
+    }
+    print("======================");
+    print("posts: $posts");
+    posts.add(post.toJson());
+    await file.writeAsString(json.encode(posts));
+  }
+
   Widget _body(BuildContext context) {
     return Container(
       color: Colors.white,
@@ -104,15 +144,9 @@ class _CreatedFeedState extends State<CreatedFeed> {
                             ),
                           )),
                           dropdownStyleData: DropdownStyleData(
-                            // maxHeight: 50.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
                             ),
-                            // scrollbarTheme: ScrollbarThemeData(
-                            //   radius: const Radius.circular(40),
-                            //   thickness: MaterialStateProperty.all(6),
-                            //   thumbVisibility: MaterialStateProperty.all(true),
-                            // ),
                           ),
                           value: _selectedValue,
                           onChanged: (value) {
@@ -235,7 +269,7 @@ class _CreatedFeedState extends State<CreatedFeed> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          LivePage(isHost: true, userID: "Lam"),
+                          const LivePage(isHost: true, userID: "Lam"),
                     ),
                   );
                 },
@@ -247,7 +281,10 @@ class _CreatedFeedState extends State<CreatedFeed> {
               backgroundColor: Colors.blue,
               content: 'Đăng tin',
               isEnabled: true,
-              action: () {},
+              action: () async {
+                await _writePost();
+                Navigator.of(context).pop();
+              },
               width: MediaQuery.of(context).size.width,
               textStyle: const TextStyle(color: Colors.white),
             ),
@@ -266,9 +303,6 @@ class _CreatedFeedState extends State<CreatedFeed> {
         onBackPress: () => Navigator.of(context).pop(),
         bgcolor: Colors.grey[100],
         colors: Colors.black,
-        widget: fieldFocus.hasFocus
-            ? [TextButton(onPressed: () {}, child: const Text('OK'))]
-            : [],
       ),
       body: _body(context),
     );

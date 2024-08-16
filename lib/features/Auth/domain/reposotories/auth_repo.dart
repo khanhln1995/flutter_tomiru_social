@@ -108,6 +108,8 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
     }
     return await apiClient.postData(AppConstants.loginUri, data, headers: {'Content-Type': 'application/json; charset=UTF-8'},
         handleError: false);
+    // return await apiClient.getData(AppConstants.loginUri, headers: {'Content-Type': 'application/json; charset=UTF-8'},
+    //     handleError: false);
   }
 
   @override
