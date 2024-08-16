@@ -134,8 +134,25 @@ class _CreatedFeedState extends State<CreatedFeed> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
+                      const SizedBox(height: 4.0),
                       DropdownButtonHideUnderline(
                         child: DropdownButton2<String>(
+                          customButton: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey[400]!),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(_selectedValue!),
+                                const Icon(Icons.arrow_drop_down),
+                              ],
+                            ),
+                          ),
                           buttonStyleData: ButtonStyleData(
                               decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
@@ -144,6 +161,7 @@ class _CreatedFeedState extends State<CreatedFeed> {
                             ),
                           )),
                           dropdownStyleData: DropdownStyleData(
+                            width: 120,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
                             ),

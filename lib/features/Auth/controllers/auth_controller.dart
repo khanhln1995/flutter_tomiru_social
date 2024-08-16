@@ -5,6 +5,7 @@ import 'package:tomiru_social_flutter/features/splash/controllers/splash_control
 import 'package:tomiru_social_flutter/features/auth/domain/models/signup_body_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/social_log_in_body_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/services/auth_service_interface.dart';
+import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_model.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController implements GetxService {
@@ -95,6 +96,10 @@ class AuthController extends GetxController implements GetxService {
 
   String getUserPassword() {
     return authServiceInterface.getUserPassword();
+  }
+
+  SelfInfoModel? getUserSelfInfo() {
+    return authServiceInterface.getUserSelfInfo();
   }
 
   void toggleRememberMe() {

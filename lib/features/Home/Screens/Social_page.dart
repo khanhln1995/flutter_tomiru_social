@@ -80,7 +80,7 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    // _scrollController.dispose();
     super.dispose();
   }
 

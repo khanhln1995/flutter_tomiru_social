@@ -1,6 +1,7 @@
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/signup_body_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/social_log_in_body_model.dart';
+import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/reposotories/auth_repo_interface.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/services/auth_service_interface.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
@@ -41,10 +42,14 @@ class AuthService implements AuthServiceInterface {
     if (response.statusCode == 200) {
       if (customerVerification && response.body['is_phone_verified'] == 0) {
       } else {
-        // authRepoInterface.saveUserToken(response.body['token'],
-        //     alreadyInApp: alreadyInApp);
-        // await authRepoInterface.updateToken();
-        // await authRepoInterface.clearGuestId();
+
+        authRepoInterface.saveUserToken(response.body['token'],
+            alreadyInApp: alreadyInApp);
+        SelfInfoModel userInfo = SelfInfoModel.fromJson(response.body['user']);
+        await authRepoInterface.saveSelfInfo(userInfo);
+        await authRepoInterface.updateToken();
+        await authRepoInterface.clearGuestId();
+
       }
       return ResponseModel(true,
           '${response.body['is_phone_verified']}${response.body['token']}');
@@ -92,6 +97,11 @@ class AuthService implements AuthServiceInterface {
   @override
   String getUserPassword() {
     return authRepoInterface.getUserPassword();
+  }
+
+  @override
+  SelfInfoModel? getUserSelfInfo() {
+    return authRepoInterface.getUserSelfInfo();
   }
 
   @override
