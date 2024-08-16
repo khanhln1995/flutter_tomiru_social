@@ -1,5 +1,6 @@
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/social_log_in_body_model.dart';
+import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_model.dart';
 import 'package:tomiru_social_flutter/interface/repository_interface.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 
@@ -13,6 +14,7 @@ abstract class AuthRepoInterface<SignUpModel>
   String getUserPassword();
   String getUserEmail();
   String getGuestId();
+  SelfInfoModel getUserSelfInfo();
   Future<Response> registration(SignUpModel signUpModel);
   Future<Response> login({String? email, String? password});
   Future<void> saveUserNumberAndPassword(String email, String password);
@@ -32,4 +34,6 @@ abstract class AuthRepoInterface<SignUpModel>
   String getUserToken();
   Future<bool> saveGuestContactNumber(String number);
   String getGuestContactNumber();
+  Future<void> saveSelfInfo(SelfInfoModel selfinfo_model);
+  Future<bool> clearSelfInfo();
 }
