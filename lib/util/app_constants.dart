@@ -57,6 +57,7 @@ class AppConstants {
   static const String cacheCountryCode = 'cache_country_code';
   static const String cacheLanguageCode = 'cache_language_code';
   static const String cartList = 'cart_list';
+  static const String userSelfInfo = 'user_self_info';
   static const String userPassword = 'user_password';
   static const String userAddress = 'user_address';
   static const String userNumber = 'user_number';
@@ -103,4 +104,6 @@ class AppConstants {
     {'title': 'added_via_payment_method', 'value': 'add_fund'},
     {'title': 'earned_by_referral', 'value': 'referrer'},
   ];
+
+  static const String weatherApiKey = 'c7d314a6b3bffaca06d052ca17cd807e';
 }
