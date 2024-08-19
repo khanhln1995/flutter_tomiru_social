@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
-import 'package:tomiru_social_flutter/widgets/global/newWidget/service_content.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/newWidget/service_content.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -10,6 +10,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final TextEditingController textcontroller = TextEditingController();
   final List<String> recentlyKeys = [
     'Cho Tomiru',
     'Tomxu',
@@ -18,6 +19,13 @@ class _SearchPageState extends State<SearchPage> {
     'Sự kiện',
     'Vay mua nhà',
   ];
+
+  @override
+  void dispose() {
+    textcontroller.dispose();
+    super.dispose();
+  }
+
   Widget _body() {
     return CustomScrollView(
       slivers: <Widget>[
@@ -31,6 +39,10 @@ class _SearchPageState extends State<SearchPage> {
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: textcontroller,
+                        onChanged: (value) {
+                          setState(() {});
+                        },
                         cursorColor: Theme.of(context).primaryColor,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -50,9 +62,7 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                     const SizedBox(width: 16.0),
                     GestureDetector(
-                      onTap: () {
-                        // Handle cancel action
-                      },
+                      onTap: () {},
                       child: const Text('Hủy',
                           style: TextStyle(
                               color: Colors.blue,
@@ -62,9 +72,10 @@ class _SearchPageState extends State<SearchPage> {
                   ],
                 ),
               ),
-              listKeyword(),
+              if (textcontroller.text.isEmpty) listKeyword(),
               const SizedBox(height: 12.0),
-              popularService(),
+              if (textcontroller.text.isEmpty) popularService(),
+              if (textcontroller.text.isNotEmpty) listVd(),
             ],
           ),
         )
@@ -90,13 +101,16 @@ class _SearchPageState extends State<SearchPage> {
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Row(
                 children: List.generate(
                   recentlyKeys.length,
                   (index) => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        textcontroller.text = recentlyKeys[index];
+                      },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                         minimumSize: Size.zero,
@@ -106,14 +120,14 @@ class _SearchPageState extends State<SearchPage> {
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 8.0),
                         decoration: BoxDecoration(
-                          color: index == 0 ? Colors.blue : Colors.white,
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(20.0),
                           border: Border.all(color: Colors.grey),
                         ),
                         child: Text(
                           recentlyKeys[index],
                           style: TextStyle(
-                            color: index == 0 ? Colors.white : Colors.black,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -153,25 +167,42 @@ class _SearchPageState extends State<SearchPage> {
       body: _body(),
     );
   }
+
+  Widget listVd() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+            child: const Text('Dành cho bạn',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey)),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: 3, // Replace with the actual count of items
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  color: Colors.grey, // Replace with actual image or avatar
+                ),
+                title: const Text(
+                  'Chợ Tomiru lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                  style: TextStyle(fontSize: 12),
+                ),
+              );
+            },
+          )
+        ],
+      ),
+    );
+  }
 }
-
-
-// TextButton(
-//                     onPressed: () {},
-//                     child: Container(
-//                       padding: EdgeInsets.symmetric(horizontal: 16.0),
-//                       decoration: BoxDecoration(
-//                         color: index == 0 ? Colors.blue : Colors.white,
-//                         borderRadius: BorderRadius.circular(20.0),
-//                         border: Border.all(color: Colors.grey),
-//                       ),
-//                       child: Center(
-//                         child: Text(
-//                           recentlyKeys[index],
-//                           style: TextStyle(
-//                             color: index == 0 ? Colors.white : Colors.black,
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   );

@@ -1,4 +1,4 @@
-import 'package:tomiru_social_flutter/common/widgets/validate_check.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/validate_check.dart';
 import 'package:tomiru_social_flutter/features/auth/screens/sign_in_screen.dart';
 import 'package:tomiru_social_flutter/features/profile/controllers/profile_controller.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/models/userinfo_model.dart';
@@ -8,10 +8,10 @@ import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
 import 'package:tomiru_social_flutter/util/styles.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_app_bar_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_button_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_snackbar_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_text_field_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_app_bar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_button_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -4,7 +4,7 @@ import 'package:tomiru_social_flutter/features/wallet/widgets/history_cart_widge
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
 import 'package:tomiru_social_flutter/util/styles.dart';
-import 'package:tomiru_social_flutter/common/widgets/no_data_screen_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/no_data_screen_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';

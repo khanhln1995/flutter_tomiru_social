@@ -14,7 +14,7 @@ import 'dart:convert';
 // import 'package:tomiru_social_flutter/features/home/screens/map_view_screen.dart';
 // import 'package:tomiru_social_flutter/features/html/enums/html_type.dart';
 // import 'package:tomiru_social_flutter/features/html/screens/html_viewer_screen.dart';
-import 'package:tomiru_social_flutter/features/Business_Screen/Screens/Business_Screen.dart';
+import 'package:tomiru_social_flutter/features/bussiness/Screens/Business_Screen.dart';
 import 'package:tomiru_social_flutter/features/Home/Screens/Home_Page.dart';
 import 'package:tomiru_social_flutter/features/social_network/Screens/social_network.dart';
 import 'package:tomiru_social_flutter/features/language/screens/language_screen.dart';

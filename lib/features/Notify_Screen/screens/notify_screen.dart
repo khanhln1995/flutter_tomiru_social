@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/features/Notify_Screen/widgets/setting_notify_dialog.dart';
-import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
-import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
 import "package:tomiru_social_flutter/features/Notify_Screen/widgets/body_notify_screen.dart";
 class NotifyScreen extends StatefulWidget {
   const NotifyScreen({super.key});

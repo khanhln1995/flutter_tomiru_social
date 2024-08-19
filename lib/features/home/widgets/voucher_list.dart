@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/global/voucher/custom_voucher.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/voucher/custom_voucher.dart';
 
 class VerticalVoucherList extends StatefulWidget {
   const VerticalVoucherList({super.key});
@@ -20,8 +20,8 @@ class _VerticalVoucherListState extends State<VerticalVoucherList> {
       "date_end": "18 thg 5, 11:59PM"
     },
     {
-      "voucher_name": "Voucher bạn cu",
-      "voucher_description": 'Dành riêng cho khách hàng cu',
+      "voucher_name": "Voucher bạn cũ",
+      "voucher_description": 'Dành riêng cho khách hàng cũ',
       "voucher_sale": 20000,
       "sale_description": "Đơn hàng từ 100000đ",
       "date_end": "18 thg 5, 11:59PM"

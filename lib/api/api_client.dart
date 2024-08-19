@@ -19,14 +19,18 @@ class ApiClient extends GetxService {
   final String appBaseUrl;
   final SharedPreferences sharedPreferences;
   static final String noInternetMessage = 'connection_to_api_server_failed'.tr;
-  final int timeoutInSeconds = 30;
+  // final int timeoutInSeconds = 30;
+  final int timeoutInSeconds = 3;
 
   String? token;
-  late Map<String, String> _mainHeaders;
+  // late Map<String, String> _mainHeaders;
+  Map<String, String>? _mainHeaders;
 
   // Constructor to initialize the ApiClient with base URL and shared preferences
   ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
-    token = sharedPreferences.getString(AppConstants.token);
+    // token = sharedPreferences.getString(AppConstants.token);
+    token =
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjMsImVtYWlsIjoiZGVtbzNAZ21haWwuY29tIiwibmFtZSI6InNhcmExOTg5IiwiaWF0IjoxNzIzNDQ0MTQ3MDAwLCJleHAiOjE3MjM0NDQxNDcwMDB9.gkvqlxSHQFoZVMmwx9ZpBsuUM0-KwLIUG5I32hRe8N7TeAfIGNU3SX374sY5s80dsEw-ERRmbEJSz1Yr60oEP10Uhg8CDgYxhTKsZfy7ULWdHtNQwtJ0scDJZ1lITJMivSB1zvHAy-y1c2X5sWb20_lXJYryT2BffujQLG3e2582aeGla2i5srGkDxsdRK5F9iyTgcI55zQWvGvpo2DU1paf4QAKlB8ppDMNyYnsSepzRBaVmYVI-ulQj7ALsqaaihDJhTZrPQ8CxjusWFm-efJnR55Nz2spppFc_Hi6sZ-q5V_jj8hxmcJSfKKehwiQTuYbPyO_JWCm47l_oHPiDA";
     if (kDebugMode) {
       debugPrint('Token: $token');
     }
@@ -60,6 +64,7 @@ class ApiClient extends GetxService {
       'Authorization': 'Bearer $token'
     });
     if (setHeader) {
+      // _mainHeaders = header;
       _mainHeaders = header;
     }
     return header;
@@ -73,7 +78,8 @@ class ApiClient extends GetxService {
       bool showToaster = false}) async {
     try {
       if (kDebugMode) {
-        debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        // debugPrint('====> API Call: $appBaseUrl');
       }
       http.Response response = await http
           .get(
@@ -96,8 +102,9 @@ class ApiClient extends GetxService {
       {Map<String, String>? headers, bool handleError = true}) async {
     try {
       if (kDebugMode) {
-        debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        debugPrint('====> API Body: $body');
+        // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        // debugPrint('====> API Body: $appBaseUrl + $uri');
+        // debugPrint('====> API Call:$headers');
       }
       http.Response response = await http
           .post(
@@ -117,12 +124,12 @@ class ApiClient extends GetxService {
       List<MultipartBody> multipartBody, List<MultipartDocument> otherFile,
       {Map<String, String>? headers, bool handleError = true}) async {
     try {
-      debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-      debugPrint(
-          '====> API Body: $body with ${multipartBody.length} and multipart ${otherFile.length}');
+      // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+      // debugPrint(
+      //     '====> API Body: $body with ${multipartBody.length} and multipart ${otherFile.length}');
       http.MultipartRequest request =
           http.MultipartRequest('POST', Uri.parse(appBaseUrl + uri));
-      request.headers.addAll(headers ?? _mainHeaders);
+      request.headers.addAll(headers ?? _mainHeaders ?? {});
       for (MultipartBody multipart in multipartBody) {
         if (multipart.file != null) {
           if (foundation.kIsWeb) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
 import 'package:tomiru_social_flutter/features/discovery/screens/body_discovery_page.dart';
-import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
 
 class DiscoveryPage extends StatefulWidget {
   const DiscoveryPage({super.key});

@@ -6,7 +6,7 @@ import 'package:tomiru_social_flutter/features/chat/domain/models/conversation_m
 import 'package:tomiru_social_flutter/features/profile/domain/models/userinfo_model.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/services/profile_service_interface.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/splash_controller.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_snackbar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 

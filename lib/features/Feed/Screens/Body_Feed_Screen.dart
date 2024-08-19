@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/global/newWidget/custom_loader.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/newWidget/custom_loader.dart';
 import 'package:tomiru_social_flutter/features/Feed/Widgets/user_post_bar.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Shorts.dart';
-import 'package:tomiru_social_flutter/widgets/global/newWidget/emptyList.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/newWidget/emptyList.dart';
 import 'package:tomiru_social_flutter/features/Feed/Widgets/extra_detail.dart';
-import 'package:tomiru_social_flutter/widgets/global/time_line/time_line.dart';
-import 'package:tomiru_social_flutter/widgets/topMenuBar/top_menu_bar.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/time_line/time_line.dart';
+import 'package:tomiru_social_flutter/features/Feed/Widgets/top_menu_bar.dart';
 // import 'package:flutter_twitter_clone/state/feedState.dart';
 // import 'package:provider/provider.dart';
 
@@ -62,42 +62,25 @@ class _FeedPageBodyState extends State<FeedPageBody> {
         const SizedBox(height: 10),
         const ExtraDetail(),
         const SizedBox(height: 10),
-        const TimeLine(),
+        // const TimeLine(),
         const SizedBox(height: 10)
       ],
     );
   }
 
-  // Widget getPage(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       return _home();
-  //     case 1:
-  //       return Text('test page 2');
-  //     case 2:
-  //       return Text('test page 3');
-  //     case 3:
-  //       return Text('test page 4');
-  //     case 4:
-  //       return Text('test page 5');
-  //     case 5:
-  //       return Text('test page 6');
-  //     default:
-  //       return _home();
-  //   }
-  // }
+ 
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: widget.pageIndexNotifier,
-      builder: (context, index, child) {
+      builder:( (context, index, child) {
         // return Consumer<FeedState>(
         //   builder: (context, state, child) {
         //     return _body(context, state, child);
         //   },
         return _body(context, index, child);
-      },
+      }),
       child: const TopMenuBar(),
     );
   }

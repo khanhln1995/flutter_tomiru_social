@@ -1,16 +1,21 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/helper/route_helper.dart';
-import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
+import 'package:tomiru_social_flutter/util/app_constants.dart';
+import 'package:weather/weather.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
 import 'package:tomiru_social_flutter/features/Home/Widgets/wallet_info.dart';
 import 'package:tomiru_social_flutter/features/Home/Widgets/contact_member.dart';
 import 'package:tomiru_social_flutter/features/home/widgets/section_header.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Shorts.dart';
-import 'package:tomiru_social_flutter/widgets/products_widget/products_list.dart';
+import 'package:tomiru_social_flutter/features/Home/widgets/products_widget/products_list.dart';
 import 'package:tomiru_social_flutter/features/home/widgets/voucher_list.dart';
-import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_main_bar.dart';
-import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
-import 'package:tomiru_social_flutter/widgets/global/newWidget/service_content.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/newWidget/service_content.dart';
 import 'package:tomiru_social_flutter/features/settings/screens/settings_screen.dart';
+import 'package:get/get.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -22,6 +27,65 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  String? username;
+  // lay position
+  Placemark? _position;
+  Weather? temperature;
+  WeatherFactory wf = WeatherFactory(AppConstants.weatherApiKey);
+
+  @override
+  void initState() {
+    super.initState();
+    getPositionAndWeather();
+    username = Get.find<AuthController>().getUserSelfInfo()?.fullname ?? '';
+  }
+
+  Future<Position> _requestPermissionsAndInitializeLocation() async {
+    bool serviceEnabled;
+    bool locationSetting;
+    LocationPermission permission;
+    Position? lastPosition;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    lastPosition = await Geolocator.getLastKnownPosition();
+    try {
+      return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+    } catch (e) {
+      if (lastPosition != null) {
+        return lastPosition;
+      } else {
+        setState(() {
+          _position = null;
+        });
+      }
+      throw Exception(e);
+    }
+  }
+
+  void getPositionAndWeather() async {
+    Position? position = await _requestPermissionsAndInitializeLocation();
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    Weather w = await wf.currentWeatherByLocation(
+        position.latitude, position.longitude);
+    setState(() {
+      _position = placemarks[0];
+      temperature = w;
+    });
+  }
+  // lay position
 
   Widget _body(BuildContext context) {
     return CustomScrollView(
@@ -93,13 +157,15 @@ class _HomepageState extends State<Homepage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Xin chào",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                Text("Hôm nay 30°C")
+                Text("Xin chào${username != '' ? ', $username' : ''}",
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                if (_position != null)
+                  Text(
+                      "Hôm nay ${_position?.administrativeArea} ${temperature?.temperature?.celsius?.round()}°C")
               ],
             ),
             Row(
@@ -115,8 +181,11 @@ class _HomepageState extends State<Homepage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     customSetting(
-                      onPressed: (){
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>SettingsScreen()));
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SettingsScreen()));
                       },
                     ),
                     const Text("Cài đặt", style: TextStyle(fontSize: 12)),

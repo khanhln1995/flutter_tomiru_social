@@ -10,11 +10,12 @@ class AppConstants {
   static const bool payInWevView = false;
   static const String baseUrl = 'http://192.168.102.65:8000';
   // static const String baseUrl = 'http://192.168.102.132:8000';
+  static const String baseUrl2 = 'http://192.168.102.14:8080';
 
 // AUTH
   static const String loginUri = '/ui/v1/auth/login';
-
-  static const String registerUri = '/api/register';
+  // static const String registerUri = '/api/register';
+  static const String registerUri = '/api/v1.0/auth/register';
   static const String socialLoginUri = '/api/v1/auth/social-login';
   static const String socialRegisterUri = '/api/v1/auth/social-register';
 
@@ -56,6 +57,7 @@ class AppConstants {
   static const String cacheCountryCode = 'cache_country_code';
   static const String cacheLanguageCode = 'cache_language_code';
   static const String cartList = 'cart_list';
+  static const String userSelfInfo = 'user_self_info';
   static const String userPassword = 'user_password';
   static const String userAddress = 'user_address';
   static const String userNumber = 'user_number';
@@ -102,4 +104,22 @@ class AppConstants {
     {'title': 'added_via_payment_method', 'value': 'add_fund'},
     {'title': 'earned_by_referral', 'value': 'referrer'},
   ];
+
+  // WALLET
+  static const String userWallet = '/api/v1.0/users/me';
+  static const String walletHistory = '/api/v1.0/users/wallet-history';
+  static const String incomeHistory = '/api/v1.0/users/income-history';
+  // static const String sendCoin = '/api/v1.0/users/send-token';
+  // static const String sendCoinOtp = '/api/v1.0/users/send-token-otp';
+  // static const String checkIn = '/api/v1.0/users/checkIn';
+  // static const String agencyList = '/api/v1.0/agency/list';
+
+  // BUSINESS
+  static const String userPackage = '/api/v1.0/users/me';
+  static const String buyPackage = '/api/v1.0/users/me';
+  static const String ternaryTree = '/api/v1.0/users/me';
+  static const String ternaryTreeUnder = '/api/v1.0/users/me';
+  static const String vault = '/api/v1.0/users/me';
+
+  static const String weatherApiKey = 'c7d314a6b3bffaca06d052ca17cd807e';
 }
