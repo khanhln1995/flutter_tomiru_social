@@ -104,7 +104,6 @@ class ApiClient extends GetxService {
       if (kDebugMode) {
         // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
         // debugPrint('====> API Body: $appBaseUrl + $uri');
-        // debugPrint(jsonEncode(body));
         // debugPrint('====> API Call:$headers');
       }
       http.Response response = await http
@@ -114,17 +113,8 @@ class ApiClient extends GetxService {
             headers: headers ?? _mainHeaders,
           )
           .timeout(Duration(seconds: timeoutInSeconds));
-      // http.Response response = await http
-      //     .get(
-      //       Uri.parse(appBaseUrl + uri),
-            
-      //       headers: _mainHeaders,
-      //     )
-      //     .timeout(Duration(seconds: timeoutInSeconds));
-      // print(response);
       return handleResponse(response, uri, handleError);
     } catch (e) {
-      // print(e);
       return Response(statusCode: 1, statusText: noInternetMessage);
     }
   }
