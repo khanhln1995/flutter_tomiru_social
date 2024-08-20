@@ -287,11 +287,9 @@ class _CreatedFeedState extends State<CreatedFeed> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-<<<<<<< HEAD:lib/features/Feed/Screens/Create_Feed_Screen.dart
+
                           const LivePage(isHost: true, userID: "Khanh"),
-=======
-                          // const LivePage(isHost: true, userID: "Lam"),
->>>>>>> d4c5b107ee1490d92acfe6cb269d0dcf36400b7b:lib/features/Feed/Screens/create_new_feed.dart
+
                     ),
                   );
                 },

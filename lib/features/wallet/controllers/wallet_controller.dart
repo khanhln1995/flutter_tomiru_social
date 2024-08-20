@@ -143,4 +143,10 @@ class WalletController extends GetxController implements GetxService {
   String getWalletAccessToken() {
     return walletServiceInterface.getWalletAccessToken();
   }
+
+
+  Future<void> getUserWallet()async {
+     walletServiceInterface.getUserWallet();
+  }
+
 }

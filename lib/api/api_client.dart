@@ -30,7 +30,7 @@ class ApiClient extends GetxService {
   ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
     // token = sharedPreferences.getString(AppConstants.token);
     token =
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjMsImVtYWlsIjoiZGVtbzNAZ21haWwuY29tIiwibmFtZSI6InNhcmExOTg5IiwiaWF0IjoxNzIzNDQ0MTQ3MDAwLCJleHAiOjE3MjM0NDQxNDcwMDB9.gkvqlxSHQFoZVMmwx9ZpBsuUM0-KwLIUG5I32hRe8N7TeAfIGNU3SX374sY5s80dsEw-ERRmbEJSz1Yr60oEP10Uhg8CDgYxhTKsZfy7ULWdHtNQwtJ0scDJZ1lITJMivSB1zvHAy-y1c2X5sWb20_lXJYryT2BffujQLG3e2582aeGla2i5srGkDxsdRK5F9iyTgcI55zQWvGvpo2DU1paf4QAKlB8ppDMNyYnsSepzRBaVmYVI-ulQj7ALsqaaihDJhTZrPQ8CxjusWFm-efJnR55Nz2spppFc_Hi6sZ-q5V_jj8hxmcJSfKKehwiQTuYbPyO_JWCm47l_oHPiDA";
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoic3lzdGVtQGdtYWlsLmNvbSIsIm5hbWUiOiJhZG1pbiIsImlhdCI6MTcyMzAwNDMzODAwMCwiZXhwIjoxNzIzMDA0MzM4MDAwfQ.l2FsSh_pgRyqihx9M8h-XQ80eVSgR0EbPugPW93USBWNoXDaqRuwHTz-77uljlUx5ADEDW4CwFv6Zv5DpET_VemrAlh4hSVpy6TyZ5dgMztsxF0Zg6DKCXFRchCTJfa9B3JlINyxdc3TkmZ8Cfmqdv1OJ5ldGzpmpupQAzAKYsVOVjBIZkwPQB_6PiUlucP66BP1gzqcxrXlicqFsI2IWx1P2FqY9EUqwzqvTLt21uReIYb_vG_0loasAbJPs3pCTTOGkvEFu_j47nfrn8ThC3MPVUyOURN1GmSvTvtwXqpFc1O4uQhEBaJlCprXSGTlffiDYADUIXdb11tNZ9ATtg";
     if (kDebugMode) {
       debugPrint('Token: $token');
     }

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
+import '../../user_wallet/controller/users_wallet_controller.dart';
+import '../../user_wallet/domain/models/wallet_history_model.dart';
+import '../../users_profile/controller/users_profile_controller.dart';
 import "action_wallet.dart";
 class WalletInfo extends StatefulWidget {
   const WalletInfo({super.key});
@@ -85,12 +88,9 @@ class _WalletInfoState extends State<WalletInfo> {
             onTap: () {
               // Navigator.pushNamed(context, RouteHelper.getWalletRoute());
               Get.toNamed(RouteHelper.getWalletRoute());
-              // print("====================");
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => const WalletScreenUi(),
-              //     ));
+              //test
+              // Get.find<UsersProfileController>().setMasterData();
+              // Get.find<UsersProfileController>().getMasterDataLocal();
             },
             child: Container(
               margin: const EdgeInsets.only(top: 20),

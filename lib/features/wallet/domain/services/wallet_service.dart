@@ -36,6 +36,11 @@ class WalletService implements WalletServiceInterface {
   }
 
   @override
+  Future<void>getUserWallet()async{
+   return await walletRepositoryInterface.getUserWallet();
+  }
+
+  @override
   Future<List<FundBonusModel>?> getWalletBonusList() async {
     return await walletRepositoryInterface.getWalletBonusList();
   }

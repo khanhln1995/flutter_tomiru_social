@@ -10,4 +10,5 @@ abstract class WalletRepositoryInterface extends RepositoryInterface {
   Future<List<FundBonusModel>?> getWalletBonusList();
   Future<void> setWalletAccessToken(String token);
   String getWalletAccessToken();
+  Future<void> getUserWallet();
 }

@@ -56,6 +56,13 @@ class WalletRepository implements WalletRepositoryInterface {
     return fundBonusList;
   }
 
+
+  @override
+  Future getUserWallet()async{
+    Response response = await apiClient.getData(AppConstants.apiV1UsersMe);
+    return response.body;
+  }
+
   @override
   Future<void> setWalletAccessToken(String token) {
     return sharedPreferences.setString(AppConstants.walletAccessToken, token);
@@ -86,3 +93,4 @@ class WalletRepository implements WalletRepositoryInterface {
     throw UnimplementedError();
   }
 }
+
