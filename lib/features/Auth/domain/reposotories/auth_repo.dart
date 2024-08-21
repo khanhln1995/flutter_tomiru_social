@@ -6,6 +6,7 @@ import 'package:tomiru_social_flutter/api/api_client.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/signup_body_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/social_log_in_body_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/reposotories/auth_repo_interface.dart';
+import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_model.dart';
 // import 'package:tomiru_social_flutter/helper/address_helper.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -107,7 +108,10 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
       data.addAll({"guest_id": guestId});
     }
     return await apiClient.postData(AppConstants.loginUri, data,
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
         handleError: false);
+    // return await apiClient.getData(AppConstants.loginUri, headers: {'Content-Type': 'application/json; charset=UTF-8'},
+    //     handleError: false);
   }
 
   @override
@@ -155,6 +159,37 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
     await sharedPreferences.remove(AppConstants.userPassword);
     await sharedPreferences.remove(AppConstants.userCountryCode);
     return await sharedPreferences.remove(AppConstants.userNumber);
+  }
+
+  @override
+  Future<void> saveSelfInfo(SelfInfoModel selfInfomodel) async {
+    try {
+      String selfInfoJson = jsonEncode(selfInfomodel.toJson());
+      await sharedPreferences.setString(
+          AppConstants.userSelfInfo, selfInfoJson);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> clearSelfInfo() async {
+    return await sharedPreferences.remove(AppConstants.userSelfInfo);
+  }
+
+  @override
+  SelfInfoModel? getUserSelfInfo() {
+    try {
+      String? selfInfoJson =
+          sharedPreferences.getString(AppConstants.userSelfInfo);
+      if (selfInfoJson != null) {
+        Map<String, dynamic> selfInfoMap = jsonDecode(selfInfoJson);
+        return SelfInfoModel.fromJson(selfInfoMap);
+      }
+    } catch (e) {
+      print('Error getting self info: $e');
+    }
+    return null;
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_button_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_button_widget.dart';
 import 'package:tomiru_social_flutter/features/language/controllers/localization_controller.dart';
 import 'package:tomiru_social_flutter/features/language/widgets/language_card_widget.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';

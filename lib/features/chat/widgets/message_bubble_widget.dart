@@ -1,4 +1,4 @@
-import 'package:tomiru_social_flutter/common/widgets/custom_photo_view.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_photo_view.dart';
 import 'package:tomiru_social_flutter/features/chat/controllers/chat_controller.dart';
 import 'package:tomiru_social_flutter/features/language/controllers/localization_controller.dart';
 import 'package:tomiru_social_flutter/features/profile/controllers/profile_controller.dart';
@@ -10,7 +10,7 @@ import 'package:tomiru_social_flutter/common/enums/user_type.dart';
 import 'package:tomiru_social_flutter/util/color_resources.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
 import 'package:tomiru_social_flutter/util/styles.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_image_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

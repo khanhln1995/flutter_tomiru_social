@@ -4,8 +4,8 @@ import 'page_view/page_view0.dart';
 import "page_view/page_view1.dart";
 import "page_view/page_view2.dart";
 import "page_view/page_view3.dart";
-import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
-import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
 
 class Friend2Screen extends StatefulWidget {
   const Friend2Screen({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class _Friend2ScreenState extends State<Friend2Screen> {
         titleText: 'Bạn bè',
         padding: 0,
         widget: [
-          customQr(),
+          customQr(context),
           customMessage(context),
           customNotification(context),
           const SizedBox(width: 12.0)

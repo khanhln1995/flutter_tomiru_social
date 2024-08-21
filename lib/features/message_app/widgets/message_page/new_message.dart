@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart'
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart'
     as mainbar;
-import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Chat_Group_Screen.dart';
+import 'package:tomiru_social_flutter/features/group/Screens/Chat_group_screen.dart';
 
 class NewMessage extends StatefulWidget {
   const NewMessage({super.key});
@@ -38,7 +38,7 @@ class _NewMessageState extends State<NewMessage> {
       backgroundColor: Colors.white,
       appBar: mainbar.CustomAppBar(
         onBackPress: () => Navigator.of(context).pop(),
-        centerText: 'Tin nhắn mới',
+        mainTitle: 'Tin nhắn mới',
         padding: 0,
         leadingWidth: MediaQuery.of(context).size.width / 3,
         widget: const [],

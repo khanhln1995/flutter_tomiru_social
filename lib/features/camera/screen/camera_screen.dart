@@ -16,6 +16,10 @@ class _CameraScreenState extends State<CameraScreen> {
   List<CameraDescription>? cameras;
   bool _isCameraInitialized = false;
   int _selectedCameraIndex = 0;
+  bool _isOpenFlash = true;
+  double _baseScale = 1.0;
+  double _currentScale = 1.0;
+  double? _maxZoom;
 
   @override
   void initState() {
@@ -42,6 +46,8 @@ class _CameraScreenState extends State<CameraScreen> {
       _controller = CameraController(
           cameras![_selectedCameraIndex], ResolutionPreset.high);
       await _controller!.initialize();
+      await _updateFlashMode();
+      await _setMaxZoom();
       setState(() {
         _isCameraInitialized = true;
       });
@@ -63,6 +69,18 @@ class _CameraScreenState extends State<CameraScreen> {
     }
   }
 
+  Future<void> _setMaxZoom() async {
+    final maxZoom = await _controller!.getMaxZoomLevel();
+    setState(() {
+      _maxZoom = maxZoom;
+    });
+  }
+
+  Future<void> _updateFlashMode() async {
+    await _controller!
+        .setFlashMode(_isOpenFlash ? FlashMode.always : FlashMode.off);
+  }
+
   @override
   void dispose() {
     _controller?.dispose();
@@ -81,6 +99,15 @@ class _CameraScreenState extends State<CameraScreen> {
     if (scale < 1) scale = 1 / scale;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () async {
+              setState(() {
+                _isOpenFlash = !_isOpenFlash;
+              });
+              await _updateFlashMode();
+            },
+            icon: Icon(_isOpenFlash ? Icons.flash_on : Icons.flash_off,
+                color: Colors.white)),
         title: const Text('Camera', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: Colors.black,
@@ -91,10 +118,22 @@ class _CameraScreenState extends State<CameraScreen> {
               children: [
                 Expanded(
                   flex: 5,
-                  child: Transform.scale(
-                    scale: scale,
-                    child: Center(
-                      child: CameraPreview(_controller!),
+                  child: GestureDetector(
+                    onScaleStart: (_) {
+                      _baseScale = _currentScale;
+                    },
+                    onScaleUpdate: (ScaleUpdateDetails details) {
+                      setState(() {
+                        _currentScale =
+                            (_baseScale * details.scale).clamp(1.0,_maxZoom ?? 4.0);
+                        _controller!.setZoomLevel(_currentScale);
+                      });
+                    },
+                    child: Transform.scale(
+                      scale: scale,
+                      child: Center(
+                        child: CameraPreview(_controller!),
+                      ),
                     ),
                   ),
                 ),

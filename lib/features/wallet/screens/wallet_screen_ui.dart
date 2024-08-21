@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
 import 'package:tomiru_social_flutter/features/wallet/widgets/balance_tab_widget.dart';
 import 'package:tomiru_social_flutter/features/wallet/widgets/overview_tab_widget.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
+
+import '../../user_wallet/controller/users_wallet_controller.dart';
+import '../../user_wallet/domain/models/wallet_history_model.dart';
+import '../controllers/wallet_controller.dart';
 
 class WalletScreenUi extends StatefulWidget {
   const WalletScreenUi({super.key});
@@ -14,11 +19,14 @@ class WalletScreenUi extends StatefulWidget {
 class _WalletScreenUiState extends State<WalletScreenUi>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
+  List<WalletHistoryModel> wallet =[];
   @override
   void initState() {
     super.initState();
+
+    wallet = Get.find<UsersWalletController>().walletHistory;
     _tabController = TabController(length: 2, vsync: this);
+
   }
 
   @override

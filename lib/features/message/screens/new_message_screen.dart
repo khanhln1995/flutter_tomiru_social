@@ -15,7 +15,8 @@ class _NewMessageState extends State<NewMessage> {
       appBar: AppBar(
         title: Text('New Message View'),
         centerTitle: true,
-        leading: TextButton(onPressed: () {}, child: Text('Hủy')),
+        leading: TextButton(
+            onPressed: () => Navigator.pop(context), child: Text('Hủy')),
       ),
       body: Center(
         child: Text('This is New Message View'),

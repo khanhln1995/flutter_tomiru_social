@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/comment_bottom_sheet.dart';
+import 'package:tomiru_social_flutter/common/widgets/comment_bottom_sheet.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/time_line/sharing_post.dart';
 
 Widget getPage(int index) {
   switch (index) {
     case 0:
-      return CommentArea();
+      return const CommentArea();
     case 1:
-      return CommentArea();
+      return const SharePostSheet();
     default:
-      return CommentArea();
+      return const CommentArea();
   }
 }
 
@@ -19,7 +20,7 @@ void showUnderBottomSheet(BuildContext context, int index) {
     useSafeArea: true,
     transitionAnimationController: AnimationController(
       vsync: Navigator.of(context),
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     ),
     builder: (BuildContext context) {
       return Padding(

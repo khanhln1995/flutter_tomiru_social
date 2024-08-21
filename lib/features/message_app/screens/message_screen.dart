@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/features/message_app/widgets/message_page/body_message.dart';
 import 'package:tomiru_social_flutter/features/message_app/widgets/bottom_bar_message.dart';
 import 'package:tomiru_social_flutter/features/message_app/widgets/phonebook_page/body_phonebook.dart';
-import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/bottom_menu_bar.dart';
-import 'package:tomiru_social_flutter/widgets/ui/custom_mainbar.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/reminder_page/body_reminder.dart';
+import 'package:tomiru_social_flutter/common/widgets/bottom_menu_bar/bottom_menu_bar.dart';
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
 
-import 'package:tomiru_social_flutter/widgets/custom_icon_widgets.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
 
 //!
 import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/features/Friends/Screens/Friend_Screen.dart';
-import 'package:tomiru_social_flutter/features/Group_Screen/Screens/Group_Page.dart';
+import 'package:tomiru_social_flutter/features/group/Screens/Group_Page.dart';
 
 import 'package:tomiru_social_flutter/state/message_controller.dart';
 import "package:tomiru_social_flutter/features/short_video/screens/short_video_page.dart";
 // import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
 import 'package:tomiru_social_flutter/features/Home/Screens/Social_page.dart';
-import 'package:tomiru_social_flutter/features/discovery/screens/discovery_page.dart';
+import 'package:tomiru_social_flutter/features/message_app/widgets/setting_page/body_setting.dart';
+
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
 
@@ -38,7 +40,7 @@ class _MessageScreenState extends State<MessageScreen> {
         },
         image: "assets/images/logo-tomiru-v2.png",
         widget: <Widget>[
-          customQr(),
+          customQr(context),
           customMessage(context),
           customNotification(context),
           const SizedBox(width: 12.0)
@@ -47,9 +49,9 @@ class _MessageScreenState extends State<MessageScreen> {
       ),
       body: _body(),
       bottomNavigationBar: const BottomBarMessage(),
-
     );
   }
+
   Widget _body() {
     return SafeArea(
       child: Obx(() {
@@ -70,10 +72,10 @@ class _MessageScreenState extends State<MessageScreen> {
       case 1:
         return BodyPhonebook();
       case 2:
-        return const DiscoveryPage();
+        return BodyReminder();
       case 3:
-        return const Friend2Screen();
-     
+        return const BodySetting(isAdmin: true);
+
       default:
         // return FeedPage(scaffoldKey: _scaffoldKey);
         return BodyMessage();

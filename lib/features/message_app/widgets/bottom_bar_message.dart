@@ -5,8 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
 import 'package:tomiru_social_flutter/state/message_controller.dart';
 import 'package:tomiru_social_flutter/ui/theme/theme.dart';
-import 'package:tomiru_social_flutter/widgets/bottom_menu_bar/tab_item.dart';
-import 'package:tomiru_social_flutter/widgets/custom_widgets.dart';
+import 'package:tomiru_social_flutter/common/widgets/bottom_menu_bar/tab_item.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_widgets.dart';
 
 class BottomBarMessage extends StatefulWidget {
   const BottomBarMessage({
