@@ -14,8 +14,10 @@ class UsersProfileController extends GetxController implements GetxService {
   }
 
   void getCurrentUsersLocal() async {
-   final userProfile = await userProfileServiceInterface.getCurrentUsersLocal();
-   print(userProfile.firstName);
+    final res =
+        await userProfileServiceInterface.getCurrentUsersLocal();
+    print(res.firstName);
+    print("<<<<=====>>>>>");
   }
 
   void setMasterData() async {
@@ -24,15 +26,16 @@ class UsersProfileController extends GetxController implements GetxService {
 
   void getMasterDataLocal() async {
     final masterData = await userProfileServiceInterface.getMasterDataLocal();
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    print(masterData.packages);
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print(masterData.packages);
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
   }
 
   void getUsersBalancesLocal() async {
-    final usersBalances = await userProfileServiceInterface.getUsersBalancesLocal();
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    print(usersBalances);
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    final usersBalances =
+        await userProfileServiceInterface.getUsersBalancesLocal();
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print(usersBalances);
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
   }
 }

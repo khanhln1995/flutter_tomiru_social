@@ -39,17 +39,17 @@ class AuthService implements AuthServiceInterface {
       bool alreadyInApp = false}) async {
     Response response =
         await authRepoInterface.login(email: email, password: password);
+    
     if (response.statusCode == 200) {
       if (customerVerification && response.body['is_phone_verified'] == 0) {
       } else {
-
         authRepoInterface.saveUserToken(response.body['token'],
             alreadyInApp: alreadyInApp);
         SelfInfoModel userInfo = SelfInfoModel.fromJson(response.body['user']);
+
         await authRepoInterface.saveSelfInfo(userInfo);
         await authRepoInterface.updateToken();
         await authRepoInterface.clearGuestId();
-
       }
       return ResponseModel(true,
           '${response.body['is_phone_verified']}${response.body['token']}');
