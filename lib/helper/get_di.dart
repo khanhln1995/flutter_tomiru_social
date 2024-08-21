@@ -149,6 +149,7 @@ import 'package:tomiru_social_flutter/features/splash/domain/repositories/splash
 import 'package:tomiru_social_flutter/features/splash/domain/repositories/splash_repository_interface.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/services/splash_service.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/services/splash_service_interface.dart';
+import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
 import 'package:tomiru_social_flutter/features/verification/controllers/verification_controller.dart';
 import 'package:tomiru_social_flutter/features/verification/domain/reposotories/verification_repo.dart';
 import 'package:tomiru_social_flutter/features/verification/domain/reposotories/verification_repo_interface.dart';
@@ -163,6 +164,16 @@ import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
+
+import '../features/user_wallet/controller/users_wallet_controller.dart';
+import '../features/user_wallet/domain/repositories/users_wallet_repositories.dart';
+import '../features/user_wallet/domain/repositories/users_wallet_repositories_interface.dart';
+import '../features/user_wallet/domain/service/users_wallet_service.dart';
+import '../features/user_wallet/domain/service/users_wallet_service_interface.dart';
+import '../features/users_profile/domain/repositories/users_profile_repositories.dart';
+import '../features/users_profile/domain/repositories/users_profile_repositories_intrerface.dart';
+import '../features/users_profile/domain/service/users_profile_service.dart';
+import '../features/users_profile/domain/service/users_profile_service_interface.dart';
 
 Future<Map<String, Map<String, String>>> init() async {
   /// Core
@@ -363,6 +374,20 @@ Future<Map<String, Map<String, String>>> init() async {
   //     CampaignService(campaignRepositoryInterface: Get.find());
   // Get.lazyPut(() => campaignServiceInterface);
 
+  UsersProfileRepositoryInterface usersProfileRepositoryInterface =
+      UsersProfileRepository(apiClient: Get.find(), sharedPreferences: Get.find(),);
+  Get.lazyPut(() => usersProfileRepositoryInterface);
+  UsersProfileServiceInterface usersProfileServiceInterface =
+  UsersProfileService(usersProfileRepositoryInterface: Get.find());
+  Get.lazyPut(() => usersProfileServiceInterface);
+
+  UsersWalletRepositoryInterface usersWalletRepositoryInterface =
+  UsersWalletRepository(apiClient: Get.find(), sharedPreferences: Get.find(),);
+  Get.lazyPut(() => usersWalletRepositoryInterface);
+  UsersWalletServiceInterface usersWalletServiceInterface =
+  UsersWalletService(usersWalletRepositoryInterface: Get.find());
+  Get.lazyPut(() => usersWalletServiceInterface);
+
   /// Controller
   Get.lazyPut(() => ThemeController(splashServiceInterface: Get.find()));
   Get.lazyPut(() => SplashController(splashServiceInterface: Get.find()));
@@ -403,7 +428,8 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => OrderController(orderServiceInterface: Get.find()));
   // Get.lazyPut(() => CampaignController(campaignServiceInterface: Get.find()));
   // Get.lazyPut(() => CheckoutController(checkoutServiceInterface: Get.find()));
-
+  Get.lazyPut(() => UsersProfileController( userProfileServiceInterface: Get.find()));
+  Get.lazyPut(() => UsersWalletController( userWalletServiceInterface: Get.find()));
   /// Retrieving localized data
   Map<String, Map<String, String>> languages = {};
   for (LanguageModel languageModel in AppConstants.languages) {
