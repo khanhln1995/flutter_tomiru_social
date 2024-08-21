@@ -286,4 +286,8 @@ class DateConverter {
   static String convertStringTimeToDateTime(DateTime time) {
     return DateFormat('EEE \'at\' ${_timeFormatter()}').format(time.toLocal());
   }
+
+  static String dateToDateAndDayOfWeek(DateTime time) {
+    return DateFormat('dd/MMM/yyyy - EEEE', 'vi').format(time);
+  }
 }
