@@ -1,6 +1,7 @@
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:http/http.dart';
+import '../domain/models/sendTokenModel.dart';
 import '../domain/models/wallet_history_model.dart';
 import '../domain/service/users_wallet_service_interface.dart';
 
@@ -26,7 +27,17 @@ class UsersWalletController extends GetxController implements GetxService {
 
 Future usersCheckin()async{
    await userWalletServiceInterface.userCheckin();
-
 }
-
+  Future sendTokenOTP()async{
+    await userWalletServiceInterface.sendTokenOTP();
+  }
+  Future sendToken()async{
+    SendTokenModel data = SendTokenModel(
+      value: 123,
+      codeOtp: '306399',
+      email: 'system@gmail.com',
+      message: '123',
+    );
+    await userWalletServiceInterface.sendToken(data);
+  }
 }
