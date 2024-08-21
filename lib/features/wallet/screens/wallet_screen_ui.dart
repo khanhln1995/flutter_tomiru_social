@@ -5,8 +5,8 @@ import 'package:tomiru_social_flutter/features/wallet/widgets/balance_tab_widget
 import 'package:tomiru_social_flutter/features/wallet/widgets/overview_tab_widget.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
 
-import '../../user_wallet/controller/users_wallet_controller.dart';
-import '../../user_wallet/domain/models/wallet_history_model.dart';
+import '../../users_wallet/controller/users_wallet_controller.dart';
+import '../../users_wallet/domain/models/wallet_history_model.dart';
 import '../controllers/wallet_controller.dart';
 
 class WalletScreenUi extends StatefulWidget {

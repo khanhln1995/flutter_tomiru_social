@@ -150,7 +150,7 @@ class ActionWallet extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      const TransferScreen(initialTabIndex: 0),
+                       TransferScreen(initialTabIndex: 0),
                 ),
               );
             } else if (option['onTap'] == 'navigateToSavedContacts') {
@@ -158,7 +158,7 @@ class ActionWallet extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      const TransferScreen(initialTabIndex: 1),
+                       TransferScreen(initialTabIndex: 1),
                 ),
               );
             } else if (option['onTap'] == 'navigateToBuyPackageScreen') {

@@ -165,15 +165,16 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
-import '../features/user_wallet/controller/users_wallet_controller.dart';
-import '../features/user_wallet/domain/repositories/users_wallet_repositories.dart';
-import '../features/user_wallet/domain/repositories/users_wallet_repositories_interface.dart';
-import '../features/user_wallet/domain/service/users_wallet_service.dart';
-import '../features/user_wallet/domain/service/users_wallet_service_interface.dart';
+
 import '../features/users_profile/domain/repositories/users_profile_repositories.dart';
 import '../features/users_profile/domain/repositories/users_profile_repositories_intrerface.dart';
 import '../features/users_profile/domain/service/users_profile_service.dart';
 import '../features/users_profile/domain/service/users_profile_service_interface.dart';
+import '../features/users_wallet/controller/users_wallet_controller.dart';
+import '../features/users_wallet/domain/repositories/users_wallet_repositories.dart';
+import '../features/users_wallet/domain/repositories/users_wallet_repositories_interface.dart';
+import '../features/users_wallet/domain/service/users_wallet_service.dart';
+import '../features/users_wallet/domain/service/users_wallet_service_interface.dart';
 
 Future<Map<String, Map<String, String>>> init() async {
   /// Core
@@ -387,6 +388,8 @@ Future<Map<String, Map<String, String>>> init() async {
   UsersWalletServiceInterface usersWalletServiceInterface =
   UsersWalletService(usersWalletRepositoryInterface: Get.find());
   Get.lazyPut(() => usersWalletServiceInterface);
+
+
 
   /// Controller
   Get.lazyPut(() => ThemeController(splashServiceInterface: Get.find()));

@@ -1,10 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/transfer_qr_screen.dart';
 
+import '../../users_wallet/controller/users_wallet_controller.dart';
+import '../../wallet/screens/transfer_screen.dart';
+
 class QrScannerScreen extends StatefulWidget {
+
+
   const QrScannerScreen({super.key});
 
   @override
@@ -15,7 +24,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
-
+  final UsersWalletController usersWalletController = Get.find();
   @override
   void reassemble() {
     super.reassemble();
@@ -109,6 +118,32 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        if (result != null && result!.code != null) {
+
+          String data = result!.code.toString();
+
+          // Tách chuỗi thành danh sách các chuỗi bằng cách sử dụng dấu phẩy
+          // value,message,email
+          List<String> arr = data.trim().split(",");
+          if(arr.length ==1){
+            String email = arr[0];
+            usersWalletController.updateEmail(email);
+            Get.to(TransferScreen(isQrEmail: true));
+          }
+
+          if(arr.length ==3){
+            String email = arr[2];
+            String value = arr[0];
+            String message = arr[1];
+            usersWalletController.updateEmail(email);
+            usersWalletController.updateValue(int.parse(value));
+            usersWalletController.updateMessage(message);
+            Get.to(TransferScreen(isQrAll: true));
+          }
+          //thêm chức năng Hiện thị lỗi QR ko hợp lệ
+        } else {
+
+        }
       });
     });
   }
@@ -136,3 +171,5 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
     super.dispose();
   }
 }
+
+
