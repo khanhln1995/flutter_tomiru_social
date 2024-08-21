@@ -8,9 +8,9 @@ class AppConstants {
 
   static const String fontFamily = 'Roboto';
   static const bool payInWevView = false;
-  static const String baseUrl = 'http://192.168.102.65:8000';
+  // static const String baseUrl = 'http://192.168.102.65:8000';
   // static const String baseUrl = 'http://192.168.102.132:8000';
-  static const String baseUrl2 = 'http://192.168.102.14:8080';
+  static const String baseUrl = 'http://192.168.102.14:8080';
 
 // AUTH
   static const String loginUri = '/ui/v1/auth/login';
@@ -49,6 +49,13 @@ class AppConstants {
 
   static const String addFundUri = '/api/v1/customer/wallet/add-fund';
   static const String walletBonusUri = '/api/v1/customer/wallet/bonuses';
+
+  // key sharedPreferences
+  //save response api me
+  static const String userProfile = 'user_profile';
+  static const String masterData = 'master_data';
+  static const String walletHistory = 'wallet_history';
+  static const String usersBalances = 'users_balances';
 
   static const String theme = 'theme';
   static const String token = 'multivendor_token';
@@ -106,20 +113,23 @@ class AppConstants {
   ];
 
   // WALLET
-  static const String userWallet = '/api/v1.0/users/me';
-  static const String walletHistory = '/api/v1.0/users/wallet-history';
-  static const String incomeHistory = '/api/v1.0/users/income-history';
-  // static const String sendCoin = '/api/v1.0/users/send-token';
-  // static const String sendCoinOtp = '/api/v1.0/users/send-token-otp';
-  // static const String checkIn = '/api/v1.0/users/checkIn';
-  // static const String agencyList = '/api/v1.0/agency/list';
+  static const String apiV1 = '/api/v1.0';
+  static const String apiV1Users = '$apiV1/users';
+  static const String apiV1MasterData = '$apiV1/master-data';
+  static const String apiV1UsersMe = '$apiV1Users/me';
+  static const String apiV1UsersWalletHistory = '$apiV1Users/wallet-history';
+  static const String apiV1UsersIncomeHistory = '$apiV1Users/income-history';
+  static const String apiV1UsersSendCoin = '$apiV1Users/send-token';
+  static const String apiV1UsersSendCoinOtp = '$apiV1Users/send-token-otp';
+  static const String apiV1UsersCheckIn = '$apiV1Users/checkIn';
+  static const String apiV1AgencyList = '$apiV1/agency/list';
 
   // BUSINESS
-  static const String userPackage = '/api/v1.0/users/me';
-  static const String buyPackage = '/api/v1.0/users/me';
-  static const String ternaryTree = '/api/v1.0/users/me';
-  static const String ternaryTreeUnder = '/api/v1.0/users/me';
-  static const String vault = '/api/v1.0/users/me';
+  static const String apiV1UsersPackages = '$apiV1Users/packages';
+  static const String apiV1UsersBuyPackages = '$apiV1Users/buy-packages';
+  static const String apiV1TernaryTree = '$apiV1/ternary-tree/my-list';
+  static const String apiV1TernaryTreeUsername = '$apiV1/ternary-tree/list?filters[username]=';
+  static const String apiV1VaultInfo = '$apiV1/vault/info';
 
   static const String weatherApiKey = 'c7d314a6b3bffaca06d052ca17cd807e';
 }

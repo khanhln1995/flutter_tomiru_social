@@ -79,7 +79,6 @@ class DashboardScreenState extends State<DashboardScreen> {
       // const Text(" 123456567"),
       const Text(" 123456567"),
       const WalletScreenUi(),
-
       const Text(" 2"),
       // const Text(" 3"),
       const UpdateScreen(isUpdate: true),
