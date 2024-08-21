@@ -30,4 +30,9 @@ class UsersProfileService implements UsersProfileServiceInterface {
     return await usersProfileRepositoryInterface.getMasterDataLocal();
   }
 
+  @override
+  Future<List<UserBalance>>getUsersBalancesLocal() async{
+    return await usersProfileRepositoryInterface.getUsersBalancesLocal();
+  }
+
 }

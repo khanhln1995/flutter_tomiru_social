@@ -55,6 +55,7 @@ class AppConstants {
   static const String userProfile = 'user_profile';
   static const String masterData = 'master_data';
   static const String walletHistory = 'wallet_history';
+  static const String usersBalances = 'users_balances';
 
   static const String theme = 'theme';
   static const String token = 'multivendor_token';

@@ -89,8 +89,8 @@ class _WalletInfoState extends State<WalletInfo> {
               // Navigator.pushNamed(context, RouteHelper.getWalletRoute());
               Get.toNamed(RouteHelper.getWalletRoute());
               //test
-              // Get.find<UsersProfileController>().setMasterData();
-              // Get.find<UsersProfileController>().getMasterDataLocal();
+              // Get.find<UsersProfileController>().setCurrentUsers();
+              // Get.find<UsersProfileController>().getUsersBalancesLocal();
             },
             child: Container(
               margin: const EdgeInsets.only(top: 20),

@@ -27,6 +27,11 @@ class UsersProfileRepository implements UsersProfileRepositoryInterface {
       String userProfileJson = jsonEncode(userProfile.toJson());
       await sharedPreferences.setString(AppConstants.userProfile, userProfileJson);
 
+      List<dynamic> usersBalancesJson = response.body['data']['usersBalances'];
+      List<UserBalance> usersBalances = usersBalancesJson.map((balance) => UserBalance.fromJson(balance)).toList();
+      String usersBalancesJsonString = jsonEncode(usersBalances.map((balance) => balance.toJson()).toList());
+      await sharedPreferences.setString(AppConstants.usersBalances, usersBalancesJsonString);
+
       return userProfile;
     } else {
       throw Exception("Failed to fetch user data: ${response.statusText}");
@@ -41,6 +46,18 @@ class UsersProfileRepository implements UsersProfileRepositoryInterface {
       Map<String, dynamic> userMap = jsonDecode(userProfileJson);
       final userProfile = UserProfile.fromJson(userMap);
       return userProfile;
+    } else {
+      throw Exception("No user data found in local storage.");
+    }
+  }
+  @override
+  Future<List<UserBalance>> getUsersBalancesLocal() async {
+    String? usersBalancesJson = sharedPreferences.getString(AppConstants.usersBalances);
+
+    if (usersBalancesJson != null) {
+      List<dynamic> usersBalancesList = jsonDecode(usersBalancesJson);
+      List<UserBalance> usersBalances = usersBalancesList.map((item) => UserBalance.fromJson(item)).toList();
+      return usersBalances;
     } else {
       throw Exception("No user data found in local storage.");
     }

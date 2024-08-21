@@ -9,7 +9,7 @@ abstract class UsersProfileRepositoryInterface extends RepositoryInterface {
 
   Future<UserProfile>fetchCurrentUsers();
   Future<UserProfile>getCurrentUsersLocal();
-
+  Future<List<UserBalance>>getUsersBalancesLocal();
 
   Future<MasterDataModel>fetchMasterData();
   Future<MasterDataModel>getMasterDataLocal();

@@ -7,6 +7,8 @@ import '../models/users_me.dart';
 abstract class UsersProfileServiceInterface {
 Future<UserProfile>fetchCurrentUsers();
 Future<UserProfile>getCurrentUsersLocal();
+Future<List<UserBalance>>getUsersBalancesLocal();
+
 Future<MasterDataModel>fetchMasterData();
 Future<MasterDataModel>getMasterDataLocal();
 }

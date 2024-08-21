@@ -28,4 +28,11 @@ class UsersProfileController extends GetxController implements GetxService {
     print(masterData.packages);
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
   }
+
+  void getUsersBalancesLocal() async {
+    final usersBalances = await userProfileServiceInterface.getUsersBalancesLocal();
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    print(usersBalances);
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+  }
 }

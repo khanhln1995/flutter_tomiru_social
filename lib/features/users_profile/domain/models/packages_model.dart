@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Package {
   final int? id;
   final String? name;
@@ -8,15 +6,23 @@ class Package {
   final double? discount;
   final int? validInDay;
   final double? total;
+  final String? nextPackageAllow;
+  final int? status;
+  final int? createdAt;
+  final int? updatedAt;
 
   Package({
-     this.id,
-     this.name,
-     this.description,
-     this.price,
-     this.discount,
-     this.validInDay,
-     this.total,
+    this.id,
+    this.name,
+    this.description,
+    this.price,
+    this.discount,
+    this.validInDay,
+    this.total,
+    this.nextPackageAllow,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Package.fromJson(Map<String, dynamic> json) {
@@ -27,7 +33,11 @@ class Package {
       price: json['price'].toDouble(),
       discount: json['discount'].toDouble(),
       validInDay: json['validInDay'],
-      total: json['total'].toDouble(),
+      total: json['total'] != null ? json['total'].toDouble() : null,
+      nextPackageAllow: json['nextPackageAllow'],
+      status: json['status'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'] != null ? int.tryParse(json['updatedAt']) : null,
     );
   }
 
@@ -40,6 +50,10 @@ class Package {
       'discount': discount,
       'validInDay': validInDay,
       'total': total,
+      'nextPackageAllow': nextPackageAllow,
+      'status': status,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
     };
   }
 }
