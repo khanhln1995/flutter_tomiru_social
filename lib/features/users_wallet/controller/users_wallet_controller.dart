@@ -11,6 +11,32 @@ class UsersWalletController extends GetxController implements GetxService {
     fetchWalletHistory();
   }
 
+  int _value = 0;
+  String _codeOtp = '';
+  String _email = '';
+  String _message = '';
+
+  int get value => _value;
+  String get codeOtp => _codeOtp;
+  String get email => _email;
+  String get message => _message;
+
+  void updateValue(int newValue) {
+    _value = newValue;
+  }
+
+  void updateCodeOtp(String newCodeOtp) {
+    _codeOtp = newCodeOtp;
+  }
+
+  void updateEmail(String newEmail) {
+    _email = newEmail;
+  }
+
+  void updateMessage(String newMessage) {
+    _message = newMessage;
+  }
+
   List<WalletHistoryModel> _walletHistory = [];
 
   List<WalletHistoryModel> get walletHistory => _walletHistory;
@@ -31,12 +57,12 @@ Future usersCheckin()async{
   Future sendTokenOTP()async{
     await userWalletServiceInterface.sendTokenOTP();
   }
-  Future sendToken()async{
+  Future<void> sendToken() async {
     SendTokenModel data = SendTokenModel(
-      value: 123,
-      codeOtp: '306399',
-      email: 'system@gmail.com',
-      message: '123',
+      value: _value,
+      codeOtp: _codeOtp,
+      email: _email,
+      message: _message,
     );
     await userWalletServiceInterface.sendToken(data);
   }

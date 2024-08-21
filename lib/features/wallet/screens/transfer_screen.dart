@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../common/widgets_2/custom_text_field_widget.dart';
+import '../../users_wallet/controller/users_wallet_controller.dart';
 
 class TransferScreen extends StatefulWidget {
   final int initialTabIndex;
+  final bool? isQrEmail;
+  final bool? isQrAll;
 
-  const TransferScreen({super.key, this.initialTabIndex = 0});
+  TransferScreen({super.key, this.initialTabIndex = 0, this.isQrEmail = false, this.isQrAll = false});
 
   @override
   _TransferScreenState createState() => _TransferScreenState();
@@ -12,17 +17,37 @@ class TransferScreen extends StatefulWidget {
 class _TransferScreenState extends State<TransferScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final UsersWalletController usersWalletController = Get.find();
+  late TextEditingController emailController;
+  late TextEditingController valueController;
+  late TextEditingController messageController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
         length: 2, vsync: this, initialIndex: widget.initialTabIndex);
+
+    // Kiểm tra isQrEmail và lấy giá trị email từ controller nếu cần
+    emailController = TextEditingController();
+    valueController = TextEditingController();
+    messageController = TextEditingController();
+    if (widget.isQrAll == true) {
+      emailController.text = usersWalletController.email;
+      valueController.text = usersWalletController.value.toString();
+      messageController.text = usersWalletController.message;
+    }
+    if (widget.isQrEmail == true) {
+      emailController.text = usersWalletController.email;
+    }
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+    emailController.dispose();
+    valueController.dispose();
+    messageController.dispose();
     super.dispose();
   }
 
@@ -32,7 +57,7 @@ class _TransferScreenState extends State<TransferScreen>
     return Scaffold(
       appBar: AppBar(
         title:
-            const Text('Chuyển Tomxu', style: TextStyle(color: Colors.black)),
+        const Text('Chuyển Tomxu', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
         bottom: PreferredSize(
@@ -67,35 +92,50 @@ class _TransferScreenState extends State<TransferScreen>
         children: [
           const Text('Số lượng', style: TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8.0),
-          const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Số TOMXU',
-              hintStyle: TextStyle(color: Colors.grey),
-            ),
+          CustomTextFieldWidget(
+            titleText: 'Số lượng',
+            hintText: 'Số TOMXU',
+            controller: valueController,
+            onChanged: (value) {
+              usersWalletController.updateValue(int.parse(value));
+            },
+            inputType: TextInputType.number,
+            isAmount: true,
+            showTitle: false,
+            showBorder: true,
+            isEnabled:widget.isQrAll ?? false ? false : true,
           ),
           const SizedBox(height: 16.0),
           const Text('Tên đăng nhập hoặc Email người nhận',
               style: TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8.0),
-          const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Tên hoặc Email người nhận',
-              hintStyle: TextStyle(color: Colors.grey),
-            ),
+          CustomTextFieldWidget(
+            titleText: 'Tên đăng nhập hoặc Email người nhận',
+            hintText: 'Tên hoặc Email người nhận',
+            controller: emailController,
+            onChanged: (value) {
+              usersWalletController.updateEmail(value);
+            },
+            inputType: TextInputType.emailAddress,
+            isEnabled:!(widget.isQrAll ?? false) && !(widget.isQrEmail ?? false),
+            showTitle: false,
+            showBorder: true,
           ),
           const SizedBox(height: 16.0),
           const Text('Ghi chú', style: TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8.0),
-          const TextField(
-            minLines: 3,
+          CustomTextFieldWidget(
+            titleText: 'Ghi chú',
+            hintText: 'Nhập ghi chú',
+            controller: messageController,
+            isEnabled:widget.isQrAll ?? false ? false : true,
+            onChanged: (value) {
+              usersWalletController.updateMessage(value);
+            },
             maxLines: 5,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Nhập ghi chú',
-              hintStyle: TextStyle(color: Colors.grey),
-            ),
+            showTitle: false,
+            showBorder: true,
+
           ),
           const SizedBox(height: 8.0),
           Row(
@@ -119,13 +159,15 @@ class _TransferScreenState extends State<TransferScreen>
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                usersWalletController.sendToken();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.primaryColor,
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
               ),
               child:
-                  const Text('Xác nhận', style: TextStyle(color: Colors.white)),
+              const Text('Xác nhận', style: TextStyle(color: Colors.white)),
             ),
           ),
         ],
@@ -136,12 +178,12 @@ class _TransferScreenState extends State<TransferScreen>
   Widget _buildSavedContactsTab() {
     final contacts = List.generate(
         10,
-        (index) => {
-              'name': 'Nguyễn Hữu Kiên',
-              'account': '2131231231',
-              'email': 'kien@gmail.com',
-              'role': index % 2 == 0 ? 'Khách hàng' : 'Đối tác',
-            });
+            (index) => {
+          'name': 'Nguyễn Hữu Kiên',
+          'account': '2131231231',
+          'email': 'kien@gmail.com',
+          'role': index % 2 == 0 ? 'Khách hàng' : 'Đối tác',
+        });
 
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
