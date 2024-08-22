@@ -15,6 +15,8 @@ import 'package:tomiru_social_flutter/util/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../wallet/screens/transfer_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   final NotificationBodyModel? notificationBody;
   final DeepLinkBody? linkBody;
@@ -69,9 +71,8 @@ class SplashScreenState extends State<SplashScreen> {
     //     Get.find<AuthController>().isLoggedIn()) {
     //   Get.find<CartController>().getCartDataOnline();
     // }
-    print('initState splash');
-    print('initState splash');
-    print('initState splash');
+
+
     _route();
   }
 

@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:tomiru_social_flutter/features/bussiness/Screens/tomxu_status_screen.dart';
 import 'dart:async';
 import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
 
+import '../../users_wallet/controller/users_wallet_controller.dart';
+
 class OTPVerificationScreen extends StatefulWidget {
+  final bool? isSendToken;
+
+  OTPVerificationScreen({super.key,  this.isSendToken = false,});
   @override
   _OTPVerificationScreenState createState() => _OTPVerificationScreenState();
 }
 
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   final List<TextEditingController> _controllers =
-      List.generate(5, (_) => TextEditingController());
+      List.generate(6, (_) => TextEditingController());
   bool _isCodeComplete = false;
   int _resendTimer = 30;
   Timer? _timer;
-
+  final UsersWalletController usersWalletController = Get.find();
   @override
   void initState() {
     super.initState();
@@ -47,6 +54,19 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
     });
   }
 
+  void _onSubmit() {
+
+     if(widget.isSendToken==true){
+       String otpCode = _controllers.map((controller) => controller.text).join();
+       usersWalletController.updateCodeOtp(otpCode);
+       usersWalletController.sendToken();
+     }else{
+       Navigator.push(context, MaterialPageRoute(builder: (context) => TomxuStatusScreen(
+         isSuccess: true,
+       )));
+     }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +88,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             ),
             SizedBox(height: 8),
             Text(
-              'Chúng tôi đã gửi mã 5 chữ số đến số điện thoại',
+              'Chúng tôi đã gửi mã 6 chữ số đến số điện thoại',
               style: TextStyle(color: Colors.grey),
             ),
             Text.rich(
@@ -88,9 +108,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List.generate(
-                5,
+                6,
                 (index) => SizedBox(
-                  width: 50,
+                  width: 45,
                   child: TextField(
                     controller: _controllers[index],
                     textAlign: TextAlign.center,
@@ -103,7 +123,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       ),
                     ),
                     onChanged: (value) {
-                      if (value.isNotEmpty && index < 4) {
+                      if (value.isNotEmpty && index < 5) {
                         FocusScope.of(context).nextFocus();
                       }
                       _onCodeChanged();
@@ -127,9 +147,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                   minimumSize: Size(double.infinity, 50),
                 ),
                 onPressed: _isCodeComplete ? () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => TomxuStatusScreen(
-                    isSuccess: true,
-                  )));
+                  _onSubmit();
+
                 } : null,
               ),
             ),

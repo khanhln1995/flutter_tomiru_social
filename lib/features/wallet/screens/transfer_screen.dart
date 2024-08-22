@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../common/widgets_2/custom_text_field_widget.dart';
+import '../../bussiness/Widgets/otp_verification.dart';
 import '../../users_wallet/controller/users_wallet_controller.dart';
 
 class TransferScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _TransferScreenState extends State<TransferScreen>
   late TextEditingController emailController;
   late TextEditingController valueController;
   late TextEditingController messageController;
-
+  bool _isSubmitEnabled = false;
   @override
   void initState() {
     super.initState();
@@ -41,7 +42,13 @@ class _TransferScreenState extends State<TransferScreen>
       emailController.text = usersWalletController.email;
     }
   }
-
+  void _validateInputs() {
+    setState(() {
+      _isSubmitEnabled = emailController.text.isNotEmpty &&
+          valueController.text.isNotEmpty &&
+          messageController.text.isNotEmpty;
+    });
+  }
   @override
   void dispose() {
     _tabController.dispose();
@@ -98,6 +105,7 @@ class _TransferScreenState extends State<TransferScreen>
             controller: valueController,
             onChanged: (value) {
               usersWalletController.updateValue(int.parse(value));
+              _validateInputs();
             },
             inputType: TextInputType.number,
             isAmount: true,
@@ -114,7 +122,7 @@ class _TransferScreenState extends State<TransferScreen>
             hintText: 'Tên hoặc Email người nhận',
             controller: emailController,
             onChanged: (value) {
-              usersWalletController.updateEmail(value);
+              usersWalletController.updateEmail(value); _validateInputs();
             },
             inputType: TextInputType.emailAddress,
             isEnabled:!(widget.isQrAll ?? false) && !(widget.isQrEmail ?? false),
@@ -130,7 +138,7 @@ class _TransferScreenState extends State<TransferScreen>
             controller: messageController,
             isEnabled:widget.isQrAll ?? false ? false : true,
             onChanged: (value) {
-              usersWalletController.updateMessage(value);
+              usersWalletController.updateMessage(value); _validateInputs();
             },
             maxLines: 5,
             showTitle: false,
@@ -159,9 +167,11 @@ class _TransferScreenState extends State<TransferScreen>
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                usersWalletController.sendToken();
-              },
+              onPressed: _isSubmitEnabled ? () {
+                Get.to(OTPVerificationScreen(isSendToken:true));
+                // usersWalletController.sendToken();
+
+              } : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.primaryColor,
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
