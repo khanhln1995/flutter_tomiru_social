@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
+import 'package:tomiru_social_flutter/features/users_profile/domain/models/users_me.dart';
 
 class QrTransactionScreen extends StatefulWidget {
   final int initialTabIndex;
@@ -10,6 +14,20 @@ class QrTransactionScreen extends StatefulWidget {
 }
 
 class _QrTransactionScreenState extends State<QrTransactionScreen> {
+  UserProfile? userProfile;
+  String? email;
+  String? fullName;
+
+  @override
+  void initState() {
+    super.initState();
+    Get.find<UsersProfileController>().getCurrentUsersLocal();
+    userProfile = Get.find<UsersProfileController>().userProfile;
+    email = Get.find<UsersProfileController>().userProfile?.email;
+    fullName =
+        '${Get.find<UsersProfileController>().userProfile?.firstName}  ${Get.find<UsersProfileController>().userProfile?.lastName}';
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -74,6 +92,10 @@ class _QrTransactionScreenState extends State<QrTransactionScreen> {
   }
 
   Widget _buildQrTransactionTab(BuildContext context, ThemeData theme) {
+    TextEditingController valueController = TextEditingController();
+
+    TextEditingController messageController = TextEditingController();
+
     return Container(
       color: Colors.white,
       child: SingleChildScrollView(
@@ -113,11 +135,12 @@ class _QrTransactionScreenState extends State<QrTransactionScreen> {
                     ),
                   ),
                   const SizedBox(height: 8.0),
-                  const SizedBox(
+                  SizedBox(
                     height: 50,
                     child: TextField(
+                      controller: valueController,
                       cursorColor: Colors.blue,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue),
@@ -157,6 +180,7 @@ class _QrTransactionScreenState extends State<QrTransactionScreen> {
                   ),
                   const SizedBox(height: 8.0),
                   TextField(
+                    controller: messageController,
                     minLines: 3,
                     maxLines: 5,
                     cursorColor: theme.primaryColor,
@@ -176,7 +200,21 @@ class _QrTransactionScreenState extends State<QrTransactionScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (BuildContext context) {
+                            return _buildQrModal(
+                              context,
+                              theme,
+                              valueController.text,
+                              messageController.text,
+                              email ?? '',
+                            );
+                          },
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.primaryColor,
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -213,9 +251,9 @@ class _QrTransactionScreenState extends State<QrTransactionScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'nature.vietnam1@gmail.com',
-                    style: TextStyle(
+                  Text(
+                    email ?? '',
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16.0,
                     ),
@@ -250,15 +288,15 @@ class _QrTransactionScreenState extends State<QrTransactionScreen> {
                   Center(
                     child: Column(
                       children: [
-                        Image.asset(
-                          'assets/images/qr_1.png', // Replace with your QR code image asset path
-                          width: 250,
-                          height: 250,
+                        QrImageView(
+                          data: {'email': email ?? ''}.toString(),
+                          version: QrVersions.auto,
+                          size: 200.0,
                         ),
                         const SizedBox(height: 8.0),
-                        const Text(
-                          'Nguyễn Văn Hậu',
-                          style: TextStyle(
+                        Text(
+                          fullName ?? '',
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18.0,
                           ),
@@ -336,6 +374,78 @@ class _QrTransactionScreenState extends State<QrTransactionScreen> {
       child: Text(label,
           style:
               TextStyle(color: label == selectedTime ? Colors.white : color)),
+    );
+  }
+
+  Widget _buildQrModal(BuildContext context, ThemeData theme, String value,
+      String message, String email) {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        ),
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Mã QR giao dịch',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            Center(
+              child: QrImageView(
+                data: '$value,$message,$email',
+                version: QrVersions.auto,
+                size: 200.0,
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            Text(
+              'Số Tomxu: $value',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16.0,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              'Ghi chú: $message',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16.0,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.primaryColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                ),
+                child: const Text(
+                  'Đóng',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

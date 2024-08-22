@@ -9,6 +9,7 @@ import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.
 import 'package:tomiru_social_flutter/features/auth/screens/sign_up_screen.dart';
 import 'package:tomiru_social_flutter/features/auth/widgets/trams_conditions_check_box_widget.dart';
 import 'package:tomiru_social_flutter/features/auth/widgets/social_login_widget.dart';
+import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
 import 'package:tomiru_social_flutter/features/verification/screens/forget_pass_screen.dart';
 import 'package:tomiru_social_flutter/helper/custom_validator.dart';
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
@@ -288,6 +289,7 @@ class SignInWidgetState extends State<SignInWidget> {
       // }
       Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
     } else {
+      Get.find<UsersProfileController>().setCurrentUsers();
       Get.find<SplashController>()
           .navigateToLocationScreen('sign-in', offNamed: true);
     }

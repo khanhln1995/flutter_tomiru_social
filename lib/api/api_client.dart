@@ -104,7 +104,7 @@ class ApiClient extends GetxService {
       if (kDebugMode) {
         // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
         // debugPrint('====> API Body: $appBaseUrl + $uri');
-        debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
+        // debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
       }
       http.Response response = await http
           .post(
@@ -259,8 +259,8 @@ class ApiClient extends GetxService {
       response0 = Response(statusCode: 0, statusText: noInternetMessage);
     }
     if (kDebugMode) {
-      debugPrint(
-          '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
+      // debugPrint(
+      //     '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
     }
     if (handleError) {
       if (response0.statusCode == 200) {

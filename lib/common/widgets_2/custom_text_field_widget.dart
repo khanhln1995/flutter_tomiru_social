@@ -206,7 +206,7 @@ class CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                       TextSpan(
                           text: widget.fromUpdateProfile
                               ? ' (${'phone_number_can_not_be_edited'})'
-                              : ' (${'non_changeable'})',
+                              : '',
                           style: robotoRegular.copyWith(
                               fontSize: Dimensions.fontSizeLarge,
                               color: Theme.of(context).colorScheme.error)),

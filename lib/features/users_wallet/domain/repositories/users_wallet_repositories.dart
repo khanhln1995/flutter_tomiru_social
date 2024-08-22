@@ -4,10 +4,11 @@ import 'dart:convert';
 
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tomiru_social_flutter/features/user_wallet/domain/repositories/users_wallet_repositories_interface.dart';
+import 'package:tomiru_social_flutter/features/users_wallet/domain/repositories/users_wallet_repositories_interface.dart';
 
 import '../../../../api/api_client.dart';
 import '../../../../util/app_constants.dart';
+import '../models/sendTokenModel.dart';
 import '../models/wallet_history_model.dart';
 
 
@@ -67,6 +68,19 @@ class UsersWalletRepository implements UsersWalletRepositoryInterface {
       rethrow;
     }
   }
+
+  @override
+  Future<Response> sendTokenOTP() async {
+    return  await apiClient.postData(AppConstants.apiV1UsersSendCoinOtp,{});
+  }
+  @override
+  Future<Response> sendToken(SendTokenModel data) async {
+    Map<String, dynamic> body = data.toJson();
+
+    return await apiClient.postData(AppConstants.apiV1UsersSendCoin, body);
+  }
+
+
 
   @override
   Future add(value) {

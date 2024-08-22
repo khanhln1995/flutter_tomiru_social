@@ -90,6 +90,7 @@ dependencies:
   geolocator_android: 4.5.5
   geocoding: ^3.0.0
   weather: ^3.1.1
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:
