@@ -27,6 +27,7 @@ class _FundScreenState extends State<FundScreen> {
     setState(() {
       vaultList = vaults;
     });
+   
   }
 
   @override

@@ -84,7 +84,7 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
       } catch (_) {}
     }
     if (deviceToken != null) {
-      debugPrint('--------Device Token---------- $deviceToken');
+      // debugPrint('--------Device Token---------- $deviceToken');
     }
     return deviceToken;
   }

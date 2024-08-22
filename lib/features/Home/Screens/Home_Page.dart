@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
+import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:weather/weather.dart';
 import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
@@ -16,6 +17,7 @@ import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
 import 'package:tomiru_social_flutter/common/widgets/global/newWidget/service_content.dart';
 import 'package:tomiru_social_flutter/features/settings/screens/settings_screen.dart';
 import 'package:get/get.dart';
+import "package:tomiru_social_flutter/features/users_profile/domain/models/users_me.dart";
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -32,14 +34,31 @@ class _HomepageState extends State<Homepage> {
   Placemark? _position;
   Weather? temperature;
   WeatherFactory wf = WeatherFactory(AppConstants.weatherApiKey);
-
+// lay thong tin vi
+  List<UserBalance> userBalanceList = [];
+  //
   @override
   void initState() {
     super.initState();
     getPositionAndWeather();
     username = Get.find<AuthController>().getUserSelfInfo()?.fullname ?? '';
+    fetchUserBalance();
+  }
+  Future<void> fetchUserBalance() async {
+    List<UserBalance> userBalance =
+        await Get.find<UsersProfileController>().getUsersBalances();
+
+    setState(() {
+      userBalanceList = userBalance;
+    });
+    print(userBalance.map((balance) => balance.toJson()).toList());
+    
+    print("Đây là homescreen");
+
   }
 
+  @override
+ 
   Future<Position> _requestPermissionsAndInitializeLocation() async {
     bool serviceEnabled;
     bool locationSetting;
@@ -113,7 +132,7 @@ class _HomepageState extends State<Homepage> {
             const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: const WalletInfo(),
+              child:  WalletInfo(userBalanceList: userBalanceList),
             ),
             const SizedBox(height: 20),
             exploreContent(),

@@ -29,10 +29,10 @@ class ApiClient extends GetxService {
   // Constructor to initialize the ApiClient with base URL and shared preferences
   ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
     // token = sharedPreferences.getString(AppConstants.token);
-    // token =
-    //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoic3lzdGVtQGdtYWlsLmNvbSIsIm5hbWUiOiJhZG1pbiIsImlhdCI6MTcyMzAwNDMzODAwMCwiZXhwIjoxNzIzMDA0MzM4MDAwfQ.l2FsSh_pgRyqihx9M8h-XQ80eVSgR0EbPugPW93USBWNoXDaqRuwHTz-77uljlUx5ADEDW4CwFv6Zv5DpET_VemrAlh4hSVpy6TyZ5dgMztsxF0Zg6DKCXFRchCTJfa9B3JlINyxdc3TkmZ8Cfmqdv1OJ5ldGzpmpupQAzAKYsVOVjBIZkwPQB_6PiUlucP66BP1gzqcxrXlicqFsI2IWx1P2FqY9EUqwzqvTLt21uReIYb_vG_0loasAbJPs3pCTTOGkvEFu_j47nfrn8ThC3MPVUyOURN1GmSvTvtwXqpFc1O4uQhEBaJlCprXSGTlffiDYADUIXdb11tNZ9ATtg";
+    token =
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoic3lzdGVtQGdtYWlsLmNvbSIsIm5hbWUiOiJhZG1pbiIsImlhdCI6MTcyMzAwNDMzODAwMCwiZXhwIjoxNzIzMDA0MzM4MDAwfQ.l2FsSh_pgRyqihx9M8h-XQ80eVSgR0EbPugPW93USBWNoXDaqRuwHTz-77uljlUx5ADEDW4CwFv6Zv5DpET_VemrAlh4hSVpy6TyZ5dgMztsxF0Zg6DKCXFRchCTJfa9B3JlINyxdc3TkmZ8Cfmqdv1OJ5ldGzpmpupQAzAKYsVOVjBIZkwPQB_6PiUlucP66BP1gzqcxrXlicqFsI2IWx1P2FqY9EUqwzqvTLt21uReIYb_vG_0loasAbJPs3pCTTOGkvEFu_j47nfrn8ThC3MPVUyOURN1GmSvTvtwXqpFc1O4uQhEBaJlCprXSGTlffiDYADUIXdb11tNZ9ATtg";
     if (kDebugMode) {
-      debugPrint('Token: $token');
+      // debugPrint('Token: $token');
     }
     // AddressModel? addressModel;
     // try {
@@ -79,7 +79,7 @@ class ApiClient extends GetxService {
     try {
       if (kDebugMode) {
         // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        // debugPrint('====> API Call: $appBaseUrl');
+        debugPrint('====> API Call: $appBaseUrl');
       }
       http.Response response = await http
           .get(
