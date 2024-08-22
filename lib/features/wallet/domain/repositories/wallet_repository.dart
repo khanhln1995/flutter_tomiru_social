@@ -1,96 +1,113 @@
-import 'package:tomiru_social_flutter/api/api_client.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/models/fund_bonus_model.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/models/wallet_model.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository_interface.dart';
-import 'package:tomiru_social_flutter/helper/route_helper.dart';
-import 'package:tomiru_social_flutter/util/app_constants.dart';
-import 'package:get/get_connect/connect.dart';
-import 'package:get/get_utils/src/platform/platform.dart';
+import 'dart:convert';
+
+import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:universal_html/html.dart' as html;
+import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository_interface.dart';
+
+import 'package:tomiru_social_flutter/api/api_client.dart';
+import 'package:tomiru_social_flutter/util/app_constants.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/models/sendTokenModel.dart';
+import '../models/wallet_history_model.dart';
 
 class WalletRepository implements WalletRepositoryInterface {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
+
   WalletRepository({required this.apiClient, required this.sharedPreferences});
 
   @override
-  Future<WalletModel?> getList({int? offset, String? sortingType}) async {
-    return await _getWalletTransactionList(offset!, sortingType!);
-  }
-
-  Future<WalletModel?> _getWalletTransactionList(
-      int offset, String sortingType) async {
-    WalletModel? walletModel;
-    Response response = await apiClient.getData(
-        '${AppConstants.walletTransactionUri}?offset=$offset&limit=10&type=$sortingType');
+  Future<List<WalletHistoryModel>> fetchWalletHistory() async {
+    Response response =
+        await apiClient.getData(AppConstants.apiV1UsersWalletHistory);
     if (response.statusCode == 200) {
-      walletModel = WalletModel.fromJson(response.body);
+      List<dynamic> data = response.body['data'];
+      List<WalletHistoryModel> walletHistoryList = data.map((item) {
+        return WalletHistoryModel.fromJson(item);
+      }).toList();
+      List<Map<String, dynamic>> walletHistoryJsonList =
+          walletHistoryList.map((item) {
+        return item.toJson();
+      }).toList();
+      String walletHistoryJson = jsonEncode(walletHistoryJsonList);
+      await sharedPreferences.setString(
+          AppConstants.walletHistory, walletHistoryJson);
+      return walletHistoryList;
+    } else {
+      throw Exception("Failed to fetch wallet history: ${response.statusText}");
     }
-    return walletModel;
   }
 
   @override
-  Future<Response> addFundToWallet(double amount, String paymentMethod) async {
-    String? hostname = html.window.location.hostname;
-    String protocol = html.window.location.protocol;
-
-    return await apiClient.postData(AppConstants.addFundUri, {
-      "amount": amount,
-      "payment_method": paymentMethod,
-      "payment_platform": GetPlatform.isWeb ? 'web' : '',
-      "callback": '$protocol//$hostname${RouteHelper.wallet}',
-    });
-  }
-
-  @override
-  Future<List<FundBonusModel>?> getWalletBonusList() async {
-    List<FundBonusModel>? fundBonusList;
-    Response response = await apiClient.getData(AppConstants.walletBonusUri);
-    if (response.statusCode == 200) {
-      fundBonusList = [];
-      response.body.forEach((value) {
-        fundBonusList!.add(FundBonusModel.fromJson(value));
-      });
+  Future<List<WalletHistoryModel>> getWalletHistoryLocal() async {
+    String? walletHistoryJson =
+        sharedPreferences.getString(AppConstants.walletHistory);
+    if (walletHistoryJson != null) {
+      List<dynamic> data = jsonDecode(walletHistoryJson);
+      List<WalletHistoryModel> walletHistoryList = data.map((item) {
+        return WalletHistoryModel.fromJson(item);
+      }).toList();
+      return walletHistoryList;
+    } else {
+      return [];
     }
-    return fundBonusList;
-  }
-
-
-  @override
-  Future getUserWallet()async{
-    Response response = await apiClient.getData(AppConstants.apiV1UsersMe);
-    return response.body;
   }
 
   @override
-  Future<void> setWalletAccessToken(String token) {
-    return sharedPreferences.setString(AppConstants.walletAccessToken, token);
+  Future<String> userCheckin() async {
+    try {
+      Response response =
+          await apiClient.postData(AppConstants.apiV1UsersCheckIn, {});
+
+      if (response.statusCode == 200) {
+        //thêm thông báo thành công
+        return "";
+      } else {
+        return response.body['error']['message'];
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
-  String getWalletAccessToken() {
-    return sharedPreferences.getString(AppConstants.walletAccessToken) ?? "";
+  Future<Response> requestOTP() async {
+    return await apiClient.postData(AppConstants.requestOTPUri, {});
+  }
+
+  @override
+  Future<Response> sendToken(SendTokenModel data) async {
+    Map<String, dynamic> body = data.toJson();
+
+    return await apiClient.postData(AppConstants.apiV1UsersSendCoin, body);
   }
 
   @override
   Future add(value) {
+    // TODO: implement add
     throw UnimplementedError();
   }
 
   @override
   Future delete(int? id) {
+    // TODO: implement delete
     throw UnimplementedError();
   }
 
   @override
   Future get(String? id) {
+    // TODO: implement get
+    throw UnimplementedError();
+  }
+
+  @override
+  Future getList({int? offset}) {
+    // TODO: implement getList
     throw UnimplementedError();
   }
 
   @override
   Future update(Map<String, dynamic> body, int? id) {
+    // TODO: implement update
     throw UnimplementedError();
   }
 }
-

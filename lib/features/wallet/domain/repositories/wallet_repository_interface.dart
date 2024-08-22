@@ -1,14 +1,14 @@
-import 'package:tomiru_social_flutter/features/wallet/domain/models/fund_bonus_model.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/models/wallet_model.dart';
 import 'package:tomiru_social_flutter/interface/repository_interface.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 
+import 'package:tomiru_social_flutter/features/wallet/domain/models/sendTokenModel.dart';
+import '../models/wallet_history_model.dart';
+
 abstract class WalletRepositoryInterface extends RepositoryInterface {
-  @override
-  Future<WalletModel?> getList({int? offset, String sortingType});
-  Future<Response> addFundToWallet(double amount, String paymentMethod);
-  Future<List<FundBonusModel>?> getWalletBonusList();
-  Future<void> setWalletAccessToken(String token);
-  String getWalletAccessToken();
-  Future<void> getUserWallet();
+  Future<List<WalletHistoryModel>> fetchWalletHistory();
+  Future<List<WalletHistoryModel>> getWalletHistoryLocal();
+
+  Future<String> userCheckin();
+  Future<Response> requestOTP();
+  Future<Response> sendToken(SendTokenModel data);
 }

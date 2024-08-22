@@ -11,6 +11,7 @@ class UsersProfileController extends GetxController implements GetxService {
   }
   UserProfile? _userProfile;
   UserProfile? get userProfile => _userProfile;
+
   void setCurrentUsers() async {
     await userProfileServiceInterface.fetchCurrentUsers();
   }
