@@ -31,4 +31,8 @@ class BusinessController extends GetxController implements GetxService {
     print('object: $packagesAvailableList');
     return packagesAvailableList;
   }
+
+  void fetchTree() async {
+    await businessServiceInterface.fetchTernaryTree();
+  }
 }

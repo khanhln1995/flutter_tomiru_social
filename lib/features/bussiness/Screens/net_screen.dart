@@ -141,7 +141,7 @@ class _NetTabState extends State<NetTab> {
                   color: Colors.blue,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(
+                child: const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Cây sinh lời", style: TextStyle(color: Colors.white)),
@@ -155,10 +155,11 @@ class _NetTabState extends State<NetTab> {
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(
+                child: const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Cây giới thiệu", style: TextStyle(color: Colors.black)),
+                    Text("Cây giới thiệu",
+                        style: TextStyle(color: Colors.black)),
                   ],
                 ),
               )
@@ -173,11 +174,16 @@ class _NetTabState extends State<NetTab> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(width: entry.level * 20), // Adjust indentation based on level
+                        SizedBox(
+                            width: entry.level *
+                                20), // Adjust indentation based on level
                         if (entry.level > 0) ...[
                           CircleAvatar(
-                            backgroundImage: AssetImage('assets/images/Ellipse 17.png'),
-                            radius: entry.level == 1 ? 20 : (entry.level == 2 ? 15 : 10),
+                            backgroundImage:
+                                AssetImage('assets/images/Ellipse 17.png'),
+                            radius: entry.level == 1
+                                ? 20
+                                : (entry.level == 2 ? 15 : 10),
                           ),
                           SizedBox(width: 8),
                         ],
@@ -187,15 +193,21 @@ class _NetTabState extends State<NetTab> {
                             Text(
                               entry.node,
                               style: TextStyle(
-                                fontWeight: entry.level == 0 ? FontWeight.bold : FontWeight.normal,
-                                fontSize: entry.level == 0 ? 18 : (entry.level == 1 ? 16 : 14),
+                                fontWeight: entry.level == 0
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                fontSize: entry.level == 0
+                                    ? 18
+                                    : (entry.level == 1 ? 16 : 14),
                               ),
                             ),
                             if (entry.node == 'Nguyễn Hữu Kiên')
                               Text(
                                 'Gói kinh doanh',
                                 style: TextStyle(
-                                  fontSize: entry.level == 0 ? 16 : (entry.level == 1 ? 14 : 12),
+                                  fontSize: entry.level == 0
+                                      ? 16
+                                      : (entry.level == 1 ? 14 : 12),
                                   color: Colors.grey,
                                 ),
                               ),

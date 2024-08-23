@@ -1,5 +1,6 @@
 import 'package:tomiru_social_flutter/api/api_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_response_model.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/wallet_info.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/packages.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/repositories/business_repo_interface.dart';
@@ -57,6 +58,17 @@ class BusinessRepo implements BusinessRepoInterface {
       return packagesList;
     } else {
       throw Exception('errors: ${response.statusText}');
+    }
+  }
+
+  @override
+  Future<TreeResponse> fetchTernaryTree() async {
+    Response response = await apiClient.getData(AppConstants.apiV1TernaryTree);
+    if (response.statusCode == 200) {
+      final treeResponse = TreeResponse.fromJson(response.body['data']);
+      return treeResponse;
+    } else {
+      throw Exception("Failed to fetch user data: ${response.statusText}");
     }
   }
 
