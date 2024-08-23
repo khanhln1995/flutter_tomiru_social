@@ -7,7 +7,7 @@ class PackagesAvailable {
   final int validInDay;
   final String nextPackageAllow;
   final int status;
-  final int createAt;
+  final int createdAt;
   final String updatedAt;
   PackagesAvailable({
     required this.id,
@@ -18,7 +18,7 @@ class PackagesAvailable {
     required this.validInDay,
     required this.nextPackageAllow,
     required this.status,
-    required this.createAt,
+    required this.createdAt,
     required this.updatedAt,
   });
 
@@ -32,7 +32,7 @@ class PackagesAvailable {
       validInDay: json['validInDay'],
       nextPackageAllow: json['nextPackageAllow'],
       status: json['status'],
-      createAt: json['createAt'],
+      createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );
   }
@@ -47,7 +47,7 @@ class PackagesAvailable {
       'validInDay': validInDay,
       'nextPackageAllow': nextPackageAllow,
       'status': status,
-      'createAt': createAt,
+      'createAt': createdAt,
       'updatedAt': updatedAt,
     };
   }
