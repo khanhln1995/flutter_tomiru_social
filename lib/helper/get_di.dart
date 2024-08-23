@@ -407,6 +407,7 @@ Future<Map<String, Map<String, String>>> init() async {
   //     deliverymanRegistrationServiceInterface: Get.find()));
   // Get.lazyPut(() => RestaurantRegistrationController(
   //     restaurantRegistrationServiceInterface: Get.find()));
+
   Get.lazyPut(
       () => VerificationController(verificationServiceInterface: Get.find()));
   // Get.lazyPut(() => CategoryController(categoryServiceInterface: Get.find()));
@@ -435,6 +436,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(
       () => UsersProfileController(userProfileServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
+  Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
 
   /// Retrieving localized data
   Map<String, Map<String, String>> languages = {};
