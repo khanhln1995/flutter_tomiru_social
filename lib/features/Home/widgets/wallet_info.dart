@@ -21,13 +21,11 @@ class WalletInfo extends StatefulWidget {
 
 class _WalletInfoState extends State<WalletInfo> {
   late List<UserBalance>? userBalanceList;
+  final UsersProfileController controller = Get.find<UsersProfileController>();
   @override
   void initState() {
     super.initState();
-    Get.find<UsersProfileController>().getUsersBalancesLocal();
-    setState(() {
-      userBalanceList = Get.find<UsersProfileController>().userBalance ?? [];
-    });
+    controller.getUsersBalancesLocal();
   }
 
   Widget _iconButton(IconData icon, String label1, String label2, Color color) {
@@ -58,8 +56,8 @@ class _WalletInfoState extends State<WalletInfo> {
 
   @override
   Widget build(BuildContext context) {
-    if (userBalanceList!.isEmpty) {
-      return Center(child: Text('No balances available'));
+    if (controller.userBalance!.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
     }
 
     return Container(
@@ -86,8 +84,8 @@ class _WalletInfoState extends State<WalletInfo> {
                 children: [
                   Text('Tomxu', style: TextStyle(fontSize: 16)),
                   Text(
-                    userBalanceList!.length > 1
-                        ? formatBalance(userBalanceList![0].balance)
+                    controller.userBalance!.length > 1
+                        ? formatBalance(controller.userBalance![0].balance)
                         : 'N/A',
                     style: TextStyle(
                         fontSize: 24,
@@ -101,8 +99,8 @@ class _WalletInfoState extends State<WalletInfo> {
                 children: [
                   Text('PTomxu', style: TextStyle(fontSize: 16)),
                   Text(
-                    userBalanceList!.length > 1
-                        ? formatBalance(userBalanceList![1].balance)
+                    controller.userBalance!.length > 1
+                        ? formatBalance(controller.userBalance![1].balance)
                         : 'N/A',
                     style: TextStyle(
                         fontSize: 24,

@@ -13,7 +13,7 @@ class UsersProfileController extends GetxController implements GetxService {
   UserProfile? _userProfile;
   UserProfile? get userProfile => _userProfile;
 
-  List<UserBalance>? _userBalance;
+  List<UserBalance> _userBalance = [];
   List<UserBalance>? get userBalance => _userBalance;
 
   void setCurrentUsers() async {
@@ -40,23 +40,8 @@ class UsersProfileController extends GetxController implements GetxService {
   void getUsersBalancesLocal() async {
     _userBalance = await userProfileServiceInterface.getUsersBalancesLocal();
     // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    // print(_userBalance);
+    // print(_userBalance?.map((balance) => balance.toJson()).toList());
     // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    print(_userBalance?.map((balance) => balance.toJson()).toList());
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
     update();
   }
-
-  // void addUserBalance(UserBalance newBalance) async {
-  //   // Lấy danh sách hiện tại
-  //   List<UserBalance> currentBalances = _userBalance ?? [];
-
-  //   // Thêm dữ liệu mới vào danh sách
-  //   currentBalances.add(newBalance);
-
-  //   // Cập nhật biến và giao diện
-  //   _userBalance = currentBalances;
-  //   update(); // Đảm bảo rằng giao diện được cập nhật
-  // }
 }
