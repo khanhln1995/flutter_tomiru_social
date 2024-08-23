@@ -13,7 +13,7 @@ class UsersProfileController extends GetxController implements GetxService {
   UserProfile? _userProfile;
   UserProfile? get userProfile => _userProfile;
 
-  List<UserBalance>? _userBalance;
+  List<UserBalance> _userBalance = [];
   List<UserBalance>? get userBalance => _userBalance;
 
   void setCurrentUsers() async {
@@ -39,5 +39,9 @@ class UsersProfileController extends GetxController implements GetxService {
 
   void getUsersBalancesLocal() async {
     _userBalance = await userProfileServiceInterface.getUsersBalancesLocal();
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print(_userBalance?.map((balance) => balance.toJson()).toList());
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    update();
   }
 }
