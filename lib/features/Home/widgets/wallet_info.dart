@@ -20,11 +20,14 @@ class WalletInfo extends StatefulWidget {
 }
 
 class _WalletInfoState extends State<WalletInfo> {
-  late final List<UserBalance>? userBalanceList;
+  late List<UserBalance>? userBalanceList;
   @override
   void initState() {
     super.initState();
-    userBalanceList = Get.find<UsersProfileController>().userBalance;
+    Get.find<UsersProfileController>().getUsersBalancesLocal();
+    setState(() {
+      userBalanceList = Get.find<UsersProfileController>().userBalance ?? [];
+    });
   }
 
   Widget _iconButton(IconData icon, String label1, String label2, Color color) {
