@@ -34,6 +34,7 @@ class AuthController extends GetxController implements GetxService {
       String? email,
       String? password,
       {bool alreadyInApp = false}) async {
+       
     _isLoading = true;
     update();
     ResponseModel responseModel = await authServiceInterface.login(
@@ -99,11 +100,14 @@ class AuthController extends GetxController implements GetxService {
   }
 
   SelfInfoModel? getUserSelfInfo() {
-    return authServiceInterface.getUserSelfInfo();
+    final res1 = authServiceInterface.getUserSelfInfo();
+    // print(res1);
+    // print("bằng bằng bằng bằng");
+    return res1;
   }
 
   void toggleRememberMe() {
-    _isActiveRememberMe = !_isActiveRememberMe;
+    _isActiveRememberMe =true;
     update();
   }
 

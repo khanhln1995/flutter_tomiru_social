@@ -93,11 +93,11 @@ import 'package:tomiru_social_flutter/features/auth/domain/services/auth_service
 // import 'package:tomiru_social_flutter/features/auth/domain/services/deliveryman_registration_service_interface.dart';
 // import 'package:tomiru_social_flutter/features/auth/domain/services/restaurant_registration_service.dart';
 // import 'package:tomiru_social_flutter/features/auth/domain/services/restaurant_registration_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/business/controllers/business_controller.dart';
-// import 'package:tomiru_social_flutter/features/business/domain/reposotories/business_repo.dart';
-// import 'package:tomiru_social_flutter/features/business/domain/reposotories/business_repo_interface.dart';
-// import 'package:tomiru_social_flutter/features/business/domain/services/business_service.dart';
-// import 'package:tomiru_social_flutter/features/business/domain/services/business_service_interface.dart';
+import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/repositories/business_repo.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/repositories/business_repo_interface.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/services/business_service.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/services/business_service_interface.dart';
 // import 'package:tomiru_social_flutter/features/category/controllers/category_controller.dart';
 // import 'package:tomiru_social_flutter/features/category/domain/reposotories/category_repository.dart';
 // import 'package:tomiru_social_flutter/features/category/domain/reposotories/category_repository_interface.dart';
@@ -201,12 +201,12 @@ Future<Map<String, Map<String, String>>> init() async {
   DashboardServiceInterface dashboardServiceInterface =
       DashboardService(dashboardRepoInterface: Get.find());
   Get.lazyPut(() => dashboardServiceInterface);
-  // BusinessRepoInterface businessRepoInterface =
-  //     BusinessRepo(apiClient: Get.find());
-  // Get.lazyPut(() => businessRepoInterface);
-  // BusinessServiceInterface businessServiceInterface =
-  //     BusinessService(businessRepoInterface: Get.find());
-  // Get.lazyPut(() => businessServiceInterface);
+  BusinessRepoInterface businessRepoInterface =
+      BusinessRepo(apiClient: Get.find(), sharedPreferences: Get.find());
+  Get.lazyPut(() => businessRepoInterface);
+  BusinessServiceInterface businessServiceInterface =
+      BusinessService(businessRepoInterface: Get.find());
+  Get.lazyPut(() => businessServiceInterface);
   AuthRepoInterface authRepoInterface =
       AuthRepo(apiClient: Get.find(), sharedPreferences: Get.find());
   Get.lazyPut(() => authRepoInterface);
@@ -403,7 +403,6 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => AddressController(addressServiceInterface: Get.find()));
   // Get.lazyPut(() => LocationController(locationServiceInterface: Get.find()));
   Get.lazyPut(() => DashboardController(dashboardServiceInterface: Get.find()));
-  // Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
   // Get.lazyPut(() => DeliverymanRegistrationController(
   //     deliverymanRegistrationServiceInterface: Get.find()));
   // Get.lazyPut(() => RestaurantRegistrationController(

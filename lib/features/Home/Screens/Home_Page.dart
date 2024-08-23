@@ -17,6 +17,7 @@ import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
 import 'package:tomiru_social_flutter/common/widgets/global/newWidget/service_content.dart';
 import 'package:tomiru_social_flutter/features/settings/screens/settings_screen.dart';
 import 'package:get/get.dart';
+import "package:tomiru_social_flutter/features/users_profile/domain/models/users_me.dart";
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -39,10 +40,9 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     getPositionAndWeather();
     username = Get.find<AuthController>().getUserSelfInfo()?.fullname ?? '';
-
-    Get.find<UsersProfileController>().setCurrentUsers();
   }
 
+  @override
   Future<Position> _requestPermissionsAndInitializeLocation() async {
     bool serviceEnabled;
     bool locationSetting;

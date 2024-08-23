@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/users_profile/domain/models/users_me.dart';
+import 'package:tomiru_social_flutter/features/users_profile/domain/models/users_me.dart';
+import 'package:tomiru_social_flutter/features/users_profile/domain/models/users_me.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import '../../users_profile/controller/users_profile_controller.dart';
-import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
+
 import "action_wallet.dart";
+import 'package:intl/intl.dart';
 
 class WalletInfo extends StatefulWidget {
-  const WalletInfo({super.key});
+  WalletInfo({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<WalletInfo> createState() => _WalletInfoState();
 }
 
 class _WalletInfoState extends State<WalletInfo> {
+  late final List<UserBalance>? userBalanceList;
+  @override
+  void initState() {
+    super.initState();
+    userBalanceList = Get.find<UsersProfileController>().userBalance;
+  }
+
   Widget _iconButton(IconData icon, String label1, String label2, Color color) {
     return Column(
       children: [
@@ -32,8 +45,20 @@ class _WalletInfoState extends State<WalletInfo> {
     );
   }
 
+  String formatBalance(String balance) {
+    // Convert the balance string to a double
+    double balanceDouble = double.tryParse(balance) ?? 0.0;
+
+    // Format the double to one decimal place
+    return NumberFormat('0.0', 'en_US').format(balanceDouble);
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (userBalanceList!.isEmpty) {
+      return Center(child: Text('No balances available'));
+    }
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -50,25 +75,37 @@ class _WalletInfoState extends State<WalletInfo> {
       ),
       child: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Tomxu', style: TextStyle(fontSize: 16)),
-                  Text('34.553',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  Text(
+                    userBalanceList!.length > 1
+                        ? formatBalance(userBalanceList![0].balance)
+                        : 'N/A',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                  ),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('PTomxu', style: TextStyle(fontSize: 16)),
-                  Text('77.4',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  Text(
+                    userBalanceList!.length > 1
+                        ? formatBalance(userBalanceList![1].balance)
+                        : 'N/A',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                  ),
                 ],
               ),
             ],
