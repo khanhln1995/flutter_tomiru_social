@@ -263,7 +263,7 @@ class ApiClient extends GetxService {
       //     '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
     }
     if (handleError) {
-      if (response0.statusCode == 200) {
+      if (response0.statusCode == 200 || response0.statusCode == 201) {
         return response0;
       } else {
         ApiChecker.checkApi(response0, showToaster: showToaster);
