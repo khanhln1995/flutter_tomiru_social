@@ -16,11 +16,19 @@ class WalletController extends GetxController implements GetxService {
   String _codeOtp = '';
   String _email = '';
   String _message = '';
+  List<String> _listEmail = [];
+  bool _isSavedInfo = false;
 
   int get value => _value;
   String get codeOtp => _codeOtp;
   String get email => _email;
   String get message => _message;
+  List<String> get listEmail => _listEmail;
+  bool get isSavedInfo => _isSavedInfo;
+
+  void saveInfoCheckBox(bool type) {
+    _isSavedInfo = type;
+  }
 
   void updateValue(int newValue) {
     _value = newValue;
@@ -62,5 +70,23 @@ class WalletController extends GetxController implements GetxService {
 
   Future sendToken(SendTokenModel data) async {
     await walletServiceInterface.sendToken(data);
+  }
+
+  void saveInfoLocal(String email) {
+    walletServiceInterface.saveInfoLocal(email);
+  }
+
+  void getEmailListLocal() async {
+    final res = await walletServiceInterface.getEmailListLocal();
+    _listEmail = res;
+  }
+
+  void clearController() {
+    _value = 0;
+    _codeOtp = '';
+    _email = '';
+    _message = '';
+    _listEmail = [];
+    _isSavedInfo = false;
   }
 }

@@ -9,6 +9,7 @@ import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.
 import 'package:tomiru_social_flutter/features/auth/screens/sign_up_screen.dart';
 import 'package:tomiru_social_flutter/features/auth/widgets/trams_conditions_check_box_widget.dart';
 import 'package:tomiru_social_flutter/features/auth/widgets/social_login_widget.dart';
+import 'package:tomiru_social_flutter/features/splash/screens/splash_screen.dart';
 import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
 import 'package:tomiru_social_flutter/features/verification/screens/forget_pass_screen.dart';
 import 'package:tomiru_social_flutter/helper/custom_validator.dart';
@@ -251,7 +252,8 @@ class SignInWidgetState extends State<SignInWidget> {
         showCustomSnackBar('Độ dài password phải lớn hơn 6');
       } else {
         // login ko can api
-        Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
+        // Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
+        Get.to(SplashScreen(isRouterLogin: true));
 
         // login with api
         // authController
