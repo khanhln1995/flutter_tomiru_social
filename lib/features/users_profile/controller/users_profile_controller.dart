@@ -42,9 +42,9 @@ class UsersProfileController extends GetxController implements GetxService {
    Future<List<UserBalance>> getUsersBalances() async {
     List<UserBalance> usersBalances =
         await userProfileServiceInterface.getUsersBalances();
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    print(usersBalances);
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print(usersBalances);
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
     return usersBalances;
   }
 }

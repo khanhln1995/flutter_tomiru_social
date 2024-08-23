@@ -165,16 +165,15 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
-
 import '../features/users_profile/domain/repositories/users_profile_repositories.dart';
 import '../features/users_profile/domain/repositories/users_profile_repositories_intrerface.dart';
 import '../features/users_profile/domain/service/users_profile_service.dart';
 import '../features/users_profile/domain/service/users_profile_service_interface.dart';
-import '../features/users_wallet/controller/users_wallet_controller.dart';
-import '../features/users_wallet/domain/repositories/users_wallet_repositories.dart';
-import '../features/users_wallet/domain/repositories/users_wallet_repositories_interface.dart';
-import '../features/users_wallet/domain/service/users_wallet_service.dart';
-import '../features/users_wallet/domain/service/users_wallet_service_interface.dart';
+import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository_interface.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service_interface.dart';
 
 Future<Map<String, Map<String, String>>> init() async {
   /// Core
@@ -385,17 +384,18 @@ Future<Map<String, Map<String, String>>> init() async {
       UsersProfileService(usersProfileRepositoryInterface: Get.find());
   Get.lazyPut(() => usersProfileServiceInterface);
 
-  UsersWalletRepositoryInterface usersWalletRepositoryInterface =
-      UsersWalletRepository(
+
+  WalletRepositoryInterface usersWalletRepositoryInterface = WalletRepository(
+
     apiClient: Get.find(),
     sharedPreferences: Get.find(),
   );
   Get.lazyPut(() => usersWalletRepositoryInterface);
-  UsersWalletServiceInterface usersWalletServiceInterface =
-      UsersWalletService(usersWalletRepositoryInterface: Get.find());
+
+  WalletServiceInterface usersWalletServiceInterface =
+      WalletService(walletRepositoryInterface: Get.find());
+
   Get.lazyPut(() => usersWalletServiceInterface);
-
-
 
   /// Controller
   Get.lazyPut(() => ThemeController(splashServiceInterface: Get.find()));
@@ -436,11 +436,11 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => OrderController(orderServiceInterface: Get.find()));
   // Get.lazyPut(() => CampaignController(campaignServiceInterface: Get.find()));
   // Get.lazyPut(() => CheckoutController(checkoutServiceInterface: Get.find()));
-  Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
+//  Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
   Get.lazyPut(
       () => UsersProfileController(userProfileServiceInterface: Get.find()));
-  Get.lazyPut(
-      () => UsersWalletController(userWalletServiceInterface: Get.find()));
+  Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
+
 
   /// Retrieving localized data
   Map<String, Map<String, String>> languages = {};

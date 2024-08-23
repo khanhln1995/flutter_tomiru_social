@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart';
 
-
 // import 'package:tomiru_social_flutter/features/cart/screens/cart_screen.dart';
 // import 'package:tomiru_social_flutter/features/checkout/widgets/congratulation_dialogue.dart';
 import 'package:tomiru_social_flutter/features/dashboard/widgets/registration_success_bottom_sheet.dart';
@@ -17,7 +16,7 @@ import 'package:tomiru_social_flutter/features/dashboard/controllers/dashboard_c
 
 import 'package:tomiru_social_flutter/features/dashboard/widgets/bottom_nav_item.dart';
 import 'package:tomiru_social_flutter/features/update/screens/update_screen.dart';
-import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen.dart';
+// import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen.dart';
 import "package:tomiru_social_flutter/features/group/screens/Group_Page.dart";
 import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.dart';
 // import 'package:tomiru_social_flutter/features/favourite/screens/favourite_screen.dart';

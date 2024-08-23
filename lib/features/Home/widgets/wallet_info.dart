@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import '../../users_profile/controller/users_profile_controller.dart';
-import '../../users_wallet/controller/users_wallet_controller.dart';
+import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
 import "action_wallet.dart";
 import "package:tomiru_social_flutter/features/users_profile/domain/models/users_me.dart";
 import 'package:intl/intl.dart';
+
 class WalletInfo extends StatefulWidget {
   final List<UserBalance> userBalanceList;
     WalletInfo({Key? key, required this.userBalanceList}) : super(key: key);
@@ -103,7 +104,7 @@ class _WalletInfoState extends State<WalletInfo> {
           //     _iconButton(Icons.sync, 'Trao đổi', 'Tomxu', Colors.purple),
           //   ],
           // ),
-         ActionWallet(),
+          const ActionWallet(),
           GestureDetector(
             onTap: () {
               // Navigator.pushNamed(context, RouteHelper.getWalletRoute());

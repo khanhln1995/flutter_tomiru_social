@@ -13,6 +13,8 @@ class AppConstants {
 
   static const String baseUrl = 'http://192.168.102.14:8080';
 
+  // sentTOken
+
 // AUTH
   static const String loginUri = '/ui/v1/auth/login';
   // static const String registerUri = '/api/register';
@@ -121,7 +123,7 @@ class AppConstants {
   static const String apiV1UsersWalletHistory = '$apiV1Users/wallet-history';
   static const String apiV1UsersIncomeHistory = '$apiV1Users/income-history';
   static const String apiV1UsersSendCoin = '$apiV1Users/send-token';
-  static const String apiV1UsersSendCoinOtp = '$apiV1Users/send-token-otp';
+  static const String requestOTPUri = '$apiV1Users/send-token-otp';
   static const String apiV1UsersCheckIn = '$apiV1Users/checkIn';
   static const String apiV1AgencyList = '$apiV1/agency/list';
 
@@ -129,7 +131,8 @@ class AppConstants {
   static const String apiV1UsersPackages = '$apiV1Users/packages';
   static const String apiV1UsersBuyPackages = '$apiV1Users/buy-packages';
   static const String apiV1TernaryTree = '$apiV1/ternary-tree/my-list';
-  static const String apiV1TernaryTreeUsername = '$apiV1/ternary-tree/list?filters[username]=';
+  static const String apiV1TernaryTreeUsername =
+      '$apiV1/ternary-tree/list?filters[username]=';
   static const String apiV1VaultInfo = '$apiV1/vault/info';
 
   static const String weatherApiKey = 'c7d314a6b3bffaca06d052ca17cd807e';

@@ -5,8 +5,8 @@ import 'package:tomiru_social_flutter/features/wallet/widgets/balance_tab_widget
 import 'package:tomiru_social_flutter/features/wallet/widgets/overview_tab_widget.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
 
-import '../../users_wallet/controller/users_wallet_controller.dart';
-import '../../users_wallet/domain/models/wallet_history_model.dart';
+import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
+import '../domain/models/wallet_history_model.dart';
 import '../controllers/wallet_controller.dart';
 
 class WalletScreenUi extends StatefulWidget {
@@ -19,14 +19,14 @@ class WalletScreenUi extends StatefulWidget {
 class _WalletScreenUiState extends State<WalletScreenUi>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  List<WalletHistoryModel> wallet =[];
+  List<WalletHistoryModel> wallet = [];
+
   @override
   void initState() {
     super.initState();
 
-    wallet = Get.find<UsersWalletController>().walletHistory;
+    wallet = Get.find<WalletController>().walletHistory;
     _tabController = TabController(length: 2, vsync: this);
-
   }
 
   @override
@@ -63,8 +63,10 @@ class _WalletScreenUiState extends State<WalletScreenUi>
             TabBar(
               controller: _tabController,
               tabs: const [
-                Tab(text: 'Sổ dư'),
-                Tab(text: 'Tổng quan'),
+                Tab(
+                  text: '          Sổ dư          ',
+                ),
+                Tab(text: '          Tổng quan          '),
               ],
               indicatorColor: theme.primaryColor,
               labelColor: theme.primaryColor,
