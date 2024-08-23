@@ -436,7 +436,7 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => OrderController(orderServiceInterface: Get.find()));
   // Get.lazyPut(() => CampaignController(campaignServiceInterface: Get.find()));
   // Get.lazyPut(() => CheckoutController(checkoutServiceInterface: Get.find()));
-//  Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
+ Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
   Get.lazyPut(
       () => UsersProfileController(userProfileServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));

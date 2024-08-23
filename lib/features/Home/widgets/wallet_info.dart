@@ -43,9 +43,9 @@ class _WalletInfoState extends State<WalletInfo> {
   }
   @override
   Widget build(BuildContext context) {
-      if (widget.userBalanceList.isEmpty) {
-      return Center(child: Text('No balances available'));
-    }
+    //   if (widget.userBalanceList.isEmpty) {
+    //   return Center(child: Text('No balances available'));
+    // }
    
    
     return Container(
@@ -71,11 +71,15 @@ class _WalletInfoState extends State<WalletInfo> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Tomxu', style: TextStyle(fontSize: 16)),
-                 Text(
-                    widget.userBalanceList.length > 1
+                Text(
+                    widget.userBalanceList.isNotEmpty
                         ? formatBalance(widget.userBalanceList[0].balance)
-                        : 'N/A',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue),
+                        : '0', // Display '0' if the list is empty
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
                   ),
                 ],
               ),
@@ -86,9 +90,12 @@ class _WalletInfoState extends State<WalletInfo> {
                    Text(
                     widget.userBalanceList.length > 1
                         ? formatBalance(widget.userBalanceList[1].balance)
-                        : 'N/A',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,
-                        color: Colors.blue),
+                        : '0', // Display '0' if there is no second balance
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
                   ),
                 ],
               ),

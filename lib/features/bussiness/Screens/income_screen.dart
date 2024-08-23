@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:tomiru_social_flutter/features/bussiness/Screens/history_member.dart';
 import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/wallet_info.dart';
 import "package:get/get.dart";
@@ -236,9 +237,14 @@ class _IncomeScreenState extends State<IncomeScreen> {
                   ListTile(
                     title: Text('Tháng 5, 2024',
                         style: TextStyle(fontWeight: FontWeight.bold)),
-                    trailing: Text('Xem tất cả',
-                        style: TextStyle(
-                            color: Colors.indigo, fontWeight: FontWeight.w500)),
+                    trailing: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryMember()));
+                      },
+                      child: Text('Xem tất cả',
+                          style: TextStyle(
+                              color: Colors.indigo, fontWeight: FontWeight.w500)),
+                    ),
                   ),
                   ListView.builder(
                     shrinkWrap: true,
