@@ -104,6 +104,7 @@ class _TransferScreenState extends State<TransferScreen>
             indicatorColor: theme.primaryColor,
             labelColor: theme.primaryColor,
             unselectedLabelColor: theme.unselectedWidgetColor,
+            splashFactory: NoSplash.splashFactory,
           ),
         ),
       ),
