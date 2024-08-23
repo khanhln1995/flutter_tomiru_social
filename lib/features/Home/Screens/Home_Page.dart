@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
+import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:weather/weather.dart';
 import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
@@ -38,6 +39,8 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     getPositionAndWeather();
     username = Get.find<AuthController>().getUserSelfInfo()?.fullname ?? '';
+
+    Get.find<UsersProfileController>().setCurrentUsers();
   }
 
   Future<Position> _requestPermissionsAndInitializeLocation() async {

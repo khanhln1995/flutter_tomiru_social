@@ -31,7 +31,7 @@ class _TransferScreenState extends State<TransferScreen>
   late TextEditingController otpController;
 
   bool isOTPSent = false;
-  int otpCountdown = 60;
+  int otpCountdown = 120;
   Timer? otpTimer;
 
   @override

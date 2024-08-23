@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:tomiru_social_flutter/features/bussiness/Screens/tomxu_status_screen.dart';
 import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service_interface.dart';
 import 'package:tomiru_social_flutter/features/wallet/domain/models/sendTokenModel.dart';
 import '../models/wallet_history_model.dart';
@@ -42,9 +43,14 @@ class WalletService implements WalletServiceInterface {
   Future<Response> sendToken(SendTokenModel data) async {
     Response response = await walletRepositoryInterface.sendToken(data);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      showCustomSnackBar('send success'.tr, isError: false);
+      Get.to(const TomxuStatusScreen(
+        isSuccess: true,
+      ));
     } else {
       showCustomSnackBar(response.body['error']['message']);
+      Get.to(const TomxuStatusScreen(
+        isSuccess: false,
+      ));
     }
     return response;
   }
