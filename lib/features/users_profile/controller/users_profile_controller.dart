@@ -7,18 +7,16 @@ import '../domain/service/users_profile_service_interface.dart';
 class UsersProfileController extends GetxController implements GetxService {
   final UsersProfileServiceInterface userProfileServiceInterface;
   UsersProfileController({required this.userProfileServiceInterface}) {
-    setCurrentUsers();
+    // setCurrentUsers();
   }
   UserProfile? _userProfile;
   UserProfile? get userProfile => _userProfile;
-
-  void setCurrentUsers() async {
-    await userProfileServiceInterface.fetchCurrentUsers();
-  }
+  // void setCurrentUsers() async {
+  //   await userProfileServiceInterface.fetchCurrentUsers();
+  // }
 
   void getCurrentUsersLocal() async {
     UserProfile res = await userProfileServiceInterface.getCurrentUsersLocal();
-
     _userProfile = res;
   }
 
@@ -28,16 +26,25 @@ class UsersProfileController extends GetxController implements GetxService {
 
   void getMasterDataLocal() async {
     final masterData = await userProfileServiceInterface.getMasterDataLocal();
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    print(masterData.packages);
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print(masterData.packages);
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
   }
 
   void getUsersBalancesLocal() async {
     final usersBalances =
         await userProfileServiceInterface.getUsersBalancesLocal();
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    print(usersBalances);
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print(usersBalances);
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+  }
+   Future<List<UserBalance>> getUsersBalances() async {
+    List<UserBalance> usersBalances =
+        await userProfileServiceInterface.getUsersBalances();
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print(usersBalances);
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    return usersBalances;
   }
 }

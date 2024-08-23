@@ -19,24 +19,24 @@ class UsersProfileRepository implements UsersProfileRepositoryInterface {
 
 
 
-  @override
-  Future<UserProfile> fetchCurrentUsers() async {
-    Response response = await apiClient.getData(AppConstants.apiV1UsersMe);
-    if (response.statusCode == 200) {
-      final userProfile = UserProfile.fromJson(response.body['data']);
-      String userProfileJson = jsonEncode(userProfile.toJson());
-      await sharedPreferences.setString(AppConstants.userProfile, userProfileJson);
+  // @override
+  // Future<UserProfile> fetchCurrentUsers() async {
+  //   Response response = await apiClient.getData(AppConstants.apiV1UsersMe);
+  //   if (response.statusCode == 200) {
+  //     final userProfile = UserProfile.fromJson(response.body['data']);
+  //     String userProfileJson = jsonEncode(userProfile.toJson());
+  //     await sharedPreferences.setString(AppConstants.userProfile, userProfileJson);
 
-      List<dynamic> usersBalancesJson = response.body['data']['usersBalances'];
-      List<UserBalance> usersBalances = usersBalancesJson.map((balance) => UserBalance.fromJson(balance)).toList();
-      String usersBalancesJsonString = jsonEncode(usersBalances.map((balance) => balance.toJson()).toList());
-      await sharedPreferences.setString(AppConstants.usersBalances, usersBalancesJsonString);
+  //     List<dynamic> usersBalancesJson = response.body['data']['usersBalances'];
+  //     List<UserBalance> usersBalances = usersBalancesJson.map((balance) => UserBalance.fromJson(balance)).toList();
+  //     String usersBalancesJsonString = jsonEncode(usersBalances.map((balance) => balance.toJson()).toList());
+  //     await sharedPreferences.setString(AppConstants.usersBalances, usersBalancesJsonString);
 
-      return userProfile;
-    } else {
-      throw Exception("Failed to fetch user data: ${response.statusText}");
-    }
-  }
+  //     return userProfile;
+  //   } else {
+  //     throw Exception("Failed to fetch user data: ${response.statusText}");
+  //   }
+  // }
 
   @override
   Future<UserProfile> getCurrentUsersLocal() async {
@@ -90,8 +90,29 @@ class UsersProfileRepository implements UsersProfileRepositoryInterface {
     throw Exception("No user data found in local storage.");
     }
   }
+//
+@override
+  Future<List<UserBalance>>  getUsersBalances() async {
+      // print(AppConstants.apiV1UsersMe);
 
-
+    Response response = await apiClient.getData(AppConstants.apiV1UsersMe);
+   
+    if (response.statusCode == 200) {
+      
+      Map<String, dynamic> data = response.body['data'];
+      List<dynamic> dataList = data['usersBalances'];
+      //  print("Đây là user profile repo");
+      // print(dataList);
+     
+      List<UserBalance> userBalance =
+          dataList.map((json) => UserBalance.fromJson(json)).toList();
+           
+      return userBalance;
+    } else {
+      throw Exception('errors: ${response.statusText}');
+    }
+  }
+//
   @override
   Future add(value) {
     // TODO: implement add

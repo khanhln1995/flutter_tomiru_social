@@ -257,10 +257,10 @@ class SignInWidgetState extends State<SignInWidget> {
         // authController
         //     .login(email, password, alreadyInApp: widget.backFromThis)
         //     .then((status) async {
-        //   print("status$status");
+        //   // print("status$status");
         //   if (status.isSuccess) {
-        //     print(
-        //         "------------------------------------------login------------------------");
+        //     // print(
+        //     //     "------------------------------------------login------------------------");
         //     _processSuccessSetup(authController, email, password, status);
         //   } else {
         //     showCustomSnackBar(status.message);
@@ -289,7 +289,7 @@ class SignInWidgetState extends State<SignInWidget> {
       // }
       Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
     } else {
-      Get.find<UsersProfileController>().setCurrentUsers();
+      // Get.find<UsersProfileController>().setCurrentUsers();
       Get.find<SplashController>()
           .navigateToLocationScreen('sign-in', offNamed: true);
     }
