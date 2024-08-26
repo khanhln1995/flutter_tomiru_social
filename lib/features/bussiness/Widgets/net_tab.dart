@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphview/GraphView.dart' as graphview;
@@ -41,8 +43,15 @@ class _NetTabState extends State<NetTab> {
     try {
       print("calling api");
       TreeResponse treeResponse = await _businessController.fetchTree();
-      TreeNode rootNode = treeResponse.trees as TreeNode;
-      _buildGraph(rootNode);
+      List<TreeNode>? rootNode = _businessController.treeData;
+
+      if (rootNode != null && rootNode.isNotEmpty) {
+        print("-------------------------");
+        print(jsonEncode(rootNode));
+        print("-------------------------");
+        _buildGraph(
+            rootNode.first); // Using the first element as the grandparent node
+      }
     } catch (e) {
       setState(() {
         _errorMessage = 'Failed to load tree data: $e';

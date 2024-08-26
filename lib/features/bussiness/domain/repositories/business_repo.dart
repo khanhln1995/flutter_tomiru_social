@@ -64,9 +64,8 @@ class BusinessRepo implements BusinessRepoInterface {
   @override
   Future<TreeResponse> fetchTernaryTree() async {
     Response response = await apiClient.getData(AppConstants.apiV1TernaryTree);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      final treeResponse = TreeResponse.fromJson(response.body['data']);
-      print("response $treeResponse");
+    if (response.statusCode == 200) {
+      final treeResponse = TreeResponse.fromJson(response.body);
       return treeResponse;
     } else {
       throw Exception("Failed to fetch user data: ${response.statusText}");
