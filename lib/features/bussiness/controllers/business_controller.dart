@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_response_model.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/vault_info.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/wallet_info.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/packages.dart';
@@ -32,7 +33,9 @@ class BusinessController extends GetxController implements GetxService {
     return packagesAvailableList;
   }
 
-  void fetchTree() async {
-    await businessServiceInterface.fetchTernaryTree();
+  Future fetchTree() async {
+    TreeResponse treeResponse =
+        await businessServiceInterface.fetchTernaryTree();
+    return treeResponse;
   }
 }

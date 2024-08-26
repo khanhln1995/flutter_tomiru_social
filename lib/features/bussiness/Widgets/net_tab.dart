@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:graphview/GraphView.dart';
+import 'package:get/get.dart';
+import 'package:graphview/GraphView.dart' as graphview;
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_response_model.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_model.dart';
+import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
 
 class NetTab extends StatefulWidget {
   const NetTab({super.key});
@@ -9,75 +13,95 @@ class NetTab extends StatefulWidget {
 }
 
 class _NetTabState extends State<NetTab> {
-  final Graph graph = Graph()..isTree = true;
-  final BuchheimWalkerConfiguration builder = BuchheimWalkerConfiguration();
+  final graphview.Graph graph = graphview.Graph()..isTree = true;
+  final graphview.BuchheimWalkerConfiguration builder =
+      graphview.BuchheimWalkerConfiguration();
+  final BusinessController _businessController = Get.find<BusinessController>();
+
+  bool _isLoading = true;
+  String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
+    _fetchAndBuildGraph();
+    _configureGraph();
+  }
 
-    Node root = Node.Id('Nhánh 1');
-    Node branch2 = Node.Id('Nhánh 2');
-    Node branch3 = Node.Id('Nhánh 3');
-
-    Node nguyenHuuKien = Node.Id('Nguyễn Hữu Kiên');
-    Node leNguyenKhanh = Node.Id('Lê Nguyên Khánh');
-
-    Node nguyenVanA1 = Node.Id('Nguyễn Văn A 1');
-    Node nguyenVanA2 = Node.Id('Nguyễn Văn A 2');
-    Node nguyenVanB1 = Node.Id('Nguyễn Văn B 1');
-    Node nguyenVanB2 = Node.Id('Nguyễn Văn B 2');
-    Node nguyenVanB3 = Node.Id('Nguyễn Văn B 3');
-    Node nguyenVanC1 = Node.Id('Nguyễn Văn C 1');
-    Node nguyenVanC2 = Node.Id('Nguyễn Văn C 2');
-    Node nguyenVanD1 = Node.Id('Nguyễn Văn D 1');
-    Node nguyenVanD2 = Node.Id('Nguyễn Văn D 2');
-    Node nguyenVanE1 = Node.Id('Nguyễn Văn E 1');
-    Node nguyenVanE2 = Node.Id('Nguyễn Văn E 2');
-    Node nguyenVanF1 = Node.Id('Nguyễn Văn F 1');
-    Node nguyenVanF2 = Node.Id('Nguyễn Văn F 2');
-
-    // Building the tree structure
-    graph.addEdge(root, nguyenHuuKien);
-    graph.addEdge(root, leNguyenKhanh);
-    graph.addEdge(nguyenHuuKien, nguyenVanA1);
-    graph.addEdge(nguyenHuuKien, nguyenVanA2);
-    graph.addEdge(nguyenVanA1, nguyenVanB1);
-    graph.addEdge(nguyenVanA2, nguyenVanB2);
-    graph.addEdge(nguyenVanB1, nguyenVanC1);
-    graph.addEdge(nguyenVanB2, nguyenVanC2);
-    graph.addEdge(nguyenVanC1, nguyenVanD1);
-    graph.addEdge(nguyenVanC2, nguyenVanD2);
-    graph.addEdge(nguyenVanD1, nguyenVanE1);
-    graph.addEdge(nguyenVanD2, nguyenVanE2);
-    graph.addEdge(nguyenVanE1, nguyenVanF1);
-    graph.addEdge(nguyenVanE2, nguyenVanF2);
-
+  void _configureGraph() {
     builder
-      ..siblingSeparation = (100)
-      ..levelSeparation = (150)
-      ..subtreeSeparation = (150)
-      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
+      ..siblingSeparation = (20)
+      ..levelSeparation = (100)
+      ..subtreeSeparation = (30)
+      ..orientation =
+          graphview.BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM;
+  }
+
+  Future<void> _fetchAndBuildGraph() async {
+    try {
+      print("calling api");
+      TreeResponse treeResponse = await _businessController.fetchTree();
+      TreeNode rootNode = treeResponse.trees as TreeNode;
+      _buildGraph(rootNode);
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Failed to load tree data: $e';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _buildGraph(TreeNode treeNode) {
+    graphview.Node rootGraphNode = _createGraphNode(treeNode);
+    _addChildren(treeNode, rootGraphNode);
+  }
+
+  void _addChildren(TreeNode treeNode, graphview.Node parentGraphNode) {
+    for (var child in treeNode.children) {
+      graphview.Node childGraphNode = _createGraphNode(child);
+      graph.addEdge(parentGraphNode, childGraphNode);
+      if (child.children.isNotEmpty) {
+        _addChildren(child, childGraphNode);
+      }
+    }
+  }
+
+  graphview.Node _createGraphNode(TreeNode treeNode) {
+    return graphview.Node.Id(treeNode);
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (_errorMessage != null) {
+      return Center(child: Text(_errorMessage!));
+    }
+
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('GraphView Example'),
-      // ),
+      appBar: AppBar(
+        title: const Text('Network Tree'),
+      ),
       body: Center(
         child: InteractiveViewer(
           constrained: false,
           boundaryMargin: const EdgeInsets.all(100),
           minScale: 0.01,
-          maxScale: 5.6,
-          child: GraphView(
+          maxScale: 5.0,
+          child: graphview.GraphView(
             graph: graph,
-            algorithm:
-                BuchheimWalkerAlgorithm(builder, TreeEdgeRenderer(builder)),
-            builder: (Node node) {
-              return rectangleWidget(node.key!.value as String);
+            algorithm: graphview.BuchheimWalkerAlgorithm(
+              builder,
+              graphview.TreeEdgeRenderer(builder),
+            ),
+            builder: (graphview.Node node) {
+              TreeNode treeNode = node.key!.value as TreeNode;
+              return _buildNodeWidget(treeNode);
             },
           ),
         ),
@@ -85,19 +109,59 @@ class _NetTabState extends State<NetTab> {
     );
   }
 
-  Widget rectangleWidget(String text) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: const [
-          BoxShadow(color: Colors.black, spreadRadius: 1),
-        ],
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.white),
+  Widget _buildNodeWidget(TreeNode treeNode) {
+    return GestureDetector(
+      onTap: () {
+        // Handle node tap if needed
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text('${treeNode.firstName} ${treeNode.lastName}'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Email: ${treeNode.email}'),
+                Text('Username: ${treeNode.username}'),
+                Text('Floor: ${treeNode.floor}'),
+                Text('Package Bought At: ${treeNode.buyPackageAt}'),
+                // Add more details as needed
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: treeNode.isF1 ? Colors.greenAccent : Colors.blueAccent,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: const [
+            BoxShadow(color: Colors.black26, spreadRadius: 1, blurRadius: 3),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${treeNode.firstName} ${treeNode.lastName}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              treeNode.username,
+              style: const TextStyle(color: Colors.white70),
+            ),
+          ],
+        ),
       ),
     );
   }
