@@ -6,7 +6,7 @@ import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/vault_info.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 
-class BusinessRepo implements BusinessRepoInterface {
+ class BusinessRepo implements BusinessRepoInterface {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
   BusinessRepo({required this.sharedPreferences, required this.apiClient});
@@ -41,6 +41,41 @@ class BusinessRepo implements BusinessRepoInterface {
       throw Exception('errors: ${response.statusText}');
     }
   }
+  @override
+  Future<List<WalletInfo>> getWalletInfoByFilter(
+      {Map<String, String>? filters}) async {
+    
+     // Start with the base URL
+    String url = AppConstants.apiV1UsersWalletHistory;
+
+    // If filters are provided, append them to the URL
+    if (filters != null && filters.isNotEmpty) {
+      // Create a query string from the filters map
+      String queryString = filters.entries.map((entry) {
+        // Use Uri.encodeQueryComponent to ensure proper encoding
+        return '${Uri.encodeQueryComponent(entry.key)}=${Uri.encodeQueryComponent(entry.value)}';
+      }).join('&');
+
+      // Append the query string to the URL
+      url += '&$queryString';
+    }
+    //    print("Đây là bussiness repo");
+    // print(url);
+    // Make the API request with the updated URL
+    Response response = await apiClient.getData(url);
+    
+    // Handle the response
+    if (response.statusCode == 200) {
+      List<dynamic> dataList = response.body['data'];
+      List<WalletInfo> walletInfoList =
+          dataList.map((json) => WalletInfo.fromJson(json)).toList();
+          
+      return walletInfoList;
+    } else {
+      throw Exception('errors: ${response.statusText}');
+    }
+  }
+  
 
   @override
   Future add(value) {

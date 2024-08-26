@@ -19,24 +19,24 @@ class UsersProfileRepository implements UsersProfileRepositoryInterface {
 
 
 
-  // @override
-  // Future<UserProfile> fetchCurrentUsers() async {
-  //   Response response = await apiClient.getData(AppConstants.apiV1UsersMe);
-  //   if (response.statusCode == 200) {
-  //     final userProfile = UserProfile.fromJson(response.body['data']);
-  //     String userProfileJson = jsonEncode(userProfile.toJson());
-  //     await sharedPreferences.setString(AppConstants.userProfile, userProfileJson);
+  @override
+  Future<UserProfile> fetchCurrentUsers() async {
+    Response response = await apiClient.getData(AppConstants.apiV1UsersMe);
+    if (response.statusCode == 200) {
+      final userProfile = UserProfile.fromJson(response.body['data']);
+      String userProfileJson = jsonEncode(userProfile.toJson());
+      await sharedPreferences.setString(AppConstants.userProfile, userProfileJson);
 
-  //     List<dynamic> usersBalancesJson = response.body['data']['usersBalances'];
-  //     List<UserBalance> usersBalances = usersBalancesJson.map((balance) => UserBalance.fromJson(balance)).toList();
-  //     String usersBalancesJsonString = jsonEncode(usersBalances.map((balance) => balance.toJson()).toList());
-  //     await sharedPreferences.setString(AppConstants.usersBalances, usersBalancesJsonString);
+      List<dynamic> usersBalancesJson = response.body['data']['usersBalances'];
+      List<UserBalance> usersBalances = usersBalancesJson.map((balance) => UserBalance.fromJson(balance)).toList();
+      String usersBalancesJsonString = jsonEncode(usersBalances.map((balance) => balance.toJson()).toList());
+      await sharedPreferences.setString(AppConstants.usersBalances, usersBalancesJsonString);
 
-  //     return userProfile;
-  //   } else {
-  //     throw Exception("Failed to fetch user data: ${response.statusText}");
-  //   }
-  // }
+      return userProfile;
+    } else {
+      throw Exception("Failed to fetch user data: ${response.statusText}");
+    }
+  }
 
   @override
   Future<UserProfile> getCurrentUsersLocal() async {

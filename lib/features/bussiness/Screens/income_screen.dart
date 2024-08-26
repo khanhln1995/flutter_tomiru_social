@@ -25,8 +25,8 @@ class _IncomeScreenState extends State<IncomeScreen> {
   Future<void> fetchWalletInfo() async {
     List<WalletInfo> income =
         await Get.find<BusinessController>().getWalletInfo();
-    print("Đây là income screen");
-    print(income.map((index) => index.toJson()).toList());
+    // print("Đây là income screen");
+    // print(income.map((index) => index.toJson()).toList());
     setState(() {
       incomeList = income;
     });
@@ -299,41 +299,6 @@ class _IncomeScreenState extends State<IncomeScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class TransactionTile extends StatelessWidget {
-  final String title;
-  final String amount;
-  final String status;
-  final String date;
-
-  const TransactionTile({
-    Key? key,
-    required this.title,
-    required this.amount,
-    required this.status,
-    required this.date,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title),
-      subtitle: Text(date),
-      trailing: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(amount, style: TextStyle(fontWeight: FontWeight.bold)),
-          Text(
-            status,
-            style: TextStyle(
-              color: status == 'Thành công' ? Colors.green : Colors.red,
-            ),
-          ),
-        ],
       ),
     );
   }

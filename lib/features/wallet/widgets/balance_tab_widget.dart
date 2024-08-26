@@ -23,7 +23,8 @@ class BalanceTabWidget extends StatelessWidget {
     // Fetch the user profile data once in the build method
     controller.getCurrentUsersLocal();
     UserProfile? userProfile = controller.userProfile;
-
+print(userProfile);
+print("Đây là userProfile");
     return Stack(
       children: [
         Positioned.fill(

@@ -7,7 +7,7 @@ import '../models/users_me.dart';
 abstract class UsersProfileRepositoryInterface extends RepositoryInterface {
 
 
-  // Future<UserProfile>fetchCurrentUsers();
+  Future<UserProfile>fetchCurrentUsers();
   Future<UserProfile>getCurrentUsersLocal();
   Future<List<UserBalance>>getUsersBalancesLocal();
 

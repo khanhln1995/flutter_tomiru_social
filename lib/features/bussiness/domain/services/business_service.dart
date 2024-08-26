@@ -19,4 +19,9 @@ class BusinessService implements BusinessServiceInterface {
   Future<List<WalletInfo>> getWalletInfo() {
     return businessRepoInterface.getWalletInfo();
   }
+ 
+  Future<List<WalletInfo>> getWalletInfoByFilter(
+      {Map<String, String>? filters}) {
+    return businessRepoInterface.getWalletInfoByFilter(filters: filters);
+  }
 }

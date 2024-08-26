@@ -6,5 +6,7 @@ abstract class BusinessRepoInterface extends RepositoryInterface {
   bool isNotificationActive();
   Future<List<VaultInfo>> getVaultInfo();
    Future<List<WalletInfo>> getWalletInfo();
+   Future<List<WalletInfo>> getWalletInfoByFilter(
+      {Map<String, String>? filters});
 
 }

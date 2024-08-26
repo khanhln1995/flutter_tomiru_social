@@ -7,13 +7,13 @@ import '../domain/service/users_profile_service_interface.dart';
 class UsersProfileController extends GetxController implements GetxService {
   final UsersProfileServiceInterface userProfileServiceInterface;
   UsersProfileController({required this.userProfileServiceInterface}) {
-    // setCurrentUsers();
+    setCurrentUsers();
   }
   UserProfile? _userProfile;
   UserProfile? get userProfile => _userProfile;
-  // void setCurrentUsers() async {
-  //   await userProfileServiceInterface.fetchCurrentUsers();
-  // }
+  void setCurrentUsers() async {
+    await userProfileServiceInterface.fetchCurrentUsers();
+  }
 
   void getCurrentUsersLocal() async {
     UserProfile res = await userProfileServiceInterface.getCurrentUsersLocal();
@@ -42,9 +42,12 @@ class UsersProfileController extends GetxController implements GetxService {
    Future<List<UserBalance>> getUsersBalances() async {
     List<UserBalance> usersBalances =
         await userProfileServiceInterface.getUsersBalances();
-    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    // print(usersBalances);
-    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
     return usersBalances;
   }
+  //  Future<List<UserBalance>> getUsersBalances() async {
+  //   List<UserBalance> usersBalances =
+  //       await userProfileServiceInterface.getUsersBalances();
+  //   return usersBalances;
+  // }
+
 }

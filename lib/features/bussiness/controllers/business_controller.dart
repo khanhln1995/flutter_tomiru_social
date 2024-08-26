@@ -22,4 +22,11 @@ class BusinessController extends GetxController implements GetxService {
         await businessServiceInterface.getWalletInfo();
     return walletInfoList;
   }
+   Future<List<WalletInfo>> getWalletInfoByFilter(
+      {Map<String, String>? filters}) async {
+     
+    List<WalletInfo> walletInfoList =
+        await businessServiceInterface.getWalletInfoByFilter(filters: filters);
+    return walletInfoList;
+  }
 }
