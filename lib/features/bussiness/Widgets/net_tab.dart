@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:graphview/GraphView.dart';
+import 'package:graphview/GraphView.dart' as gv;
+import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_model.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_response_model.dart';
 
 class NetTab extends StatefulWidget {
   const NetTab({super.key});
@@ -9,33 +15,42 @@ class NetTab extends StatefulWidget {
 }
 
 class _NetTabState extends State<NetTab> {
-  final Graph graph = Graph()..isTree = true;
-  final BuchheimWalkerConfiguration builder = BuchheimWalkerConfiguration();
+  final gv.Graph graph = gv.Graph()..isTree = true;
+  final gv.BuchheimWalkerConfiguration builder =
+      gv.BuchheimWalkerConfiguration();
 
+  TreeResponse? _treeResponse;
   @override
   void initState() {
     super.initState();
+    Get.find<BusinessController>().fetchTree();
+    _treeResponse = Get.find<BusinessController>().treeResponse;
+    String jsonResponse = jsonEncode(_treeResponse!.toJson());
+    print(
+        '~~~~~~~~~~~~~~~~~~~~~~~~~~~~TREE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    print(jsonResponse);
+    print(
+        '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
-    Node root = Node.Id('Nhánh 1');
-    Node branch2 = Node.Id('Nhánh 2');
-    Node branch3 = Node.Id('Nhánh 3');
+    gv.Node root = gv.Node.Id('Nhánh 1');
+    gv.Node branch2 = gv.Node.Id('Nhánh 2');
+    gv.Node branch3 = gv.Node.Id('Nhánh 3');
 
-    Node nguyenHuuKien = Node.Id('Nguyễn Hữu Kiên');
-    Node leNguyenKhanh = Node.Id('Lê Nguyên Khánh');
-
-    Node nguyenVanA1 = Node.Id('Nguyễn Văn A 1');
-    Node nguyenVanA2 = Node.Id('Nguyễn Văn A 2');
-    Node nguyenVanB1 = Node.Id('Nguyễn Văn B 1');
-    Node nguyenVanB2 = Node.Id('Nguyễn Văn B 2');
-    Node nguyenVanB3 = Node.Id('Nguyễn Văn B 3');
-    Node nguyenVanC1 = Node.Id('Nguyễn Văn C 1');
-    Node nguyenVanC2 = Node.Id('Nguyễn Văn C 2');
-    Node nguyenVanD1 = Node.Id('Nguyễn Văn D 1');
-    Node nguyenVanD2 = Node.Id('Nguyễn Văn D 2');
-    Node nguyenVanE1 = Node.Id('Nguyễn Văn E 1');
-    Node nguyenVanE2 = Node.Id('Nguyễn Văn E 2');
-    Node nguyenVanF1 = Node.Id('Nguyễn Văn F 1');
-    Node nguyenVanF2 = Node.Id('Nguyễn Văn F 2');
+    gv.Node nguyenHuuKien = gv.Node.Id('Nguyễn Hữu Kiên');
+    gv.Node leNguyenKhanh = gv.Node.Id('Lê Nguyên Khánh');
+    gv.Node nguyenVanA1 = gv.Node.Id('Nguyễn Văn A 1');
+    gv.Node nguyenVanA2 = gv.Node.Id('Nguyễn Văn A 2');
+    gv.Node nguyenVanB1 = gv.Node.Id('Nguyễn Văn B 1');
+    gv.Node nguyenVanB2 = gv.Node.Id('Nguyễn Văn B 2');
+    gv.Node nguyenVanB3 = gv.Node.Id('Nguyễn Văn B 3');
+    gv.Node nguyenVanC1 = gv.Node.Id('Nguyễn Văn C 1');
+    gv.Node nguyenVanC2 = gv.Node.Id('Nguyễn Văn C 2');
+    gv.Node nguyenVanD1 = gv.Node.Id('Nguyễn Văn D 1');
+    gv.Node nguyenVanD2 = gv.Node.Id('Nguyễn Văn D 2');
+    gv.Node nguyenVanE1 = gv.Node.Id('Nguyễn Văn E 1');
+    gv.Node nguyenVanE2 = gv.Node.Id('Nguyễn Văn E 2');
+    gv.Node nguyenVanF1 = gv.Node.Id('Nguyễn Văn F 1');
+    gv.Node nguyenVanF2 = gv.Node.Id('Nguyễn Văn F 2');
 
     // Building the tree structure
     graph.addEdge(root, nguyenHuuKien);
@@ -57,26 +72,23 @@ class _NetTabState extends State<NetTab> {
       ..siblingSeparation = (100)
       ..levelSeparation = (150)
       ..subtreeSeparation = (150)
-      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
+      ..orientation = (gv.BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('GraphView Example'),
-      // ),
       body: Center(
         child: InteractiveViewer(
           constrained: false,
           boundaryMargin: const EdgeInsets.all(100),
           minScale: 0.01,
           maxScale: 5.6,
-          child: GraphView(
+          child: gv.GraphView(
             graph: graph,
-            algorithm:
-                BuchheimWalkerAlgorithm(builder, TreeEdgeRenderer(builder)),
-            builder: (Node node) {
+            algorithm: gv.BuchheimWalkerAlgorithm(
+                builder, gv.TreeEdgeRenderer(builder)),
+            builder: (gv.Node node) {
               return rectangleWidget(node.key!.value as String);
             },
           ),

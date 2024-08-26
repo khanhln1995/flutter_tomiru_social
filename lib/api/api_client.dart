@@ -78,8 +78,8 @@ class ApiClient extends GetxService {
       bool showToaster = false}) async {
     try {
       if (kDebugMode) {
-        // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        debugPrint('====> API Call: $appBaseUrl');
+        debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        // debugPrint('====> API Call: $appBaseUrl');
       }
       http.Response response = await http
           .get(

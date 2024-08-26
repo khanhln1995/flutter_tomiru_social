@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_model.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_response_model.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/vault_info.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/wallet_info.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/packages.dart';
@@ -12,6 +14,12 @@ class BusinessController extends GetxController implements GetxService {
 
   bool _notification = true;
   bool get notification => _notification;
+
+  TreeNode? _treeData;
+  TreeNode? get treeData => _treeData;
+
+  TreeResponse? _treeResponse;
+  TreeResponse? get treeResponse => _treeResponse;
 
   Future<List<VaultInfo>> getVaultInfo() async {
     List<VaultInfo> vaultInfoList =
@@ -33,6 +41,10 @@ class BusinessController extends GetxController implements GetxService {
   }
 
   void fetchTree() async {
-    await businessServiceInterface.fetchTernaryTree();
+    final response = await businessServiceInterface.fetchTernaryTree();
+    _treeResponse = response;
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    print(response);
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
   }
 }
