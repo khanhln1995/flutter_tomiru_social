@@ -110,4 +110,36 @@ class WalletRepository implements WalletRepositoryInterface {
     // TODO: implement update
     throw UnimplementedError();
   }
+
+  void saveInfoLocal(String email) async {
+    List<String> emailList = [];
+    String? emailListJson =
+        sharedPreferences.getString(AppConstants.emailListKey);
+
+    if (emailListJson != null) {
+      emailList = List<String>.from(jsonDecode(emailListJson));
+    }
+    emailList.add(email);
+    if (emailList.length > 10) {
+      emailList.removeAt(0);
+    }
+    String updatedEmailListJson = jsonEncode(emailList);
+    print('111111111111111111111111111111111111111111111111111111111111111111');
+    print(emailListJson);
+    print('111111111111111111111111111111111111111111111111111111111111111111');
+    await sharedPreferences.setString(
+        AppConstants.emailListKey, updatedEmailListJson);
+  }
+
+  Future<List<String>> getEmailListLocal() async {
+    String? emailListJson =
+        sharedPreferences.getString(AppConstants.emailListKey);
+    if (emailListJson != null) {
+      List<dynamic> emailListDynamic = jsonDecode(emailListJson);
+      List<String> emailList = List<String>.from(emailListDynamic);
+      return emailList;
+    } else {
+      return [];
+    }
+  }
 }

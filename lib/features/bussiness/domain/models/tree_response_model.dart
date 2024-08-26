@@ -1,6 +1,5 @@
-
-import 'package:tomiru_social_flutter/features/tree/domain/models/tree_model.dart';
-import 'package:tomiru_social_flutter/features/tree/domain/models/user_model.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_model.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/user_model.dart';
 
 class TreeResponse {
   final List<UserModel> f1;
@@ -20,10 +19,14 @@ class TreeResponse {
   factory TreeResponse.fromJson(Map<String, dynamic> json) {
     return TreeResponse(
       f1: (json['f1'] as List).map((item) => UserModel.fromJson(item)).toList(),
-      f1NotMember: (json['f1NotMember'] as List).map((item) => UserModel.fromJson(item)).toList(),
+      f1NotMember: (json['f1NotMember'] as List)
+          .map((item) => UserModel.fromJson(item))
+          .toList(),
       incomePXU: json['incomePXU'],
       incomeXU: json['incomeXU'],
-      trees: (json['trees'] as List).map((item) => TreeNode.fromJson(item)).toList(),
+      trees: (json['trees'] as List)
+          .map((item) => TreeNode.fromJson(item))
+          .toList(),
     );
   }
 

@@ -34,8 +34,7 @@ class _HomepageState extends State<Homepage> {
   Placemark? _position;
   Weather? temperature;
   WeatherFactory wf = WeatherFactory(AppConstants.weatherApiKey);
-// lay thong tin vi
-  List<UserBalance> userBalanceList = [];
+
   //
   @override
   void initState() {

@@ -10,4 +10,6 @@ abstract class WalletServiceInterface {
   Future<void> userCheckin();
   Future<void> requestOTP();
   Future<Response> sendToken(SendTokenModel data);
+  void saveInfoLocal(String email);
+  Future<List<String>> getEmailListLocal();
 }
