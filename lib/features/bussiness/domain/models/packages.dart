@@ -1,3 +1,25 @@
+class Packages {
+  final double vat;
+  final List<PackagesAvailable> packages;
+  Packages({required this.vat, required this.packages});
+
+  factory Packages.fromJson(Map<String, dynamic> json) {
+    return Packages(
+      vat: json['vat'],
+      packages: (json['packages'] as List)
+          .map((item) => PackagesAvailable.fromJson(item))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'vat': vat,
+      'packages': packages.map((data) => data.toJson()).toList(),
+    };
+  }
+}
+
 class PackagesAvailable {
   final int id;
   final String name;

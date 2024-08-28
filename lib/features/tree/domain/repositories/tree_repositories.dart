@@ -6,6 +6,7 @@ import 'package:tomiru_social_flutter/features/tree/domain/repositories/tree_rep
 import '../../../../api/api_client.dart';
 import '../../../../util/app_constants.dart';
 import '../models/tree_response_model.dart';
+
 class TreeRepository implements TreeRepositoryInterface {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
@@ -14,17 +15,14 @@ class TreeRepository implements TreeRepositoryInterface {
 
   @override
   Future<TreeResponse> fetchTernaryTree() async {
-      Response response = await apiClient.getData(AppConstants.apiV1TernaryTree);
-      if (response.statusCode == 200) {
-        final treeResponse = TreeResponse.fromJson(response.body['data']);
-        return treeResponse;
-      } else {
-        throw Exception("Failed to fetch user data: ${response.statusText}");
-      }
+    Response response = await apiClient.getData(AppConstants.apiV1TernaryTree);
+    if (response.statusCode == 200) {
+      final treeResponse = TreeResponse.fromJson(response.body);
+      return treeResponse;
+    } else {
+      throw Exception("Failed to fetch user data: ${response.statusText}");
+    }
   }
-
-
-
 
   @override
   Future add(value) {
@@ -55,10 +53,4 @@ class TreeRepository implements TreeRepositoryInterface {
     // TODO: implement update
     throw UnimplementedError();
   }
-
-
-
-
-
-
 }

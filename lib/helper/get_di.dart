@@ -149,6 +149,7 @@ import 'package:tomiru_social_flutter/features/splash/domain/repositories/splash
 import 'package:tomiru_social_flutter/features/splash/domain/repositories/splash_repository_interface.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/services/splash_service.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/services/splash_service_interface.dart';
+import 'package:tomiru_social_flutter/features/tree/controller/tree_controller.dart';
 import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
 import 'package:tomiru_social_flutter/features/verification/controllers/verification_controller.dart';
 import 'package:tomiru_social_flutter/features/verification/domain/reposotories/verification_repo.dart';
@@ -169,11 +170,10 @@ import '../features/users_profile/domain/repositories/users_profile_repositories
 import '../features/users_profile/domain/repositories/users_profile_repositories_intrerface.dart';
 import '../features/users_profile/domain/service/users_profile_service.dart';
 import '../features/users_profile/domain/service/users_profile_service_interface.dart';
-import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository_interface.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service_interface.dart';
+import '../features/tree/domain/repositories/tree_repositories.dart';
+import '../features/tree/domain/repositories/tree_repositories_interface.dart';
+import '../features/tree/domain/service/tree_service.dart';
+import '../features/tree/domain/service/tree_service_interface.dart';
 
 Future<Map<String, Map<String, String>>> init() async {
   /// Core
@@ -392,6 +392,12 @@ Future<Map<String, Map<String, String>>> init() async {
   WalletServiceInterface usersWalletServiceInterface =
       WalletService(walletRepositoryInterface: Get.find());
   Get.lazyPut(() => usersWalletServiceInterface);
+  TreeRepositoryInterface treeRepositoryInterface =
+      TreeRepository(apiClient: Get.find(), sharedPreferences: Get.find());
+  Get.lazyPut(() => treeRepositoryInterface);
+  TreeServiceInterface treeServiceInterface =
+      TreeService(treeRepositoryInterface: Get.find());
+  Get.lazyPut(() => treeServiceInterface);
 
   /// Controller
   Get.lazyPut(() => ThemeController(splashServiceInterface: Get.find()));
@@ -435,6 +441,7 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => CheckoutController(checkoutServiceInterface: Get.find()));
   Get.lazyPut(
       () => UsersProfileController(userProfileServiceInterface: Get.find()));
+  Get.lazyPut(() => TreeBusinessController(treeServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
   Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
 
