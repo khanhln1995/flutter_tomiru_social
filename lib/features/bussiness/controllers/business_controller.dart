@@ -46,6 +46,14 @@ class BusinessController extends GetxController implements GetxService {
     _treeData = treeResponse.trees;
     return treeResponse;
   }
+  //  Future fetchTree() async {
+  //   TreeResponse treeResponse =
+  //       await businessServiceInterface.fetchTernaryTree();
+  //   _treeData = treeResponse.trees;
+  //   return treeResponse;
+  // }
+  //
+
    Future<List<WalletInfo>> getWalletInfoByFilter(
       {Map<String, String>? filters}) async {
     List<WalletInfo> walletInfoList =

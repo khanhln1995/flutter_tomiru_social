@@ -6,6 +6,7 @@ import 'package:graphview/GraphView.dart' as graphview;
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_response_model.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_model.dart';
 import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
+import 'package:intl/intl.dart';
 
 class NetTab extends StatefulWidget {
   const NetTab({super.key});
@@ -207,6 +208,7 @@ class _NetTabState extends State<NetTab> {
   }
 
   Widget _buildNodeWidget(TreeNode treeNode) {
+    
     return GestureDetector(
       onTap: () {
         _showNodeDialog(
@@ -243,24 +245,70 @@ class _NetTabState extends State<NetTab> {
   }
 
   Widget _buildInfoTab(TreeNode treeNode) {
+     // Convert the 'createdAt' string to an integer
+    int createdAtMillis = int.parse(treeNode.createdAt);
+
+// Now use it to create a DateTime object
+    DateTime createdAtDateTime =
+        DateTime.fromMillisecondsSinceEpoch(createdAtMillis);
+
+    String formattedDate = DateFormat('dd/MM/yyyy').format(createdAtDateTime);
+    String formattedTime = DateFormat('HH:mm:ss').format(createdAtDateTime);
+   
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoField('Name: ${treeNode.firstName} ${treeNode.lastName}'),
+          // Wrapping only "Name:" with _buildInfoLabel
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildInfoLabel('Họ tên: '),
+              Text('${treeNode.firstName} ${treeNode.lastName}'),
+            ],
+          ),
           const SizedBox(height: 8.0), // Spacing between fields
-          _buildInfoField('Email: ${treeNode.email}'),
-          const SizedBox(height: 8.0), // Spacing between fields
-          _buildInfoField('Username: ${treeNode.username}'),
+
+          // Wrapping only "Email:" with _buildInfoLabel
+         
+
+          // Wrapping only "Username:" with _buildInfoLabel
+          Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildInfoLabel('Username: '),
+              Text(treeNode.username),
+            ],
+          ),
+          const SizedBox(height: 8.0),
+
           // Add more fields here if needed, but without the special styling
+           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildInfoLabel('Ngày đăng kí: '),
+              Text('$formattedDate - $formattedTime'),
+            ],
+          ),
+           const SizedBox(height: 8.0),
+
+          // Add more fields here if needed, but without the special styling
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildInfoLabel('Ngày đăng kí: '),
+              Text('$formattedDate - $formattedTime'),
+            ],
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildInfoField(String text) {
+// This method wraps the label with decoration
+  Widget _buildInfoLabel(String label) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -268,7 +316,7 @@ class _NetTabState extends State<NetTab> {
         borderRadius: BorderRadius.circular(50.0), // Rounded corners
       ),
       child: Text(
-        text,
+        label,
         style: const TextStyle(color: Colors.white), // Text color
       ),
     );
