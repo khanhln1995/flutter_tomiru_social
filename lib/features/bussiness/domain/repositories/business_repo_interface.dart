@@ -13,6 +13,7 @@ abstract class BusinessRepoInterface extends RepositoryInterface {
       {Map<String, String>? filters});
 
 
+  Future<TreeResponse> fetchTernaryTreeDetail({Map<String, String>? filters});
   Future<TreeResponse> fetchTernaryTree();
   Future<Packages> getPackages();
   Future<Response> buyPackage(String? packageName);

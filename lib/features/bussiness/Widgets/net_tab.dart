@@ -7,6 +7,7 @@ import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_resp
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_model.dart';
 import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
 import 'package:intl/intl.dart';
+import "package:tomiru_social_flutter/features/bussiness/Widgets/net_tab_detail.dart";
 
 class NetTab extends StatefulWidget {
   const NetTab({super.key});
@@ -127,92 +128,17 @@ class _NetTabState extends State<NetTab> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-                16.0), // Rounded corners with a radius of 16
-          ),
-          child: Stack(
-            children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(
-                    maxWidth: 500), // Set max width of the dialog
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white, // Background color of the dialog
-                    borderRadius: BorderRadius.circular(
-                        16.0), // Match the border radius of the dialog
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 24.0,
-                  ), // Padding inside the dialog
-                  child: DefaultTabController(
-                    length: 2, // Number of tabs
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const TabBar(
-                          tabs: [
-                            Tab(text: 'Thông tin chi tiết'),
-                            Tab(text: 'Mạng lưới user'),
-                          ],
-                          indicator: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: Colors
-                                    .blue, // Đặt màu sắc của border là transparent
-                                width: 4, // Đặt width của border là 0
-                              ),
-                            ),
-                          ),
-                          dividerColor: Colors.transparent,
-                          labelColor: Colors
-                              .black, // Màu sắc của divider khi tab được chọn
-                          unselectedLabelColor: Colors
-                              .grey, // Màu sắc của divider khi tab không được chọn
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight
-                                  .bold), // Kiểu chữ của divider khi tab được chọn
-                        ),
-                        SizedBox(
-                          height: 300, // Adjust the height as needed
-                          child: TabBarView(
-                            children: [
-                              _buildInfoTab(
-                                  treeNode), // Content for the Info tab
-                              _buildDetailsTab(
-                                  treeNode), // Content for the Details tab
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                right: 0.0,
-                top: 0.0,
-                child: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.black),
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
+        return NodeDialogWidget(treeNode: treeNode);
       },
     );
   }
 
   Widget _buildNodeWidget(TreeNode treeNode) {
-    
     return GestureDetector(
       onTap: () {
         _showNodeDialog(
             treeNode); // Show dialog with TabBarView when node is tapped
+        // _fetchDetailTreeData(treeNode);
       },
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -240,99 +166,6 @@ class _NetTabState extends State<NetTab> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildInfoTab(TreeNode treeNode) {
-     // Convert the 'createdAt' string to an integer
-    int createdAtMillis = int.parse(treeNode.createdAt);
-
-// Now use it to create a DateTime object
-    DateTime createdAtDateTime =
-        DateTime.fromMillisecondsSinceEpoch(createdAtMillis);
-
-    String formattedDate = DateFormat('dd/MM/yyyy').format(createdAtDateTime);
-    String formattedTime = DateFormat('HH:mm:ss').format(createdAtDateTime);
-   
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Wrapping only "Name:" with _buildInfoLabel
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildInfoLabel('Họ tên: '),
-              Text('${treeNode.firstName} ${treeNode.lastName}'),
-            ],
-          ),
-          const SizedBox(height: 8.0), // Spacing between fields
-
-          // Wrapping only "Email:" with _buildInfoLabel
-         
-
-          // Wrapping only "Username:" with _buildInfoLabel
-          Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildInfoLabel('Username: '),
-              Text(treeNode.username),
-            ],
-          ),
-          const SizedBox(height: 8.0),
-
-          // Add more fields here if needed, but without the special styling
-           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildInfoLabel('Ngày đăng kí: '),
-              Text('$formattedDate - $formattedTime'),
-            ],
-          ),
-           const SizedBox(height: 8.0),
-
-          // Add more fields here if needed, but without the special styling
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildInfoLabel('Ngày đăng kí: '),
-              Text('$formattedDate - $formattedTime'),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-// This method wraps the label with decoration
-  Widget _buildInfoLabel(String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        color: Colors.blue, // Background color
-        borderRadius: BorderRadius.circular(50.0), // Rounded corners
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(color: Colors.white), // Text color
-      ),
-    );
-  }
-
-  Widget _buildDetailsTab(TreeNode treeNode) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Floor: ${treeNode.floor}'),
-          Text('Package Bought At: ${treeNode.buyPackageAt}'),
-          // Add more details fields here if needed
-        ],
       ),
     );
   }
