@@ -21,7 +21,7 @@ class MembershipPackage extends StatelessWidget {
       buttonStyle: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: Colors.black,
       ),
       listDetails: [
         'Được mua hàng tại các Đại lý, điểm bán Tomiru chiết khấu: 10 - 20% trên tất cả các sản phẩm',
@@ -35,7 +35,7 @@ class MembershipPackage extends StatelessWidget {
       buttonStyle: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: Colors.black,
       ),
       listDetails: [
         'Được nhận Combo hàng từ 1.7 triệu đến 2.1 triệu',
@@ -50,7 +50,7 @@ class MembershipPackage extends StatelessWidget {
       buttonStyle: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: Colors.black,
       ),
       listDetails: [
         'Được nhận Combo hàng từ 1.7 triệu đến 2.1 triệu',
@@ -74,7 +74,7 @@ class MembershipPackage extends StatelessWidget {
   }
 
   void _showBottomSheet(BuildContext context, String title, String details,
-      String price, String period) {
+      String price, String period, double vat) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -145,6 +145,14 @@ class MembershipPackage extends StatelessWidget {
                               style: const TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 21.19),
                             ),
+                            const WidgetSpan(
+                              child: SizedBox(width: 10),
+                            ),
+                            TextSpan(
+                              text: "(Đã gồm ${(vat*100).toInt()}% VAT)",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 11.19),
+                            ),
                           ]),
                     ),
                   ],
@@ -182,10 +190,12 @@ class MembershipPackage extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
-                child: const Center(
+                child: Center(
                   child: Text(
-                    'Đăng ký và thanh toán',
-                    style: TextStyle(
+                    title != "Business Extend"
+                        ? 'Đăng ký và thanh toán'
+                        : 'Gia hạn',
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -205,65 +215,65 @@ class MembershipPackage extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(24.0),
-        child: FutureBuilder<List<PackagesAvailable>>(
+        child: FutureBuilder<Packages>(
           future: Get.find<BusinessController>().getPackages(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return const Center(child: Text('Error loading packages'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('No packages available'));
-            }
-
-            final packages = snapshot.data!;
-
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Chọn gói thành viên phù hợp với bạn',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (snapshot.hasData) {
+              final packages = snapshot.data?.packages ?? [];
+              final vat = snapshot.data!.vat;
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Chọn gói thành viên phù hợp với bạn',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  ...packages.map((package) {
-                    final packageName = package.name;
+                    const SizedBox(height: 20),
+                    ...packages.map((package) {
+                      final packageName = package.name;
 
-                    if (listPremiumNames.contains(packageName)) {
-                      final packageStyle = listPremiumStyles[packageName];
-                      final period = _getPeriod(package.validInDay);
+                      if (listPremiumNames.contains(packageName)) {
+                        final packageStyle = listPremiumStyles[packageName];
+                        final period = _getPeriod(package.validInDay);
 
-                      return MembershipOption(
-                        title: packageName,
-                        price: '${package.price} Tomxu',
-                        period: period,
-                        note: 'Thanh toán theo năm',
-                        discount: 'Tiết kiệm 10%',
-                        backgroundColor: packageStyle!.backgroundColor,
-                        textColor: packageStyle.buttonStyle.color!,
-                        buttonColor: Colors.white,
-                        buttonTextColor: packageStyle.buttonStyle.color!,
-                        listDetails: packageStyle.listDetails,
-                        onRegister: () {
-                          _showBottomSheet(
-                            context,
-                            packageName,
-                            packageStyle.listDetails.join("\n"),
-                            '${package.price} Tomxu',
-                            period,
-                          );
-                        },
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  }),
-                ],
-              ),
-            );
+                        return MembershipOption(
+                          title: packageName,
+                          price: '${package.price} Tomxu',
+                          period: period,
+                          note: 'Thanh toán theo năm',
+                          discount: 'Tiết kiệm 10%',
+                          backgroundColor: packageStyle!.backgroundColor,
+                          textColor: packageStyle.buttonStyle.color!,
+                          buttonColor: Colors.white,
+                          buttonTextColor: packageStyle.buttonStyle.color!,
+                          listDetails: packageStyle.listDetails,
+                          onRegister: () {
+                            _showBottomSheet(
+                                context,
+                                packageName,
+                                packageStyle.listDetails.join("\n"),
+                                '${package.price + (package.price * vat).toInt()} Tomxu',
+                                period,
+                                vat);
+                          },
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    }),
+                  ],
+                ),
+              );
+            } else {
+              return const Center(child: Text('No data available'));
+            }
           },
         ),
       ),

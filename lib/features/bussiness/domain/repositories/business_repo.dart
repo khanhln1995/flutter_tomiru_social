@@ -8,7 +8,7 @@ import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/vault_info.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 
-class BusinessRepo implements BusinessRepoInterface {
+ class BusinessRepo implements BusinessRepoInterface {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
   BusinessRepo({required this.sharedPreferences, required this.apiClient});
@@ -45,17 +45,49 @@ class BusinessRepo implements BusinessRepoInterface {
       throw Exception('errors: ${response.statusText}');
     }
   }
+  @override
+  Future<List<WalletInfo>> getWalletInfoByFilter(
+      {Map<String, String>? filters}) async {
+    
+     // Start with the base URL
+    String url = AppConstants.apiV1UsersWalletHistory;
+
+    // If filters are provided, append them to the URL
+    if (filters != null && filters.isNotEmpty) {
+      // Create a query string from the filters map
+      String queryString = filters.entries.map((entry) {
+        // Use Uri.encodeQueryComponent to ensure proper encoding
+        return '${Uri.encodeQueryComponent(entry.key)}=${Uri.encodeQueryComponent(entry.value)}';
+      }).join('&');
+
+      // Append the query string to the URL
+      url += '&$queryString';
+    }
+    //    print("Đây là bussiness repo");
+    // print(url);
+    // Make the API request with the updated URL
+    Response response = await apiClient.getData(url);
+    
+    // Handle the response
+    if (response.statusCode == 200) {
+      List<dynamic> dataList = response.body['data'];
+      List<WalletInfo> walletInfoList =
+          dataList.map((json) => WalletInfo.fromJson(json)).toList();
+          
+      return walletInfoList;
+    } else {
+      throw Exception('errors: ${response.statusText}');
+    }
+  }
+  
 
   @override
-  Future<List<PackagesAvailable>> getPackages() async {
+  Future<Packages> getPackages() async {
     Response response =
         await apiClient.getData(AppConstants.apiV1UsersPackages);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      List<dynamic> dataList = response.body['data']['packages'];
-
-      List<PackagesAvailable> packagesList =
-          dataList.map((json) => PackagesAvailable.fromJson(json)).toList();
-      return packagesList;
+      final packageResponse = Packages.fromJson(response.body['data']);
+      return packageResponse;
     } else {
       throw Exception('errors: ${response.statusText}');
     }
@@ -70,6 +102,39 @@ class BusinessRepo implements BusinessRepoInterface {
     } else {
       throw Exception("Failed to fetch user data: ${response.statusText}");
     }
+  }
+  @override
+  Future<TreeResponse> fetchTernaryTreeDetail(
+      {Map<String, String>? filters}) async {
+    // Response response = await apiClient.getData(AppConstants.apiV1TernaryTreeUsername);
+     String url = AppConstants.apiV1TernaryTreeUsername;
+    if (filters != null && filters.isNotEmpty) {
+      String queryString = filters.entries.map((entry) {
+        return '${Uri.encodeQueryComponent(entry.key)}=${Uri.encodeQueryComponent(entry.value)}';
+      }).join('?');
+
+      url += '?$queryString';
+    }
+       print("Đây là bussiness repo");
+    print(url);
+    // Make the API request with the updated URL
+    Response response = await apiClient.getData(url);
+
+    if (response.statusCode == 200) {
+      final treeResponse = TreeResponse.fromJson(response.body);
+      // print("Đây là business repo fetch tree");
+      // print(treeResponse);
+      return treeResponse;
+    } else {
+      throw Exception("Failed to fetch user data: ${response.statusText}");
+    }
+  }
+
+  @override
+  Future<Response> buyPackage(String? packageName) async {
+    return await apiClient.postData(
+        AppConstants.apiV1UsersBuyPackages, {"packageName": packageName},
+        handleError: false);
   }
 
   @override

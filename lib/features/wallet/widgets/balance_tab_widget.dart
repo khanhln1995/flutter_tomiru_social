@@ -17,6 +17,14 @@ class BalanceTabWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final UsersProfileController controller =
+        Get.find<UsersProfileController>();
+
+    // Fetch the user profile data once in the build method
+    controller.getCurrentUsersLocal();
+    UserProfile? userProfile = controller.userProfile;
+print(userProfile);
+print("Đây là userProfile");
 
     return Stack(
       children: [

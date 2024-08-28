@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/bussiness/Screens/subscription_page.dart';
+import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 
 class TomxuStatusScreen extends StatelessWidget {
@@ -8,35 +8,39 @@ class TomxuStatusScreen extends StatelessWidget {
   final DateTime? expirationDate;
 
   const TomxuStatusScreen({
-    Key? key,
+    super.key,
     required this.isSuccess,
     this.tomxuAmount,
     this.expirationDate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(25, 42, 25, 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 40),
-              _buildStatusIcon(),
-              const SizedBox(height: 20),
-              _buildStatusText(),
-              if (isSuccess) ...[
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(25, 42, 25, 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 40),
+                _buildStatusIcon(),
                 const SizedBox(height: 20),
-                _buildTomxuInfo(),
-              ] else ...[
-                const SizedBox(height: 10),
-                _buildContactInfo(),
+                _buildStatusText(),
+                // Bạn có thể thêm các đoạn mã điều kiện này nếu cần hiển thị thông tin giao dịch chi tiết
+                // if (isSuccess) ...[
+                //   const SizedBox(height: 20),
+                //   _buildTomxuInfo(),
+                // ] else ...[
+                //   const SizedBox(height: 10),
+                //   _buildContactInfo(),
+                // ],
+                const Spacer(),
+                _buildHomeButton(context),
               ],
-              const Spacer(),
-              _buildHomeButton(context),
-            ],
+            ),
           ),
         ),
       ),
@@ -115,8 +119,7 @@ class TomxuStatusScreen extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SubscriptionPage()));
+          Get.offNamed(RouteHelper.getBusinessRoute());
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,
