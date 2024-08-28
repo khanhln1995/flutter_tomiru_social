@@ -2,6 +2,7 @@ import 'package:tomiru_social_flutter/features/bussiness/domain/models/packages.
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_response_model.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/vault_info.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/wallet_info.dart';
+import 'package:tomiru_social_flutter/common/models/response_model.dart';
 
 abstract class BusinessServiceInterface {
   bool isNotificationActive();
@@ -10,6 +11,7 @@ abstract class BusinessServiceInterface {
    Future <List<WalletInfo>> getWalletInfoByFilter(
       {Map<String, String>? filters});
   // Future<List<WalletInfo>> getWalletInfo();
-  Future<List<PackagesAvailable>> getPackages();
    Future<TreeResponse> fetchTernaryTree();
+  Future<Packages> getPackages();
+  Future<ResponseModel> buyPackage(String? packageName);
 }

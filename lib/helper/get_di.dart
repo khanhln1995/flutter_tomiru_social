@@ -169,11 +169,6 @@ import '../features/users_profile/domain/repositories/users_profile_repositories
 import '../features/users_profile/domain/repositories/users_profile_repositories_intrerface.dart';
 import '../features/users_profile/domain/service/users_profile_service.dart';
 import '../features/users_profile/domain/service/users_profile_service_interface.dart';
-import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository_interface.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service_interface.dart';
 
 Future<Map<String, Map<String, String>>> init() async {
   /// Core

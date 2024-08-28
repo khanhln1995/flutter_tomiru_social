@@ -82,15 +82,12 @@ import 'package:get/get_connect/http/src/response/response.dart';
   
 
   @override
-  Future<List<PackagesAvailable>> getPackages() async {
+  Future<Packages> getPackages() async {
     Response response =
         await apiClient.getData(AppConstants.apiV1UsersPackages);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      List<dynamic> dataList = response.body['data']['packages'];
-
-      List<PackagesAvailable> packagesList =
-          dataList.map((json) => PackagesAvailable.fromJson(json)).toList();
-      return packagesList;
+      final packageResponse = Packages.fromJson(response.body['data']);
+      return packageResponse;
     } else {
       throw Exception('errors: ${response.statusText}');
     }
@@ -105,6 +102,13 @@ import 'package:get/get_connect/http/src/response/response.dart';
     } else {
       throw Exception("Failed to fetch user data: ${response.statusText}");
     }
+  }
+
+  @override
+  Future<Response> buyPackage(String? packageName) async {
+    return await apiClient.postData(
+        AppConstants.apiV1UsersBuyPackages, {"packageName": packageName},
+        handleError: false);
   }
 
   @override
