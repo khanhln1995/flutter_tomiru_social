@@ -34,31 +34,29 @@ class _HomepageState extends State<Homepage> {
   Placemark? _position;
   Weather? temperature;
   WeatherFactory wf = WeatherFactory(AppConstants.weatherApiKey);
-// lay thong tin vi
-  List<UserBalance> userBalanceList = [];
+
   //
   @override
   void initState() {
     super.initState();
     getPositionAndWeather();
     username = Get.find<AuthController>().getUserSelfInfo()?.fullname ?? '';
-    fetchUserBalance();
+    // fetchUserBalance();
   }
-  Future<void> fetchUserBalance() async {
-    List<UserBalance> userBalance =
-        await Get.find<UsersProfileController>().getUsersBalances();
 
-    setState(() {
-      userBalanceList = userBalance;
-    });
-    print(userBalance.map((balance) => balance.toJson()).toList());
-    
-    print("Đây là homescreen");
+  // Future<void> fetchUserBalance() async {
+  //   List<UserBalance>? userBalance =
+  //       Get.find<UsersProfileController>().userBalance;
 
-  }
+  //   setState(() {
+  //     userBalanceList = userBalance!;
+  //   });
+  //   print(userBalance?.map((balance) => balance.toJson()).toList());
+
+  //   print("Đây là homescreen");
+  // }
 
   @override
- 
   Future<Position> _requestPermissionsAndInitializeLocation() async {
     bool serviceEnabled;
     bool locationSetting;
@@ -132,7 +130,7 @@ class _HomepageState extends State<Homepage> {
             const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child:  WalletInfo(userBalanceList: userBalanceList),
+              child: WalletInfo(),
             ),
             const SizedBox(height: 20),
             exploreContent(),

@@ -8,9 +8,15 @@ class UsersProfileController extends GetxController implements GetxService {
   final UsersProfileServiceInterface userProfileServiceInterface;
   UsersProfileController({required this.userProfileServiceInterface}) {
     setCurrentUsers();
+
+    getCurrentUsersLocal();
   }
   UserProfile? _userProfile;
   UserProfile? get userProfile => _userProfile;
+
+  List<UserBalance> _userBalance = [];
+  List<UserBalance>? get userBalance => _userBalance;
+
   void setCurrentUsers() async {
     await userProfileServiceInterface.fetchCurrentUsers();
   }
@@ -18,6 +24,7 @@ class UsersProfileController extends GetxController implements GetxService {
   void getCurrentUsersLocal() async {
     UserProfile res = await userProfileServiceInterface.getCurrentUsersLocal();
     _userProfile = res;
+    update();
   }
 
   void setMasterData() async {
@@ -32,17 +39,16 @@ class UsersProfileController extends GetxController implements GetxService {
   }
 
   void getUsersBalancesLocal() async {
-    final usersBalances =
-        await userProfileServiceInterface.getUsersBalancesLocal();
-
+    _userBalance = await userProfileServiceInterface.getUsersBalancesLocal();
     // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    // print(usersBalances);
+    // print(_userBalance?.map((balance) => balance.toJson()).toList());
     // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
   }
    Future<List<UserBalance>> getUsersBalances() async {
     List<UserBalance> usersBalances =
         await userProfileServiceInterface.getUsersBalances();
     return usersBalances;
+
   }
   //  Future<List<UserBalance>> getUsersBalances() async {
   //   List<UserBalance> usersBalances =

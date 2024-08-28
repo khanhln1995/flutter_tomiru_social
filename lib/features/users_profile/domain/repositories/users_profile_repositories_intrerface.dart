@@ -5,6 +5,10 @@ import '../models/master_data_models.dart';
 import '../models/users_me.dart';
 
 abstract class UsersProfileRepositoryInterface extends RepositoryInterface {
+  // Future<UserProfile> fetchCurrentUsers();
+  // Future<UserProfile> getCurrentUsersLocal();
+  // Future<List<UserBalance>> getUsersBalancesLocal();
+
 
 
   Future<UserProfile>fetchCurrentUsers();
@@ -14,5 +18,6 @@ abstract class UsersProfileRepositoryInterface extends RepositoryInterface {
   Future<MasterDataModel>fetchMasterData();
   Future<MasterDataModel>getMasterDataLocal();
 Future<List<UserBalance>> getUsersBalances();
+
 
 }

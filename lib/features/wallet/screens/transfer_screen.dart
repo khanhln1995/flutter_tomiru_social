@@ -31,7 +31,7 @@ class _TransferScreenState extends State<TransferScreen>
   late TextEditingController otpController;
 
   bool isOTPSent = false;
-  int otpCountdown = 60;
+  int otpCountdown = 120;
   Timer? otpTimer;
 
   @override
@@ -44,7 +44,7 @@ class _TransferScreenState extends State<TransferScreen>
     valueController = TextEditingController();
     messageController = TextEditingController();
     otpController = TextEditingController();
-
+    walletController.getEmailListLocal();
     if (widget.isQrAll == true) {
       emailController.text = walletController.email;
       valueController.text = walletController.value.toString();
@@ -63,6 +63,7 @@ class _TransferScreenState extends State<TransferScreen>
     messageController.dispose();
     otpController.dispose();
     otpTimer?.cancel();
+    walletController.clearController();
     super.dispose();
   }
 
@@ -104,6 +105,7 @@ class _TransferScreenState extends State<TransferScreen>
             indicatorColor: theme.primaryColor,
             labelColor: theme.primaryColor,
             unselectedLabelColor: theme.unselectedWidgetColor,
+            splashFactory: NoSplash.splashFactory,
           ),
         ),
       ),
@@ -218,8 +220,20 @@ class _TransferScreenState extends State<TransferScreen>
               Row(
                 children: [
                   Checkbox(
-                    value: false,
-                    onChanged: (value) {},
+                    value: walletController.isSavedInfo,
+                    onChanged: (value) {
+                      setState(() {
+                        walletController.saveInfoCheckBox(value!);
+                      });
+                    },
+                    activeColor: theme.primaryColor,
+                    checkColor: Colors.white,
+                    side: BorderSide(color: theme.primaryColor),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    tristate: false,
                   ),
                   const Text('Lưu vào danh bạ',
                       style: TextStyle(color: Colors.black)),
@@ -254,45 +268,68 @@ class _TransferScreenState extends State<TransferScreen>
   }
 
   Widget _buildSavedContactsTab() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          10,
-          (index) {
-            final contact = {
-              'name': 'Nguyễn Hữu Kiên',
-              'account': '2131231231',
-              'email': 'kien@gmail.com',
-              'role': index % 2 == 0 ? 'Khách hàng' : 'Đối tác',
-            };
-            return ListTile(
-              leading: const CircleAvatar(
-                backgroundImage: AssetImage(
-                    'assets/images/contact_image.png'), // Replace with your contact image path
+    return GetBuilder<WalletController>(
+      builder: (controller) {
+        if (controller.listEmail.isEmpty) {
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                'Chưa có thông tin nào trong danh bạ.',
+                style: TextStyle(color: Colors.grey, fontSize: 16.0),
               ),
-              title: Text(
-                contact['name']!,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          );
+        } else {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: List.generate(
+                controller.listEmail.length,
+                (index) {
+                  final email = controller.listEmail[index];
+
+                  return ListTile(
+                    leading: const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/contact_image.png'),
+                    ),
+                    title: const Text(
+                      'Nguyễn Hữu Kiên',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Stk: 2131231231',
+                            style: TextStyle(color: Colors.grey)),
+                        Text('Email: $email',
+                            style: const TextStyle(color: Colors.grey)),
+                      ],
+                    ),
+                    trailing: Text(
+                      index % 2 == 0 ? 'Khách hàng' : 'Đối tác',
+                      style:
+                          const TextStyle(color: Colors.grey, fontSize: 16.0),
+                    ),
+                    onTap: () {
+                      _selectEmailAndSwitchTab(email);
+                    },
+                  );
+                },
               ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Stk: ${contact['account']}',
-                      style: const TextStyle(color: Colors.grey)),
-                  Text('Email: ${contact['email']}',
-                      style: const TextStyle(color: Colors.grey)),
-                ],
-              ),
-              trailing: Text(
-                contact['role']!,
-                style: const TextStyle(color: Colors.grey, fontSize: 16.0),
-              ),
-            );
-          },
-        ),
-      ),
+            ),
+          );
+        }
+      },
     );
+  }
+
+  void _selectEmailAndSwitchTab(String email) {
+    setState(() {
+      emailController.text = email;
+      _tabController.animateTo(0);
+    });
   }
 }

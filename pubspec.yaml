@@ -92,6 +92,7 @@ dependencies:
   weather: ^3.1.1
   qr_flutter: ^4.1.0
   google_ml_vision: ^0.0.8
+  graphview: ^1.2.0
 
 dev_dependencies:
   flutter_test:

@@ -57,9 +57,7 @@ class TomxuStatusScreen extends StatelessWidget {
 
   Widget _buildStatusText() {
     return Text(
-      isSuccess
-          ? 'Gia hạn gói Premium Biz thành công!'
-          : 'Chuyển Tomxu thất bại!',
+      isSuccess ? 'Giao dịch thành công!' : 'Giao dịch thất bại!',
       style: const TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w600,
@@ -117,7 +115,8 @@ class TomxuStatusScreen extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> SubscriptionPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SubscriptionPage()));
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,

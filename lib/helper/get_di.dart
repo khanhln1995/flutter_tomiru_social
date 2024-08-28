@@ -384,17 +384,13 @@ Future<Map<String, Map<String, String>>> init() async {
       UsersProfileService(usersProfileRepositoryInterface: Get.find());
   Get.lazyPut(() => usersProfileServiceInterface);
 
-
   WalletRepositoryInterface usersWalletRepositoryInterface = WalletRepository(
-
     apiClient: Get.find(),
     sharedPreferences: Get.find(),
   );
   Get.lazyPut(() => usersWalletRepositoryInterface);
-
   WalletServiceInterface usersWalletServiceInterface =
       WalletService(walletRepositoryInterface: Get.find());
-
   Get.lazyPut(() => usersWalletServiceInterface);
 
   /// Controller
@@ -411,6 +407,7 @@ Future<Map<String, Map<String, String>>> init() async {
   //     deliverymanRegistrationServiceInterface: Get.find()));
   // Get.lazyPut(() => RestaurantRegistrationController(
   //     restaurantRegistrationServiceInterface: Get.find()));
+
   Get.lazyPut(
       () => VerificationController(verificationServiceInterface: Get.find()));
   // Get.lazyPut(() => CategoryController(categoryServiceInterface: Get.find()));
@@ -436,11 +433,12 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => OrderController(orderServiceInterface: Get.find()));
   // Get.lazyPut(() => CampaignController(campaignServiceInterface: Get.find()));
   // Get.lazyPut(() => CheckoutController(checkoutServiceInterface: Get.find()));
- Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
+
+
   Get.lazyPut(
       () => UsersProfileController(userProfileServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
-
+  Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
 
   /// Retrieving localized data
   Map<String, Map<String, String>> languages = {};

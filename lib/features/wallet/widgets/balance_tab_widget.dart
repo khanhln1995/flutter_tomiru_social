@@ -25,6 +25,7 @@ class BalanceTabWidget extends StatelessWidget {
     UserProfile? userProfile = controller.userProfile;
 print(userProfile);
 print("Đây là userProfile");
+
     return Stack(
       children: [
         Positioned.fill(
@@ -38,7 +39,6 @@ print("Đây là userProfile");
             children: [
               Container(
                 margin: const EdgeInsets.all(16.0),
-                // padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
@@ -51,29 +51,42 @@ print("Đây là userProfile");
                     ),
                   ],
                 ),
-                child: Column(
-                  children: [
-                    TabBar(
-                      tabs: const [
-                        Tab(text: 'TOMXU'),
-                        Tab(text: 'P. Tomxu'),
+                child: GetBuilder<UsersProfileController>(
+                  builder: (controller) {
+                    // Fetch the user profile data from the controller
+                    controller.getCurrentUsersLocal();
+                    UserProfile? userProfile = controller.userProfile;
+
+                    // Check if the userProfile is null
+                    if (userProfile == null) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    return Column(
+                      children: [
+                        TabBar(
+                          tabs: const [
+                            Tab(text: 'TOMXU'),
+                            Tab(text: 'P. Tomxu'),
+                          ],
+                          indicatorColor: theme.primaryColor,
+                          labelColor: theme.primaryColor,
+                          unselectedLabelColor: theme.unselectedWidgetColor,
+                          splashFactory: NoSplash.splashFactory,
+                        ),
+                        const SizedBox(height: 16.0),
+                        SizedBox(
+                          height: 100,
+                          child: TabBarView(
+                            children: [
+                              _buildTomxuContent(theme, userProfile),
+                              _buildPTomxuContent(theme, userProfile),
+                            ],
+                          ),
+                        ),
                       ],
-                      indicatorColor: theme.primaryColor,
-                      labelColor: theme.primaryColor,
-                      unselectedLabelColor: theme.unselectedWidgetColor,
-                      splashFactory: NoSplash.splashFactory,
-                    ),
-                    const SizedBox(height: 16.0),
-                    SizedBox(
-                      height: 100,
-                      child: TabBarView(
-                        children: [
-                          _buildTomxuContent(theme, userProfile!),
-                          _buildPTomxuContent(theme, userProfile),
-                        ],
-                      ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
               GridView.count(
@@ -143,7 +156,6 @@ print("Đây là userProfile");
                       ),
                     );
                   }),
-                  // Here comes the center alignment logic for the second row
                   const SizedBox
                       .shrink(), // Empty space in the first cell of the second row
                   _buildActionButton('Lịch sử giao dịch', Images.walletHistory,

@@ -11,4 +11,6 @@ abstract class WalletRepositoryInterface extends RepositoryInterface {
   Future<String> userCheckin();
   Future<Response> requestOTP();
   Future<Response> sendToken(SendTokenModel data);
+  void saveInfoLocal(String email);
+  Future<List<String>> getEmailListLocal();
 }
