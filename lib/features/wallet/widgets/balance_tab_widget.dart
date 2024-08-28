@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tomiru_social_flutter/features/camera/screen/qr_scanner_screen.dart';
+import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
+import 'package:tomiru_social_flutter/features/users_profile/domain/models/users_me.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/qr_transaction_screen.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/transactions_history_screen.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/withdrawal_screen.dart';
@@ -15,6 +17,15 @@ class BalanceTabWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final UsersProfileController controller =
+        Get.find<UsersProfileController>();
+
+    // Fetch the user profile data once in the build method
+    controller.getCurrentUsersLocal();
+    UserProfile? userProfile = controller.userProfile;
+print(userProfile);
+print("Đây là userProfile");
+
     return Stack(
       children: [
         Positioned.fill(
@@ -28,7 +39,6 @@ class BalanceTabWidget extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.all(16.0),
-                padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
@@ -41,29 +51,42 @@ class BalanceTabWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Column(
-                  children: [
-                    TabBar(
-                      tabs: const [
-                        Tab(text: 'TOMXU'),
-                        Tab(text: 'P. Tomxu'),
+                child: GetBuilder<UsersProfileController>(
+                  builder: (controller) {
+                    // Fetch the user profile data from the controller
+                    controller.getCurrentUsersLocal();
+                    UserProfile? userProfile = controller.userProfile;
+
+                    // Check if the userProfile is null
+                    if (userProfile == null) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    return Column(
+                      children: [
+                        TabBar(
+                          tabs: const [
+                            Tab(text: 'TOMXU'),
+                            Tab(text: 'P. Tomxu'),
+                          ],
+                          indicatorColor: theme.primaryColor,
+                          labelColor: theme.primaryColor,
+                          unselectedLabelColor: theme.unselectedWidgetColor,
+                          splashFactory: NoSplash.splashFactory,
+                        ),
+                        const SizedBox(height: 16.0),
+                        SizedBox(
+                          height: 100,
+                          child: TabBarView(
+                            children: [
+                              _buildTomxuContent(theme, userProfile),
+                              _buildPTomxuContent(theme, userProfile),
+                            ],
+                          ),
+                        ),
                       ],
-                      indicatorColor: theme.primaryColor,
-                      labelColor: theme.primaryColor,
-                      unselectedLabelColor: theme.unselectedWidgetColor,
-                      splashFactory: NoSplash.splashFactory,
-                    ),
-                    const SizedBox(height: 16.0),
-                    SizedBox(
-                      height: 100,
-                      child: TabBarView(
-                        children: [
-                          _buildTomxuContent(theme),
-                          _buildPTomxuContent(theme),
-                        ],
-                      ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
               GridView.count(
@@ -72,7 +95,7 @@ class BalanceTabWidget extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(16.0),
                 children: [
-                  _buildActionButton('Receive', Images.walletReceive, () {
+                  _buildActionButton('Nhận', Images.walletReceive, () {
                     _showDynamicModal(
                       context,
                       'Nhận Tomxu (Giao dịch tức thời 24/7)',
@@ -92,7 +115,7 @@ class BalanceTabWidget extends StatelessWidget {
                       Icons.qr_code,
                     );
                   }),
-                  _buildActionButton('Transfer', Images.walletTransfer, () {
+                  _buildActionButton('Chuyển', Images.walletTransfer, () {
                     _showDynamicModal(
                       context,
                       'Chuyển Tomxu (miễn phí 24/7)',
@@ -125,7 +148,7 @@ class BalanceTabWidget extends StatelessWidget {
                       Icons.qr_code,
                     );
                   }),
-                  _buildActionButton('Withdraw', Images.walletLiquidity, () {
+                  _buildActionButton('Rút', Images.walletLiquidity, () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -133,18 +156,18 @@ class BalanceTabWidget extends StatelessWidget {
                       ),
                     );
                   }),
-                  _buildActionButton(
-                      'Transaction History', Images.walletHistory, () {
+                  const SizedBox
+                      .shrink(), // Empty space in the first cell of the second row
+                  _buildActionButton('Lịch sử giao dịch', Images.walletHistory,
+                      () {
                     Get.to(() => const TransactionsHistoryScreen());
                   }),
-                  _buildActionButton(
-                      'Pending Requests', Images.walletWaitingRequest, () {}),
-                  _buildActionButton(
-                      'Exchange Tomxu', Images.walletExchange, () {}),
+                  const SizedBox
+                      .shrink(), // Empty space in the third cell of the second row
                 ],
               ),
               ListTile(
-                title: const Text('About Tomxu'),
+                title: const Text('Về Tomxu'),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {},
               ),
@@ -155,126 +178,143 @@ class BalanceTabWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildTomxuContent(ThemeData theme) {
-    return Column(
-      children: [
-        Text(
-          '34.553 Tomxu',
-          style: TextStyle(
-            color: theme.primaryColor,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
+  Widget _buildTomxuContent(ThemeData theme, UserProfile userProfile) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          horizontal: 16.0, vertical: 0), // EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Text(
+            '${double.parse(userProfile.usersBalances[0].balance).toStringAsFixed(2)} ',
+            style: TextStyle(
+              color: theme.primaryColor,
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        const SizedBox(height: 20.0),
-        Row(
-          children: [
-            Expanded(
-              child: RichText(
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Available: ',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    TextSpan(
-                      text: '6,700,000 đ',
-                      style: TextStyle(color: Colors.orange),
-                    ),
-                  ],
+          const SizedBox(height: 20.0),
+          Row(
+            children: [
+              Expanded(
+                child: RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Khả dụng: ',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      TextSpan(
+                        text: '6,700,000 đ',
+                        style: TextStyle(color: Colors.orange),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: RichText(
-                textAlign: TextAlign.end,
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Frozen: ',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    TextSpan(
-                      text: '0 Tomxu',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
+              Expanded(
+                child: RichText(
+                  textAlign: TextAlign.end,
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Đóng băng: ',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      TextSpan(
+                        text: '0 Tomxu',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildPTomxuContent(ThemeData theme) {
-    return Column(
-      children: [
-        Text(
-          '77.4 Tomxu',
-          style: TextStyle(
-            color: theme.primaryColor,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 20.0),
-        Row(
+  Widget _buildPTomxuContent(ThemeData theme, UserProfile userProfile) {
+    return Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: 16.0, vertical: 0), // EdgeInsets.all(16.0),
+        child: Column(
           children: [
-            Expanded(
-              child: RichText(
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Available: ',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    TextSpan(
-                      text: '6,700,000 đ',
-                      style: TextStyle(color: Colors.orange),
-                    ),
-                  ],
-                ),
+            Text(
+              double.parse(userProfile.usersBalances[1].balance)
+                  .toStringAsFixed(2),
+              style: TextStyle(
+                color: theme.primaryColor,
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            Expanded(
-              child: RichText(
-                textAlign: TextAlign.end,
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Frozen: ',
-                      style: TextStyle(color: Colors.black),
+            const SizedBox(height: 20.0),
+            Row(
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Available: ',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        TextSpan(
+                          text: '6,700,000 đ',
+                          style: TextStyle(color: Colors.orange),
+                        ),
+                      ],
                     ),
-                    TextSpan(
-                      text: '0 Tomxu',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Expanded(
+                  child: RichText(
+                    textAlign: TextAlign.end,
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Frozen: ',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        TextSpan(
+                          text: '0 Tomxu',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-      ],
-    );
+        ));
   }
 
   Widget _buildActionButton(
       String label, String imagePath, VoidCallback onPressed) {
     return GestureDetector(
       onTap: onPressed,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: Image.asset(imagePath, width: 40.0, height: 40.0),
-          ),
-          const SizedBox(height: 8.0),
-          Text(label, textAlign: TextAlign.center),
-        ],
+      child: Center(
+        child: Column(
+          mainAxisAlignment:
+              MainAxisAlignment.center, // Center content vertically
+          crossAxisAlignment:
+              CrossAxisAlignment.center, // Center content horizontally
+          children: [
+            Image.asset(imagePath, width: 40.0, height: 40.0),
+            const SizedBox(height: 8.0),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -323,16 +363,14 @@ class BalanceTabWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      const TransferScreen(initialTabIndex: 0),
+                  builder: (context) => TransferScreen(initialTabIndex: 0),
                 ),
               );
             } else if (option['onTap'] == 'navigateToSavedContacts') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      const TransferScreen(initialTabIndex: 1),
+                  builder: (context) => TransferScreen(initialTabIndex: 1),
                 ),
               );
             } else if (option['onTap'] == 'navigateToBuyPackageScreen') {

@@ -1,4 +1,3 @@
-
 import 'package:tomiru_social_flutter/features/users_profile/domain/service/users_profile_service_interface.dart';
 
 import '../models/master_data_models.dart';
@@ -13,10 +12,11 @@ class UsersProfileService implements UsersProfileServiceInterface {
   @override
   Future<UserProfile>fetchCurrentUsers()async {
    return await usersProfileRepositoryInterface.fetchCurrentUsers();
+
   }
 
   @override
-  Future<UserProfile> getCurrentUsersLocal()async {
+  Future<UserProfile> getCurrentUsersLocal() async {
     return await usersProfileRepositoryInterface.getCurrentUsersLocal();
   }
 
@@ -26,13 +26,17 @@ class UsersProfileService implements UsersProfileServiceInterface {
   }
 
   @override
-  Future<MasterDataModel> getMasterDataLocal() async{
+  Future<MasterDataModel> getMasterDataLocal() async {
     return await usersProfileRepositoryInterface.getMasterDataLocal();
   }
 
   @override
-  Future<List<UserBalance>>getUsersBalancesLocal() async{
+  Future<List<UserBalance>> getUsersBalancesLocal() async {
     return await usersProfileRepositoryInterface.getUsersBalancesLocal();
   }
 
+  @override
+  Future<List<UserBalance>> getUsersBalances() {
+    return usersProfileRepositoryInterface.getUsersBalances();
+  }
 }

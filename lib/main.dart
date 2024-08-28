@@ -65,9 +65,9 @@ Future<void> main() async {
   }
 
   Map<String, Map<String, String>> languages = await di.init();
-  print("languages------$languages");
-  print("body------$body");
-  print("linkBody------$linkBody");
+  // print("languages------$languages");
+  // print("body------$body");
+  // print("linkBody------$linkBody");
 
   runApp(MyApp(
     languages: languages,

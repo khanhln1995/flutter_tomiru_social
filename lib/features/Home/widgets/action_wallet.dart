@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/camera/screen/qr_scanner_screen.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
 import 'package:tomiru_social_flutter/features/wallet/widgets/dynamic_modal_widget.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/qr_transaction_screen.dart';
@@ -40,7 +41,7 @@ class ActionWallet extends StatelessWidget {
                   Icons.qr_code,
                 );
               }),
-              SizedBox(width: 16.0), // Spacing between buttons
+              const SizedBox(width: 16.0), // Spacing between buttons
               _buildActionButton('Transfer', Images.walletTransfer, () {
                 _showDynamicModal(
                   context,
@@ -74,7 +75,7 @@ class ActionWallet extends StatelessWidget {
                   Icons.qr_code,
                 );
               }),
-              SizedBox(width: 16.0), // Spacing between buttons
+              const SizedBox(width: 16.0), // Spacing between buttons
               _buildActionButton('Withdraw', Images.walletLiquidity, () {
                 Navigator.push(
                   context,
@@ -85,8 +86,6 @@ class ActionWallet extends StatelessWidget {
               }),
             ],
           ),
-      
-          
         ],
       ),
     );
@@ -103,7 +102,9 @@ class ActionWallet extends StatelessWidget {
           children: [
             Image.asset(imagePath, width: 30.0, height: 30.0),
             const SizedBox(height: 8.0),
-            Text(label, textAlign: TextAlign.center, style: const TextStyle(fontSize: 14.0)),
+            Text(label,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 14.0)),
           ],
         ),
       ),
@@ -145,12 +146,18 @@ class ActionWallet extends StatelessWidget {
               );
             } else if (option['onTap'] == 'navigateToQrScanner') {
               // Handle navigateToQrScanner
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const QrScannerScreen(),
+                ),
+              );
             } else if (option['onTap'] == 'navigateToTransferScreen') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      const TransferScreen(initialTabIndex: 0),
+                       TransferScreen(initialTabIndex: 0),
                 ),
               );
             } else if (option['onTap'] == 'navigateToSavedContacts') {
@@ -158,7 +165,7 @@ class ActionWallet extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      const TransferScreen(initialTabIndex: 1),
+                       TransferScreen(initialTabIndex: 1),
                 ),
               );
             } else if (option['onTap'] == 'navigateToBuyPackageScreen') {

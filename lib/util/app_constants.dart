@@ -9,8 +9,12 @@ class AppConstants {
   static const String fontFamily = 'Roboto';
   static const bool payInWevView = false;
   // static const String baseUrl = 'http://192.168.102.65:8000';
+  //! Link MXH
   // static const String baseUrl = 'http://192.168.102.132:8000';
+  //! Link Ví
   static const String baseUrl = 'http://192.168.102.14:8080';
+
+  // sentTOken
 
 // AUTH
   static const String loginUri = '/ui/v1/auth/login';
@@ -56,6 +60,7 @@ class AppConstants {
   static const String masterData = 'master_data';
   static const String walletHistory = 'wallet_history';
   static const String usersBalances = 'users_balances';
+  static const String emailListKey = 'email_List';
 
   static const String theme = 'theme';
   static const String token = 'multivendor_token';
@@ -117,10 +122,11 @@ class AppConstants {
   static const String apiV1Users = '$apiV1/users';
   static const String apiV1MasterData = '$apiV1/master-data';
   static const String apiV1UsersMe = '$apiV1Users/me';
-  static const String apiV1UsersWalletHistory = '$apiV1Users/wallet-history';
+  static const String apiV1UsersWalletHistory =
+      '$apiV1Users/wallet-history?limit=3';
   static const String apiV1UsersIncomeHistory = '$apiV1Users/income-history';
   static const String apiV1UsersSendCoin = '$apiV1Users/send-token';
-  static const String apiV1UsersSendCoinOtp = '$apiV1Users/send-token-otp';
+  static const String requestOTPUri = '$apiV1Users/send-token-otp';
   static const String apiV1UsersCheckIn = '$apiV1Users/checkIn';
   static const String apiV1AgencyList = '$apiV1/agency/list';
 
@@ -128,7 +134,9 @@ class AppConstants {
   static const String apiV1UsersPackages = '$apiV1Users/packages';
   static const String apiV1UsersBuyPackages = '$apiV1Users/buy-packages';
   static const String apiV1TernaryTree = '$apiV1/ternary-tree/my-list';
-  static const String apiV1TernaryTreeUsername = '$apiV1/ternary-tree/list?filters[username]=';
+  static const String apiV1TernaryTreeUsername = '$apiV1/ternary-tree/list';
+  // static const String apiV1TernaryTreeUsername =
+  //     '$apiV1/ternary-tree/list?filters[username]=';
   static const String apiV1VaultInfo = '$apiV1/vault/info';
 
   static const String weatherApiKey = 'c7d314a6b3bffaca06d052ca17cd807e';

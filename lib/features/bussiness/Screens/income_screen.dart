@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:tomiru_social_flutter/features/bussiness/Screens/history_member.dart';
+import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/wallet_info.dart';
+import "package:get/get.dart";
+import 'package:intl/intl.dart';
 
 class IncomeScreen extends StatefulWidget {
   @override
@@ -8,6 +13,24 @@ class IncomeScreen extends StatefulWidget {
 
 class _IncomeScreenState extends State<IncomeScreen> {
   String _selectedMonth = 'Tháng';
+
+  List<WalletInfo> incomeList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchWalletInfo();
+  }
+
+  Future<void> fetchWalletInfo() async {
+    List<WalletInfo> income =
+        await Get.find<BusinessController>().getWalletInfo();
+    // print("Đây là income screen");
+    // print(income.map((index) => index.toJson()).toList());
+    setState(() {
+      incomeList = income;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -207,108 +230,75 @@ class _IncomeScreenState extends State<IncomeScreen> {
                 ],
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
                   ListTile(
-                    title: Text('Tháng 5,2024',
+                    title: Text('Tháng 5, 2024',
                         style: TextStyle(fontWeight: FontWeight.bold)),
-                    trailing: Text('Xem tất cả',
-                        style: TextStyle(
-                            color: Colors.indigo, fontWeight: FontWeight.w500)),
+                    trailing: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryMember()));
+                      },
+                      child: Text('Xem tất cả',
+                          style: TextStyle(
+                              color: Colors.indigo, fontWeight: FontWeight.w500)),
+                    ),
                   ),
-                  TransactionTile(
-                    title: 'Nạp tiền vào ví từ Vietcombank',
-                    amount: '+2,000,000 đ',
-                    status: 'Thành công',
-                    date: '14/6/2021',
-                  ),
-                  Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
-                  TransactionTile(
-                    title: 'Rút tiền từ ví về tài khoản',
-                    amount: '+2,000,000 đ',
-                    status: 'Thành công',
-                    date: '14/6/2021',
-                  ),
-                  Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
-                  TransactionTile(
-                    title: 'Nạp tiền vào ví từ Vietcombank',
-                    amount: '+2,000,000 đ',
-                    status: 'Thành công',
-                    date: '14/6/2021',
-                  ),
-                  Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
-                  TransactionTile(
-                    title: 'Rút tiền từ ví về tài khoản',
-                    amount: '+2,000,000 đ',
-                    status: 'Thành công',
-                    date: '14/6/2021',
-                  ),
-                  Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
-                  TransactionTile(
-                    title: 'Nạp tiền vào ví từ Vietcombank',
-                    amount: '+2,000,000 đ',
-                    status: 'Thất bại',
-                    date: '14/6/2021',
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: incomeList.length,
+                    itemBuilder: (context, index) {
+                      int preBalance = incomeList[index].preBalance;
+                      int postBalance = incomeList[index].postBalance;
+
+                      String valuePrefix =
+                          postBalance >= preBalance ? "+" : "-";
+                      DateTime createdAtDateTime =
+                          DateTime.fromMillisecondsSinceEpoch(
+                              incomeList[index].createdAt);
+
+                      String formattedDate =
+                          DateFormat('dd/MM/yyyy').format(createdAtDateTime);
+                      String formattedTime =
+                          DateFormat('HH:mm:ss').format(createdAtDateTime);
+                      return Column(
+                        children: [
+                          ListTile(
+                            title: Text(incomeList[index].message),
+                            subtitle: Text('$formattedDate - $formattedTime'),
+                            trailing: Column(
+                              children: [
+                                Text(
+                                    "$valuePrefix ${incomeList[index].value}"),
+                                Text(
+                                  ' ${incomeList[index].status}',
+                                  style: TextStyle(
+                                    color:
+                                        incomeList[index].status == 'failed'
+                                            ? Colors.red
+                                            : Colors.green,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.grey,
+                            thickness: 1,
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class TransactionTile extends StatelessWidget {
-  final String title;
-  final String amount;
-  final String status;
-  final String date;
-
-  const TransactionTile({
-    Key? key,
-    required this.title,
-    required this.amount,
-    required this.status,
-    required this.date,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        title,
-        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-      ),
-      subtitle: Text(
-        status,
-        style: TextStyle(
-          color: status == 'Thành công' ? Colors.green : Colors.red,
-          fontSize: 12,
-        ),
-      ),
-      trailing: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(amount, style: TextStyle(fontWeight: FontWeight.w400)),
-          Text(date, style: TextStyle(color: Colors.grey)),
-        ],
       ),
     );
   }

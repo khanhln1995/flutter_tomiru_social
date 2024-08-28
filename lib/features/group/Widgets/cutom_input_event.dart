@@ -14,6 +14,7 @@ class CustomInputEventWidget extends StatefulWidget {
   final String errorText;
   final TextEditingController controller;
   final FocusNode focusNode;
+  final bool isEnabled;
 
   CustomInputEventWidget({
     Key? key,
@@ -26,6 +27,7 @@ class CustomInputEventWidget extends StatefulWidget {
     this.verifyText = '',
     this.errorText = '',
     required this.controller,
+    this.isEnabled = true,
     FocusNode? focusNode,
   })  : focusNode = focusNode ?? FocusNode(),
         super(key: key);
@@ -106,6 +108,7 @@ class _CustomInputWidgetState extends State<CustomInputEventWidget> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           SizedBox(height: 10),
           TextField(
+            enabled: widget.isEnabled,
             focusNode: _focusNode,
             controller: widget.controller,
             keyboardType: widget.inputType,

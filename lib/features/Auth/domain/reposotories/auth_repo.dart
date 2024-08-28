@@ -84,7 +84,7 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
       } catch (_) {}
     }
     if (deviceToken != null) {
-      debugPrint('--------Device Token---------- $deviceToken');
+      // debugPrint('--------Device Token---------- $deviceToken');
     }
     return deviceToken;
   }
@@ -107,9 +107,11 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
     if (guestId.isNotEmpty) {
       data.addAll({"guest_id": guestId});
     }
-    return await apiClient.postData(AppConstants.loginUri, data,
+    final res = await apiClient.postData(AppConstants.loginUri, data,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         handleError: false);
+   
+    return res;
     // return await apiClient.getData(AppConstants.loginUri, headers: {'Content-Type': 'application/json; charset=UTF-8'},
     //     handleError: false);
   }
@@ -163,8 +165,11 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
 
   @override
   Future<void> saveSelfInfo(SelfInfoModel selfInfomodel) async {
+    print(selfInfomodel);
+    print("============================");
     try {
       String selfInfoJson = jsonEncode(selfInfomodel.toJson());
+
       await sharedPreferences.setString(
           AppConstants.userSelfInfo, selfInfoJson);
     } catch (e) {
@@ -182,6 +187,7 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
     try {
       String? selfInfoJson =
           sharedPreferences.getString(AppConstants.userSelfInfo);
+
       if (selfInfoJson != null) {
         Map<String, dynamic> selfInfoMap = jsonDecode(selfInfoJson);
         return SelfInfoModel.fromJson(selfInfoMap);

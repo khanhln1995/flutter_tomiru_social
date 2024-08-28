@@ -1,5 +1,6 @@
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:tomiru_social_flutter/features/users_profile/domain/models/users_me.dart';
 
 import '../domain/service/users_profile_service_interface.dart';
 
@@ -7,15 +8,23 @@ class UsersProfileController extends GetxController implements GetxService {
   final UsersProfileServiceInterface userProfileServiceInterface;
   UsersProfileController({required this.userProfileServiceInterface}) {
     setCurrentUsers();
+
+    getCurrentUsersLocal();
   }
+  UserProfile? _userProfile;
+  UserProfile? get userProfile => _userProfile;
+
+  List<UserBalance> _userBalance = [];
+  List<UserBalance>? get userBalance => _userBalance;
 
   void setCurrentUsers() async {
     await userProfileServiceInterface.fetchCurrentUsers();
   }
 
   void getCurrentUsersLocal() async {
-   final userProfile = await userProfileServiceInterface.getCurrentUsersLocal();
-   print(userProfile.firstName);
+    UserProfile res = await userProfileServiceInterface.getCurrentUsersLocal();
+    _userProfile = res;
+    update();
   }
 
   void setMasterData() async {
@@ -24,15 +33,27 @@ class UsersProfileController extends GetxController implements GetxService {
 
   void getMasterDataLocal() async {
     final masterData = await userProfileServiceInterface.getMasterDataLocal();
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    print(masterData.packages);
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print(masterData.packages);
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
   }
 
   void getUsersBalancesLocal() async {
-    final usersBalances = await userProfileServiceInterface.getUsersBalancesLocal();
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    print(usersBalances);
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    _userBalance = await userProfileServiceInterface.getUsersBalancesLocal();
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    // print(_userBalance?.map((balance) => balance.toJson()).toList());
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
   }
+   Future<List<UserBalance>> getUsersBalances() async {
+    List<UserBalance> usersBalances =
+        await userProfileServiceInterface.getUsersBalances();
+    return usersBalances;
+
+  }
+  //  Future<List<UserBalance>> getUsersBalances() async {
+  //   List<UserBalance> usersBalances =
+  //       await userProfileServiceInterface.getUsersBalances();
+  //   return usersBalances;
+  // }
+
 }

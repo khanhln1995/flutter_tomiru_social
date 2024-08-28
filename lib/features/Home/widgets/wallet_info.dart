@@ -1,111 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/users_profile/domain/models/users_me.dart';
 import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
-import '../../user_wallet/controller/users_wallet_controller.dart';
-import '../../user_wallet/domain/models/wallet_history_model.dart';
 import '../../users_profile/controller/users_profile_controller.dart';
 import "action_wallet.dart";
-class WalletInfo extends StatefulWidget {
-  const WalletInfo({super.key});
+import 'package:intl/intl.dart';
 
-  @override
-  State<WalletInfo> createState() => _WalletInfoState();
-}
-
-class _WalletInfoState extends State<WalletInfo> {
-  Widget _iconButton(IconData icon, String label1, String label2, Color color) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: Colors.blue, borderRadius: BorderRadius.circular(10)),
-          child: Icon(icon, color: Colors.white),
-        ),
-        const SizedBox(height: 4),
-        Text(label1,
-            style: const TextStyle(fontSize: 12), textAlign: TextAlign.center),
-        Text(label2,
-            style: const TextStyle(fontSize: 12), textAlign: TextAlign.center),
-      ],
-    );
-  }
+class WalletInfo extends StatelessWidget {
+  const WalletInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Tomxu', style: TextStyle(fontSize: 16)),
-                  Text('34.553',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('PTomxu', style: TextStyle(fontSize: 16)),
-                  Text('77.4',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                ],
+    return GetBuilder<UsersProfileController>(
+      init: Get.find<UsersProfileController>(),
+      builder: (controller) {
+        controller.getUsersBalancesLocal();
+        if (controller.userBalance!.isEmpty) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        return Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
               ),
             ],
           ),
-          const SizedBox(height: 20),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //   children: [
-          //     _iconButton(Icons.swap_horiz, 'Chuyển', 'Tomxu', Colors.blue),
-          //     _iconButton(Icons.call_received, 'Nhận', 'Tomxu', Colors.green),
-          //     _iconButton(Icons.history, 'Lịch sử', 'giao dịch', Colors.orange),
-          //     _iconButton(Icons.sync, 'Trao đổi', 'Tomxu', Colors.purple),
-          //   ],
-          // ),
-         ActionWallet(),
-          GestureDetector(
-            onTap: () {
-              // Navigator.pushNamed(context, RouteHelper.getWalletRoute());
-              Get.toNamed(RouteHelper.getWalletRoute());
-              //test
-              // Get.find<UsersProfileController>().setCurrentUsers();
-              // Get.find<UsersProfileController>().getUsersBalancesLocal();
-            },
-            child: Container(
-              margin: const EdgeInsets.only(top: 20),
-              alignment: Alignment.center,
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text('Xem thêm'),
-                  Icon(Icons.arrow_forward_ios),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Tomxu', style: TextStyle(fontSize: 16)),
+                      Text(
+                        controller.userBalance!.length > 0
+                            ? formatBalance(controller.userBalance![0].balance)
+                            : 'N/A',
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('PTomxu', style: TextStyle(fontSize: 16)),
+                      Text(
+                        controller.userBalance!.length > 1
+                            ? formatBalance(controller.userBalance![1].balance)
+                            : 'N/A',
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-            ),
-          )
-        ],
-      ),
+              const SizedBox(height: 20),
+              const ActionWallet(),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(RouteHelper.getWalletRoute());
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  alignment: Alignment.center,
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Xem thêm'),
+                      Icon(Icons.arrow_forward_ios),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
+  }
+
+  String formatBalance(String balance) {
+    // Convert the balance string to a double
+    double balanceDouble = double.tryParse(balance) ?? 0.0;
+
+    // Format the double to one decimal place
+    return NumberFormat('0.0', 'en_US').format(balanceDouble);
   }
 }

@@ -93,11 +93,11 @@ import 'package:tomiru_social_flutter/features/auth/domain/services/auth_service
 // import 'package:tomiru_social_flutter/features/auth/domain/services/deliveryman_registration_service_interface.dart';
 // import 'package:tomiru_social_flutter/features/auth/domain/services/restaurant_registration_service.dart';
 // import 'package:tomiru_social_flutter/features/auth/domain/services/restaurant_registration_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/business/controllers/business_controller.dart';
-// import 'package:tomiru_social_flutter/features/business/domain/reposotories/business_repo.dart';
-// import 'package:tomiru_social_flutter/features/business/domain/reposotories/business_repo_interface.dart';
-// import 'package:tomiru_social_flutter/features/business/domain/services/business_service.dart';
-// import 'package:tomiru_social_flutter/features/business/domain/services/business_service_interface.dart';
+import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/repositories/business_repo.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/repositories/business_repo_interface.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/services/business_service.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/services/business_service_interface.dart';
 // import 'package:tomiru_social_flutter/features/category/controllers/category_controller.dart';
 // import 'package:tomiru_social_flutter/features/category/domain/reposotories/category_repository.dart';
 // import 'package:tomiru_social_flutter/features/category/domain/reposotories/category_repository_interface.dart';
@@ -165,11 +165,6 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
-import '../features/user_wallet/controller/users_wallet_controller.dart';
-import '../features/user_wallet/domain/repositories/users_wallet_repositories.dart';
-import '../features/user_wallet/domain/repositories/users_wallet_repositories_interface.dart';
-import '../features/user_wallet/domain/service/users_wallet_service.dart';
-import '../features/user_wallet/domain/service/users_wallet_service_interface.dart';
 import '../features/users_profile/domain/repositories/users_profile_repositories.dart';
 import '../features/users_profile/domain/repositories/users_profile_repositories_intrerface.dart';
 import '../features/users_profile/domain/service/users_profile_service.dart';
@@ -201,12 +196,12 @@ Future<Map<String, Map<String, String>>> init() async {
   DashboardServiceInterface dashboardServiceInterface =
       DashboardService(dashboardRepoInterface: Get.find());
   Get.lazyPut(() => dashboardServiceInterface);
-  // BusinessRepoInterface businessRepoInterface =
-  //     BusinessRepo(apiClient: Get.find());
-  // Get.lazyPut(() => businessRepoInterface);
-  // BusinessServiceInterface businessServiceInterface =
-  //     BusinessService(businessRepoInterface: Get.find());
-  // Get.lazyPut(() => businessServiceInterface);
+  BusinessRepoInterface businessRepoInterface =
+      BusinessRepo(apiClient: Get.find(), sharedPreferences: Get.find());
+  Get.lazyPut(() => businessRepoInterface);
+  BusinessServiceInterface businessServiceInterface =
+      BusinessService(businessRepoInterface: Get.find());
+  Get.lazyPut(() => businessServiceInterface);
   AuthRepoInterface authRepoInterface =
       AuthRepo(apiClient: Get.find(), sharedPreferences: Get.find());
   Get.lazyPut(() => authRepoInterface);
@@ -375,17 +370,22 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => campaignServiceInterface);
 
   UsersProfileRepositoryInterface usersProfileRepositoryInterface =
-      UsersProfileRepository(apiClient: Get.find(), sharedPreferences: Get.find(),);
+      UsersProfileRepository(
+    apiClient: Get.find(),
+    sharedPreferences: Get.find(),
+  );
   Get.lazyPut(() => usersProfileRepositoryInterface);
   UsersProfileServiceInterface usersProfileServiceInterface =
-  UsersProfileService(usersProfileRepositoryInterface: Get.find());
+      UsersProfileService(usersProfileRepositoryInterface: Get.find());
   Get.lazyPut(() => usersProfileServiceInterface);
 
-  UsersWalletRepositoryInterface usersWalletRepositoryInterface =
-  UsersWalletRepository(apiClient: Get.find(), sharedPreferences: Get.find(),);
+  WalletRepositoryInterface usersWalletRepositoryInterface = WalletRepository(
+    apiClient: Get.find(),
+    sharedPreferences: Get.find(),
+  );
   Get.lazyPut(() => usersWalletRepositoryInterface);
-  UsersWalletServiceInterface usersWalletServiceInterface =
-  UsersWalletService(usersWalletRepositoryInterface: Get.find());
+  WalletServiceInterface usersWalletServiceInterface =
+      WalletService(walletRepositoryInterface: Get.find());
   Get.lazyPut(() => usersWalletServiceInterface);
 
   /// Controller
@@ -398,11 +398,11 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => AddressController(addressServiceInterface: Get.find()));
   // Get.lazyPut(() => LocationController(locationServiceInterface: Get.find()));
   Get.lazyPut(() => DashboardController(dashboardServiceInterface: Get.find()));
-  // Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
   // Get.lazyPut(() => DeliverymanRegistrationController(
   //     deliverymanRegistrationServiceInterface: Get.find()));
   // Get.lazyPut(() => RestaurantRegistrationController(
   //     restaurantRegistrationServiceInterface: Get.find()));
+
   Get.lazyPut(
       () => VerificationController(verificationServiceInterface: Get.find()));
   // Get.lazyPut(() => CategoryController(categoryServiceInterface: Get.find()));
@@ -428,8 +428,13 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => OrderController(orderServiceInterface: Get.find()));
   // Get.lazyPut(() => CampaignController(campaignServiceInterface: Get.find()));
   // Get.lazyPut(() => CheckoutController(checkoutServiceInterface: Get.find()));
-  Get.lazyPut(() => UsersProfileController( userProfileServiceInterface: Get.find()));
-  Get.lazyPut(() => UsersWalletController( userWalletServiceInterface: Get.find()));
+
+
+  Get.lazyPut(
+      () => UsersProfileController(userProfileServiceInterface: Get.find()));
+  Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
+  Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
+
   /// Retrieving localized data
   Map<String, Map<String, String>> languages = {};
   for (LanguageModel languageModel in AppConstants.languages) {

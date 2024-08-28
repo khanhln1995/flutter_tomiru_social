@@ -1,29 +1,83 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tomiru_social_flutter/common/widgets_2/custom_button_widget.dart';
 import 'package:tomiru_social_flutter/features/bussiness/Screens/service_register.dart';
-import 'package:tomiru_social_flutter/state/membership_controller.dart';
-import 'package:tomiru_social_flutter/common/widgets/ui/customButton.dart';
+import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
+import 'package:tomiru_social_flutter/features/bussiness/domain/models/packages.dart';
 
 class MembershipPackage extends StatelessWidget {
-    Map<String, dynamic> membershipPrice1 = {
-    'priceVND': '110.000 đ',
-    'priceTomxu': 110
-  };
-      Map<String, dynamic> membershipPrice2 = {
-    'priceVND': '1.320.000 đ',
-    'priceTomxu': 1320
-  };
-  
   MembershipPackage({super.key});
 
-  final MembershipController _controller = Get.put(MembershipController());
+  final List<String> listPremiumNames = [
+    'Consumer',
+    'Business',
+    'Business Extend'
+  ];
 
-  void _showBottomSheet(BuildContext context, String title, String details, String price, String period) {
+  final Map<String, PremiumPackageStyles> listPremiumStyles = {
+    'Consumer': PremiumPackageStyles(
+      backgroundColor: Colors.grey[900]!,
+      border: Border.all(color: Colors.black, width: 2.0),
+      buttonStyle: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+      listDetails: [
+        'Được mua hàng tại các Đại lý, điểm bán Tomiru chiết khấu: 10 - 20% trên tất cả các sản phẩm',
+        'Được điểm danh, đủ điều kiện tích điểm sang năm thứ 2 mở thẻ miễn phí (miễn phí trọn đời)',
+        'Được quyền giới thiệu thẻ đóng phí theo năm và hưởng 20% hoa hồng trực tiếp trên 1.320.000 đồng = 264.000 đồng/ thẻ',
+      ],
+    ),
+    'Business': PremiumPackageStyles(
+      backgroundColor: const Color(0xFFDAA520), // Gold color
+      border: Border.all(color: Colors.black, width: 2.0),
+      buttonStyle: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+      listDetails: [
+        'Được nhận Combo hàng từ 1.7 triệu đến 2.1 triệu',
+        'Được mua hàng tại Đại lý, điểm bán Tomiru chiết khấu 10 - 28% tất cả sản phẩm',
+        'Được sở hữu vị trí cố định tại mô hình hoàn phí của Doanh nghiệp',
+        'Cơ hội có nguồn thu nhập khi giới thiệu đủ 3 Khách hàng có nhu cầu kinh doanh.',
+      ],
+    ),
+    'Business Extend': PremiumPackageStyles(
+      backgroundColor: const Color(0xFFDAA520), // Gold color
+      border: Border.all(color: Colors.black, width: 2.0),
+      buttonStyle: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+      listDetails: [
+        'Được nhận Combo hàng từ 1.7 triệu đến 2.1 triệu',
+        'Được mua hàng tại Đại lý, điểm bán Tomiru chiết khấu 10 - 28% tất cả sản phẩm',
+        'Được sở hữu vị trí cố định tại mô hình hoàn phí của Doanh nghiệp',
+        'Cơ hội có nguồn thu nhập khi giới thiệu đủ 3 Khách hàng có nhu cầu kinh doanh.',
+      ],
+    ),
+  };
+
+  String _getPeriod(int validInDay) {
+    if (validInDay == 7) {
+      return '/ tuần';
+    } else if (validInDay == 30) {
+      return '/ tháng';
+    } else if (validInDay == 365) {
+      return '/ năm';
+    } else {
+      return ''; // Default or for other periods not covered
+    }
+  }
+
+  void _showBottomSheet(BuildContext context, String title, String details,
+      String price, String period, double vat) {
     showModalBottomSheet(
       context: context,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       builder: (context) {
@@ -37,7 +91,7 @@ class MembershipPackage extends StatelessWidget {
                 child: Container(
                   width: 40,
                   height: 4,
-                  margin: EdgeInsets.only(bottom: 16),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
                     borderRadius: BorderRadius.circular(2),
@@ -46,7 +100,7 @@ class MembershipPackage extends StatelessWidget {
               ),
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
@@ -59,43 +113,52 @@ class MembershipPackage extends StatelessWidget {
                   border: Border.all(color: Colors.blue),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child:  Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(children: [
                       Text(
-                       title,
-                        style: TextStyle(
+                        title,
+                        style: const TextStyle(
                           fontSize: 14.94,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(width: 8),
-                      Text(
-                      'TIẾT KIỆM 10%',
-                      style: TextStyle(
-                        fontSize: 10.86,
-                        fontWeight: FontWeight.w400,
+                      const SizedBox(width: 8),
+                      const Text(
+                        'TIẾT KIỆM 10%',
+                        style: TextStyle(
+                          fontSize: 10.86,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                    ),
                     ]),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text.rich(
+                      TextSpan(
+                          text: price,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 32.67),
+                          children: [
                             TextSpan(
-                              text: price,
-                              style: TextStyle(fontWeight: FontWeight.w600,fontSize: 32.67),
-                              children: [
-                                TextSpan(
-                                  text: period,
-                                  style: TextStyle(fontWeight: FontWeight.w400,fontSize: 21.19),
-                                ),
-                              ]
+                              text: period,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 21.19),
                             ),
-                          ),
+                            const WidgetSpan(
+                              child: SizedBox(width: 10),
+                            ),
+                            TextSpan(
+                              text: "(Đã gồm ${(vat*100).toInt()}% VAT)",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 11.19),
+                            ),
+                          ]),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
@@ -115,22 +178,24 @@ class MembershipPackage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Get.to(() => ServiceRegisterForm(
-                    packageName: title,
-                    price: price,
-                    period: period,
-                  ));
+                        packageName: title,
+                        price: price,
+                        period: period,
+                      ));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 12),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
-                child: const Center(
+                child: Center(
                   child: Text(
-                    'Đăng ký và thanh toán',
-                    style: TextStyle(
+                    title != "Business Extend"
+                        ? 'Đăng ký và thanh toán'
+                        : 'Gia hạn',
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -150,62 +215,66 @@ class MembershipPackage extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(24.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Chọn gói thành viên phù hợp với bạn',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
+        child: FutureBuilder<Packages>(
+          future: Get.find<BusinessController>().getPackages(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (snapshot.hasData) {
+              final packages = snapshot.data?.packages ?? [];
+              final vat = snapshot.data!.vat;
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Chọn gói thành viên phù hợp với bạn',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ...packages.map((package) {
+                      final packageName = package.name;
+
+                      if (listPremiumNames.contains(packageName)) {
+                        final packageStyle = listPremiumStyles[packageName];
+                        final period = _getPeriod(package.validInDay);
+
+                        return MembershipOption(
+                          title: packageName,
+                          price: '${package.price} Tomxu',
+                          period: period,
+                          note: 'Thanh toán theo năm',
+                          discount: 'Tiết kiệm 10%',
+                          backgroundColor: packageStyle!.backgroundColor,
+                          textColor: packageStyle.buttonStyle.color!,
+                          buttonColor: Colors.white,
+                          buttonTextColor: packageStyle.buttonStyle.color!,
+                          listDetails: packageStyle.listDetails,
+                          onRegister: () {
+                            _showBottomSheet(
+                                context,
+                                packageName,
+                                packageStyle.listDetails.join("\n"),
+                                '${package.price + (package.price * vat).toInt()} Tomxu',
+                                period,
+                                vat);
+                          },
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    }),
+                  ],
                 ),
-              ),
-              SizedBox(height: 20),
-              MembershipOption(
-                title: 'Gói tiêu dùng',
-                price: membershipPrice1["priceVND"],
-                period: '/ tháng',
-                note: 'Thanh toán theo năm',
-                discount: 'Tiết kiệm 10%',
-                backgroundColor: Colors.black,
-                textColor: Colors.white,
-                buttonColor: Colors.white,
-                buttonTextColor: Colors.black,
-                onRegister: () {
-                  _showBottomSheet(
-                    context,
-                    'Gói tiêu dùng',
-                    'Điều khoản dịch vụ thanh toán: chấp nhận, phương thức, xác nhận, hủy bỏ, hoàn tiền, bảo mật thông tin, trách nhiệm khách hàng, thay đổi điều khoản, và liên hệ hỗ trợ. Khách hàng phải đảm bảo thông tin chính xác và đồng ý với các thay đổi.',
-                    '110 Tomxu',
-                    '/ tháng',
-                  );
-                },
-              ),
-              SizedBox(height: 16),
-              MembershipOption(
-                title: 'Gói kinh doanh',
-                price: membershipPrice2["priceVND"],
-                period: '/ tháng',
-                note: 'Thanh toán theo năm',
-                discount: 'Tiết kiệm 10%',
-                backgroundColor: Colors.blue,
-                textColor: Colors.white,
-                buttonColor: Colors.white,
-                buttonTextColor: Colors.blue,
-                onRegister: () {
-                  _showBottomSheet(
-                    context,
-                    'Gói kinh doanh',
-                    'Điều khoản dịch vụ thanh toán: chấp nhận, phương thức, xác nhận, hủy bỏ, hoàn tiền, bảo mật thông tin, trách nhiệm khách hàng, thay đổi điều khoản, và liên hệ hỗ trợ. Khách hàng phải đảm bảo thông tin chính xác và đồng ý với các thay đổi.',
-                    '1320 Tomxu',
-                    '/ tháng',
-                  
-                  );
-                },
-              ),
-            ],
-          ),
+              );
+            } else {
+              return const Center(child: Text('No data available'));
+            }
+          },
         ),
       ),
     );
@@ -222,9 +291,11 @@ class MembershipOption extends StatefulWidget {
   final Color textColor;
   final Color buttonColor;
   final Color buttonTextColor;
+  final List<String> listDetails;
   final VoidCallback onRegister;
 
-  MembershipOption({
+  const MembershipOption({
+    super.key,
     required this.title,
     required this.price,
     required this.period,
@@ -234,6 +305,7 @@ class MembershipOption extends StatefulWidget {
     required this.textColor,
     required this.buttonColor,
     required this.buttonTextColor,
+    required this.listDetails,
     required this.onRegister,
   });
 
@@ -253,10 +325,11 @@ class _MembershipOptionState extends State<MembershipOption> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: widget.backgroundColor,
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,11 +343,11 @@ class _MembershipOptionState extends State<MembershipOption> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             IconButton(
               icon: Icon(
                 _isExpanded ? Iconsax.arrow_up_2 : Iconsax.arrow_down_1,
-                color: Colors.white,
+                color: widget.textColor,
               ),
               onPressed: _toggleExpand,
             ),
@@ -299,7 +372,7 @@ class _MembershipOptionState extends State<MembershipOption> {
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Row(
             children: [
               Text(
@@ -309,9 +382,9 @@ class _MembershipOptionState extends State<MembershipOption> {
                   fontSize: 14,
                 ),
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: widget.buttonColor,
                   borderRadius: BorderRadius.circular(20),
@@ -327,7 +400,7 @@ class _MembershipOptionState extends State<MembershipOption> {
               ),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           ElevatedButton(
             onPressed: widget.onRegister,
             style: ElevatedButton.styleFrom(
@@ -336,9 +409,9 @@ class _MembershipOptionState extends State<MembershipOption> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.12),
               ),
-              padding: EdgeInsets.symmetric(vertical: 12),
+              padding: const EdgeInsets.symmetric(vertical: 12),
             ),
-            child: Center(
+            child: const Center(
               child: Text(
                 'Đăng ký',
                 style: TextStyle(
@@ -348,37 +421,59 @@ class _MembershipOptionState extends State<MembershipOption> {
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           if (_isExpanded) ...[
             Divider(
               thickness: 1,
               color: Colors.grey[400],
             ),
-            SizedBox(height: 16),
-            Text(
-              'Chiết khấu 10-20% tại đại lý và điểm bán Tomiru cho mọi sản phẩm.',
-              style: TextStyle(
-                color: widget.textColor,
-                fontSize: 14,
-              ),
-            ),
-            Text(
-              'Điểm danh, tích điểm nằm 2 mở thẻ miễn phí trọn đời.',
-              style: TextStyle(
-                color: widget.textColor,
-                fontSize: 14,
-              ),
-            ),
-            Text(
-              'Giới thiệu thẻ đóng phí năm, hưởng 20% hoa hồng trực tiếp 264.000 đồng trên 1.320.000 đồng mỗi thẻ.',
-              style: TextStyle(
-                color: widget.textColor,
-                fontSize: 14,
-              ),
+            const SizedBox(height: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: widget.listDetails.map((detail) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '• ',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          detail,
+                          style: TextStyle(
+                            color: widget.textColor,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
             ),
           ],
         ],
       ),
     );
   }
+}
+
+class PremiumPackageStyles {
+  final Color backgroundColor;
+  final Border border;
+  final TextStyle buttonStyle;
+  final List<String> listDetails;
+
+  PremiumPackageStyles({
+    required this.backgroundColor,
+    required this.border,
+    required this.buttonStyle,
+    required this.listDetails,
+  });
 }

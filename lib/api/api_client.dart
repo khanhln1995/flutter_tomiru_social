@@ -32,7 +32,7 @@ class ApiClient extends GetxService {
     token =
         "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoic3lzdGVtQGdtYWlsLmNvbSIsIm5hbWUiOiJhZG1pbiIsImlhdCI6MTcyMzAwNDMzODAwMCwiZXhwIjoxNzIzMDA0MzM4MDAwfQ.l2FsSh_pgRyqihx9M8h-XQ80eVSgR0EbPugPW93USBWNoXDaqRuwHTz-77uljlUx5ADEDW4CwFv6Zv5DpET_VemrAlh4hSVpy6TyZ5dgMztsxF0Zg6DKCXFRchCTJfa9B3JlINyxdc3TkmZ8Cfmqdv1OJ5ldGzpmpupQAzAKYsVOVjBIZkwPQB_6PiUlucP66BP1gzqcxrXlicqFsI2IWx1P2FqY9EUqwzqvTLt21uReIYb_vG_0loasAbJPs3pCTTOGkvEFu_j47nfrn8ThC3MPVUyOURN1GmSvTvtwXqpFc1O4uQhEBaJlCprXSGTlffiDYADUIXdb11tNZ9ATtg";
     if (kDebugMode) {
-      debugPrint('Token: $token');
+      // debugPrint('Token: $token');
     }
     // AddressModel? addressModel;
     // try {
@@ -78,7 +78,7 @@ class ApiClient extends GetxService {
       bool showToaster = false}) async {
     try {
       if (kDebugMode) {
-        // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
         // debugPrint('====> API Call: $appBaseUrl');
       }
       http.Response response = await http
@@ -104,7 +104,7 @@ class ApiClient extends GetxService {
       if (kDebugMode) {
         // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
         // debugPrint('====> API Body: $appBaseUrl + $uri');
-        // debugPrint('====> API Call:$headers');
+        // debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
       }
       http.Response response = await http
           .post(
@@ -113,6 +113,8 @@ class ApiClient extends GetxService {
             headers: headers ?? _mainHeaders,
           )
           .timeout(Duration(seconds: timeoutInSeconds));
+      // print(response);
+      // print("response");
       return handleResponse(response, uri, handleError);
     } catch (e) {
       return Response(statusCode: 1, statusText: noInternetMessage);
@@ -185,8 +187,8 @@ class ApiClient extends GetxService {
       {Map<String, String>? headers, bool handleError = true}) async {
     try {
       if (kDebugMode) {
-        debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        debugPrint('====> API Body: $body');
+        // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        // debugPrint('====> API Body: $body');
       }
       http.Response response = await http
           .put(
@@ -206,7 +208,7 @@ class ApiClient extends GetxService {
       {Map<String, String>? headers, bool handleError = true}) async {
     try {
       if (kDebugMode) {
-        debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
       }
       http.Response response = await http
           .delete(
@@ -257,11 +259,11 @@ class ApiClient extends GetxService {
       response0 = Response(statusCode: 0, statusText: noInternetMessage);
     }
     if (kDebugMode) {
-      debugPrint(
-          '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
+      // debugPrint(
+      //     '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
     }
     if (handleError) {
-      if (response0.statusCode == 200) {
+      if (response0.statusCode == 200 || response0.statusCode == 201) {
         return response0;
       } else {
         ApiChecker.checkApi(response0, showToaster: showToaster);
