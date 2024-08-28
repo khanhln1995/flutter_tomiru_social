@@ -95,7 +95,6 @@ class Package {
     };
   }
 }
-
 class UserProfile {
   final String firstName;
   final String lastName;
@@ -208,4 +207,36 @@ class UserProfile {
       'introduce': introduce,
     };
   }
+
+  @override
+  String toString() {
+    return 'UserProfile('
+      'firstName: $firstName, '
+      'lastName: $lastName, '
+      'email: $email, '
+      'username: $username, '
+      'gender: $gender, '
+      'status: $status, '
+      'kycStatus: $kycStatus, '
+      'phone: $phone, '
+      'refCode: $refCode, '
+      'twoFaEnabled: $twoFaEnabled, '
+      'checkedIn: $checkedIn, '
+      'checkInBonus: $checkInBonus, '
+      'createdAt: $createdAt, '
+      'phoneCode: $phoneCode, '
+      'slug: $slug, '
+      'profileImage: $profileImage, '
+      'coverImage: $coverImage, '
+      'profileImageFull: $profileImageFull, '
+      'coverImageFull: $coverImageFull, '
+      'buyPackageAt: $buyPackageAt, '
+      'expiredPremiumAt: $expiredPremiumAt, '
+      'usersBalances: ${usersBalances.map((balance) => balance.toJson()).toList()}, '
+      'package: ${package.toJson()}, '
+      'introduce: $introduce'
+      ')';
+  }
 }
+
+

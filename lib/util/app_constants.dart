@@ -59,6 +59,7 @@ class AppConstants {
   static const String masterData = 'master_data';
   static const String walletHistory = 'wallet_history';
   static const String usersBalances = 'users_balances';
+  static const String emailListKey = 'email_List';
 
   static const String theme = 'theme';
   static const String token = 'multivendor_token';
@@ -120,7 +121,7 @@ class AppConstants {
   static const String apiV1Users = '$apiV1/users';
   static const String apiV1MasterData = '$apiV1/master-data';
   static const String apiV1UsersMe = '$apiV1Users/me';
-  static const String apiV1UsersWalletHistory = '$apiV1Users/wallet-history';
+  static const String apiV1UsersWalletHistory = '$apiV1Users/wallet-history?limit=3';
   static const String apiV1UsersIncomeHistory = '$apiV1Users/income-history';
   static const String apiV1UsersSendCoin = '$apiV1Users/send-token';
   static const String requestOTPUri = '$apiV1Users/send-token-otp';

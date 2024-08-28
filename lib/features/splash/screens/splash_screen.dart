@@ -15,11 +15,16 @@ import 'package:tomiru_social_flutter/util/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class SplashScreen extends StatefulWidget {
   final NotificationBodyModel? notificationBody;
   final DeepLinkBody? linkBody;
-  const SplashScreen(
-      {super.key, required this.notificationBody, required this.linkBody});
+  bool isRouterLogin;
+  SplashScreen(
+      {super.key,
+      this.notificationBody,
+      this.linkBody,
+      this.isRouterLogin = false});
 
   @override
   SplashScreenState createState() => SplashScreenState();
@@ -72,7 +77,13 @@ class SplashScreenState extends State<SplashScreen> {
     print('initState splash');
     print('initState splash');
     print('initState splash');
-    _route();
+    if (widget.isRouterLogin == true) {
+      Timer(const Duration(seconds: 2), () async {
+        Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
+      });
+    } else {
+      _route();
+    }
   }
 
   @override
@@ -180,17 +191,26 @@ class SplashScreenState extends State<SplashScreen> {
       body: GetBuilder<SplashController>(builder: (splashController) {
         return Center(
           child: splashController.hasConnection
-              ? Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(Images.logo, width: 100),
-                    const SizedBox(height: Dimensions.paddingSizeLarge),
-                    Image.asset(Images.logoName, width: 150),
+              ? widget.isRouterLogin == false
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(Images.logo, width: 100),
+                        const SizedBox(height: Dimensions.paddingSizeLarge),
+                        Image.asset(Images.logoName, width: 150),
 
-                    /*SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                        /*SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
               Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: 25)),*/
-                  ],
-                )
+                      ],
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(Images.logo, width: 100),
+                        const SizedBox(height: Dimensions.paddingSizeLarge),
+                        const Center(child: CircularProgressIndicator()),
+                      ],
+                    )
               : NoInternetScreen(
                   child: SplashScreen(
                       notificationBody: widget.notificationBody,

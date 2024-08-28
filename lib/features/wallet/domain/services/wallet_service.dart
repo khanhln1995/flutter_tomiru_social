@@ -43,6 +43,7 @@ class WalletService implements WalletServiceInterface {
   Future<Response> sendToken(SendTokenModel data) async {
     Response response = await walletRepositoryInterface.sendToken(data);
     if (response.statusCode == 200 || response.statusCode == 201) {
+      walletRepositoryInterface.saveInfoLocal(data.email);
       Get.to(const TomxuStatusScreen(
         isSuccess: true,
       ));
@@ -53,5 +54,13 @@ class WalletService implements WalletServiceInterface {
       ));
     }
     return response;
+  }
+
+  void saveInfoLocal(String email) {
+    walletRepositoryInterface.saveInfoLocal(email);
+  }
+
+  Future<List<String>> getEmailListLocal() async {
+    return await walletRepositoryInterface.getEmailListLocal();
   }
 }

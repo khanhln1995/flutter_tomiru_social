@@ -6,10 +6,12 @@ import 'package:tomiru_social_flutter/features/bussiness/Screens/fund_screen.dar
 import 'package:tomiru_social_flutter/features/bussiness/Screens/income_screen.dart';
 import 'package:tomiru_social_flutter/features/bussiness/Screens/membership_package.dart';
 import 'package:tomiru_social_flutter/features/bussiness/Screens/net_screen.dart';
+import 'package:tomiru_social_flutter/features/bussiness/Screens/package_detail.dart';
 import 'package:tomiru_social_flutter/features/bussiness/Widgets/business_appbar.dart';
 import 'package:tomiru_social_flutter/features/bussiness/Widgets/business_bottom_navbar.dart';
 import 'package:tomiru_social_flutter/features/Feed/Screens/Feed_Screen.dart';
 import 'package:tomiru_social_flutter/features/Friends/Screens/Friend_Screen.dart';
+import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
 import 'package:tomiru_social_flutter/features/group/Screens/Group_Page.dart';
 import 'package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart';
 import 'package:tomiru_social_flutter/state/app_state.dart';
@@ -81,6 +83,8 @@ class _BusinessScreenState extends State<BusinessScreen> {
       case 2:
         return IncomeScreen();
       case 3:
+        return PackageDetail();
+      case 4:
         return MembershipPackage();
       default:
         return FeedPage(scaffoldKey: _scaffoldKey);
