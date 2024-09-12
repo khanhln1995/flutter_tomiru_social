@@ -4,7 +4,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
 import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
-import 'package:tomiru_social_flutter/state/home_controller.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:weather/weather.dart';
 import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
@@ -132,10 +131,10 @@ class _HomepageState extends State<Homepage> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            // Container(
-            //   padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            //   child: WalletInfo(),
-            // ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: WalletInfo(),
+            ),
             const SizedBox(height: 20),
             exploreContent(),
             const HeaderContent(title: "Nhật ký"),
