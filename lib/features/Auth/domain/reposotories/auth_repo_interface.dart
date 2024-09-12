@@ -3,6 +3,7 @@ import 'package:tomiru_social_flutter/features/auth/domain/models/social_log_in_
 import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_model.dart';
 import 'package:tomiru_social_flutter/interface/repository_interface.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:geolocator/geolocator.dart';
 
 abstract class AuthRepoInterface<SignUpModel>
     extends RepositoryInterface<SignUpModel> {
@@ -36,4 +37,6 @@ abstract class AuthRepoInterface<SignUpModel>
   String getGuestContactNumber();
   Future<void> saveSelfInfo(SelfInfoModel selfinfo_model);
   Future<bool> clearSelfInfo();
+  Future<bool> savePosition(Position position);
+  Position? getPosition();
 }

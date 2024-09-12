@@ -253,7 +253,7 @@ class SignInWidgetState extends State<SignInWidget> {
       } else {
         // login ko can api
         // Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
-        Get.to(SplashScreen(isRouterLogin: true));
+        Get.to(() => SplashScreen(isRouterLogin: true));
 
         // login with api
         // authController

@@ -1,3 +1,4 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
 // import 'package:tomiru_social_flutter/features/cart/controllers/cart_controller.dart';
 import 'package:tomiru_social_flutter/features/profile/controllers/profile_controller.dart';
@@ -34,7 +35,6 @@ class AuthController extends GetxController implements GetxService {
       String? email,
       String? password,
       {bool alreadyInApp = false}) async {
-       
     _isLoading = true;
     update();
     ResponseModel responseModel = await authServiceInterface.login(
@@ -101,13 +101,19 @@ class AuthController extends GetxController implements GetxService {
 
   SelfInfoModel? getUserSelfInfo() {
     final res1 = authServiceInterface.getUserSelfInfo();
-    // print(res1);
-    // print("bằng bằng bằng bằng");
     return res1;
   }
 
+  Position? getPosition() {
+    return authServiceInterface.getPosition();
+  }
+
+  Future<bool> savePosition(Position position) async {
+    return await authServiceInterface.savePosition(position);
+  }
+
   void toggleRememberMe() {
-    _isActiveRememberMe =true;
+    _isActiveRememberMe = true;
     update();
   }
 
