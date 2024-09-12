@@ -8,6 +8,7 @@ import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart'; //facebook login
 import 'package:google_sign_in/google_sign_in.dart'; //google login
 import 'package:get/get.dart';
+import 'package:geolocator/geolocator.dart';
 
 class AuthService implements AuthServiceInterface {
   final AuthRepoInterface authRepoInterface;
@@ -39,7 +40,7 @@ class AuthService implements AuthServiceInterface {
       bool alreadyInApp = false}) async {
     Response response =
         await authRepoInterface.login(email: email, password: password);
-    
+
     if (response.statusCode == 200) {
       if (customerVerification && response.body['is_phone_verified'] == 0) {
       } else {
@@ -102,6 +103,16 @@ class AuthService implements AuthServiceInterface {
   @override
   SelfInfoModel? getUserSelfInfo() {
     return authRepoInterface.getUserSelfInfo();
+  }
+
+  @override
+  Position? getPosition() {
+    return authRepoInterface.getPosition();
+  }
+
+  @override
+  Future<bool> savePosition(Position position) {
+    return authRepoInterface.savePosition(position);
   }
 
   @override

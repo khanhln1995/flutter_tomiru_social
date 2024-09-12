@@ -2,6 +2,7 @@ import 'package:tomiru_social_flutter/common/models/response_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/signup_body_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/social_log_in_body_model.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_model.dart';
+import 'package:geolocator/geolocator.dart';
 
 abstract class AuthServiceInterface {
   Future<ResponseModel> registration(
@@ -40,4 +41,6 @@ abstract class AuthServiceInterface {
   String getUserToken();
   Future<void> saveGuestNumber(String number);
   String getGuestNumber();
+  Future<bool> savePosition(Position position);
+  Position? getPosition();
 }

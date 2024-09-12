@@ -13,6 +13,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:geolocator/geolocator.dart';
 
 class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
   final ApiClient apiClient;
@@ -110,7 +111,7 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
     final res = await apiClient.postData(AppConstants.loginUri, data,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         handleError: false);
-   
+
     return res;
     // return await apiClient.getData(AppConstants.loginUri, headers: {'Content-Type': 'application/json; charset=UTF-8'},
     //     handleError: false);
@@ -165,8 +166,6 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
 
   @override
   Future<void> saveSelfInfo(SelfInfoModel selfInfomodel) async {
-    print(selfInfomodel);
-    print("============================");
     try {
       String selfInfoJson = jsonEncode(selfInfomodel.toJson());
 
@@ -221,6 +220,32 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
   @override
   String getGuestId() {
     return sharedPreferences.getString(AppConstants.guestId) ?? "";
+  }
+
+  @override
+  Future<bool> savePosition(Position position) {
+    try {
+      String positionJson = jsonEncode(position.toJson());
+      return sharedPreferences.setString(
+          AppConstants.userPosition, positionJson);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Position? getPosition() {
+    try {
+      String? positionStr =
+          sharedPreferences.getString(AppConstants.userPosition);
+      if (positionStr != null) {
+        Map<String, dynamic> positionInfo = jsonDecode(positionStr);
+        return Position.fromMap(positionInfo);
+      }
+    } catch (e) {
+      print("loi");
+    }
+    return null;
   }
 
   @override
