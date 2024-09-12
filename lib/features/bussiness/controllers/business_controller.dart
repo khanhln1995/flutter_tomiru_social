@@ -24,6 +24,12 @@ class BusinessController extends GetxController implements GetxService {
 
   TreeResponse? _treeResponse;
   TreeResponse? get treeResponse => _treeResponse;
+//
+  List<TreeNode>? _treeDataDetail;
+  List<TreeNode>? get treeDataDetail => _treeDataDetail;
+
+  TreeResponse? _treeDetailResponse;
+  TreeResponse? get treeDetailResponse => _treeDetailResponse;
 
   Future<List<VaultInfo>> getVaultInfo() async {
     List<VaultInfo> vaultInfoList =
@@ -44,7 +50,8 @@ class BusinessController extends GetxController implements GetxService {
   Future<ResponseModel> buyPackage(String? packageName) async {
     _isLoading = true;
     update();
-    ResponseModel responseModel = await businessServiceInterface.buyPackage(packageName);
+    ResponseModel responseModel =
+        await businessServiceInterface.buyPackage(packageName);
     _isLoading = false;
     update();
     return responseModel;
@@ -56,7 +63,17 @@ class BusinessController extends GetxController implements GetxService {
     _treeData = treeResponse.trees;
     return treeResponse;
   }
-   Future<List<WalletInfo>> getWalletInfoByFilter(
+
+  Future fetchTreeDetail({Map<String, String>? filters}) async {
+    TreeResponse treeDetailResponse =
+        await businessServiceInterface.fetchTernaryTreeDetail(filters: filters);
+    print("Đây là bussiness controller fetch tree detail");
+    print(treeDetailResponse);
+    _treeDataDetail = treeDetailResponse.trees;
+    return treeDetailResponse;
+  }
+
+  Future<List<WalletInfo>> getWalletInfoByFilter(
       {Map<String, String>? filters}) async {
     List<WalletInfo> walletInfoList =
         await businessServiceInterface.getWalletInfoByFilter(filters: filters);

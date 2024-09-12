@@ -103,6 +103,32 @@ import 'package:get/get_connect/http/src/response/response.dart';
       throw Exception("Failed to fetch user data: ${response.statusText}");
     }
   }
+  @override
+  Future<TreeResponse> fetchTernaryTreeDetail(
+      {Map<String, String>? filters}) async {
+    // Response response = await apiClient.getData(AppConstants.apiV1TernaryTreeUsername);
+     String url = AppConstants.apiV1TernaryTreeUsername;
+    if (filters != null && filters.isNotEmpty) {
+      String queryString = filters.entries.map((entry) {
+        return '${Uri.encodeQueryComponent(entry.key)}=${Uri.encodeQueryComponent(entry.value)}';
+      }).join('?');
+
+      url += '?$queryString';
+    }
+       print("Đây là bussiness repo");
+    print(url);
+    // Make the API request with the updated URL
+    Response response = await apiClient.getData(url);
+
+    if (response.statusCode == 200) {
+      final treeResponse = TreeResponse.fromJson(response.body);
+      // print("Đây là business repo fetch tree");
+      // print(treeResponse);
+      return treeResponse;
+    } else {
+      throw Exception("Failed to fetch user data: ${response.statusText}");
+    }
+  }
 
   @override
   Future<Response> buyPackage(String? packageName) async {

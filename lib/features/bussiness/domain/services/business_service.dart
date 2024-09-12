@@ -35,6 +35,11 @@ class BusinessService implements BusinessServiceInterface {
   Future<TreeResponse> fetchTernaryTree() async {
     return await businessRepoInterface.fetchTernaryTree();
   }
+  @override
+  Future<TreeResponse> fetchTernaryTreeDetail(
+      {Map<String, String>? filters}) async {
+    return await businessRepoInterface.fetchTernaryTreeDetail(filters:filters);
+  }
 
   @override
   Future<List<WalletInfo>> getWalletInfoByFilter(

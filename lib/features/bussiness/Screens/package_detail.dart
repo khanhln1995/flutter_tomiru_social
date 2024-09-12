@@ -54,8 +54,8 @@ class _PackageDetailState extends State<PackageDetail> {
   Future<void> fetchWalletInfo() async {
     List<WalletInfo> income = await Get.find<BusinessController>()
         .getWalletInfoByFilter(filters: filters);
-    print("Đây là package detail");
-    print(income.map((index) => index.toJson()).toList());
+    // print("Đây là package detail");
+    // print(income.map((index) => index.toJson()).toList());
     setState(() {
       incomeList = income;
     });

@@ -12,6 +12,7 @@ abstract class BusinessServiceInterface {
       {Map<String, String>? filters});
   // Future<List<WalletInfo>> getWalletInfo();
    Future<TreeResponse> fetchTernaryTree();
+   Future<TreeResponse> fetchTernaryTreeDetail({Map<String, String>? filters});
   Future<Packages> getPackages();
   Future<ResponseModel> buyPackage(String? packageName);
 }
