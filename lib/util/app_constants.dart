@@ -12,7 +12,8 @@ class AppConstants {
   //! Link MXH
   // static const String baseUrl = 'http://192.168.102.132:8000';
   //! Link Ví
-  static const String baseUrl = 'http://192.168.102.14:8080';
+  // static const String baseUrl = 'http://192.168.102.14:8080';
+  static const String baseUrl = 'http://192.168.102.36:3003';
 
   // sentTOken
 

@@ -204,7 +204,10 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
             .then((status) async {
           if (status.isSuccess) {
             Get.toNamed(RouteHelper.getVerificationRoute(
-                numberWithCountryCode, '', RouteHelper.forgotPassword, ''));
+              numberWithCountryCode,
+              '',
+              RouteHelper.forgotPassword,
+            ));
           } else {
             showCustomSnackBar(status.message);
           }
