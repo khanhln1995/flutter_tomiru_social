@@ -8,9 +8,11 @@ class UsersProfileService implements UsersProfileServiceInterface {
   final UsersProfileRepositoryInterface usersProfileRepositoryInterface;
   UsersProfileService({required this.usersProfileRepositoryInterface});
 
+
   @override
-  Future<UserProfile> fetchCurrentUsers() async {
-    return await usersProfileRepositoryInterface.fetchCurrentUsers();
+  Future<UserProfile>fetchCurrentUsers()async {
+   return await usersProfileRepositoryInterface.fetchCurrentUsers();
+
   }
 
   @override

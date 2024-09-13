@@ -4,6 +4,8 @@ import 'package:tomiru_social_flutter/features/bussiness/domain/models/wallet_in
 import 'package:tomiru_social_flutter/features/bussiness/domain/repositories/business_repo_interface.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/services/business_service_interface.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/vault_info.dart';
+import 'package:tomiru_social_flutter/common/models/response_model.dart';
+import 'package:get/get_connect/http/src/response/response.dart';
 
 class BusinessService implements BusinessServiceInterface {
   final BusinessRepoInterface businessRepoInterface;
@@ -19,7 +21,8 @@ class BusinessService implements BusinessServiceInterface {
     return businessRepoInterface.getVaultInfo();
   }
 
-  Future<List<PackagesAvailable>> getPackages() {
+  @override
+  Future<Packages> getPackages() {
     return businessRepoInterface.getPackages();
   }
 
@@ -31,5 +34,26 @@ class BusinessService implements BusinessServiceInterface {
   @override
   Future<TreeResponse> fetchTernaryTree() async {
     return await businessRepoInterface.fetchTernaryTree();
+  }
+  @override
+  Future<TreeResponse> fetchTernaryTreeDetail(
+      {Map<String, String>? filters}) async {
+    return await businessRepoInterface.fetchTernaryTreeDetail(filters:filters);
+  }
+
+  @override
+  Future<List<WalletInfo>> getWalletInfoByFilter(
+      {Map<String, String>? filters}) {
+    return businessRepoInterface.getWalletInfoByFilter(filters: filters);
+  }
+
+  @override
+  Future<ResponseModel> buyPackage(String? packageName) async {
+    Response response = await businessRepoInterface.buyPackage(packageName);
+    if (response.statusCode == 201 && response.body['data']) {
+      return ResponseModel(true, response.body['message']);
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
   }
 }

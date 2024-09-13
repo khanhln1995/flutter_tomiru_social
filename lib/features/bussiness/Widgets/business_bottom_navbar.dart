@@ -39,7 +39,8 @@ class _BottomMenubarState extends State<BottomNavBar> {
           _icon(Iconsax.share, 0, title: 'Mạng lưới'),
           _icon(Iconsax.hierarchy_square_2, 1, title: 'Quỹ đồng chia'),
           _icon(Iconsax.frame_3, 2, title: 'Thu nhập'),
-          _icon(Iconsax.award, 3, title: 'Gói thành viên'),
+          _icon(Iconsax.crown, 3, title: 'Thông tin gói'),
+          _icon(Iconsax.award, 4, title: 'Gói thành viên'),
         ],
       ),
     );

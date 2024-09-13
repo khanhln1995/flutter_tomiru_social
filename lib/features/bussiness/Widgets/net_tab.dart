@@ -6,10 +6,11 @@ import 'package:graphview/GraphView.dart' as graphview;
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_response_model.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/tree_model.dart';
 import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
+import 'package:intl/intl.dart';
+import "package:tomiru_social_flutter/features/bussiness/Widgets/net_tab_detail.dart";
 
 class NetTab extends StatefulWidget {
   const NetTab({super.key});
-
   @override
   _NetTabState createState() => _NetTabState();
 }
@@ -118,32 +119,26 @@ class _NetTabState extends State<NetTab> {
     );
   }
 
+  bool showIndicator = false;
+  void _toggleIndicator(bool value) {
+    showIndicator = value;
+  }
+
+  void _showNodeDialog(TreeNode treeNode) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return NodeDialogWidget(treeNode: treeNode);
+      },
+    );
+  }
+
   Widget _buildNodeWidget(TreeNode treeNode) {
     return GestureDetector(
       onTap: () {
-        // Handle node tap if needed
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text('${treeNode.firstName} ${treeNode.lastName}'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Email: ${treeNode.email}'),
-                Text('Username: ${treeNode.username}'),
-                Text('Floor: ${treeNode.floor}'),
-                Text('Package Bought At: ${treeNode.buyPackageAt}'),
-                // Add more details as needed
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Close'),
-              ),
-            ],
-          ),
-        );
+        _showNodeDialog(
+            treeNode); // Show dialog with TabBarView when node is tapped
+        // _fetchDetailTreeData(treeNode);
       },
       child: Container(
         padding: const EdgeInsets.all(8),
