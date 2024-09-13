@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
 import 'package:tomiru_social_flutter/features/message/widgets/custom_app_bar_widget.dart';
 import 'package:tomiru_social_flutter/features/message/widgets/custom_inline_widget.dart';
 import 'package:tomiru_social_flutter/features/settings/widgets/custom_card_widget.dart';
@@ -107,7 +110,9 @@ class SettingsScreen extends StatelessWidget {
                         child: CustomCard(
                           iconLeading: Icons.location_on_outlined,
                           title: 'Đăng xuất',
-                          action: () {},
+                          action: () {
+                            Get.find<AuthController>().logout();
+                          },
                         ),
                       ),
                       Text("Phiên bản 18.1",

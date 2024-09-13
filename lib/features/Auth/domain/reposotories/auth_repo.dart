@@ -14,31 +14,49 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/jwt_tokens_model.dart';
+
 class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
   AuthRepo({required this.sharedPreferences, required this.apiClient});
 
-  @override
-  Future<bool> saveUserToken(String token, {bool alreadyInApp = false}) async {
-    apiClient.token = token;
-    if (alreadyInApp &&
-        sharedPreferences.getString(AppConstants.userAddress) != null) {
-      // AddressModel? addressModel = AddressModel.fromJson(
-      //     jsonDecode(sharedPreferences.getString(AppConstants.userAddress)!));
-      apiClient.updateHeader(token
-          // addressModel.zoneIds,
-          // sharedPreferences.getString(AppConstants.languageCode),
-          // addressModel.latitude,
-          // addressModel.longitude,
-          );
-    } else {
-      apiClient.updateHeader(
-        token,
-      );
-    }
+  Future<void> saveTokens(Map<String, dynamic> responseBody) async {
+    await sharedPreferences.setString(
+        AppConstants.jwtToken, responseBody['accessToken']);
+    await sharedPreferences.setString(
+        AppConstants.jwtTokenShop, responseBody['accessTokenShop']);
+    await sharedPreferences.setString(
+        AppConstants.jwtTokenSocial, responseBody['accessTokenSocial']);
+  }
 
-    return await sharedPreferences.setString(AppConstants.token, token);
+  @override
+  JwtTokenModel? getTokens() {
+    try {
+      String? jwtToken = sharedPreferences.getString(AppConstants.jwtToken);
+      String? jwtTokenShop =
+          sharedPreferences.getString(AppConstants.jwtTokenShop);
+      String? jwtTokenSocial =
+          sharedPreferences.getString(AppConstants.jwtTokenSocial);
+
+      if (jwtToken != null && jwtTokenShop != null && jwtTokenSocial != null) {
+        return JwtTokenModel(
+          token: jwtToken,
+          shop: jwtTokenShop,
+          social: jwtTokenSocial,
+        );
+      }
+    } catch (e) {
+      print('Error getting tokens: $e');
+    }
+    return null;
+  }
+
+  @override
+  Future<void> clearTokens() async {
+    await sharedPreferences.remove(AppConstants.jwtToken);
+    await sharedPreferences.remove(AppConstants.jwtTokenShop);
+    await sharedPreferences.remove(AppConstants.jwtTokenSocial);
   }
 
   @override
@@ -98,35 +116,35 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
 
   @override
   Future<Response> login({String? email, String? password}) async {
-    String guestId = getGuestId();
     Map<String, String> data = {
       "email": email!,
       "password": password!,
     };
 
-    if (guestId.isNotEmpty) {
-      data.addAll({"guest_id": guestId});
-    }
     final res = await apiClient.postData(AppConstants.loginUri, data,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         handleError: false);
-   
+
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      apiClient.updateHeader(res.body['data']['accessToken']);
+      await saveTokens(res.body['data']);
+    }
+
     return res;
-    // return await apiClient.getData(AppConstants.loginUri, headers: {'Content-Type': 'application/json; charset=UTF-8'},
-    //     handleError: false);
   }
 
   @override
-  // Future<ResponseModel> guestLogin() async {
-  //   Response response = await apiClient.postData(AppConstants.guestLoginUri, {},
-  //       handleError: false);
-  //   if (response.statusCode == 200) {
-  //     saveGuestId(response.body['guest_id'].toString());
-  //     return ResponseModel(true, '${response.body['guest_id']}');
-  //   } else {
-  //     return ResponseModel(false, response.statusText);
-  //   }
-  // }
+  Future<Response> logout() async {
+    final res = await apiClient.postData(AppConstants.logoutUri, {},
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        handleError: false);
+
+    if (res.statusCode == 200) {
+      await clearTokens();
+    }
+
+    return res;
+  }
 
   @override
   Future<bool> saveGuestId(String id) async {

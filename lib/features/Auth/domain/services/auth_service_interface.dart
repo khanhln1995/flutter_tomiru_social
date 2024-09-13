@@ -1,4 +1,5 @@
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
+import 'package:tomiru_social_flutter/features/auth/domain/models/jwt_tokens_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/signup_body_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/social_log_in_body_model.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_model.dart';
@@ -6,18 +7,13 @@ import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_mo
 abstract class AuthServiceInterface {
   Future<ResponseModel> registration(
       SignUpBodyModel signUpModel, bool isCustomerVerificationOn);
-  Future<ResponseModel> login(
-      {
-      // String? phone,
-      String? email,
-      String? password,
-      bool customerVerification = false,
-      bool alreadyInApp = false});
-  // String getUserCountryCode();
-  // String getUserNumber();
+  Future<ResponseModel> login({String? email, String? password});
+  Future<ResponseModel> logout();
   String getUserPassword();
   String getUserEmail();
   SelfInfoModel? getUserSelfInfo();
+  JwtTokenModel? getTokens();
+  Future<void> clearTokens();
   void saveUserNumberAndPassword(String number, String password
       // , String countryCode
       );

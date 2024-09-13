@@ -62,13 +62,13 @@ class Package {
   final int? updatedAt;
 
   Package({
-     this.name,
-     this.price,
-     this.validInDay,
-     this.description,
-     this.discount,
-     this.createdAt,
-     this.updatedAt,
+    this.name,
+    this.price,
+    this.validInDay,
+    this.description,
+    this.discount,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Package.fromJson(Map<String, dynamic> json) {
@@ -151,27 +151,27 @@ class UserProfile {
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      email: json['email'],
-      username: json['username'],
-      gender: json['gender'],
-      status: json['status'],
-      kycStatus: json['kycStatus'],
-      phone: json['phone'],
-      refCode: json['refCode'],
-      twoFaEnabled: json['twoFaEnabled'],
-      checkedIn: json['checkedIn'],
-      checkInBonus: json['checkInBonus'],
-      createdAt: json['createdAt'],
-      phoneCode: json['phoneCode'],
-      slug: json['slug'],
-      profileImage: json['profileImage'],
-      coverImage: json['coverImage'],
-      profileImageFull: json['profileImageFull'],
-      coverImageFull: json['coverImageFull'],
-      buyPackageAt: json['buyPackageAt'],
-      expiredPremiumAt: json['expiredPremiumAt'],
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName'] ?? '',
+      email: json['email'] ?? '',
+      username: json['username'] ?? '',
+      gender: json['gender'] ?? '',
+      status: json['status'] ?? '',
+      kycStatus: json['kycStatus'] ?? '',
+      phone: json['phone'] ?? '',
+      refCode: json['refCode'] ?? '',
+      twoFaEnabled: json['twoFaEnabled'] ?? '',
+      checkedIn: json['checkedIn'] ?? '',
+      checkInBonus: json['checkInBonus'] ?? '',
+      createdAt: json['createdAt'] ?? '',
+      phoneCode: json['phoneCode'] ?? '',
+      slug: json['slug'] ?? '',
+      profileImage: json['profileImage'] ?? '',
+      coverImage: json['coverImage'] ?? '',
+      profileImageFull: json['profileImageFull'] ?? '',
+      coverImageFull: json['coverImageFull'] ?? '',
+      buyPackageAt: json['buyPackageAt'] ?? '',
+      expiredPremiumAt: json['expiredPremiumAt'] ?? '',
       usersBalances: (json['usersBalances'] as List)
           .map((balance) => UserBalance.fromJson(balance))
           .toList(),
@@ -203,7 +203,8 @@ class UserProfile {
       'coverImageFull': coverImageFull,
       'buyPackageAt': buyPackageAt,
       'expiredPremiumAt': expiredPremiumAt,
-      'usersBalances': usersBalances.map((balance) => balance.toJson()).toList(),
+      'usersBalances':
+          usersBalances.map((balance) => balance.toJson()).toList(),
       'package': package.toJson(),
       'introduce': introduce,
     };
