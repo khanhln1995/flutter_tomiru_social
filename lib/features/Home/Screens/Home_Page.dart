@@ -41,7 +41,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    lastPosition = Get.find<AuthController>().getPosition();
+    // lastPosition = Get.find<AuthController>().getPosition();
     getPositionAndWeather();
     username = Get.find<AuthController>().getUserSelfInfo()?.fullname ?? '';
     // fetchUserBalance();
@@ -93,9 +93,9 @@ class _HomepageState extends State<Homepage> {
 
   void getPositionAndWeather() async {
     Position? position = await _requestPermissionsAndInitializeLocation();
-    if (index == 1) {
-      await Get.find<AuthController>().savePosition(position);
-    }
+    // if (index == 1) {
+    //   await Get.find<AuthController>().savePosition(position);
+    // }
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
     Weather w = await wf.currentWeatherByLocation(
@@ -133,7 +133,7 @@ class _HomepageState extends State<Homepage> {
             const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: WalletInfo(),
+              child: const WalletInfo(),
             ),
             const SizedBox(height: 20),
             exploreContent(),
@@ -144,7 +144,7 @@ class _HomepageState extends State<Homepage> {
             const HeaderContent(title: "Gian hàng Tomiru"),
             HorizontalProductListScreen(),
             const HeaderContent(title: "Khuyến mãi"),
-            VerticalVoucherList(),
+            const VerticalVoucherList(),
           ],
         ));
   }
@@ -205,7 +205,7 @@ class _HomepageState extends State<Homepage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SettingsScreen()));
+                                builder: (context) => const SettingsScreen()));
                       },
                     ),
                     const Text("Cài đặt", style: TextStyle(fontSize: 12)),

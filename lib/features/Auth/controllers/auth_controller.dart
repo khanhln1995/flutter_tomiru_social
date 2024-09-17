@@ -132,14 +132,6 @@ class AuthController extends GetxController implements GetxService {
     return res1;
   }
 
-  Position? getPosition() {
-    return authServiceInterface.getPosition();
-  }
-
-  Future<bool> savePosition(Position position) async {
-    return await authServiceInterface.savePosition(position);
-  }
-
   void toggleRememberMe() {
     _isActiveRememberMe = true;
     update();
