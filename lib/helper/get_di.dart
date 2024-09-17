@@ -181,7 +181,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
   Get.lazyPut(
       () => NotificationController(notificationServiceInterface: Get.find()));
-  Get.lazyPut(() => ProfileController(profileServiceInterface: Get.find()));
+  Get.lazyPut(() => ProfileController(profileServiceInterface: Get.find(), authServiceInterface: Get.find()));
   Get.lazyPut(
       () => UsersProfileController(userProfileServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
