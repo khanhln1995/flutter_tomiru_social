@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
+import 'package:tomiru_social_flutter/features/profile/controllers/profile_controller.dart';
 import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
 import 'package:weather/weather.dart';
@@ -41,7 +42,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    // lastPosition = Get.find<AuthController>().getPosition();
+    lastPosition = Get.find<ProfileController>().getPosition();
     getPositionAndWeather();
     username = Get.find<AuthController>().getUserSelfInfo()?.fullname ?? '';
     // fetchUserBalance();
@@ -59,7 +60,6 @@ class _HomepageState extends State<Homepage> {
   //   print("Đây là homescreen");
   // }
 
-  @override
   Future<Position> _requestPermissionsAndInitializeLocation() async {
     bool serviceEnabled;
     bool locationSetting;
@@ -93,9 +93,9 @@ class _HomepageState extends State<Homepage> {
 
   void getPositionAndWeather() async {
     Position? position = await _requestPermissionsAndInitializeLocation();
-    // if (index == 1) {
-    //   await Get.find<AuthController>().savePosition(position);
-    // }
+    if (index == 1) {
+      await Get.find<ProfileController>().savePosition(position);
+    }
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
     Weather w = await wf.currentWeatherByLocation(

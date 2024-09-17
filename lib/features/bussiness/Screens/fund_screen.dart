@@ -28,7 +28,6 @@ class _FundScreenState extends State<FundScreen> {
     setState(() {
       vaultList = vaults;
     });
-   
   }
 
   @override
@@ -51,9 +50,10 @@ class _FundScreenState extends State<FundScreen> {
                         total: vaultList[index].total);
                   },
                 )
-              : const Center(
-                  child: CustomLoaderWidget(),
-                )),
+              : Center(
+                  child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).primaryColor)))),
     );
   }
 }

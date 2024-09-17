@@ -1,7 +1,4 @@
-import 'package:geolocator/geolocator.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
 import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/jwt_tokens_model.dart';
@@ -111,14 +108,6 @@ class AuthController extends GetxController implements GetxService {
     update();
   }
 
-  // String getUserCountryCode() {
-  //   return authServiceInterface.getUserCountryCode();
-  // }
-
-  // String getUserNumber() {
-  //   return authServiceInterface.getUserNumber();
-  // }
-
   String getUserEmail() {
     return authServiceInterface.getUserEmail();
   }
@@ -136,15 +125,6 @@ class AuthController extends GetxController implements GetxService {
     _isActiveRememberMe = true;
     update();
   }
-
-  // Future<ResponseModel> guestLogin() async {
-  //   _guestLoading = true;
-  //   update();
-  //   ResponseModel responseModel = await authServiceInterface.guestLogin();
-  //   _guestLoading = false;
-  //   update();
-  //   return responseModel;
-  // }
 
   Future<void> loginWithSocialMedia(
       SocialLogInBodyModel socialLogInBody) async {

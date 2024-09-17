@@ -12,4 +12,5 @@ abstract class WalletServiceInterface {
   Future<Response> sendToken(SendTokenModel data);
   void saveInfoLocal(String email);
   Future<List<String>> getEmailListLocal();
+  Future<List<WalletHistoryModel>> fetchWalletHistoryByDate(String? page);
 }
