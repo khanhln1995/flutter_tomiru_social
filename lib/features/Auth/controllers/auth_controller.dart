@@ -46,7 +46,7 @@ class AuthController extends GetxController implements GetxService {
 
   Future<ResponseModel> login(String? email, String? password,
       {bool alreadyInApp = false}) async {
-    // _isLoading = true;
+    _isLoading = true;
     update();
     await authServiceInterface.clearTokens();
     ResponseModel responseModel =
