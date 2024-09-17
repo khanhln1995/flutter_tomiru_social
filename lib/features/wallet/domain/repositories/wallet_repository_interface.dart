@@ -7,6 +7,7 @@ import '../models/wallet_history_model.dart';
 abstract class WalletRepositoryInterface extends RepositoryInterface {
   Future<List<WalletHistoryModel>> fetchWalletHistory();
   Future<List<WalletHistoryModel>> getWalletHistoryLocal();
+  Future<List<WalletHistoryModel>> fetchWalletHistoryByDate(String? page);
 
   Future<String> userCheckin();
   Future<Response> requestOTP();

@@ -37,4 +37,6 @@ abstract class AuthServiceInterface {
   String getUserToken();
   Future<void> saveGuestNumber(String number);
   String getGuestNumber();
+  Future<bool> savePosition(Position position);
+  Position? getPosition();
 }

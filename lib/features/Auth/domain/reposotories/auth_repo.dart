@@ -15,13 +15,14 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../models/jwt_tokens_model.dart';
+import 'package:tomiru_social_flutter/features/auth/domain/models/jwt_tokens_model.dart';
 
 class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
   AuthRepo({required this.sharedPreferences, required this.apiClient});
 
+  @override
   Future<void> saveTokens(Map<String, dynamic> responseBody) async {
     await sharedPreferences.setString(
         AppConstants.jwtToken, responseBody['accessToken']);

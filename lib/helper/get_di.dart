@@ -417,7 +417,7 @@ Future<Map<String, Map<String, String>>> init() async {
   // Get.lazyPut(() => HtmlController(htmlServiceInterface: Get.find()));
   Get.lazyPut(
       () => NotificationController(notificationServiceInterface: Get.find()));
-  Get.lazyPut(() => ProfileController(profileServiceInterface: Get.find()));
+  Get.lazyPut(() => ProfileController(profileServiceInterface: Get.find(), authServiceInterface: Get.find()));
   // Get.lazyPut(() => HomeController(homeServiceInterface: Get.find()));
   // Get.lazyPut(() => CartController(cartServiceInterface: Get.find()));
   // Get.lazyPut(

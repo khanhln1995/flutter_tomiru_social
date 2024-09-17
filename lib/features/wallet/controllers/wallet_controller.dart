@@ -12,6 +12,7 @@ class WalletController extends GetxController implements GetxService {
     fetchWalletHistory();
   }
 
+  int _walletPage = 1;
   int _value = 0;
   String _codeOtp = '';
   String _email = '';
@@ -19,6 +20,7 @@ class WalletController extends GetxController implements GetxService {
   List<String> _listEmail = [];
   bool _isSavedInfo = false;
 
+  int get walletPage => _walletPage;
   int get value => _value;
   String get codeOtp => _codeOtp;
   String get email => _email;
@@ -58,6 +60,21 @@ class WalletController extends GetxController implements GetxService {
   void getWalletHistoryLocal() async {
     final response = await walletServiceInterface.getWalletHistoryLocal();
     _walletHistory = response;
+  }
+
+  Future<List<WalletHistoryModel>> fetchWalletHistoryByDate() async {
+    return await walletServiceInterface.fetchWalletHistoryByDate(_walletPage.toString());
+  }
+
+  void updateWalletPage(int page) {
+    _walletPage = page;
+    fetchWalletHistoryByDate();
+    update();
+  }
+
+  void resetWalletPage() {
+    _walletPage = 1;
+    update();
   }
 
   Future usersCheckin() async {

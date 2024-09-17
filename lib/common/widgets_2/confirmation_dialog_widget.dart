@@ -43,7 +43,7 @@ class ConfirmationDialogWidget extends StatelessWidget {
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Padding(
                   padding: const EdgeInsets.all(Dimensions.paddingSizeLarge),
-                  child: Image.asset(icon, width: 50, height: 50),
+                  child: Image(image: icon.isEmpty ? const NetworkImage('https://www.svgrepo.com/show/206431/confirm.svg') : NetworkImage(icon), width: 50, height: 50),
                 ),
                 title != null
                     ? Padding(
