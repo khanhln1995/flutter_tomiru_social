@@ -11,14 +11,14 @@ class AppConstants {
   // static const String baseUrl = 'http://192.168.102.65:8000';
   //! Link MXH
   // static const String baseUrl = 'http://192.168.102.132:8000';
-  //! Link Ví
-  // static const String baseUrl = 'http://192.168.102.14:8080';
   static const String baseUrl = 'http://192.168.102.36:3003';
 
   // sentTOken
 
 // AUTH
-  static const String loginUri = '/ui/v1/auth/login';
+  // static const String loginUri = '/ui/v1/auth/login';
+  static const String loginUri = '/api/v1.0/auth/login';
+  static const String logoutUri = '/api/v1.0/auth/logout';
   // static const String registerUri = '/api/register';
   static const String registerUri = '/api/v1.0/auth/register';
   static const String socialLoginUri = '/api/v1/auth/social-login';
@@ -56,6 +56,9 @@ class AppConstants {
   static const String walletBonusUri = '/api/v1/customer/wallet/bonuses';
 
   // key sharedPreferences
+  static const String jwtToken = 'accessToken';
+  static const String jwtTokenShop = 'accessTokenShop';
+  static const String jwtTokenSocial = 'accessTokenSocial';
   //save response api me
   static const String userProfile = 'user_profile';
   static const String masterData = 'master_data';

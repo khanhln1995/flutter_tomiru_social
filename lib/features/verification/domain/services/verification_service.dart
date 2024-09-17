@@ -42,7 +42,7 @@ class VerificationService implements VerificationServiceInterface {
         await verificationRepoInterface.verifyEmail(email, verificationCode);
     ResponseModel responseModel;
     if (response.statusCode == 200) {
-      authRepoInterface.saveUserToken(token);
+      // authRepoInterface.saveUserToken(token);
       await authRepoInterface.updateToken();
       authRepoInterface.clearGuestId();
       responseModel = ResponseModel(true, response.body["message"]);
@@ -59,7 +59,7 @@ class VerificationService implements VerificationServiceInterface {
         await verificationRepoInterface.verifyPhone(phone, verificationCode);
     ResponseModel responseModel;
     if (response.statusCode == 200) {
-      authRepoInterface.saveUserToken(token!);
+      // authRepoInterface.saveUserToken(token!);
       await authRepoInterface.updateToken();
       authRepoInterface.clearGuestId();
       responseModel = ResponseModel(true, response.body["message"]);

@@ -28,7 +28,7 @@ class ApiClient extends GetxService {
 
   // Constructor to initialize the ApiClient with base URL and shared preferences
   ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
-    token = sharedPreferences.getString(AppConstants.token);
+    token = sharedPreferences.getString(AppConstants.jwtToken);
 
     if (kDebugMode) {
       debugPrint('Token: $token');
@@ -48,6 +48,7 @@ class ApiClient extends GetxService {
     };
 
     // Only add the Authorization header if the token is not null
+
     if (token != null && token.isNotEmpty) {
       header['Authorization'] = 'Bearer $token';
     }
@@ -94,6 +95,8 @@ class ApiClient extends GetxService {
         debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
         debugPrint('====> API Body: $appBaseUrl + $uri');
         debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
+        debugPrint('====> API Body: $body');
+        // debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
       }
       http.Response response = await http
           .post(
@@ -248,8 +251,8 @@ class ApiClient extends GetxService {
       response0 = Response(statusCode: 0, statusText: noInternetMessage);
     }
     if (kDebugMode) {
-      // debugPrint(
-      //     '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
+      debugPrint(
+          '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
     }
     if (handleError) {
       if (response0.statusCode == 200 || response0.statusCode == 201) {

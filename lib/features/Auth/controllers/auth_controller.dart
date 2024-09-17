@@ -1,13 +1,20 @@
 import 'package:geolocator/geolocator.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
-// import 'package:tomiru_social_flutter/features/cart/controllers/cart_controller.dart';
-import 'package:tomiru_social_flutter/features/profile/controllers/profile_controller.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
+import 'package:tomiru_social_flutter/features/auth/domain/models/jwt_tokens_model.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/splash_controller.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/signup_body_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/social_log_in_body_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/services/auth_service_interface.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_model.dart';
 import 'package:get/get.dart';
+import 'package:tomiru_social_flutter/features/splash/screens/splash_screen.dart';
+import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
+import 'package:tomiru_social_flutter/helper/route_helper.dart';
+import 'package:tomiru_social_flutter/util/app_constants.dart';
 
 class AuthController extends GetxController implements GetxService {
   final AuthServiceInterface authServiceInterface;
@@ -30,26 +37,46 @@ class AuthController extends GetxController implements GetxService {
   bool _notification = true;
   bool get notification => _notification;
 
-  Future<ResponseModel> login(
-      // String? phone,
-      String? email,
-      String? password,
+  String _jwtToken = '';
+  String get jwtToken => _jwtToken;
+  String _jwtTokenShop = '';
+  String get jwtTokenShop => _jwtTokenShop;
+  String _jwtTokenSocial = '';
+  String get jwtTokenSocial => _jwtTokenSocial;
+
+  Future<ResponseModel> login(String? email, String? password,
       {bool alreadyInApp = false}) async {
+    // _isLoading = true;
+    update();
+    await authServiceInterface.clearTokens();
+    ResponseModel responseModel =
+        await authServiceInterface.login(email: email, password: password);
+    if (responseModel.isSuccess) {
+      getTokens();
+      Get.find<UsersProfileController>().setCurrentUsers();
+      Get.to(SplashScreen(isRouterLogin: true));
+    } else {
+      showCustomSnackBar(responseModel.message);
+    }
+    _isLoading = false;
+    update();
+    return responseModel;
+  }
+
+  Future<ResponseModel> logout() async {
     _isLoading = true;
     update();
-    ResponseModel responseModel = await authServiceInterface.login(
-        email: email,
-        // phone: phone,
-        password: password,
-        customerVerification:
-            Get.find<SplashController>().configModel!.customerVerification!,
-        alreadyInApp: alreadyInApp);
-    if (responseModel.isSuccess &&
-        !Get.find<SplashController>().configModel!.customerVerification! &&
-        int.parse(responseModel.message![0]) != 0) {
-      // Get.find<CartController>().getCartDataOnline();
-      Get.find<ProfileController>().getUserInfo();
-    }
+    _jwtToken = '';
+    _jwtTokenShop = '';
+    _jwtTokenSocial = '';
+    Get.offNamed(RouteHelper.getSignInRoute("sign-in"));
+    ResponseModel responseModel = await authServiceInterface.logout();
+    // if (responseModel.isSuccess) {
+    //   _jwtToken = '';
+    //   _jwtTokenShop = '';
+    //   _jwtTokenSocial = '';
+    //   Get.offNamed(RouteHelper.getSignInRoute("sign-in"));
+    // }
     _isLoading = false;
     update();
     return responseModel;
@@ -199,5 +226,12 @@ class AuthController extends GetxController implements GetxService {
 
   String getGuestNumber() {
     return authServiceInterface.getGuestNumber();
+  }
+
+  void getTokens() {
+    JwtTokenModel? tokens = authServiceInterface.getTokens();
+    _jwtToken = tokens!.token;
+    _jwtTokenShop = tokens.shop;
+    _jwtTokenSocial = tokens.social;
   }
 }

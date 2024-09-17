@@ -21,7 +21,7 @@ class HorizontalContactMember extends StatelessWidget {
     return Container(
       padding: EdgeInsets.fromLTRB(16.0, 12.0, 24.0, 0),
       margin: EdgeInsets.only(right: 12.0),
-      width: MediaQuery.of(context).size.width * 4/5,
+      width: MediaQuery.of(context).size.width * 4 / 5,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -87,18 +87,24 @@ class HorizontalContactMember extends StatelessWidget {
                 Row(
                   children: [
                     if (mutual_friend > 0)
-                      Text(
-                        mutual_group > 0
-                            ? '$mutual_friend bạn chung - '
-                            : '$mutual_friend bạn chung',
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 12),
+                      Flexible(
+                        child: Text(
+                          mutual_group > 0
+                              ? '$mutual_friend bạn chung - '
+                              : '$mutual_friend bạn chung',
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 12),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     if (mutual_group > 0)
-                      Text(
-                        '$mutual_group nhóm chung',
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 12),
+                      Flexible(
+                        child: Text(
+                          '$mutual_group nhóm chung',
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 12),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                   ],
                 ),
