@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:tomiru_social_flutter/api/api_social.dart';
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
 import 'package:tomiru_social_flutter/api/api_client.dart';
 // import 'package:tomiru_social_flutter/features/address/domain/models/address_model.dart';
@@ -19,8 +20,12 @@ import 'package:tomiru_social_flutter/features/auth/domain/models/jwt_tokens_mod
 
 class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
   final ApiClient apiClient;
+  final ApiSocial apiSocial;
   final SharedPreferences sharedPreferences;
-  AuthRepo({required this.sharedPreferences, required this.apiClient});
+  AuthRepo(
+      {required this.sharedPreferences,
+      required this.apiClient,
+      required this.apiSocial});
 
   @override
   Future<void> saveTokens(Map<String, dynamic> responseBody) async {

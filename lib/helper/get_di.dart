@@ -1,46 +1,14 @@
 import 'dart:convert';
-
+import 'package:tomiru_social_flutter/api/api_social.dart';
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
 import 'package:tomiru_social_flutter/features/dashboard/domain/repositories/dashboard_repo.dart';
 import 'package:tomiru_social_flutter/features/dashboard/domain/repositories/dashboard_repo_interface.dart';
-// import 'package:tomiru_social_flutter/features/product/controllers/campaign_controller.dart';
-// import 'package:tomiru_social_flutter/features/cart/controllers/cart_controller.dart';
-// import 'package:tomiru_social_flutter/features/cart/domain/repositories/cart_repository.dart';
-// import 'package:tomiru_social_flutter/features/cart/domain/repositories/cart_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/cart/domain/services/cart_service.dart';
-// import 'package:tomiru_social_flutter/features/cart/domain/services/cart_service_interface.dart';
 import 'package:tomiru_social_flutter/features/chat/controllers/chat_controller.dart';
 import 'package:tomiru_social_flutter/features/chat/domain/repositories/chat_repository.dart';
 import 'package:tomiru_social_flutter/features/chat/domain/repositories/chat_repository_interface.dart';
 import 'package:tomiru_social_flutter/features/chat/domain/services/chat_service.dart';
 import 'package:tomiru_social_flutter/features/chat/domain/services/chat_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/checkout/controllers/checkout_controller.dart';
-// import 'package:tomiru_social_flutter/features/checkout/domain/repositories/checkout_repository.dart';
-// import 'package:tomiru_social_flutter/features/checkout/domain/repositories/checkout_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/checkout/domain/services/checkout_service.dart';
-// import 'package:tomiru_social_flutter/features/checkout/domain/services/checkout_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/coupon/controllers/coupon_controller.dart';
-// import 'package:tomiru_social_flutter/features/home/controllers/home_controller.dart';
-// import 'package:tomiru_social_flutter/features/home/domain/repositories/home_repository.dart';
-// import 'package:tomiru_social_flutter/features/home/domain/repositories/home_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/home/domain/services/home_service.dart';
-// import 'package:tomiru_social_flutter/features/home/domain/services/home_service_interface.dart';
 import 'package:tomiru_social_flutter/features/language/controllers/localization_controller.dart';
-// import 'package:tomiru_social_flutter/features/order/controllers/order_controller.dart';
-// import 'package:tomiru_social_flutter/features/order/domain/repositories/order_repository.dart';
-// import 'package:tomiru_social_flutter/features/order/domain/repositories/order_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/order/domain/services/order_service.dart';
-// import 'package:tomiru_social_flutter/features/order/domain/services/order_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/product/domain/repositories/campaign_repository.dart';
-// import 'package:tomiru_social_flutter/features/product/domain/repositories/campaign_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/product/domain/services/campaign_service.dart';
-// import 'package:tomiru_social_flutter/features/product/domain/services/campaign_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/restaurant/controllers/restaurant_controller.dart';
-// import 'package:tomiru_social_flutter/features/html/controllers/html_controller.dart';
-// import 'package:tomiru_social_flutter/features/html/domain/repositories/html_repository.dart';
-// import 'package:tomiru_social_flutter/features/html/domain/repositories/html_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/html/domain/services/html_service.dart';
-// import 'package:tomiru_social_flutter/features/html/domain/services/html_service_interface.dart';
 import 'package:tomiru_social_flutter/features/language/domain/models/language_model.dart';
 import 'package:tomiru_social_flutter/features/language/domain/repository/language_repository.dart';
 import 'package:tomiru_social_flutter/features/language/domain/repository/language_repository_interface.dart';
@@ -61,90 +29,21 @@ import 'package:tomiru_social_flutter/features/profile/domain/repositories/profi
 import 'package:tomiru_social_flutter/features/profile/domain/repositories/profile_repository_interface.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/services/profile_service.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/services/profile_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/refer%20and%20earn/controllers/refer_and_earn_controller.dart';
-// import 'package:tomiru_social_flutter/features/restaurant/domain/repositories/restaurant_repository.dart';
-// import 'package:tomiru_social_flutter/features/restaurant/domain/repositories/restaurant_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/restaurant/domain/services/restaurant_service.dart';
-// import 'package:tomiru_social_flutter/features/restaurant/domain/services/restaurant_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/search/controllers/search_controller.dart';
-// import 'package:tomiru_social_flutter/features/search/domain/repositories/search_repository.dart';
-// import 'package:tomiru_social_flutter/features/search/domain/repositories/search_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/search/domain/services/search_service.dart';
-// import 'package:tomiru_social_flutter/features/search/domain/services/search_service_interface.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/splash_controller.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/theme_controller.dart';
 import 'package:tomiru_social_flutter/api/api_client.dart';
-// import 'package:tomiru_social_flutter/features/address/controllers/address_controller.dart';
-// import 'package:tomiru_social_flutter/features/address/domain/reposotories/address_repo.dart';
-// import 'package:tomiru_social_flutter/features/address/domain/reposotories/address_repo_interface.dart';
-// import 'package:tomiru_social_flutter/features/address/domain/services/address_service.dart';
-// import 'package:tomiru_social_flutter/features/address/domain/services/address_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/auth/controllers/deliveryman_registration_controller.dart';
-// import 'package:tomiru_social_flutter/features/auth/controllers/restaurant_registration_controller.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/reposotories/auth_repo.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/reposotories/auth_repo_interface.dart';
-// import 'package:tomiru_social_flutter/features/auth/domain/reposotories/deliveryman_registration_repo.dart';
-// import 'package:tomiru_social_flutter/features/auth/domain/reposotories/deliveryman_registration_repo_interface.dart';
-// import 'package:tomiru_social_flutter/features/auth/domain/reposotories/restaurant_registration_repo.dart';
-// import 'package:tomiru_social_flutter/features/auth/domain/reposotories/restaurant_registration_repo_interface.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/services/auth_service.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/services/auth_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/auth/domain/services/deliveryman_registration_service.dart';
-// import 'package:tomiru_social_flutter/features/auth/domain/services/deliveryman_registration_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/auth/domain/services/restaurant_registration_service.dart';
-// import 'package:tomiru_social_flutter/features/auth/domain/services/restaurant_registration_service_interface.dart';
 import 'package:tomiru_social_flutter/features/bussiness/controllers/business_controller.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/repositories/business_repo.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/repositories/business_repo_interface.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/services/business_service.dart';
 import 'package:tomiru_social_flutter/features/bussiness/domain/services/business_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/category/controllers/category_controller.dart';
-// import 'package:tomiru_social_flutter/features/category/domain/reposotories/category_repository.dart';
-// import 'package:tomiru_social_flutter/features/category/domain/reposotories/category_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/category/domain/services/category_service.dart';
-// import 'package:tomiru_social_flutter/features/category/domain/services/category_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/coupon/domain/reposotories/coupon_repository.dart';
-// import 'package:tomiru_social_flutter/features/coupon/domain/reposotories/coupon_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/coupon/domain/services/coupon_service.dart';
-// import 'package:tomiru_social_flutter/features/coupon/domain/services/coupon_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/cuisine/controllers/cuisine_controller.dart';
-// import 'package:tomiru_social_flutter/features/cuisine/domain/repositories/cuisine_repository.dart';
-// import 'package:tomiru_social_flutter/features/cuisine/domain/repositories/cuisine_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/cuisine/domain/services/cuisine_service.dart';
-// import 'package:tomiru_social_flutter/features/cuisine/domain/services/cuisine_service_interface.dart';
 import 'package:tomiru_social_flutter/features/dashboard/controllers/dashboard_controller.dart';
 import 'package:tomiru_social_flutter/features/dashboard/domain/services/dashboard_service.dart';
 import 'package:tomiru_social_flutter/features/dashboard/domain/services/dashboard_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/favourite/controllers/favourite_controller.dart';
-// import 'package:tomiru_social_flutter/features/favourite/domain/repositories/favourite_repository.dart';
-// import 'package:tomiru_social_flutter/features/favourite/domain/repositories/favourite_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/favourite/domain/services/favourite_service.dart';
-// import 'package:tomiru_social_flutter/features/favourite/domain/services/favourite_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/interest/controllers/interest_controller.dart';
-// import 'package:tomiru_social_flutter/features/interest/domain/repositories/interest_repository.dart';
-// import 'package:tomiru_social_flutter/features/interest/domain/repositories/interest_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/interest/domain/services/interest_service.dart';
-// import 'package:tomiru_social_flutter/features/interest/domain/services/interest_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/location/controllers/location_controller.dart';
-// import 'package:tomiru_social_flutter/features/location/domain/reposotories/location_repo.dart';
-// import 'package:tomiru_social_flutter/features/location/domain/reposotories/location_repo_interface.dart';
-// import 'package:tomiru_social_flutter/features/location/domain/services/location_service.dart';
-// import 'package:tomiru_social_flutter/features/location/domain/services/location_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/loyalty/controllers/loyalty_controller.dart';
-// import 'package:tomiru_social_flutter/features/loyalty/domain/repositories/loyalty_repository.dart';
-// import 'package:tomiru_social_flutter/features/loyalty/domain/repositories/loyalty_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/loyalty/domain/services/loyalty_service.dart';
-// import 'package:tomiru_social_flutter/features/loyalty/domain/services/loyalty_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/product/controllers/product_controller.dart';
-// import 'package:tomiru_social_flutter/features/product/domain/repositories/product_repository.dart';
-// import 'package:tomiru_social_flutter/features/product/domain/repositories/product_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/product/domain/services/product_service.dart';
-// import 'package:tomiru_social_flutter/features/product/domain/services/product_service_interface.dart';
-// import 'package:tomiru_social_flutter/features/review/controllers/review_controller.dart';
-// import 'package:tomiru_social_flutter/features/review/domain/repositories/review_repository.dart';
-// import 'package:tomiru_social_flutter/features/review/domain/repositories/review_repository_interface.dart';
-// import 'package:tomiru_social_flutter/features/review/domain/services/review_service.dart';
-// import 'package:tomiru_social_flutter/features/review/domain/services/review_service_interface.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/repositories/splash_repository.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/repositories/splash_repository_interface.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/services/splash_service.dart';
@@ -176,20 +75,10 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => sharedPreferences);
   Get.lazyPut(() => ApiClient(
       appBaseUrl: AppConstants.baseUrl, sharedPreferences: Get.find()));
+  Get.lazyPut(() => ApiSocial(
+      appBaseUrl: AppConstants.socialUrl, sharedPreferences: Get.find()));
 
   ///Interfaces
-  // LocationRepoInterface locationRepoInterface =
-  //     LocationRepo(apiClient: Get.find());
-  // Get.lazyPut(() => locationRepoInterface);
-  // LocationServiceInterface locationServiceInterface =
-  //     LocationService(locationRepoInterface: Get.find());
-  // Get.lazyPut(() => locationServiceInterface);
-  // AddressRepoInterface addressRepoInterface =
-  //     AddressRepo(apiClient: Get.find());
-  // Get.lazyPut(() => addressRepoInterface);
-  // AddressServiceInterface addressServiceInterface =
-  //     AddressService(addressRepoInterface: Get.find());
-  // Get.lazyPut(() => addressServiceInterface);
   DashboardRepoInterface dashboardRepoInterface =
       DashboardRepo(sharedPreferences: Get.find());
   Get.lazyPut(() => dashboardRepoInterface);
@@ -202,26 +91,14 @@ Future<Map<String, Map<String, String>>> init() async {
   BusinessServiceInterface businessServiceInterface =
       BusinessService(businessRepoInterface: Get.find());
   Get.lazyPut(() => businessServiceInterface);
-  AuthRepoInterface authRepoInterface =
-      AuthRepo(apiClient: Get.find(), sharedPreferences: Get.find());
+  AuthRepoInterface authRepoInterface = AuthRepo(
+      apiClient: Get.find(),
+      apiSocial: Get.find(),
+      sharedPreferences: Get.find());
   Get.lazyPut(() => authRepoInterface);
   AuthServiceInterface authServiceInterface =
       AuthService(authRepoInterface: Get.find());
   Get.lazyPut(() => authServiceInterface);
-  // DeliverymanRegistrationRepoInterface deliverymanRegistrationRepoInterface =
-  //     DeliverymanRegistrationRepo(apiClient: Get.find());
-  // Get.lazyPut(() => deliverymanRegistrationRepoInterface);
-  // DeliverymanRegistrationServiceInterface
-  //     deliverymanRegistrationServiceInterface = DeliverymanRegistrationService(
-  //         deliverymanRegistrationRepoInterface: Get.find());
-  // Get.lazyPut(() => deliverymanRegistrationServiceInterface);
-  // RestaurantRegistrationRepoInterface restaurantRegistrationRepoInterface =
-  //     RestaurantRegistrationRepo(apiClient: Get.find());
-  // Get.lazyPut(() => restaurantRegistrationRepoInterface);
-  // RestaurantRegistrationServiceInterface
-  //     restaurantRegistrationServiceInterface = RestaurantRegistrationService(
-  //         restaurantRegistrationRepoInterface: Get.find());
-  // Get.lazyPut(() => restaurantRegistrationServiceInterface);
   VerificationRepoInterface verificationRepoInterface =
       VerificationRepo(sharedPreferences: Get.find(), apiClient: Get.find());
   Get.lazyPut(() => verificationRepoInterface);
@@ -229,78 +106,24 @@ Future<Map<String, Map<String, String>>> init() async {
       VerificationService(
           verificationRepoInterface: Get.find(), authRepoInterface: Get.find());
   Get.lazyPut(() => verificationServiceInterface);
-  // CategoryRepositoryInterface categoryRepositoryInterface =
-  //     CategoryRepository(apiClient: Get.find());
-  // Get.lazyPut(() => categoryRepositoryInterface);
-  // CategoryServiceInterface categoryServiceInterface =
-  //     CategoryService(categoryRepositoryInterface: Get.find());
-  // Get.lazyPut(() => categoryServiceInterface);
-  // CouponRepositoryInterface couponRepositoryInterface =
-  //     CouponRepository(apiClient: Get.find());
-  // Get.lazyPut(() => couponRepositoryInterface);
-  // CouponServiceInterface couponServiceInterface =
-  //     CouponService(couponRepositoryInterface: Get.find());
-  // Get.lazyPut(() => couponServiceInterface);
   ChatRepositoryInterface chatRepositoryInterface =
       ChatRepository(apiClient: Get.find());
   Get.lazyPut(() => chatRepositoryInterface);
   ChatServiceInterface chatServiceInterface =
       ChatService(chatRepositoryInterface: Get.find());
   Get.lazyPut(() => chatServiceInterface);
-  // CuisineRepositoryInterface cuisineRepositoryInterface =
-  //     CuisineRepository(apiClient: Get.find());
-  // Get.lazyPut(() => cuisineRepositoryInterface);
-  // CuisineServiceInterface cuisineServiceInterface =
-  //     CuisineService(cuisineRepositoryInterface: Get.find());
-  // Get.lazyPut(() => cuisineServiceInterface);
-  // FavouriteRepositoryInterface favouriteRepositoryInterface =
-  //     FavouriteRepository(apiClient: Get.find());
-  // Get.lazyPut(() => favouriteRepositoryInterface);
-  // FavouriteServiceInterface favouriteServiceInterface =
-  //     FavouriteService(favouriteRepositoryInterface: Get.find());
-  // Get.lazyPut(() => favouriteServiceInterface);
-  // ProductRepositoryInterface productRepositoryInterface =
-  //     ProductRepository(apiClient: Get.find());
-  // Get.lazyPut(() => productRepositoryInterface);
-  // ProductServiceInterface productServiceInterface =
-  //     ProductService(productRepositoryInterface: Get.find());
-  // Get.lazyPut(() => productServiceInterface);
-  // ReviewRepositoryInterface reviewRepositoryInterface =
-  //     ReviewRepository(apiClient: Get.find());
-  // Get.lazyPut(() => reviewRepositoryInterface);
-  // ReviewServiceInterface reviewServiceInterface =
-  //     ReviewService(reviewRepositoryInterface: Get.find());
-  // Get.lazyPut(() => reviewServiceInterface);
-  // InterestRepositoryInterface interestRepositoryInterface =
-  //     InterestRepository(apiClient: Get.find());
-  // Get.lazyPut(() => interestRepositoryInterface);
-  // InterestServiceInterface interestServiceInterface =
-  //     InterestService(interestRepositoryInterface: Get.find());
-  // Get.lazyPut(() => interestServiceInterface);
   WalletRepositoryInterface walletRepositoryInterface =
       WalletRepository(apiClient: Get.find(), sharedPreferences: Get.find());
   Get.lazyPut(() => walletRepositoryInterface);
   WalletServiceInterface walletServiceInterface =
       WalletService(walletRepositoryInterface: Get.find());
   Get.lazyPut(() => walletServiceInterface);
-  // LoyaltyRepositoryInterface loyaltyRepositoryInterface =
-  //     LoyaltyRepository(apiClient: Get.find(), sharedPreferences: Get.find());
-  // Get.lazyPut(() => loyaltyRepositoryInterface);
-  // LoyaltyServiceInterface loyaltyServiceInterface =
-  //     LoyaltyService(loyaltyRepositoryInterface: Get.find());
-  // Get.lazyPut(() => loyaltyServiceInterface);
   SplashRepositoryInterface splashRepositoryInterface =
       SplashRepository(apiClient: Get.find(), sharedPreferences: Get.find());
   Get.lazyPut(() => splashRepositoryInterface);
   SplashServiceInterface splashServiceInterface =
       SplashService(splashRepositoryInterface: Get.find());
   Get.lazyPut(() => splashServiceInterface);
-  // HtmlRepositoryInterface htmlRepositoryInterface =
-  //     HtmlRepository(apiClient: Get.find());
-  // Get.lazyPut(() => htmlRepositoryInterface);
-  // HtmlServiceInterface htmlServiceInterface =
-  //     HtmlService(htmlRepositoryInterface: Get.find());
-  // Get.lazyPut(() => htmlServiceInterface);
   LanguageRepositoryInterface languageRepositoryInterface =
       LanguageRepository(apiClient: Get.find(), sharedPreferences: Get.find());
   Get.lazyPut(() => languageRepositoryInterface);
@@ -319,56 +142,12 @@ Future<Map<String, Map<String, String>>> init() async {
   OnboardServiceInterface onboardServiceInterface =
       OnboardService(onboardRepositoryInterface: Get.find());
   Get.lazyPut(() => onboardServiceInterface);
-  // SearchRepositoryInterface searchRepositoryInterface =
-  //     SearchRepository(apiClient: Get.find(), sharedPreferences: Get.find());
-  // Get.lazyPut(() => searchRepositoryInterface);
-  // SearchServiceInterface searchServiceInterface =
-  //     SearchService(searchRepositoryInterface: Get.find());
-  // Get.lazyPut(() => searchServiceInterface);
   ProfileRepositoryInterface profileRepositoryInterface =
       ProfileRepository(apiClient: Get.find());
   Get.lazyPut(() => profileRepositoryInterface);
   ProfileServiceInterface profileServiceInterface =
       ProfileService(profileRepositoryInterface: Get.find());
   Get.lazyPut(() => profileServiceInterface);
-  // RestaurantRepositoryInterface restaurantRepositoryInterface =
-  //     RestaurantRepository(
-  //         apiClient: Get.find(), sharedPreferences: Get.find());
-  // Get.lazyPut(() => restaurantRepositoryInterface);
-  // RestaurantServiceInterface restaurantServiceInterface =
-  //     RestaurantService(restaurantRepositoryInterface: Get.find());
-  // Get.lazyPut(() => restaurantServiceInterface);
-  // CheckoutRepositoryInterface checkoutRepositoryInterface =
-  //     CheckoutRepository(apiClient: Get.find());
-  // Get.lazyPut(() => checkoutRepositoryInterface);
-  // CheckoutServiceInterface checkoutServiceInterface =
-  //     CheckoutService(checkoutRepositoryInterface: Get.find());
-  // Get.lazyPut(() => checkoutServiceInterface);
-  // CartRepositoryInterface cartRepositoryInterface =
-  //     CartRepository(apiClient: Get.find(), sharedPreferences: Get.find());
-  // Get.lazyPut(() => cartRepositoryInterface);
-  // CartServiceInterface cartServiceInterface =
-  //     CartService(cartRepositoryInterface: Get.find());
-  // Get.lazyPut(() => cartServiceInterface);
-  // OrderRepositoryInterface orderRepositoryInterface =
-  //     OrderRepository(apiClient: Get.find());
-  // Get.lazyPut(() => orderRepositoryInterface);
-  // OrderServiceInterface orderServiceInterface =
-  //     OrderService(orderRepositoryInterface: Get.find());
-  // Get.lazyPut(() => orderServiceInterface);
-  // HomeRepositoryInterface homeRepositoryInterface =
-  //     HomeRepository(apiClient: Get.find());
-  // Get.lazyPut(() => homeRepositoryInterface);
-  // HomeServiceInterface homeServiceInterface =
-  //     HomeService(homeRepositoryInterface: Get.find());
-  // Get.lazyPut(() => homeServiceInterface);
-  // CampaignRepositoryInterface campaignRepositoryInterface =
-  //     CampaignRepository(apiClient: Get.find());
-  // Get.lazyPut(() => campaignRepositoryInterface);
-  // CampaignServiceInterface campaignServiceInterface =
-  //     CampaignService(campaignRepositoryInterface: Get.find());
-  // Get.lazyPut(() => campaignServiceInterface);
-
   UsersProfileRepositoryInterface usersProfileRepositoryInterface =
       UsersProfileRepository(
     apiClient: Get.find(),
@@ -395,41 +174,14 @@ Future<Map<String, Map<String, String>>> init() async {
       () => LocalizationController(languageServiceInterface: Get.find()));
   Get.lazyPut(() => OnBoardingController(onboardServiceInterface: Get.find()));
   Get.lazyPut(() => AuthController(authServiceInterface: Get.find()));
-  // Get.lazyPut(() => AddressController(addressServiceInterface: Get.find()));
-  // Get.lazyPut(() => LocationController(locationServiceInterface: Get.find()));
   Get.lazyPut(() => DashboardController(dashboardServiceInterface: Get.find()));
-  // Get.lazyPut(() => DeliverymanRegistrationController(
-  //     deliverymanRegistrationServiceInterface: Get.find()));
-  // Get.lazyPut(() => RestaurantRegistrationController(
-  //     restaurantRegistrationServiceInterface: Get.find()));
 
   Get.lazyPut(
       () => VerificationController(verificationServiceInterface: Get.find()));
-  // Get.lazyPut(() => CategoryController(categoryServiceInterface: Get.find()));
-  // Get.lazyPut(() => ChatController(chatServiceInterface: Get.find()));
-  // Get.lazyPut(() => CuisineController(cuisineServiceInterface: Get.find()));
-  // Get.lazyPut(() => FavouriteController(favouriteServiceInterface: Get.find()));
-  // Get.lazyPut(() => ProductController(productServiceInterface: Get.find()));
-  // Get.lazyPut(() => ReviewController(reviewServiceInterface: Get.find()));
-  // Get.lazyPut(() => InterestController(interestServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
-  // Get.lazyPut(() => LoyaltyController(loyaltyServiceInterface: Get.find()));
-  // Get.lazyPut(() => HtmlController(htmlServiceInterface: Get.find()));
   Get.lazyPut(
       () => NotificationController(notificationServiceInterface: Get.find()));
-  Get.lazyPut(() => ProfileController(profileServiceInterface: Get.find(), authServiceInterface: Get.find()));
-  // Get.lazyPut(() => HomeController(homeServiceInterface: Get.find()));
-  // Get.lazyPut(() => CartController(cartServiceInterface: Get.find()));
-  // Get.lazyPut(
-  //     () => RestaurantController(restaurantServiceInterface: Get.find()));
-  // Get.lazyPut(() => ReferAndEarnController());
-  // Get.lazyPut(() => SearchController(searchServiceInterface: Get.find()));
-  // Get.lazyPut(() => CouponController(couponServiceInterface: Get.find()));
-  // Get.lazyPut(() => OrderController(orderServiceInterface: Get.find()));
-  // Get.lazyPut(() => CampaignController(campaignServiceInterface: Get.find()));
-  // Get.lazyPut(() => CheckoutController(checkoutServiceInterface: Get.find()));
-
-
+  Get.lazyPut(() => ProfileController(profileServiceInterface: Get.find()));
   Get.lazyPut(
       () => UsersProfileController(userProfileServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));

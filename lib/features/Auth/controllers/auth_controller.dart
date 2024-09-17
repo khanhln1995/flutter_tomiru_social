@@ -108,14 +108,6 @@ class AuthController extends GetxController implements GetxService {
     update();
   }
 
-  // String getUserCountryCode() {
-  //   return authServiceInterface.getUserCountryCode();
-  // }
-
-  // String getUserNumber() {
-  //   return authServiceInterface.getUserNumber();
-  // }
-
   String getUserEmail() {
     return authServiceInterface.getUserEmail();
   }
@@ -133,15 +125,6 @@ class AuthController extends GetxController implements GetxService {
     _isActiveRememberMe = true;
     update();
   }
-
-  // Future<ResponseModel> guestLogin() async {
-  //   _guestLoading = true;
-  //   update();
-  //   ResponseModel responseModel = await authServiceInterface.guestLogin();
-  //   _guestLoading = false;
-  //   update();
-  //   return responseModel;
-  // }
 
   Future<void> loginWithSocialMedia(
       SocialLogInBodyModel socialLogInBody) async {

@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart'; // For debugging purposes
 import 'package:get/get_connect/http/src/request/request.dart'; // For HTTP requests
 import 'package:http_parser/http_parser.dart'; // For handling HTTP multipart/form-data
 import 'dart:io'; // For File operations
-// import 'package:tomiru_social_flutter/features/address/domain/models/address_model.dart'; // Address model
 import 'package:tomiru_social_flutter/util/app_constants.dart'; // App constants
 import 'package:get/get.dart'; // GetX for state management
 import 'package:image_picker/image_picker.dart'; // Image picker for selecting images
@@ -15,32 +14,28 @@ import 'package:path/path.dart'; // For manipulating file paths
 import 'package:flutter/foundation.dart'
     as foundation; // Additional foundation for web compatibility
 
-class ApiClient extends GetxService {
+class ApiSocial extends GetxService {
   final String appBaseUrl;
   final SharedPreferences sharedPreferences;
   static final String noInternetMessage = 'connection_to_api_server_failed'.tr;
-  final int timeoutInSeconds = 30;
-  // final int timeoutInSeconds = 3;
+  // final int timeoutInSeconds = 30;
+  final int timeoutInSeconds = 3;
 
   String? token;
   // late Map<String, String> _mainHeaders;
   Map<String, String>? _mainHeaders;
-  ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
-    token = sharedPreferences.getString(AppConstants.jwtToken);
-    if (kDebugMode) {}
+  ApiSocial({required this.appBaseUrl, required this.sharedPreferences}) {
+    token = sharedPreferences.getString(AppConstants.jwtTokenSocial);
+
     updateHeader(
       token,
     );
   }
 
-// Method to update headers
   Map<String, String> updateHeader(String? token, {bool setHeader = true}) {
     Map<String, String> header = {
       'Content-Type': 'application/json; charset=UTF-8',
-      // Other headers can be added here, like language code or other app-specific data
     };
-
-    // Only add the Authorization header if the token is not null
 
     if (token != null && token.isNotEmpty) {
       header['Authorization'] = 'Bearer $token';
@@ -49,7 +44,6 @@ class ApiClient extends GetxService {
     if (setHeader) {
       _mainHeaders = header;
     }
-
     return header;
   }
 
@@ -62,7 +56,7 @@ class ApiClient extends GetxService {
     try {
       if (kDebugMode) {
         debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        debugPrint('====> API Call: $appBaseUrl');
+        // debugPrint('====> API Call: $appBaseUrl');
       }
       http.Response response = await http
           .get(
@@ -86,8 +80,6 @@ class ApiClient extends GetxService {
     try {
       if (kDebugMode) {
         debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        debugPrint('====> API Body: $appBaseUrl + $uri');
-        debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
         debugPrint('====> API Body: $body');
         // debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
       }
@@ -111,9 +103,6 @@ class ApiClient extends GetxService {
       List<MultipartBody> multipartBody, List<MultipartDocument> otherFile,
       {Map<String, String>? headers, bool handleError = true}) async {
     try {
-      // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-      // debugPrint(
-      //     '====> API Body: $body with ${multipartBody.length} and multipart ${otherFile.length}');
       http.MultipartRequest request =
           http.MultipartRequest('POST', Uri.parse(appBaseUrl + uri));
       request.headers.addAll(headers ?? _mainHeaders ?? {});
