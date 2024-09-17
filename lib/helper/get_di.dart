@@ -178,18 +178,6 @@ Future<Map<String, Map<String, String>>> init() async {
       appBaseUrl: AppConstants.baseUrl, sharedPreferences: Get.find()));
 
   ///Interfaces
-  // LocationRepoInterface locationRepoInterface =
-  //     LocationRepo(apiClient: Get.find());
-  // Get.lazyPut(() => locationRepoInterface);
-  // LocationServiceInterface locationServiceInterface =
-  //     LocationService(locationRepoInterface: Get.find());
-  // Get.lazyPut(() => locationServiceInterface);
-  // AddressRepoInterface addressRepoInterface =
-  //     AddressRepo(apiClient: Get.find());
-  // Get.lazyPut(() => addressRepoInterface);
-  // AddressServiceInterface addressServiceInterface =
-  //     AddressService(addressRepoInterface: Get.find());
-  // Get.lazyPut(() => addressServiceInterface);
   DashboardRepoInterface dashboardRepoInterface =
       DashboardRepo(sharedPreferences: Get.find());
   Get.lazyPut(() => dashboardRepoInterface);
@@ -208,20 +196,6 @@ Future<Map<String, Map<String, String>>> init() async {
   AuthServiceInterface authServiceInterface =
       AuthService(authRepoInterface: Get.find());
   Get.lazyPut(() => authServiceInterface);
-  // DeliverymanRegistrationRepoInterface deliverymanRegistrationRepoInterface =
-  //     DeliverymanRegistrationRepo(apiClient: Get.find());
-  // Get.lazyPut(() => deliverymanRegistrationRepoInterface);
-  // DeliverymanRegistrationServiceInterface
-  //     deliverymanRegistrationServiceInterface = DeliverymanRegistrationService(
-  //         deliverymanRegistrationRepoInterface: Get.find());
-  // Get.lazyPut(() => deliverymanRegistrationServiceInterface);
-  // RestaurantRegistrationRepoInterface restaurantRegistrationRepoInterface =
-  //     RestaurantRegistrationRepo(apiClient: Get.find());
-  // Get.lazyPut(() => restaurantRegistrationRepoInterface);
-  // RestaurantRegistrationServiceInterface
-  //     restaurantRegistrationServiceInterface = RestaurantRegistrationService(
-  //         restaurantRegistrationRepoInterface: Get.find());
-  // Get.lazyPut(() => restaurantRegistrationServiceInterface);
   VerificationRepoInterface verificationRepoInterface =
       VerificationRepo(sharedPreferences: Get.find(), apiClient: Get.find());
   Get.lazyPut(() => verificationRepoInterface);
@@ -229,78 +203,24 @@ Future<Map<String, Map<String, String>>> init() async {
       VerificationService(
           verificationRepoInterface: Get.find(), authRepoInterface: Get.find());
   Get.lazyPut(() => verificationServiceInterface);
-  // CategoryRepositoryInterface categoryRepositoryInterface =
-  //     CategoryRepository(apiClient: Get.find());
-  // Get.lazyPut(() => categoryRepositoryInterface);
-  // CategoryServiceInterface categoryServiceInterface =
-  //     CategoryService(categoryRepositoryInterface: Get.find());
-  // Get.lazyPut(() => categoryServiceInterface);
-  // CouponRepositoryInterface couponRepositoryInterface =
-  //     CouponRepository(apiClient: Get.find());
-  // Get.lazyPut(() => couponRepositoryInterface);
-  // CouponServiceInterface couponServiceInterface =
-  //     CouponService(couponRepositoryInterface: Get.find());
-  // Get.lazyPut(() => couponServiceInterface);
   ChatRepositoryInterface chatRepositoryInterface =
       ChatRepository(apiClient: Get.find());
   Get.lazyPut(() => chatRepositoryInterface);
   ChatServiceInterface chatServiceInterface =
       ChatService(chatRepositoryInterface: Get.find());
   Get.lazyPut(() => chatServiceInterface);
-  // CuisineRepositoryInterface cuisineRepositoryInterface =
-  //     CuisineRepository(apiClient: Get.find());
-  // Get.lazyPut(() => cuisineRepositoryInterface);
-  // CuisineServiceInterface cuisineServiceInterface =
-  //     CuisineService(cuisineRepositoryInterface: Get.find());
-  // Get.lazyPut(() => cuisineServiceInterface);
-  // FavouriteRepositoryInterface favouriteRepositoryInterface =
-  //     FavouriteRepository(apiClient: Get.find());
-  // Get.lazyPut(() => favouriteRepositoryInterface);
-  // FavouriteServiceInterface favouriteServiceInterface =
-  //     FavouriteService(favouriteRepositoryInterface: Get.find());
-  // Get.lazyPut(() => favouriteServiceInterface);
-  // ProductRepositoryInterface productRepositoryInterface =
-  //     ProductRepository(apiClient: Get.find());
-  // Get.lazyPut(() => productRepositoryInterface);
-  // ProductServiceInterface productServiceInterface =
-  //     ProductService(productRepositoryInterface: Get.find());
-  // Get.lazyPut(() => productServiceInterface);
-  // ReviewRepositoryInterface reviewRepositoryInterface =
-  //     ReviewRepository(apiClient: Get.find());
-  // Get.lazyPut(() => reviewRepositoryInterface);
-  // ReviewServiceInterface reviewServiceInterface =
-  //     ReviewService(reviewRepositoryInterface: Get.find());
-  // Get.lazyPut(() => reviewServiceInterface);
-  // InterestRepositoryInterface interestRepositoryInterface =
-  //     InterestRepository(apiClient: Get.find());
-  // Get.lazyPut(() => interestRepositoryInterface);
-  // InterestServiceInterface interestServiceInterface =
-  //     InterestService(interestRepositoryInterface: Get.find());
-  // Get.lazyPut(() => interestServiceInterface);
   WalletRepositoryInterface walletRepositoryInterface =
       WalletRepository(apiClient: Get.find(), sharedPreferences: Get.find());
   Get.lazyPut(() => walletRepositoryInterface);
   WalletServiceInterface walletServiceInterface =
       WalletService(walletRepositoryInterface: Get.find());
   Get.lazyPut(() => walletServiceInterface);
-  // LoyaltyRepositoryInterface loyaltyRepositoryInterface =
-  //     LoyaltyRepository(apiClient: Get.find(), sharedPreferences: Get.find());
-  // Get.lazyPut(() => loyaltyRepositoryInterface);
-  // LoyaltyServiceInterface loyaltyServiceInterface =
-  //     LoyaltyService(loyaltyRepositoryInterface: Get.find());
-  // Get.lazyPut(() => loyaltyServiceInterface);
   SplashRepositoryInterface splashRepositoryInterface =
       SplashRepository(apiClient: Get.find(), sharedPreferences: Get.find());
   Get.lazyPut(() => splashRepositoryInterface);
   SplashServiceInterface splashServiceInterface =
       SplashService(splashRepositoryInterface: Get.find());
   Get.lazyPut(() => splashServiceInterface);
-  // HtmlRepositoryInterface htmlRepositoryInterface =
-  //     HtmlRepository(apiClient: Get.find());
-  // Get.lazyPut(() => htmlRepositoryInterface);
-  // HtmlServiceInterface htmlServiceInterface =
-  //     HtmlService(htmlRepositoryInterface: Get.find());
-  // Get.lazyPut(() => htmlServiceInterface);
   LanguageRepositoryInterface languageRepositoryInterface =
       LanguageRepository(apiClient: Get.find(), sharedPreferences: Get.find());
   Get.lazyPut(() => languageRepositoryInterface);
@@ -319,56 +239,12 @@ Future<Map<String, Map<String, String>>> init() async {
   OnboardServiceInterface onboardServiceInterface =
       OnboardService(onboardRepositoryInterface: Get.find());
   Get.lazyPut(() => onboardServiceInterface);
-  // SearchRepositoryInterface searchRepositoryInterface =
-  //     SearchRepository(apiClient: Get.find(), sharedPreferences: Get.find());
-  // Get.lazyPut(() => searchRepositoryInterface);
-  // SearchServiceInterface searchServiceInterface =
-  //     SearchService(searchRepositoryInterface: Get.find());
-  // Get.lazyPut(() => searchServiceInterface);
   ProfileRepositoryInterface profileRepositoryInterface =
       ProfileRepository(apiClient: Get.find());
   Get.lazyPut(() => profileRepositoryInterface);
   ProfileServiceInterface profileServiceInterface =
       ProfileService(profileRepositoryInterface: Get.find());
   Get.lazyPut(() => profileServiceInterface);
-  // RestaurantRepositoryInterface restaurantRepositoryInterface =
-  //     RestaurantRepository(
-  //         apiClient: Get.find(), sharedPreferences: Get.find());
-  // Get.lazyPut(() => restaurantRepositoryInterface);
-  // RestaurantServiceInterface restaurantServiceInterface =
-  //     RestaurantService(restaurantRepositoryInterface: Get.find());
-  // Get.lazyPut(() => restaurantServiceInterface);
-  // CheckoutRepositoryInterface checkoutRepositoryInterface =
-  //     CheckoutRepository(apiClient: Get.find());
-  // Get.lazyPut(() => checkoutRepositoryInterface);
-  // CheckoutServiceInterface checkoutServiceInterface =
-  //     CheckoutService(checkoutRepositoryInterface: Get.find());
-  // Get.lazyPut(() => checkoutServiceInterface);
-  // CartRepositoryInterface cartRepositoryInterface =
-  //     CartRepository(apiClient: Get.find(), sharedPreferences: Get.find());
-  // Get.lazyPut(() => cartRepositoryInterface);
-  // CartServiceInterface cartServiceInterface =
-  //     CartService(cartRepositoryInterface: Get.find());
-  // Get.lazyPut(() => cartServiceInterface);
-  // OrderRepositoryInterface orderRepositoryInterface =
-  //     OrderRepository(apiClient: Get.find());
-  // Get.lazyPut(() => orderRepositoryInterface);
-  // OrderServiceInterface orderServiceInterface =
-  //     OrderService(orderRepositoryInterface: Get.find());
-  // Get.lazyPut(() => orderServiceInterface);
-  // HomeRepositoryInterface homeRepositoryInterface =
-  //     HomeRepository(apiClient: Get.find());
-  // Get.lazyPut(() => homeRepositoryInterface);
-  // HomeServiceInterface homeServiceInterface =
-  //     HomeService(homeRepositoryInterface: Get.find());
-  // Get.lazyPut(() => homeServiceInterface);
-  // CampaignRepositoryInterface campaignRepositoryInterface =
-  //     CampaignRepository(apiClient: Get.find());
-  // Get.lazyPut(() => campaignRepositoryInterface);
-  // CampaignServiceInterface campaignServiceInterface =
-  //     CampaignService(campaignRepositoryInterface: Get.find());
-  // Get.lazyPut(() => campaignServiceInterface);
-
   UsersProfileRepositoryInterface usersProfileRepositoryInterface =
       UsersProfileRepository(
     apiClient: Get.find(),
@@ -395,41 +271,14 @@ Future<Map<String, Map<String, String>>> init() async {
       () => LocalizationController(languageServiceInterface: Get.find()));
   Get.lazyPut(() => OnBoardingController(onboardServiceInterface: Get.find()));
   Get.lazyPut(() => AuthController(authServiceInterface: Get.find()));
-  // Get.lazyPut(() => AddressController(addressServiceInterface: Get.find()));
-  // Get.lazyPut(() => LocationController(locationServiceInterface: Get.find()));
   Get.lazyPut(() => DashboardController(dashboardServiceInterface: Get.find()));
-  // Get.lazyPut(() => DeliverymanRegistrationController(
-  //     deliverymanRegistrationServiceInterface: Get.find()));
-  // Get.lazyPut(() => RestaurantRegistrationController(
-  //     restaurantRegistrationServiceInterface: Get.find()));
 
   Get.lazyPut(
       () => VerificationController(verificationServiceInterface: Get.find()));
-  // Get.lazyPut(() => CategoryController(categoryServiceInterface: Get.find()));
-  // Get.lazyPut(() => ChatController(chatServiceInterface: Get.find()));
-  // Get.lazyPut(() => CuisineController(cuisineServiceInterface: Get.find()));
-  // Get.lazyPut(() => FavouriteController(favouriteServiceInterface: Get.find()));
-  // Get.lazyPut(() => ProductController(productServiceInterface: Get.find()));
-  // Get.lazyPut(() => ReviewController(reviewServiceInterface: Get.find()));
-  // Get.lazyPut(() => InterestController(interestServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
-  // Get.lazyPut(() => LoyaltyController(loyaltyServiceInterface: Get.find()));
-  // Get.lazyPut(() => HtmlController(htmlServiceInterface: Get.find()));
   Get.lazyPut(
       () => NotificationController(notificationServiceInterface: Get.find()));
   Get.lazyPut(() => ProfileController(profileServiceInterface: Get.find()));
-  // Get.lazyPut(() => HomeController(homeServiceInterface: Get.find()));
-  // Get.lazyPut(() => CartController(cartServiceInterface: Get.find()));
-  // Get.lazyPut(
-  //     () => RestaurantController(restaurantServiceInterface: Get.find()));
-  // Get.lazyPut(() => ReferAndEarnController());
-  // Get.lazyPut(() => SearchController(searchServiceInterface: Get.find()));
-  // Get.lazyPut(() => CouponController(couponServiceInterface: Get.find()));
-  // Get.lazyPut(() => OrderController(orderServiceInterface: Get.find()));
-  // Get.lazyPut(() => CampaignController(campaignServiceInterface: Get.find()));
-  // Get.lazyPut(() => CheckoutController(checkoutServiceInterface: Get.find()));
-
-
   Get.lazyPut(
       () => UsersProfileController(userProfileServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));

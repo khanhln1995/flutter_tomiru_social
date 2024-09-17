@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart'; // For debugging purposes
 import 'package:get/get_connect/http/src/request/request.dart'; // For HTTP requests
 import 'package:http_parser/http_parser.dart'; // For handling HTTP multipart/form-data
 import 'dart:io'; // For File operations
-// import 'package:tomiru_social_flutter/features/address/domain/models/address_model.dart'; // Address model
 import 'package:tomiru_social_flutter/util/app_constants.dart'; // App constants
 import 'package:get/get.dart'; // GetX for state management
 import 'package:image_picker/image_picker.dart'; // Image picker for selecting images
@@ -15,7 +14,7 @@ import 'package:path/path.dart'; // For manipulating file paths
 import 'package:flutter/foundation.dart'
     as foundation; // Additional foundation for web compatibility
 
-class ApiClient extends GetxService {
+class ApiSocial extends GetxService {
   final String appBaseUrl;
   final SharedPreferences sharedPreferences;
   static final String noInternetMessage = 'connection_to_api_server_failed'.tr;
@@ -25,8 +24,8 @@ class ApiClient extends GetxService {
   String? token;
   // late Map<String, String> _mainHeaders;
   Map<String, String>? _mainHeaders;
-  ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
-    token = sharedPreferences.getString(AppConstants.jwtToken);
+  ApiSocial({required this.appBaseUrl, required this.sharedPreferences}) {
+    token = sharedPreferences.getString(AppConstants.jwtTokenSocial);
 
     updateHeader(
       token,
