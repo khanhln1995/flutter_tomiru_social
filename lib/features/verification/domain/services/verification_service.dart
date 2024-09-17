@@ -13,8 +13,8 @@ class VerificationService implements VerificationServiceInterface {
       required this.authRepoInterface});
 
   @override
-  Future<ResponseModel> forgetPassword(String? phone) async {
-    return await verificationRepoInterface.forgetPassword(phone);
+  Future<ResponseModel> forgetPassword(String? email) async {
+    return await verificationRepoInterface.forgetPassword(email);
   }
 
   @override

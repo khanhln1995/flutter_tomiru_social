@@ -18,6 +18,7 @@ import 'package:tomiru_social_flutter/common/widgets_2/custom_text_field_widget.
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/cupertino.dart';
 
 class ForgetPassScreen extends StatefulWidget {
   final bool fromSocialLogin;
@@ -35,7 +36,8 @@ class ForgetPassScreen extends StatefulWidget {
 
 class _ForgetPassScreenState extends State<ForgetPassScreen> {
   final ScrollController _scrollController = ScrollController();
-  final TextEditingController _numberController = TextEditingController();
+  // final TextEditingController _numberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   // final String? _countryDialCode = CountryCode.fromCountryCode(
   //         Get.find<SplashController>().configModel!.country!)
   //     .dialCode;
@@ -97,33 +99,43 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                         textAlign: TextAlign.center),
                   ),
                   CustomTextFieldWidget(
-                    titleText: 'enter_phone_number'.tr,
-                    controller: _numberController,
-                    inputType: TextInputType.phone,
-                    inputAction: TextInputAction.done,
-                    isPhone: true,
-                    showTitle: ResponsiveHelper.isDesktop(context),
-                    // onCountryChanged: (CountryCode countryCode) {
-                    //   _countryDialCode = countryCode.dialCode;
-                    // },
-                    countryDialCode:
-                        // _countryDialCode != null
-                        //     ? CountryCode.fromCountryCode(
-                        //             Get.find<SplashController>()
-                        //                 .configModel!
-                        //                 .country!)
-                        //         .code
-                        //     :
-                        Get.find<LocalizationController>().locale.countryCode,
-                    onSubmit: (text) =>
-                        // GetPlatform.isWeb
-                        //     ? _onPressedForgetPass(_countryDialCode!)
-                        // :
-                        null,
-                    labelText: 'phone'.tr,
-                    validator: (value) =>
-                        ValidateCheck.validateEmptyText(value, null),
+                    hintText: 'enter_email'.tr,
+                    labelText: 'email'.tr,
+                    showLabelText: true,
+                    required: true,
+                    controller: _emailController,
+                    inputType: TextInputType.emailAddress,
+                    prefixIcon: CupertinoIcons.mail_solid,
+                    validator: (value) => ValidateCheck.validateEmail(value),
                   ),
+                  // CustomTextFieldWidget(
+                  //   titleText: 'enter_phone_number'.tr,
+                  //   controller: _numberController,
+                  //   inputType: TextInputType.phone,
+                  //   inputAction: TextInputAction.done,
+                  //   isPhone: true,
+                  //   showTitle: ResponsiveHelper.isDesktop(context),
+                  //   // onCountryChanged: (CountryCode countryCode) {
+                  //   //   _countryDialCode = countryCode.dialCode;
+                  //   // },
+                  //   countryDialCode:
+                  //       // _countryDialCode != null
+                  //       //     ? CountryCode.fromCountryCode(
+                  //       //             Get.find<SplashController>()
+                  //       //                 .configModel!
+                  //       //                 .country!)
+                  //       //         .code
+                  //       //     :
+                  //       Get.find<LocalizationController>().locale.countryCode,
+                  //   onSubmit: (text) =>
+                  //       // GetPlatform.isWeb
+                  //       //     ? _onPressedForgetPass(_countryDialCode!)
+                  //       // :
+                  //       null,
+                  //   labelText: 'phone'.tr,
+                  //   validator: (value) =>
+                  //       ValidateCheck.validateEmptyText(value, null),
+                  // ),
                   const SizedBox(height: Dimensions.paddingSizeLarge),
                   GetBuilder<VerificationController>(
                       builder: (verificationController) {
@@ -135,8 +147,8 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                         isLoading: widget.fromSocialLogin
                             ? authController.isLoading
                             : verificationController.isLoading,
-                        // onPressed: () =>
-                        //     _onPressedForgetPass(_countryDialCode!),
+                        onPressed: () =>
+                            _onPressedForgetPass(_emailController.text),
                       );
                     });
                   }),
@@ -172,37 +184,40 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
   }
 
   void _onPressedForgetPass(String countryCode) async {
-    String phone = _numberController.text.trim();
+    // String phone = _numberController.text.trim();
+    String email = _emailController.text.trim();
+    // String numberWithCountryCode = countryCode + phone;
+    // PhoneValid phoneValid =
+    //     await CustomValidator.isPhoneValid(numberWithCountryCode);
+    // numberWithCountryCode = phoneValid.phone;
 
-    String numberWithCountryCode = countryCode + phone;
-    PhoneValid phoneValid =
-        await CustomValidator.isPhoneValid(numberWithCountryCode);
-    numberWithCountryCode = phoneValid.phone;
-
-    if (phone.isEmpty) {
-      showCustomSnackBar('enter_phone_number'.tr);
-    } else if (!phoneValid.isValid) {
-      showCustomSnackBar('invalid_phone_number'.tr);
-    } else {
-      if (widget.fromSocialLogin) {
-        widget.socialLogInModel!.phone = numberWithCountryCode;
-        Get.find<AuthController>()
-            .registerWithSocialMedia(widget.socialLogInModel!);
-      } else {
-        Get.find<VerificationController>()
-            .forgetPassword(numberWithCountryCode)
-            .then((status) async {
-          if (status.isSuccess) {
-            Get.toNamed(RouteHelper.getVerificationRoute(
-              numberWithCountryCode,
-              '',
-              RouteHelper.forgotPassword,
-            ));
-          } else {
-            showCustomSnackBar(status.message);
-          }
-        });
-      }
+    if (email.isEmpty) {
+      showCustomSnackBar('enter_email'.tr);
+    }
+    // else if (!email.) {
+    //   showCustomSnackBar('invalid_phone_number'.tr);
+    // }
+    else {
+      // if (widget.fromSocialLogin) {
+      //   widget.socialLogInModel!.phone = numberWithCountryCode;
+      //   Get.find<AuthController>()
+      //       .registerWithSocialMedia(widget.socialLogInModel!);
+      // }
+      // else {
+      Get.find<VerificationController>()
+          .forgetPassword(email)
+          .then((status) async {
+        if (status.isSuccess) {
+          Get.toNamed(RouteHelper.getVerificationRoute(
+            email,
+            '',
+            RouteHelper.forgotPassword,
+          ));
+        } else {
+          showCustomSnackBar(status.message);
+        }
+      });
+      // }
     }
   }
 }

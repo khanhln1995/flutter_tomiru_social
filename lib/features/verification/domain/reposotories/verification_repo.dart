@@ -12,11 +12,11 @@ class VerificationRepo implements VerificationRepoInterface {
   VerificationRepo({required this.sharedPreferences, required this.apiClient});
 
   @override
-  Future<ResponseModel> forgetPassword(String? phone) async {
+  Future<ResponseModel> forgetPassword(String? email) async {
     Response response = await apiClient.postData(
-        AppConstants.forgetPasswordUri, {"phone": phone},
+        AppConstants.forgetPasswordUri, {"email": email},
         handleError: false);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       return ResponseModel(true, response.body["message"]);
     } else {
       return ResponseModel(false, response.statusText);

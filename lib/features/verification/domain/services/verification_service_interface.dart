@@ -1,7 +1,7 @@
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
 
 abstract class VerificationServiceInterface {
-  Future<ResponseModel> forgetPassword(String? phone);
+  Future<ResponseModel> forgetPassword(String? email);
   Future<ResponseModel> verifyToken(String? phone, String verificationCode);
   Future<ResponseModel> resetPassword(String? resetToken, String number,
       String password, String confirmPassword);

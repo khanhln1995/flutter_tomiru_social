@@ -25,8 +25,8 @@ class AppConstants {
   static const String socialRegisterUri = '/api/v1/auth/social-register';
 
   static const String tokenUri = '/api/v1/customer/cm-firebase-token';
-  static const String verifyTokenUri = '/api/v1/auth/verify-token';
-  static const String forgetPasswordUri = '/api/v1/auth/forgot-password';
+  static const String verifyTokenUri = '/api/v1.0/auth/verify-token';
+  static const String forgetPasswordUri = '/api/v1.0/auth/forgot-otp';
   static const String resetPasswordUri = '/api/v1/auth/reset-password';
 
   static const String checkEmailUri = '/api/v1/auth/check-email';

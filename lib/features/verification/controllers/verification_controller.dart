@@ -14,11 +14,11 @@ class VerificationController extends GetxController implements GetxService {
   String _verificationCode = '';
   String get verificationCode => _verificationCode;
 
-  Future<ResponseModel> forgetPassword(String? phone) async {
+  Future<ResponseModel> forgetPassword(String? email) async {
     _isLoading = true;
     update();
     ResponseModel responseModel =
-        await verificationServiceInterface.forgetPassword(phone);
+        await verificationServiceInterface.forgetPassword(email);
     _isLoading = false;
     update();
     return responseModel;
