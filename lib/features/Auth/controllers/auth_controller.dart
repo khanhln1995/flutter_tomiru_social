@@ -1,4 +1,7 @@
+import 'package:geolocator/geolocator.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
 import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/jwt_tokens_model.dart';
@@ -79,12 +82,13 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
-  Future<ResponseModel> registration(SignUpBodyModel signUpModel) async {
+  Future<ResponseModelWithBody> registration(
+      SignUpBodyModel signUpModel) async {
     _isLoading = true;
     update();
-    ResponseModel responseModel = await authServiceInterface.registration(
-        signUpModel,
-        Get.find<SplashController>().configModel!.customerVerification!);
+    ResponseModelWithBody responseModel =
+        await authServiceInterface.registration(signUpModel,
+            Get.find<SplashController>().configModel!.customerVerification!);
     _isLoading = false;
     update();
     return responseModel;

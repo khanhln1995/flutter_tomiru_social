@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:tomiru_social_flutter/api/api_social.dart';
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
 import 'package:tomiru_social_flutter/api/api_client.dart';
 // import 'package:tomiru_social_flutter/features/address/domain/models/address_model.dart';
@@ -13,13 +14,18 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../models/jwt_tokens_model.dart';
 
 class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
   final ApiClient apiClient;
+  final ApiSocial apiSocial;
   final SharedPreferences sharedPreferences;
-  AuthRepo({required this.sharedPreferences, required this.apiClient});
+  AuthRepo(
+      {required this.sharedPreferences,
+      required this.apiClient,
+      required this.apiSocial});
 
   Future<void> saveTokens(Map<String, dynamic> responseBody) async {
     await sharedPreferences.setString(
@@ -183,8 +189,6 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
 
   @override
   Future<void> saveSelfInfo(SelfInfoModel selfInfomodel) async {
-    print(selfInfomodel);
-    print("============================");
     try {
       String selfInfoJson = jsonEncode(selfInfomodel.toJson());
 
@@ -239,6 +243,32 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
   @override
   String getGuestId() {
     return sharedPreferences.getString(AppConstants.guestId) ?? "";
+  }
+
+  @override
+  Future<bool> savePosition(Position position) {
+    try {
+      String positionJson = jsonEncode(position.toJson());
+      return sharedPreferences.setString(
+          AppConstants.userPosition, positionJson);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Position? getPosition() {
+    try {
+      String? positionStr =
+          sharedPreferences.getString(AppConstants.userPosition);
+      if (positionStr != null) {
+        Map<String, dynamic> positionInfo = jsonDecode(positionStr);
+        return Position.fromMap(positionInfo);
+      }
+    } catch (e) {
+      print("loi");
+    }
+    return null;
   }
 
   @override

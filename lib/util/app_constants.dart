@@ -11,9 +11,8 @@ class AppConstants {
   // static const String baseUrl = 'http://192.168.102.65:8000';
   //! Link MXH
   // static const String baseUrl = 'http://192.168.102.132:8000';
-
-  static const String baseUrl = 'http://192.168.102.36:3003';
-  static const String socialUrl = 'http://192.168.102.36:3003';
+  static const String baseUrl = 'http://192.168.102.53:3003';
+  static const String socialUrl = 'http://192.168.102.34:8000';
   // sentTOken
 
 // AUTH
@@ -74,6 +73,7 @@ class AppConstants {
   static const String cacheCountryCode = 'cache_country_code';
   static const String cacheLanguageCode = 'cache_language_code';
   static const String cartList = 'cart_list';
+  static const String userPosition = 'user_position';
   static const String userSelfInfo = 'user_self_info';
   static const String userPassword = 'user_password';
   static const String userAddress = 'user_address';
@@ -127,8 +127,7 @@ class AppConstants {
   static const String apiV1Users = '$apiV1/users';
   static const String apiV1MasterData = '$apiV1/master-data';
   static const String apiV1UsersMe = '$apiV1Users/me';
-  static const String apiV1UsersWalletHistory =
-      '$apiV1Users/wallet-history?limit=3';
+  static const String apiV1UsersWalletHistory = '$apiV1Users/wallet-history';
   static const String apiV1UsersIncomeHistory = '$apiV1Users/income-history';
   static const String apiV1UsersSendCoin = '$apiV1Users/send-token';
   static const String requestOTPUri = '$apiV1Users/send-token-otp';
