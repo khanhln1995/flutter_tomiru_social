@@ -7,7 +7,7 @@ class Images {
   static const String facebook = 'assets/images/facebook_icon.png';
   static const String facebookIcon = 'assets/images/icon-tomiru.png';
   static const String appleLogo = 'assets/images/icon-tomiru.png';
-  static const String forgot = 'assets/images/icon-tomiru.png';
+  static const String forgot = 'assets/images/forgot.png';
   static const String update = 'assets/images/icon-tomiru.png';
   static const String maintenance = 'assets/images/icon-tomiru.png';
   static const String noInternet = 'assets/images/icon-tomiru.png';

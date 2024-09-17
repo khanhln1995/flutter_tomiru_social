@@ -48,7 +48,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
           ? Colors.transparent
           : Theme.of(context).cardColor,
       appBar: CustomAppBarWidget(
-          title: widget.fromSocialLogin ? 'phone' : 'forgot_password'),
+          title: widget.fromSocialLogin ? 'phone'.tr : 'forgot_password'.tr),
       body: Center(
           child: SingleChildScrollView(
         controller: _scrollController,
@@ -67,27 +67,17 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
               ? BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                  boxShadow: ResponsiveHelper.isDesktop(context)
-                      ? null
-                      : [
-                          BoxShadow(
-                              color: Colors.grey[Get.isDarkMode ? 700 : 300]!,
-                              blurRadius: 5,
-                              spreadRadius: 1)
-                        ],
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey[Get.isDarkMode ? 700 : 300]!,
+                        blurRadius: 5,
+                        spreadRadius: 1)
+                  ],
                 )
               : null,
           child: Column(
             children: [
-              ResponsiveHelper.isDesktop(context)
-                  ? Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        onPressed: () => Get.back(),
-                        icon: const Icon(Icons.clear),
-                      ),
-                    )
-                  : const SizedBox(),
+              const SizedBox(),
               Padding(
                 padding: widget.fromDialog
                     ? const EdgeInsets.all(Dimensions.paddingSizeOverLarge)
@@ -99,7 +89,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                       height: widget.fromDialog ? 160 : 220),
                   Padding(
                     padding: const EdgeInsets.all(30),
-                    child: Text('please_enter_mobile',
+                    child: Text('please_enter_mobile'.tr,
                         style: robotoRegular.copyWith(
                             fontSize: widget.fromDialog
                                 ? Dimensions.fontSizeSmall
@@ -107,7 +97,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                         textAlign: TextAlign.center),
                   ),
                   CustomTextFieldWidget(
-                    titleText: 'enter_phone_number',
+                    titleText: 'enter_phone_number'.tr,
                     controller: _numberController,
                     inputType: TextInputType.phone,
                     inputAction: TextInputAction.done,
@@ -130,7 +120,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                         //     ? _onPressedForgetPass(_countryDialCode!)
                         // :
                         null,
-                    labelText: 'phone',
+                    labelText: 'phone'.tr,
                     validator: (value) =>
                         ValidateCheck.validateEmptyText(value, null),
                   ),
@@ -141,7 +131,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                         builder: (authController) {
                       return CustomButtonWidget(
                         radius: Dimensions.radiusDefault,
-                        buttonText: widget.fromDialog ? 'verify' : 'next',
+                        buttonText: widget.fromDialog ? 'verify'.tr : 'next'.tr,
                         isLoading: widget.fromSocialLogin
                             ? authController.isLoading
                             : verificationController.isLoading,
@@ -155,13 +145,13 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                       text: TextSpan(children: [
                         TextSpan(
                           text:
-                              '${'if_you_have_any_queries_feel_free_to_contact_with_our'} ',
+                              '${'if_you_have_any_queries_feel_free_to_contact_with_our'.tr} ',
                           style: robotoRegular.copyWith(
                               color: Theme.of(context).hintColor,
                               fontSize: Dimensions.fontSizeSmall),
                         ),
                         TextSpan(
-                          text: 'help_and_support',
+                          text: 'help_and_support'.tr,
                           style: robotoMedium.copyWith(
                               color: Theme.of(context).primaryColor,
                               fontSize: Dimensions.fontSizeDefault),
@@ -190,9 +180,9 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
     numberWithCountryCode = phoneValid.phone;
 
     if (phone.isEmpty) {
-      showCustomSnackBar('enter_phone_number');
+      showCustomSnackBar('enter_phone_number'.tr);
     } else if (!phoneValid.isValid) {
-      showCustomSnackBar('invalid_phone_number');
+      showCustomSnackBar('invalid_phone_number'.tr);
     } else {
       if (widget.fromSocialLogin) {
         widget.socialLogInModel!.phone = numberWithCountryCode;
@@ -204,7 +194,10 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
             .then((status) async {
           if (status.isSuccess) {
             Get.toNamed(RouteHelper.getVerificationRoute(
-                numberWithCountryCode, '', RouteHelper.forgotPassword, ''));
+              numberWithCountryCode,
+              '',
+              RouteHelper.forgotPassword,
+            ));
           } else {
             showCustomSnackBar(status.message);
           }

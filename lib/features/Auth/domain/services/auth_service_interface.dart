@@ -5,7 +5,7 @@ import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_mo
 import 'package:geolocator/geolocator.dart';
 
 abstract class AuthServiceInterface {
-  Future<ResponseModel> registration(
+  Future<ResponseModelWithBody> registration(
       SignUpBodyModel signUpModel, bool isCustomerVerificationOn);
   Future<ResponseModel> login(
       {

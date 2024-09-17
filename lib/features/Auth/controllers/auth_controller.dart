@@ -55,12 +55,13 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
-  Future<ResponseModel> registration(SignUpBodyModel signUpModel) async {
+  Future<ResponseModelWithBody> registration(
+      SignUpBodyModel signUpModel) async {
     _isLoading = true;
     update();
-    ResponseModel responseModel = await authServiceInterface.registration(
-        signUpModel,
-        Get.find<SplashController>().configModel!.customerVerification!);
+    ResponseModelWithBody responseModel =
+        await authServiceInterface.registration(signUpModel,
+            Get.find<SplashController>().configModel!.customerVerification!);
     _isLoading = false;
     update();
     return responseModel;

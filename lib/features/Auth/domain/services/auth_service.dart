@@ -15,20 +15,20 @@ class AuthService implements AuthServiceInterface {
   AuthService({required this.authRepoInterface});
 
   @override
-  Future<ResponseModel> registration(
+  Future<ResponseModelWithBody> registration(
       SignUpBodyModel signUpModel, bool isCustomerVerificationOn) async {
     Response response = await authRepoInterface.registration(signUpModel);
-    if (response.statusCode == 200) {
-      // print(response.body["token"]);
-      // print("==========>>>>>>");
+    print("response: ${response.body}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
       if (!isCustomerVerificationOn) {
         authRepoInterface.saveUserToken(response.body["token"]);
         await authRepoInterface.updateToken();
         authRepoInterface.clearGuestId();
       }
-      return ResponseModel(true, response.body["token"]);
+      return ResponseModelWithBody(true, response.body["token"], response.body);
     } else {
-      return ResponseModel(false, response.statusText);
+      return ResponseModelWithBody(
+          false, response.body["error"]["message"], response.body);
     }
   }
 
@@ -126,10 +126,10 @@ class AuthService implements AuthServiceInterface {
         if (isCustomerVerificationOn &&
             response.body['is_phone_verified'] == 0) {
           Get.toNamed(RouteHelper.getVerificationRoute(
-              response.body['phone'] ?? socialLogInModel.email,
-              token,
-              RouteHelper.signUp,
-              ''));
+            response.body['phone'] ?? socialLogInModel.email,
+            token,
+            RouteHelper.signUp,
+          ));
         } else {
           authRepoInterface.saveUserToken(response.body['token']);
           await authRepoInterface.updateToken();
@@ -154,7 +154,7 @@ class AuthService implements AuthServiceInterface {
       String? token = response.body['token'];
       if (isCustomerVerificationOn && response.body['is_phone_verified'] == 0) {
         Get.toNamed(RouteHelper.getVerificationRoute(
-            socialLogInModel.phone, token, RouteHelper.signUp, ''));
+            socialLogInModel.phone, token, RouteHelper.signUp));
       } else {
         authRepoInterface.saveUserToken(response.body['token']);
         await authRepoInterface.updateToken();
