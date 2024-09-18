@@ -149,7 +149,7 @@ class MembershipPackage extends StatelessWidget {
                               child: SizedBox(width: 10),
                             ),
                             TextSpan(
-                              text: "(Đã gồm ${(vat*100).toInt()}% VAT)",
+                              text: "(Đã gồm ${(vat * 100).toInt()}% VAT)",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 11.19),
                             ),
@@ -219,7 +219,10 @@ class MembershipPackage extends StatelessWidget {
           future: Get.find<BusinessController>().getPackages(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)));
+              return Center(
+                  child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).primaryColor)));
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (snapshot.hasData) {
@@ -251,7 +254,7 @@ class MembershipPackage extends StatelessWidget {
                           note: 'Thanh toán theo năm',
                           discount: 'Tiết kiệm 10%',
                           backgroundColor: packageStyle!.backgroundColor,
-                          textColor: packageStyle.buttonStyle.color!,
+                          textColor: packageStyle.backgroundColor == Colors.white ? packageStyle.buttonStyle.color! : Colors.white,
                           buttonColor: Colors.white,
                           buttonTextColor: packageStyle.buttonStyle.color!,
                           listDetails: packageStyle.listDetails,
@@ -310,7 +313,7 @@ class MembershipOption extends StatefulWidget {
   });
 
   @override
-  _MembershipOptionState createState() => _MembershipOptionState();
+  State<MembershipOption> createState() => _MembershipOptionState();
 }
 
 class _MembershipOptionState extends State<MembershipOption> {
