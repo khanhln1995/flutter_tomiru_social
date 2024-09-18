@@ -94,9 +94,9 @@ class _NetTabState extends State<NetTab> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Network Tree'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Network Tree'),
+      // ),
       body: Center(
         child: InteractiveViewer(
           constrained: false,

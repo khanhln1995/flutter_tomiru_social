@@ -237,7 +237,7 @@ class _NodeDialogWidgetState extends State<NodeDialogWidget> {
 
   Widget _buildDetailsTab(TreeNode treeNode) {
     if (graph.nodes.isEmpty) {
-      return const Center(child: Text('No data available'));
+      return const Center(child: Text('Chưa có F1'));
     }
     return Scaffold(
       body: Center(

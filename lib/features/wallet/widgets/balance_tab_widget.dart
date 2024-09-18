@@ -170,6 +170,81 @@ print("Đây là userProfile");
                 title: const Text('Về Tomxu'),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {},
+                subtitle: Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Tổng Tomxu đã nạp: ',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            TextSpan(
+                              text: '34343',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Tổng đã Chuyển: ',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            TextSpan(
+                              text: '34343',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Tổng đã Nhận: ',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            TextSpan(
+                              text: '99934',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Hình thức xác thực: ',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            TextSpan(
+                              text: 'OTP by SMS',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

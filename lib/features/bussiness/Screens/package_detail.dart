@@ -94,19 +94,20 @@ class _PackageDetailState extends State<PackageDetail> {
     } else {
       formattedRemainingTime = '${remainingTime.inDays} ngày';
     }
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        body: TabBarView(
-          children: [
-            _buildRenewServiceTab(
-                theme, context, userProfile, formattedExpiredPremiumDateTime),
-            _buildNewPurchaseTab(),
-            _buildHistoryTab(),
-          ],
-        ),
+    return Scaffold(
+      body: Column(
+        children: [
+          _buildRenewServiceTab(
+            theme,
+            context,
+            userProfile,
+            formattedExpiredPremiumDateTime,
+          ),
+          // Add more widgets here as needed
+        ],
       ),
     );
+
   }
 
   Widget _buildRenewServiceTab(ThemeData theme, BuildContext context,

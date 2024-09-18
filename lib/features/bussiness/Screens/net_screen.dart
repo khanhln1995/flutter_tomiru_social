@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tomiru_social_flutter/features/Home/widgets/contact_member.dart';
+import 'package:tomiru_social_flutter/features/bussiness/Screens/income_screen.dart';
 import 'package:tomiru_social_flutter/features/bussiness/Widgets/net_tab.dart'; // Import the new NetTab widget
 
 class NetScreen extends StatelessWidget {
@@ -14,15 +15,15 @@ class NetScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const SearchBar(),
-              Divider(
-                thickness: 1,
-                color: Colors.grey[300],
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(28, 28, 35, 22),
-                child: UserInfoSection(),
-              ),
+              // const SearchBar(),
+              // Divider(
+              //   thickness: 1,
+              //   color: Colors.grey[300],
+              // ),
+              // const Padding(
+              //   padding: EdgeInsets.fromLTRB(28, 28, 35, 22),
+              //   child: UserInfoSection(),
+              // ),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.blue[50],
@@ -55,7 +56,7 @@ class NetScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 400, // Adjust the height as necessary
+                height: 800, // Adjust the height as necessary
                 child: TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
@@ -375,7 +376,14 @@ class IncomeCard extends StatelessWidget {
             ],
           ),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => IncomeScreen(),
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
               ),

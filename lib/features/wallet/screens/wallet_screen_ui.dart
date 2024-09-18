@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
 import 'package:tomiru_social_flutter/features/wallet/widgets/balance_tab_widget.dart';
 import 'package:tomiru_social_flutter/features/wallet/widgets/overview_tab_widget.dart';
-import 'package:tomiru_social_flutter/util/images.dart';
 
 import 'package:tomiru_social_flutter/features/wallet/controllers/wallet_controller.dart';
 import '../domain/models/wallet_history_model.dart';
-import '../controllers/wallet_controller.dart';
 
 class WalletScreenUi extends StatefulWidget {
   const WalletScreenUi({super.key});

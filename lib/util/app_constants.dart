@@ -9,10 +9,11 @@ class AppConstants {
   static const String fontFamily = 'Roboto';
   static const bool payInWevView = false;
   // static const String baseUrl = 'http://192.168.102.65:8000';
+  static const String baseUrl = 'http://192.168.102.56:3003';
   //! Link MXH
   // static const String baseUrl = 'http://192.168.102.132:8000';
   //! Link Ví
-  static const String baseUrl = 'http://192.168.102.14:8080';
+  // static const String baseUrl = 'http://192.168.102.14:8080';
 
   // sentTOken
 
