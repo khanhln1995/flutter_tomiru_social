@@ -16,6 +16,10 @@ class VerificationController extends GetxController implements GetxService {
 
   String _email = '';
 
+  void setVerificationCode(String otp){
+    _verificationCode = otp;
+  }
+
   Future<ResponseModelWithBody> forgetPassword(String? email) async {
     _isLoading = true;
     update();
@@ -97,6 +101,16 @@ class VerificationController extends GetxController implements GetxService {
     update();
     ResponseModel responseModel =
         await verificationServiceInterface.forgotConfirmOTP(_email, otp);
+    if (responseModel.isSuccess) {}
+    _isLoading = false;
+    update();
+    return responseModel;
+  }
+  Future<ResponseModel> sigupConfirmOTP(String email,String otp) async {
+    _isLoading = true;
+    update();
+    ResponseModel responseModel =
+    await verificationServiceInterface.sigupConfirmOTP(email, otp);
     if (responseModel.isSuccess) {}
     _isLoading = false;
     update();

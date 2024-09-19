@@ -89,6 +89,12 @@ class VerificationRepo implements VerificationRepoInterface {
         AppConstants.forgotConfirmOtpUri, {"email": email, "codeOtp": otp},
         handleError: false);
   }
+  @override
+  Future<Response> sigupConfirmOTP(String? email, String otp) async {
+    return await apiClient.postData(
+        AppConstants.sigupConfirmOtpUri, {"email": email, "otp": otp},
+        handleError: false);
+  }
 
   @override
   Future add(value) {

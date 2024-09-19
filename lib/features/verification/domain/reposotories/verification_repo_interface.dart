@@ -11,4 +11,5 @@ abstract class VerificationRepoInterface<T> extends RepositoryInterface<T> {
   Future<Response> verifyEmail(String email, String token);
   Future<Response> verifyPhone(String? phone, String otp);
   Future<Response> forgotConfirmOTP(String? email, String otp);
+  Future<Response> sigupConfirmOTP(String? email, String otp);
 }

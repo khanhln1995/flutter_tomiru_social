@@ -124,9 +124,7 @@ class WalletRepository implements WalletRepositoryInterface {
       emailList.removeAt(0);
     }
     String updatedEmailListJson = jsonEncode(emailList);
-    print('111111111111111111111111111111111111111111111111111111111111111111');
-    print(emailListJson);
-    print('111111111111111111111111111111111111111111111111111111111111111111');
+
     await sharedPreferences.setString(
         AppConstants.emailListKey, updatedEmailListJson);
   }

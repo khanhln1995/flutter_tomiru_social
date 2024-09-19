@@ -11,4 +11,5 @@ abstract class VerificationServiceInterface {
   Future<ResponseModel> verifyPhone(
       String? phone, String? token, String verificationCode);
   Future<ResponseModel> forgotConfirmOTP(String email, String otp);
+  Future<ResponseModel> sigupConfirmOTP(String email, String otp);
 }

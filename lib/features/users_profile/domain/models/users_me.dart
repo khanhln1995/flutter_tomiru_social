@@ -108,7 +108,7 @@ class UserProfile {
   final bool twoFaEnabled;
   final bool checkedIn;
   final int checkInBonus;
-  final int? createdAt;
+  final String? createdAt;
   final String phoneCode;
   final String? slug;
   final String profileImage;

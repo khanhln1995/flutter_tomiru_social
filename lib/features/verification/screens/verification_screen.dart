@@ -41,7 +41,9 @@ class VerificationScreenState extends State<VerificationScreen> {
   @override
   void initState() {
     super.initState();
-
+    if(widget.otp != null){
+      Get.find<VerificationController>().setVerificationCode(widget.otp.toString());
+    }
     // Initialize OTP controller and autofill OTP value
     _otpController = TextEditingController();
     _otpController.text = Get.find<VerificationController>().verificationCode;
@@ -202,7 +204,7 @@ class VerificationScreenState extends State<VerificationScreen> {
                               onPressed: () {
                                 if (widget.fromSignUp) {
                                   verificationController
-                                      .verifyPhone(_email, _otpController.text)
+                                      .sigupConfirmOTP(widget.email!, _otpController.text)
                                       .then((value) {
                                     if (value.isSuccess) {
                                       showAnimatedDialog(
@@ -249,8 +251,8 @@ class VerificationScreenState extends State<VerificationScreen> {
                                       Future.delayed(const Duration(seconds: 2),
                                           () {
                                         Get.offNamed(
-                                            RouteHelper.getAccessLocationRoute(
-                                                'verification'));
+                                            RouteHelper.getSignInRoute(
+                                                'sig-in'));
                                       });
                                     } else {
                                       showCustomSnackBar(value.message);
