@@ -8,7 +8,6 @@ class UsersProfileController extends GetxController implements GetxService {
   final UsersProfileServiceInterface userProfileServiceInterface;
   UsersProfileController({required this.userProfileServiceInterface}) {
     setCurrentUsers();
-
     getCurrentUsersLocal();
   }
   UserProfile? _userProfile;

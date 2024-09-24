@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tomiru_social_flutter/features/social_network/Screens/social_network.dart';
+import 'package:tomiru_social_flutter/features/social_network/controller/social_controller.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
+import 'package:get/get.dart';
 
 class ServiceContent extends StatelessWidget {
   const ServiceContent({super.key});
@@ -15,14 +17,15 @@ class ServiceContent extends StatelessWidget {
                 width: 30, height: 30),
             "Mạng xã hội",
             [const Color(0xFF87CEFA), const Color(0xFF1E90FF)], () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) =>
-                  const SocialNetwork(),
-              transitionDuration: const Duration(seconds: 1),
-            ),
-          );
+          // Navigator.push(
+          //   context,
+          //   PageRouteBuilder(
+          //     pageBuilder: (context, animation1, animation2) =>
+          //         const SocialNetwork(),
+          //     transitionDuration: const Duration(seconds: 1),
+          //   ),
+          // );
+          Get.find<SocialController>().getFollowersTweets(0);
         }),
         _exploreButton(
             const Icon(Icons.shopping_cart, size: 30, color: Colors.white),
@@ -39,10 +42,9 @@ class ServiceContent extends StatelessWidget {
             const Icon(Icons.business_center_rounded,
                 size: 30, color: Colors.white),
             "Kinh doanh",
-            [const Color(0xFFFFa500), const Color(0xFFFF8C00)],
-            () {
-              Navigator.pushNamed(context, RouteHelper.getBusinessRoute());
-            }),
+            [const Color(0xFFFFa500), const Color(0xFFFF8C00)], () {
+          Navigator.pushNamed(context, RouteHelper.getBusinessRoute());
+        }),
       ],
     );
   }

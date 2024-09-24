@@ -84,7 +84,6 @@ class HorizontalImageItem extends StatelessWidget {
                               height: 40,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // print('Plus button pressed');
                                 },
                                 child: Icon(Icons.add,
                                     size: 35, color: Colors.white),

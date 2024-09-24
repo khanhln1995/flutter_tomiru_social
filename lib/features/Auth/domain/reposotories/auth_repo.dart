@@ -133,6 +133,7 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       apiClient.updateHeader(res.body['data']['accessToken']);
+      apiSocial.updateHeader(res.body['data']['accessTokenSocial']);
       await saveTokens(res.body['data']);
     }
 

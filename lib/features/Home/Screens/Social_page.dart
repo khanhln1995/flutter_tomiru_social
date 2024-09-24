@@ -58,7 +58,6 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
     List<dynamic> jsonList = jsonDecode(jsonData);
     List<Post2> loadedPosts =
         jsonList.skip(_page * _limit).take(_limit).map((json) {
-      // Lấy dữ liệu tác giả từ JSON và thêm vào danh sách userData
       userData.add(Author.fromJson(json['author']));
       return Post2.fromJson(json);
     }).toList();
@@ -110,6 +109,7 @@ class _SocialNetworkPageState extends State<SocialNetworkPage> {
               slivers: [
                 const SliverToBoxAdapter(
                   child: UserPostBar(),
+
                 ),
                 SliverToBoxAdapter(
                   child: HorizontalImageListScreen(),

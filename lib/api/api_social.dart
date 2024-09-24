@@ -5,14 +5,12 @@ import 'package:flutter/foundation.dart'; // For debugging purposes
 import 'package:get/get_connect/http/src/request/request.dart'; // For HTTP requests
 import 'package:http_parser/http_parser.dart'; // For handling HTTP multipart/form-data
 import 'dart:io'; // For File operations
-import 'package:tomiru_social_flutter/util/app_constants.dart'; // App constants
 import 'package:get/get.dart'; // GetX for state management
 import 'package:image_picker/image_picker.dart'; // Image picker for selecting images
 import 'package:shared_preferences/shared_preferences.dart'; // For storing data locally
 import 'package:http/http.dart' as http; // For making HTTP requests
 import 'package:path/path.dart'; // For manipulating file paths
-import 'package:flutter/foundation.dart'
-    as foundation; // Additional foundation for web compatibility
+import 'package:flutter/foundation.dart' as foundation;
 
 class ApiSocial extends GetxService {
   final String appBaseUrl;
@@ -25,8 +23,9 @@ class ApiSocial extends GetxService {
   // late Map<String, String> _mainHeaders;
   Map<String, String>? _mainHeaders;
   ApiSocial({required this.appBaseUrl, required this.sharedPreferences}) {
-    token = sharedPreferences.getString(AppConstants.jwtTokenSocial);
-
+    // String? token = sharedPreferences.getString(AppConstants.jwtTokenSocial);
+    String? token =
+        'eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AZ21haWwuY29tIiwidXNlciI6InN5c3RlbSIsIm5hbWUiOiJzeXN0ZW0xIFNldHVwIiwiaWF0IjoxNzI3MTUzMjU1LCJleHAiOjI1OTExNTMyNTV9.cFYRmsjiunqeEymy-mzbmY3oggb0s83hT2jeHzqelPqRTsMoEaqmxv-vCCP4JHAzjn6_L6TJcGyg4_l3dN7RsBsxwK-1Dv0acqdGGwp7axZ2qHWYJNyhe2Q788rSKinFeKg_SAxp9Q8MgUVO4YAsmbhZ5gNaSrnYZv6gkTkh-6PGo-5KluJJSoqa-uFXWyK_noE3WV5gqxBvT9rfrmj7SLLJpGYv51UkvixRE87YDwwoNsqRfAbyGwE032HE1pwq9Rj8gKKv602dtoWtuizq3Rz7AxP82xsUCwupRTUjr_S1Fk7ZTSYoJB-XCLXONTZPbo83NbTgLuvxPBSlePGfRg';
     updateHeader(
       token,
     );
