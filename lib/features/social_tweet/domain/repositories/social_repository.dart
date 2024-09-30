@@ -1,17 +1,17 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:tomiru_social_flutter/api/api_client.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tomiru_social_flutter/api/api_client.dart';
 import 'package:tomiru_social_flutter/api/api_social.dart';
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/add_quote_tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/change_reply_type_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/reply_tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/tweet.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/repositories/social_repository_interface.dart';
-import 'package:tomiru_social_flutter/util/app_constants.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/add_quote_tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/change_reply_type_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/reply_tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/repositories/social_repository_interface.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/models/user_model.dart';
 import 'package:tomiru_social_flutter/util/social_endpoint.dart';
 
 class SocialRepository implements SocialRepositoryInterface {
@@ -90,7 +90,7 @@ class SocialRepository implements SocialRepositoryInterface {
   Future<Tweet> getPinnedTweetByUserId(int id) async {
     try {
       Response response = await apiSocial
-          .getData(SocialEndpoint.UI_V1_TWEETS_ID + id.toString());
+          .getData(SocialEndpoint.UI_V1_PINNED_TWEET_USER_ID + id.toString());
 
       if (response.statusCode == 200) {
         Tweet tweet = Tweet.fromJson(response.body);
@@ -265,7 +265,7 @@ class SocialRepository implements SocialRepositoryInterface {
   @override
   Future<ResponseModelWithBody> editTweet(TweetRequest tweet) async {
     Response response =
-        await apiSocial.postData(SocialEndpoint.UI_V1_TWEETS_EDIT, tweet);
+        await apiSocial.putData(SocialEndpoint.UI_V1_TWEETS_EDIT, tweet);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       return ResponseModelWithBody(
@@ -384,6 +384,55 @@ class SocialRepository implements SocialRepositoryInterface {
       }
     } catch (e) {
       throw Exception("Error fetching tweets: $e");
+    }
+  }
+
+  @override
+  Future<List<Image>> uploadMultiTweetImage(List<MultipartBody> images) async {
+    try {
+      Response response = await apiSocial.postMultipartData(
+          SocialEndpoint.UI_V1_TWEETS_UPLOAD, {}, images, []);
+
+      if (response.statusCode == 200) {
+        if (response.body is List) {
+          List<dynamic> data = response.body;
+          List<Image> images =
+              data.map((tweet) => Image.fromJson(tweet)).toList();
+          print("Response JSON: ${jsonEncode(images)}");
+          return images;
+        } else {
+          throw Exception("Expected a list but received something else");
+        }
+      } else {
+        throw Exception("Failed to load tweets");
+      }
+    } catch (e) {
+      throw Exception("Error uploading images: $e");
+    }
+  }
+
+  @override
+  Future<List<UserResponse>> getTaggedImageUsers(int tweetId, int page) async {
+    try {
+      Response response = await apiSocial.getData(SocialEndpoint
+          .UI_V1_TWEETS_IMAGE_TAGGED
+          .replaceAll('{tweetId}', tweetId.toString())
+          .replaceAll('{page}', page.toString()));
+
+      if (response.statusCode == 200) {
+        if (response.body is List) {
+          List<dynamic> data = response.body;
+          List<UserResponse> users =
+              data.map((tweet) => UserResponse.fromJson(tweet)).toList();
+          return users;
+        } else {
+          throw Exception("Expected a list but received something else");
+        }
+      } else {
+        throw Exception("Failed to load tweets");
+      }
+    } catch (e) {
+      throw Exception("Error uploading images: $e");
     }
   }
 

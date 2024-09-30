@@ -43,14 +43,21 @@ class TweetRequest {
 }
 
 class Image {
-  final String url;
+  final String? url;
   final String? description;
 
   Image({
-    required this.url,
+    this.url,
     this.description,
   });
 
+  factory Image.fromJson(Map<String, dynamic> json) {
+    return Image(
+      url: json['url'] != null ? json['url'] as String : null,
+      description:
+          json['description'] != null ? json['description'] as String : null,
+    );
+  }
   Map<String, dynamic> toJson() {
     return {
       'url': url,

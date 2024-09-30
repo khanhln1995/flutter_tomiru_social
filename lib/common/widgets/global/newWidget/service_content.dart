@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/features/social_network/Screens/social_network.dart';
-import 'package:tomiru_social_flutter/features/social_network/controller/social_controller.dart';
+import 'package:tomiru_social_flutter/features/social_search/controller/social_search_controller.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/Screens/social_network.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/controller/social_controller.dart';
+import 'package:tomiru_social_flutter/features/social_user/controller/social_user_controller.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:get/get.dart';
 
@@ -17,15 +19,15 @@ class ServiceContent extends StatelessWidget {
                 width: 30, height: 30),
             "Mạng xã hội",
             [const Color(0xFF87CEFA), const Color(0xFF1E90FF)], () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) =>
-                  const SocialNetwork(),
-              transitionDuration: const Duration(seconds: 1),
-            ),
-          );
-          // Get.find<SocialController>().getFollowersTweets(0);
+          // Navigator.push(
+          //   context,
+          //   PageRouteBuilder(
+          //     pageBuilder: (context, animation1, animation2) =>
+          //         const SocialNetwork(),
+          //     transitionDuration: const Duration(seconds: 1),
+          //   ),
+          // );
+          Get.find<SocialUserController>().getUsers(0);
         }),
         _exploreButton(
             const Icon(Icons.shopping_cart, size: 30, color: Colors.white),

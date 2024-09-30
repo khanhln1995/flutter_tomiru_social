@@ -1,9 +1,11 @@
+import 'package:tomiru_social_flutter/api/api_client.dart';
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/add_quote_tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/change_reply_type_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/reply_tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/tweet.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/add_quote_tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/change_reply_type_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/reply_tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/models/user_model.dart';
 import 'package:tomiru_social_flutter/interface/repository_interface.dart';
 
 abstract class SocialRepositoryInterface extends RepositoryInterface {
@@ -26,4 +28,6 @@ abstract class SocialRepositoryInterface extends RepositoryInterface {
   Future<Tweet> replyTweet(ReplyTweetRequest rep);
   Future<Tweet> quoteTweet(AddQuoteTweetRequest request);
   Future<Tweet> changeTweetReplyType(ChangeReplyTypeRequest request);
+  Future<List<Image>> uploadMultiTweetImage(List<MultipartBody> images);
+  Future<List<UserResponse>> getTaggedImageUsers(int tweetId, int page);
 }

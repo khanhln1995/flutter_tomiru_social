@@ -5,7 +5,8 @@ class PageableResponse<T> {
 
   PageableResponse({required this.items, required this.pagesCount});
 
-  factory PageableResponse.fromJson(Map<String, dynamic> json, T Function(dynamic) fromJsonT) {
+  factory PageableResponse.fromJson(
+      Map<String, dynamic> json, T Function(dynamic) fromJsonT) {
     return PageableResponse(
       items: fromJsonT(json['items']),
       pagesCount: json['pagesCount'],
@@ -103,26 +104,25 @@ enum NotificationType {
   FRIEND
 }
 
-// SameFollowerResponse model
 class SameFollowerResponse {
   final int id;
-  final String fullName;
-  final String username;
-  final String avatar;
+  final String? fullName;
+  final String? username;
+  final String? avatar;
 
   SameFollowerResponse({
     required this.id,
-    required this.fullName,
-    required this.username,
-    required this.avatar,
+    this.fullName,
+    this.username,
+    this.avatar,
   });
 
   factory SameFollowerResponse.fromJson(Map<String, dynamic> json) {
     return SameFollowerResponse(
-      id: json['id'],
-      fullName: json['fullName'],
-      username: json['username'],
-      avatar: json['avatar'],
+      id: json['id'] as int,
+      fullName: json['fullName'] as String?,
+      username: json['username'] as String?,
+      avatar: json['avatar'] as String?,
     );
   }
 

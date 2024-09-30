@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart'; // For storing data
 import 'package:http/http.dart' as http; // For making HTTP requests
 import 'package:path/path.dart'; // For manipulating file paths
 import 'package:flutter/foundation.dart' as foundation;
+import 'package:tomiru_social_flutter/api/api_client.dart';
 
 class ApiSocial extends GetxService {
   final String appBaseUrl;
@@ -25,7 +26,7 @@ class ApiSocial extends GetxService {
   ApiSocial({required this.appBaseUrl, required this.sharedPreferences}) {
     // String? token = sharedPreferences.getString(AppConstants.jwtTokenSocial);
     String? token =
-        'eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AZ21haWwuY29tIiwidXNlciI6InN5c3RlbSIsIm5hbWUiOiJzeXN0ZW0xIFNldHVwIiwiaWF0IjoxNzI3MTUzMjU1LCJleHAiOjI1OTExNTMyNTV9.cFYRmsjiunqeEymy-mzbmY3oggb0s83hT2jeHzqelPqRTsMoEaqmxv-vCCP4JHAzjn6_L6TJcGyg4_l3dN7RsBsxwK-1Dv0acqdGGwp7axZ2qHWYJNyhe2Q788rSKinFeKg_SAxp9Q8MgUVO4YAsmbhZ5gNaSrnYZv6gkTkh-6PGo-5KluJJSoqa-uFXWyK_noE3WV5gqxBvT9rfrmj7SLLJpGYv51UkvixRE87YDwwoNsqRfAbyGwE032HE1pwq9Rj8gKKv602dtoWtuizq3Rz7AxP82xsUCwupRTUjr_S1Fk7ZTSYoJB-XCLXONTZPbo83NbTgLuvxPBSlePGfRg';
+        'eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AZ21haWwuY29tIiwidXNlciI6InN5c3RlbSIsIm5hbWUiOiJhZG1pbiAiLCJpYXQiOjE3Mjc0MDUxMDksImV4cCI6MjU5MTQwNTEwOX0.O4GmA37jTqp3aa_FLWZrj4EBGEmQTfz6NvvTg_ibVNrlsAhVh0QkMiiJk8k5pTq_lscIznbqppiz2biCBclBpc-U6YmMYsg9ieXdCaCkTHC8F97SQW9eTPjRC7BdKSPRdocYaErGoe77lT35UyE2hp2MkV6PX0Qbc9LN_UAhu-s1mQ7CUm3BgxgdG_4kyb8yjoFWO8UmwXC0AhZFuilw0GpOWz0bW_PTtw7DyUBSf2q4SBSBjn9RQoQPbAYkk411QNVw5IM_FykMuHnp27P4X354ZnfkKH1X1Cddb7YEKPrdeUV_FarUCTPIoVBe3Fxm4lv1KkIGonbpaDLXbmKnJg';
     updateHeader(
       token,
     );
@@ -245,74 +246,5 @@ class ApiSocial extends GetxService {
     } else {
       return response0;
     }
-  }
-}
-
-// Model for multipart file body
-class MultipartBody {
-  String key;
-  XFile? file;
-
-  MultipartBody(this.key, this.file);
-}
-
-// Model for multipart document
-class MultipartDocument {
-  String key;
-  FilePickerResult? file;
-  MultipartDocument(this.key, this.file);
-}
-
-// Error response model
-class ErrorResponse {
-  List<Errors>? _errors;
-
-  List<Errors>? get errors => _errors;
-
-  ErrorResponse({List<Errors>? errors}) {
-    _errors = errors;
-  }
-
-  ErrorResponse.fromJson(dynamic json) {
-    if (json["errors"] != null) {
-      _errors = [];
-      json["errors"].forEach((v) {
-        _errors!.add(Errors.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    if (_errors != null) {
-      map["errors"] = _errors!.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-}
-
-// Model for individual error
-class Errors {
-  String? _code;
-  String? _message;
-
-  String? get code => _code;
-  String? get message => _message;
-
-  Errors({String? code, String? message}) {
-    _code = code;
-    _message = message;
-  }
-
-  Errors.fromJson(dynamic json) {
-    _code = json["code"];
-    _message = json["message"];
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map["code"] = _code;
-    map["message"] = _message;
-    return map;
   }
 }

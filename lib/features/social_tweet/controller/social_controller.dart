@@ -1,11 +1,12 @@
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/add_quote_tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/change_reply_type_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/reply_tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/tweet.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/service/social_service_interface.dart';
+import 'package:tomiru_social_flutter/api/api_client.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/add_quote_tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/change_reply_type_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/reply_tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/service/social_service_interface.dart';
 
 class SocialController extends GetxController implements GetxService {
   final SocialServiceInterface socialServiceInterface;
@@ -85,5 +86,13 @@ class SocialController extends GetxController implements GetxService {
 
   void changeTweetReplyType(ChangeReplyTypeRequest request) async {
     await socialServiceInterface.changeTweetReplyType(request);
+  }
+
+  void uploadMultiTweetImage(List<MultipartBody> images) async {
+    await socialServiceInterface.uploadMultiTweetImage(images);
+  }
+
+  void getTaggedImageUsers(int tweetId, int page) async {
+    await socialServiceInterface.getTaggedImageUsers(tweetId, page);
   }
 }

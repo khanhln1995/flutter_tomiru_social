@@ -1,11 +1,13 @@
+import 'package:tomiru_social_flutter/api/api_client.dart';
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/add_quote_tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/change_reply_type_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/reply_tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/tweet.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/models/tweet_request.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/repositories/social_repository_interface.dart';
-import 'package:tomiru_social_flutter/features/social_network/domain/service/social_service_interface.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/add_quote_tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/change_reply_type_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/reply_tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet_request.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/repositories/social_repository_interface.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/service/social_service_interface.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/models/user_model.dart';
 
 class SocialService implements SocialServiceInterface {
   final SocialRepositoryInterface socialRepositoryInterface;
@@ -95,5 +97,15 @@ class SocialService implements SocialServiceInterface {
   @override
   Future<Tweet> changeTweetReplyType(ChangeReplyTypeRequest request) async {
     return await socialRepositoryInterface.changeTweetReplyType(request);
+  }
+
+  @override
+  Future<List<Image>> uploadMultiTweetImage(List<MultipartBody> images) async {
+    return await socialRepositoryInterface.uploadMultiTweetImage(images);
+  }
+
+  @override
+  Future<List<UserResponse>> getTaggedImageUsers(int tweetId, int page) async {
+    return await socialRepositoryInterface.getTaggedImageUsers(tweetId, page);
   }
 }
