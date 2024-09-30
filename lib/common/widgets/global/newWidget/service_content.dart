@@ -3,6 +3,7 @@ import 'package:tomiru_social_flutter/features/social_search/controller/social_s
 import 'package:tomiru_social_flutter/features/social_tweet/Screens/social_network.dart';
 import 'package:tomiru_social_flutter/features/social_tweet/controller/social_controller.dart';
 import 'package:tomiru_social_flutter/features/social_user/controller/social_user_controller.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/models/user_setting_request.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +28,11 @@ class ServiceContent extends StatelessWidget {
           //     transitionDuration: const Duration(seconds: 1),
           //   ),
           // );
-          Get.find<SocialUserController>().getUsers(0);
+
+          UserSettingsRequest settings = UserSettingsRequest(
+            username: 'newUsername',
+          );
+          Get.find<SocialUserController>().updateUsername(settings);
         }),
         _exploreButton(
             const Icon(Icons.shopping_cart, size: 30, color: Colors.white),

@@ -2,10 +2,14 @@ import 'dart:convert';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tomiru_social_flutter/api/api_social.dart';
+import 'package:tomiru_social_flutter/common/models/response_model.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/models/blocked_user_response.dart';
 import 'package:tomiru_social_flutter/features/social_user/domain/models/edit_user_request.dart';
 import 'package:tomiru_social_flutter/features/social_user/domain/models/friend_use_response.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/models/muted_user_response.dart';
 import 'package:tomiru_social_flutter/features/social_user/domain/models/user_model.dart';
 import 'package:tomiru_social_flutter/features/social_user/domain/models/user_profile.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/models/user_setting_request.dart';
 import 'package:tomiru_social_flutter/features/social_user/domain/models/user_token_model.dart';
 import 'package:tomiru_social_flutter/features/social_user/domain/repositories/social_user_repositoriy_interface.dart';
 import 'package:tomiru_social_flutter/util/social_endpoint.dart';
@@ -156,7 +160,7 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
   Future<List<FriendUserResponse>> fetchListFriend(int userId) async {
     try {
       Response response = await apiSocial.getData(SocialEndpoint
-          .UI_V1_USER_RELEVANT
+          .UI_V1_LIST_FRIEND
           .replaceAll('{userId}', userId.toString()));
 
       if (response.statusCode == 200) {
@@ -174,6 +178,286 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
       }
     } catch (e) {
       throw Exception("Error fetching tweets: $e");
+    }
+  }
+
+  @override
+  Future<List<BlockedUserResponse>> getBlockList(int page) async {
+    try {
+      Response response = await apiSocial.getData(SocialEndpoint
+          .UI_V1_USER_BLOCKED
+          .replaceAll('{page}', page.toString()));
+
+      if (response.statusCode == 200) {
+        if (response.body is List) {
+          List<dynamic> data = response.body;
+          List<BlockedUserResponse> users =
+              data.map((tweet) => BlockedUserResponse.fromJson(tweet)).toList();
+          print("Response JSON: ${jsonEncode(users)}");
+          return users;
+        } else {
+          throw Exception("Expected a list but received something else");
+        }
+      } else {
+        throw Exception("Failed to load tweets");
+      }
+    } catch (e) {
+      throw Exception("Error fetching tweets: $e");
+    }
+  }
+
+  @override
+  //block bỏ block
+  Future<ResponseModel> processBlockList(int userId) async {
+    Response response = await apiSocial.getData(SocialEndpoint
+        .UI_V1_USER_BLOCKED_USER_ID
+        .replaceAll('{userId}', userId.toString()));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, 'ok');
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<List<UserResponse>> getFollowers(int userId, int page) async {
+    try {
+      Response response = await apiSocial.getData(SocialEndpoint
+          .UI_V1_USER_FOLLOWERS_USER_ID
+          .replaceAll('{userId}', userId.toString())
+          .replaceAll('{page}', page.toString()));
+
+      if (response.statusCode == 200) {
+        if (response.body is List) {
+          List<dynamic> data = response.body;
+          List<UserResponse> users =
+              data.map((tweet) => UserResponse.fromJson(tweet)).toList();
+          print("Response JSON: ${jsonEncode(users)}");
+          return users;
+        } else {
+          throw Exception("Expected a list but received something else");
+        }
+      } else {
+        throw Exception("Failed to load tweets");
+      }
+    } catch (e) {
+      throw Exception("Error fetching tweets: $e");
+    }
+  }
+
+  @override
+  Future<List<UserResponse>> getFollowing(int userId, int page) async {
+    try {
+      Response response = await apiSocial.getData(SocialEndpoint
+          .UI_V1_USER_FOLLOWING_USER_ID
+          .replaceAll('{userId}', userId.toString())
+          .replaceAll('{page}', page.toString()));
+
+      if (response.statusCode == 200) {
+        if (response.body is List) {
+          List<dynamic> data = response.body;
+          List<UserResponse> users =
+              data.map((tweet) => UserResponse.fromJson(tweet)).toList();
+          print("Response JSON: ${jsonEncode(users)}");
+          return users;
+        } else {
+          throw Exception("Expected a list but received something else");
+        }
+      } else {
+        throw Exception("Failed to load tweets");
+      }
+    } catch (e) {
+      throw Exception("Error fetching tweets: $e");
+    }
+  }
+
+//Follow bỏ Follow
+  @override
+  Future<ResponseModel> processFollow(int userId) async {
+    Response response = await apiSocial.getData(SocialEndpoint
+        .UI_V1_USER_FOLLOW_USER_ID
+        .replaceAll('{userId}', userId.toString()));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, 'ok');
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<List<MutedUserResponse>> getMutedList(int page) async {
+    try {
+      Response response = await apiSocial.getData(SocialEndpoint
+          .UI_V1_USER_FOLLOWING_USER_ID
+          .replaceAll('{page}', page.toString()));
+
+      if (response.statusCode == 200) {
+        if (response.body is List) {
+          List<dynamic> data = response.body;
+          List<MutedUserResponse> users =
+              data.map((tweet) => MutedUserResponse.fromJson(tweet)).toList();
+          print("Response JSON: ${jsonEncode(users)}");
+          return users;
+        } else {
+          throw Exception("Expected a list but received something else");
+        }
+      } else {
+        throw Exception("Failed to load tweets");
+      }
+    } catch (e) {
+      throw Exception("Error fetching tweets: $e");
+    }
+  }
+
+//mute bỏ mute
+  @override
+  Future<ResponseModel> processMutedList(int userId) async {
+    Response response = await apiSocial.getData(SocialEndpoint
+        .UI_V1_USER_FOLLOW_USER_ID
+        .replaceAll('{userId}', userId.toString()));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, 'ok');
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> processSubscribeToNotifications(int userId) async {
+    Response response = await apiSocial.getData(SocialEndpoint
+        .UI_V1_USER_SUBSCRIBE_USER_ID
+        .replaceAll('{userId}', userId.toString()));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> updateUsername(UserSettingsRequest setting) async {
+    Response response = await apiSocial.putData(
+        SocialEndpoint.UI_V1_USER_SETTINGS_UPDATE_USERNAME, setting);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> updateEmail(UserSettingsRequest setting) async {
+    Response response = await apiSocial.putData(
+        SocialEndpoint.UI_V1_USER_SETTINGS_UPDATE_USERNAME, setting);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> updatePhone(UserSettingsRequest setting) async {
+    Response response = await apiSocial.putData(
+        SocialEndpoint.UI_V1_USER_SETTINGS_UPDATE_PHONE, setting);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> updateCountry(UserSettingsRequest setting) async {
+    Response response = await apiSocial.putData(
+        SocialEndpoint.UI_V1_USER_SETTINGS_UPDATE_COUNTRY, setting);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> updateGender(UserSettingsRequest setting) async {
+    Response response = await apiSocial.putData(
+        SocialEndpoint.UI_V1_USER_SETTINGS_UPDATE_GENDER, setting);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> updateLanguage(UserSettingsRequest setting) async {
+    Response response = await apiSocial.putData(
+        SocialEndpoint.UI_V1_USER_SETTINGS_UPDATE_LANGUAGE, setting);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> updateDirectMessageRequests(
+      UserSettingsRequest setting) async {
+    Response response = await apiSocial.putData(
+        SocialEndpoint.UI_V1_USER_SETTINGS_UPDATE_DIRECT, setting);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> updatePrivateProfile(
+      UserSettingsRequest setting) async {
+    Response response = await apiSocial.putData(
+        SocialEndpoint.UI_V1_USER_SETTINGS_UPDATE_PRIVATE, setting);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> updateColorScheme(UserSettingsRequest setting) async {
+    Response response = await apiSocial.putData(
+        SocialEndpoint.UI_V1_USER_SETTINGS_UPDATE_COLOR_SCHEME, setting);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<ResponseModel> updateBackgroundColor(
+      UserSettingsRequest setting) async {
+    Response response = await apiSocial.putData(
+        SocialEndpoint.UI_V1_USER_SETTINGS_UPDATE_BACKGROUND_COLOR, setting);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, "ok");
+    } else {
+      return ResponseModel(false, response.statusText);
     }
   }
 

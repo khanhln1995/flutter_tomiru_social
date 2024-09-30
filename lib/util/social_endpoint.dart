@@ -55,4 +55,36 @@ class SocialEndpoint {
       '/ui/v1/user/details/{tweetId}';
   static const String UI_V1_LIST_FRIEND =
       '/ui/v1/user/getList_friend?userId={userId}';
+  static const String UI_V1_USER_BLOCKED = '/ui/v1/user/blocked?page={page}';
+  static const String UI_V1_USER_BLOCKED_USER_ID =
+      '/ui/v1/user/blocked/{userId}';
+  static const String UI_V1_USER_FOLLOWERS_USER_ID =
+      '/ui/v1/user/followers/{userId}?page={page}';
+  static const String UI_V1_USER_FOLLOWING_USER_ID =
+      '/ui/v1/user/following/{userId}?page={page}';
+  static const String UI_V1_USER_FOLLOW_USER_ID = '/ui/v1/user/follow/{userId}';
+  static const String UI_V1_USER_MUTED = '/ui/v1/user/muted?page={page}';
+  static const String UI_V1_USER_MUTED_USER_ID = '/ui/v1/user/muted/{userId}';
+  static const String UI_V1_USER_SUBSCRIBE_USER_ID =
+      '/ui/v1/user/subscribe/{userId}';
+  static const String UI_V1_USER_SETTINGS_UPDATE_USERNAME =
+      '/ui/v1/user/settings/update/username';
+  static const String UI_V1_USER_SETTINGS_UPDATE_EMAIL =
+      '/ui/v1/user/settings/update/email';
+  static const String UI_V1_USER_SETTINGS_UPDATE_PHONE =
+      '/ui/v1/user/settings/update/phone';
+  static const String UI_V1_USER_SETTINGS_UPDATE_COUNTRY =
+      '/ui/v1/user/settings/update/country';
+  static const String UI_V1_USER_SETTINGS_UPDATE_GENDER =
+      '/ui/v1/user/settings/update/gender';
+  static const String UI_V1_USER_SETTINGS_UPDATE_LANGUAGE =
+      '/ui/v1/user/settings/update/language';
+  static const String UI_V1_USER_SETTINGS_UPDATE_DIRECT =
+      '/ui/v1/user/settings/update/direct';
+  static const String UI_V1_USER_SETTINGS_UPDATE_PRIVATE =
+      '/ui/v1/user/settings/update/private';
+  static const String UI_V1_USER_SETTINGS_UPDATE_COLOR_SCHEME =
+      '/ui/v1/user/settings/update/color_scheme';
+  static const String UI_V1_USER_SETTINGS_UPDATE_BACKGROUND_COLOR =
+      '/ui/v1/user/settings/update/background_color';
 }
