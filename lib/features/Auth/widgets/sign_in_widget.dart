@@ -242,6 +242,7 @@ class SignInWidgetState extends State<SignInWidget> {
     // String phone = _phoneController.text.trim();
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
+    // Get.to(SplashScreen(isRouterLogin: true));
 
     if (_formKeyLogin!.currentState!.validate()) {
       if (email.isEmpty) {
@@ -252,22 +253,10 @@ class SignInWidgetState extends State<SignInWidget> {
         showCustomSnackBar('Độ dài password phải lớn hơn 6');
       } else {
         // login ko can api
-        // Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
-        Get.to(() => SplashScreen(isRouterLogin: true));
+        // Get.to(SplashScreen(isRouterLogin: true));
 
         // login with api
-        // authController
-        //     .login(email, password, alreadyInApp: widget.backFromThis)
-        //     .then((status) async {
-        //   // print("status$status");
-        //   if (status.isSuccess) {
-        //     // print(
-        //     //     "------------------------------------------login------------------------");
-        //     _processSuccessSetup(authController, email, password, status);
-        //   } else {
-        //     showCustomSnackBar(status.message);
-        //   }
-        // });
+        authController.login(email, password);
       }
     }
   }

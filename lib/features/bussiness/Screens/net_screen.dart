@@ -313,11 +313,8 @@ class IncomeSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        IncomeCard(
-            title: 'F1 (không phải thành viên)',
-            value: '5',
-            buttonText: 'Xem cây'),
-        SizedBox(height: 22),
+        IncomeCard(title: 'F1', value: '5', buttonText: 'Xem cây'),
+        SizedBox(height: 22, width: 20),
         Align(
           alignment: Alignment.centerLeft,
           child: Text("Thu nhập từ hệ thống",

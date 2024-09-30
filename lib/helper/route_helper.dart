@@ -16,7 +16,7 @@ import 'dart:convert';
 // import 'package:tomiru_social_flutter/features/html/screens/html_viewer_screen.dart';
 import 'package:tomiru_social_flutter/features/bussiness/Screens/Business_Screen.dart';
 import 'package:tomiru_social_flutter/features/Home/Screens/Home_Page.dart';
-import 'package:tomiru_social_flutter/features/social_network/Screens/social_network.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/Screens/social_network.dart';
 import 'package:tomiru_social_flutter/features/language/screens/language_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/access_location_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/map_screen.dart';
@@ -92,7 +92,6 @@ import 'package:tomiru_social_flutter/features/search/screens/search_page.dart';
 // import 'package:meta_seo/meta_seo.dart';
 
 class RouteHelper {
-  
   static const String messageScreen = '/messageScreen';
   static const String notifyScreen = '/notifyScreen';
   static const String walletTest = '/walletTest';
@@ -182,9 +181,8 @@ class RouteHelper {
   static String getOnBoardingRoute() => onBoarding;
   static String getSignInRoute(String page) => '$signIn?page=$page';
   static String getSignUpRoute() => signUp;
-  static String getVerificationRoute(
-      String? email, String? token, String page, String pass) {
-    return '$verification?page=$page&email=$email&token=$token&pass=$pass';
+  static String getVerificationRoute(String? email, String? otp, String page) {
+    return '$verification?page=$page&email=$email&otp=$otp';
   }
 
   static String getAccessLocationRoute(String page) =>
@@ -400,7 +398,7 @@ class RouteHelper {
         name: language,
         page: () => LanguageScreen(fromMenu: Get.parameters['page'] == 'menu')),
     GetPage(name: onBoarding, page: () => OnBoardingScreen()),
-    GetPage(name: searchScreen, page: () => SearchPage()),
+    GetPage(name: searchScreen, page: () => const SearchPage()),
 
     GetPage(
         name: signIn,
@@ -420,14 +418,10 @@ class RouteHelper {
     GetPage(
         name: verification,
         page: () {
-          List<int> decode =
-              base64Decode(Get.parameters['pass']!.replaceAll(' ', '+'));
-          String data = utf8.decode(decode);
           return VerificationScreen(
-            number: Get.parameters['number'],
+            email: Get.parameters['email'],
             fromSignUp: Get.parameters['page'] == signUp,
-            token: Get.parameters['token'],
-            password: data,
+            otp: Get.parameters['otp'],
           );
         }),
     //   GetPage(

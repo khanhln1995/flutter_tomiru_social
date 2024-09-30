@@ -38,6 +38,28 @@ class WalletRepository implements WalletRepositoryInterface {
   }
 
   @override
+  Future<List<WalletHistoryModel>> fetchWalletHistoryByDate(String? page) async {
+    Response response =
+        await apiClient.getData('${AppConstants.apiV1UsersWalletHistory}?order=createdAt:DESC&limit=10&page=$page');
+    if (response.statusCode == 200) {
+      List<dynamic> data = response.body['data'];
+      List<WalletHistoryModel> walletHistoryList = data.map((item) {
+        return WalletHistoryModel.fromJson(item);
+      }).toList();
+      // List<Map<String, dynamic>> walletHistoryJsonList =
+      //     walletHistoryList.map((item) {
+      //   return item.toJson();
+      // }).toList();
+      // String walletHistoryJson = jsonEncode(walletHistoryJsonList);
+      // await sharedPreferences.setString(
+      //     AppConstants.walletHistory, walletHistoryJson);
+      return walletHistoryList;
+    } else {
+      throw Exception("Failed to fetch wallet history: ${response.statusText}");
+    }
+  }
+
+  @override
   Future<List<WalletHistoryModel>> getWalletHistoryLocal() async {
     String? walletHistoryJson =
         sharedPreferences.getString(AppConstants.walletHistory);
@@ -124,9 +146,7 @@ class WalletRepository implements WalletRepositoryInterface {
       emailList.removeAt(0);
     }
     String updatedEmailListJson = jsonEncode(emailList);
-    print('111111111111111111111111111111111111111111111111111111111111111111');
-    print(emailListJson);
-    print('111111111111111111111111111111111111111111111111111111111111111111');
+
     await sharedPreferences.setString(
         AppConstants.emailListKey, updatedEmailListJson);
   }

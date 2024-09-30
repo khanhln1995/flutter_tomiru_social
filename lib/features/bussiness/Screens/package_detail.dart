@@ -50,7 +50,7 @@ class _PackageDetailState extends State<PackageDetail> {
 
 // lấy thông tin ví
   List<WalletInfo> incomeList = [];
-  Map<String, String> filters = {'filters[type]': 'buy_package'};
+  Map<String, String> filters = {'filters[type]': 'buy_package', 'limit': '3'};
   Future<void> fetchWalletInfo() async {
     List<WalletInfo> income = await Get.find<BusinessController>()
         .getWalletInfoByFilter(filters: filters);

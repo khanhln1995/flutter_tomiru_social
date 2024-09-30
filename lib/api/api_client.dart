@@ -19,54 +19,37 @@ class ApiClient extends GetxService {
   final String appBaseUrl;
   final SharedPreferences sharedPreferences;
   static final String noInternetMessage = 'connection_to_api_server_failed'.tr;
-  // final int timeoutInSeconds = 30;
-  final int timeoutInSeconds = 3;
+  final int timeoutInSeconds = 30;
+  // final int timeoutInSeconds = 3;
 
   String? token;
   // late Map<String, String> _mainHeaders;
   Map<String, String>? _mainHeaders;
-
-  // Constructor to initialize the ApiClient with base URL and shared preferences
   ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
-    // token = sharedPreferences.getString(AppConstants.token);
-    token =
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjEsImVtYWlsIjoic3lzdGVtQGdtYWlsLmNvbSIsIm5hbWUiOiJhZG1pbiIsImlhdCI6MTcyMzAwNDMzODAwMCwiZXhwIjoxNzIzMDA0MzM4MDAwfQ.l2FsSh_pgRyqihx9M8h-XQ80eVSgR0EbPugPW93USBWNoXDaqRuwHTz-77uljlUx5ADEDW4CwFv6Zv5DpET_VemrAlh4hSVpy6TyZ5dgMztsxF0Zg6DKCXFRchCTJfa9B3JlINyxdc3TkmZ8Cfmqdv1OJ5ldGzpmpupQAzAKYsVOVjBIZkwPQB_6PiUlucP66BP1gzqcxrXlicqFsI2IWx1P2FqY9EUqwzqvTLt21uReIYb_vG_0loasAbJPs3pCTTOGkvEFu_j47nfrn8ThC3MPVUyOURN1GmSvTvtwXqpFc1O4uQhEBaJlCprXSGTlffiDYADUIXdb11tNZ9ATtg";
-    if (kDebugMode) {
-      // debugPrint('Token: $token');
-    }
-    // AddressModel? addressModel;
-    // try {
-    //   addressModel = AddressModel.fromJson(
-    //       jsonDecode(sharedPreferences.getString(AppConstants.userAddress)!));
-    // } catch (_) {}
+    token = sharedPreferences.getString(AppConstants.jwtToken);
+    if (kDebugMode) {}
     updateHeader(
       token,
-      // addressModel?.zoneIds,
-      // sharedPreferences.getString(AppConstants.languageCode)
-      // addressModel?.latitude,
-      // addressModel?.longitude
     );
   }
 
-  // Method to update headers
-  Map<String, String> updateHeader(String? token,
-      // List<int>? zoneIDs,
-      //     String? languageCode, String? latitude, String? longitude,
-      {bool setHeader = true}) {
-    Map<String, String> header = {};
-    header.addAll({
+// Method to update headers
+  Map<String, String> updateHeader(String? token, {bool setHeader = true}) {
+    Map<String, String> header = {
       'Content-Type': 'application/json; charset=UTF-8',
-      // AppConstants.zoneId: zoneIDs != null ? jsonEncode(zoneIDs) : '',
-      // AppConstants.localizationKey:
-      //     languageCode ?? AppConstants.languages[0].languageCode!,
-      // AppConstants.latitude: latitude != null ? jsonEncode(latitude) : '',
-      // AppConstants.longitude: longitude != null ? jsonEncode(longitude) : '',
-      'Authorization': 'Bearer $token'
-    });
+      // Other headers can be added here, like language code or other app-specific data
+    };
+
+    // Only add the Authorization header if the token is not null
+
+    if (token != null && token.isNotEmpty) {
+      header['Authorization'] = 'Bearer $token';
+    }
+
     if (setHeader) {
-      // _mainHeaders = header;
       _mainHeaders = header;
     }
+
     return header;
   }
 
@@ -79,7 +62,7 @@ class ApiClient extends GetxService {
     try {
       if (kDebugMode) {
         debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        // debugPrint('====> API Call: $appBaseUrl');
+        debugPrint('====> API Call: $appBaseUrl');
       }
       http.Response response = await http
           .get(
@@ -102,8 +85,10 @@ class ApiClient extends GetxService {
       {Map<String, String>? headers, bool handleError = true}) async {
     try {
       if (kDebugMode) {
-        // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        // debugPrint('====> API Body: $appBaseUrl + $uri');
+        debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        debugPrint('====> API Body: $body + $uri');
+        debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
+        debugPrint('====> API Body: $body');
         // debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
       }
       http.Response response = await http
@@ -259,8 +244,8 @@ class ApiClient extends GetxService {
       response0 = Response(statusCode: 0, statusText: noInternetMessage);
     }
     if (kDebugMode) {
-      // debugPrint(
-      //     '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
+      debugPrint(
+          '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
     }
     if (handleError) {
       if (response0.statusCode == 200 || response0.statusCode == 201) {

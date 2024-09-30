@@ -19,17 +19,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
   @override
   void initState() {
     super.initState();
-    fetchWalletInfo();
-  }
-
-  Future<void> fetchWalletInfo() async {
-    List<WalletInfo> income =
-        await Get.find<BusinessController>().getWalletInfo();
-    // print("Đây là income screen");
-    // print(income.map((index) => index.toJson()).toList());
-    setState(() {
-      incomeList = income;
-    });
+    Get.find<BusinessController>().getWalletInfo();
   }
 
   @override
@@ -84,14 +74,14 @@ class _IncomeScreenState extends State<IncomeScreen> {
                               height: 12,
                             ),
                             SizedBox(width: 9),
-                            Text(
-                              '(20 thành viên)',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey,
-                              ),
-                            ),
+                            // Text(
+                            //   '(20 thành viên)',
+                            //   style: TextStyle(
+                            //     fontSize: 12,
+                            //     fontWeight: FontWeight.w400,
+                            //     color: Colors.grey,
+                            //   ),
+                            // ),
                           ])
                         ],
                       ),
@@ -239,11 +229,15 @@ class _IncomeScreenState extends State<IncomeScreen> {
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     trailing: GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryMember()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HistoryMember()));
                       },
                       child: Text('Xem tất cả',
                           style: TextStyle(
-                              color: Colors.indigo, fontWeight: FontWeight.w500)),
+                              color: Colors.indigo,
+                              fontWeight: FontWeight.w500)),
                     ),
                   ),
                   ListView.builder(
@@ -271,15 +265,13 @@ class _IncomeScreenState extends State<IncomeScreen> {
                             subtitle: Text('$formattedDate - $formattedTime'),
                             trailing: Column(
                               children: [
-                                Text(
-                                    "$valuePrefix ${incomeList[index].value}"),
+                                Text("$valuePrefix ${incomeList[index].value}"),
                                 Text(
                                   ' ${incomeList[index].status}',
                                   style: TextStyle(
-                                    color:
-                                        incomeList[index].status == 'failed'
-                                            ? Colors.red
-                                            : Colors.green,
+                                    color: incomeList[index].status == 'failed'
+                                        ? Colors.red
+                                        : Colors.green,
                                     fontSize: 20,
                                   ),
                                 ),

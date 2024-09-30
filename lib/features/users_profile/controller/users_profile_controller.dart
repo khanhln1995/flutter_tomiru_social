@@ -8,7 +8,6 @@ class UsersProfileController extends GetxController implements GetxService {
   final UsersProfileServiceInterface userProfileServiceInterface;
   UsersProfileController({required this.userProfileServiceInterface}) {
     setCurrentUsers();
-
     getCurrentUsersLocal();
   }
   UserProfile? _userProfile;
@@ -19,6 +18,9 @@ class UsersProfileController extends GetxController implements GetxService {
 
   void setCurrentUsers() async {
     await userProfileServiceInterface.fetchCurrentUsers();
+    UserProfile res = await userProfileServiceInterface.getCurrentUsersLocal();
+    _userProfile = res;
+    update();
   }
 
   void getCurrentUsersLocal() async {
@@ -40,20 +42,6 @@ class UsersProfileController extends GetxController implements GetxService {
 
   void getUsersBalancesLocal() async {
     _userBalance = await userProfileServiceInterface.getUsersBalancesLocal();
-    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    // print(_userBalance?.map((balance) => balance.toJson()).toList());
-    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    update();
   }
-   Future<List<UserBalance>> getUsersBalances() async {
-    List<UserBalance> usersBalances =
-        await userProfileServiceInterface.getUsersBalances();
-    return usersBalances;
-
-  }
-  //  Future<List<UserBalance>> getUsersBalances() async {
-  //   List<UserBalance> usersBalances =
-  //       await userProfileServiceInterface.getUsersBalances();
-  //   return usersBalances;
-  // }
-
 }

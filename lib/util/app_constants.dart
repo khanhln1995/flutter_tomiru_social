@@ -11,27 +11,33 @@ class AppConstants {
   // static const String baseUrl = 'http://192.168.102.65:8000';
   //! Link MXH
   // static const String baseUrl = 'http://192.168.102.132:8000';
-  //! Link Ví
-  static const String baseUrl = 'http://192.168.102.14:8080';
+
+  // static const String baseUrl = 'http://192.168.102.56:3003';
+  static const String baseUrl = 'http://192.168.102.7:8000';
+  static const String socialUrl = 'http://192.168.102.7:8000';
 
   // sentTOken
 
 // AUTH
-  static const String loginUri = '/ui/v1/auth/login';
+  // static const String loginUri = '/ui/v1/auth/login';
+  static const String loginUri = '/api/v1.0/auth/login';
+  static const String logoutUri = '/api/v1.0/auth/logout';
   // static const String registerUri = '/api/register';
   static const String registerUri = '/api/v1.0/auth/register';
   static const String socialLoginUri = '/api/v1/auth/social-login';
   static const String socialRegisterUri = '/api/v1/auth/social-register';
 
   static const String tokenUri = '/api/v1/customer/cm-firebase-token';
-  static const String verifyTokenUri = '/api/v1/auth/verify-token';
-  static const String forgetPasswordUri = '/api/v1/auth/forgot-password';
+  static const String verifyTokenUri = '/api/v1.0/auth/verify-token';
+  static const String forgetPasswordUri = '/api/v1.0/auth/forgot-otp';
   static const String resetPasswordUri = '/api/v1/auth/reset-password';
 
   static const String checkEmailUri = '/api/v1/auth/check-email';
   static const String verifyEmailUri = '/api/v1/auth/verify-email';
   static const String verifyPhoneUri = '/api/v1/auth/verify-phone';
-
+  static const String forgotConfirmOtpUri = '/api/v1.0/auth/forgot-confirm-otp';
+  static const String sigupConfirmOtpUri =
+      '/api/v1.0/auth/register-confirm-otp';
   // USER
   static const String updateProfileUri = '/api/v1/customer/update-profile';
   static const String customerRemoveUri = '/api/v1/customer/remove-account';
@@ -55,6 +61,9 @@ class AppConstants {
   static const String walletBonusUri = '/api/v1/customer/wallet/bonuses';
 
   // key sharedPreferences
+  static const String jwtToken = 'accessToken';
+  static const String jwtTokenShop = 'accessTokenShop';
+  static const String jwtTokenSocial = 'accessTokenSocial';
   //save response api me
   static const String userProfile = 'user_profile';
   static const String masterData = 'master_data';

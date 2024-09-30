@@ -29,14 +29,13 @@ class TomxuStatusScreen extends StatelessWidget {
                 _buildStatusIcon(),
                 const SizedBox(height: 20),
                 _buildStatusText(),
-                // Bạn có thể thêm các đoạn mã điều kiện này nếu cần hiển thị thông tin giao dịch chi tiết
-                // if (isSuccess) ...[
-                //   const SizedBox(height: 20),
-                //   _buildTomxuInfo(),
-                // ] else ...[
-                //   const SizedBox(height: 10),
-                //   _buildContactInfo(),
-                // ],
+                if (isSuccess) ...[
+                  const SizedBox(height: 20),
+                  // _buildTomxuInfo(),
+                ] else ...[
+                  const SizedBox(height: 10),
+                  _buildContactInfo(),
+                ],
                 const Spacer(),
                 _buildHomeButton(context),
               ],
@@ -119,7 +118,7 @@ class TomxuStatusScreen extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          Get.offNamed(RouteHelper.getBusinessRoute());
+          Get.offNamedUntil(RouteHelper.getBusinessRoute(), (route) => route.settings.name == RouteHelper.getInitialRoute());
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,

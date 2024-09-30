@@ -6,8 +6,9 @@ import 'package:tomiru_social_flutter/features/bussiness/controllers/business_co
 import 'package:tomiru_social_flutter/features/bussiness/domain/models/wallet_info.dart';
 
 class HistoryMember extends StatefulWidget {
+  const HistoryMember({super.key});
   @override
-  _HistoryMemberState createState() => _HistoryMemberState();
+  State<HistoryMember> createState() => _HistoryMemberState();
 }
 
 class _HistoryMemberState extends State<HistoryMember> {

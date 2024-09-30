@@ -23,11 +23,18 @@
   "first_name": "First name",
   "last_name": "Last name",
   "phone": "Phone",
+  "code": "Code",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "username": "Username",
   "enter_your_first_name": "Enter your first name",
   "enter_your_last_name": "Enter your last name",
+  "enter_username": "Enter your username",
   "enter_email_address": "Enter your email address",
   "enter_a_valid_email_address": "Enter a valid email address",
   "enter_phone_number": "Enter your phone number",
+  "enter_ref_code": "Enter ref code",
   "invalid_phone_number": "Invalid phone number. Please enter your phone number without country code",
   "enter_password": "Enter your password",
   "confirm_password_does_not_matched": "Confirmed password doesn't matched",
@@ -1023,6 +1030,7 @@
   "select_a_file": "Select a file",
   "currently_the_restaurant_is_unavailable_the_restaurant_will_be_available_at": "Currently the restaurant is unavailable,\nthe restaurant will be available at ",
   "phone_number_field_is_required": "Phone number field is required",
+  "refer_code_field_is_required": "Refer code field is required",
   "add_from_another_restaurants": "Add from another restaurants",
   "jpg_png_or_pdf_file_size_no_more_than_ten_mb": "JPG, PNG or PDF, file size no more than 2MB",
   "you_are_one_step_away_choose_your_business_plan": "You are one step away! choose your business plan",
@@ -1095,4 +1103,5 @@
   "please_provide_vat_tax_amount": "Please provide vat/tax amount",
   "chat_with_admin": "Chat with admin",
   "or_login_with": "Or Login With"
+
 }

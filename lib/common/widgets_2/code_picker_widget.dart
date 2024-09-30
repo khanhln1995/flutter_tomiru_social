@@ -116,18 +116,14 @@ class _CodePickerWidgetState extends State<CodePickerWidget> {
   void didUpdateWidget(CodePickerWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialSelection != widget.initialSelection) {
-      if (widget.initialSelection != null) {
-        selectedItem = elements!.firstWhere(
-            (e) =>
-                (e.code!.toUpperCase() ==
-                    widget.initialSelection!.toUpperCase()) ||
-                (e.dialCode == widget.initialSelection) ||
-                (e.name!.toUpperCase() ==
-                    widget.initialSelection!.toUpperCase()),
-            orElse: () => elements![0]);
-      } else {
-        selectedItem = elements![0];
-      }
+      String defaultSelection = widget.initialSelection ?? '+84';
+      selectedItem = elements!.firstWhere(
+        (e) =>
+            (e.code!.toUpperCase() == defaultSelection.toUpperCase()) ||
+            (e.dialCode == defaultSelection) ||
+            (e.name!.toUpperCase() == defaultSelection.toUpperCase()),
+        orElse: () => elements![0],
+      );
       _onInit(selectedItem!);
     }
   }
@@ -136,19 +132,17 @@ class _CodePickerWidgetState extends State<CodePickerWidget> {
   void initState() {
     super.initState();
     elements = getCountryList();
+    // Set default to Vietnam's country code ('+84' or 'VN')
+    String defaultSelection = widget.initialSelection ?? '+84';
+
     if (widget.countryList != null && widget.countryList!.isNotEmpty) {
-      if (widget.initialSelection != null) {
-        selectedItem = elements!.firstWhere(
-            (e) =>
-                (e.code!.toUpperCase() ==
-                    widget.initialSelection!.toUpperCase()) ||
-                (e.dialCode == widget.initialSelection) ||
-                (e.name!.toUpperCase() ==
-                    widget.initialSelection!.toUpperCase()),
-            orElse: () => elements![0]);
-      } else {
-        selectedItem = elements![0];
-      }
+      selectedItem = elements!.firstWhere(
+        (e) =>
+            (e.code!.toUpperCase() == defaultSelection.toUpperCase()) ||
+            (e.dialCode == defaultSelection) ||
+            (e.name!.toUpperCase() == defaultSelection.toUpperCase()),
+        orElse: () => elements![0],
+      );
 
       favoriteElements = elements!
           .where((e) =>

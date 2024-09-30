@@ -12,14 +12,15 @@ class VerificationRepo implements VerificationRepoInterface {
   VerificationRepo({required this.sharedPreferences, required this.apiClient});
 
   @override
-  Future<ResponseModel> forgetPassword(String? phone) async {
+  Future<ResponseModelWithBody> forgetPassword(String? email) async {
     Response response = await apiClient.postData(
-        AppConstants.forgetPasswordUri, {"phone": phone},
+        AppConstants.forgetPasswordUri, {"email": email},
         handleError: false);
-    if (response.statusCode == 200) {
-      return ResponseModel(true, response.body["message"]);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModelWithBody(
+          true, response.body["message"], response.body);
     } else {
-      return ResponseModel(false, response.statusText);
+      return ResponseModelWithBody(false, response.statusText, response.body);
     }
   }
 
@@ -79,6 +80,19 @@ class VerificationRepo implements VerificationRepoInterface {
   Future<Response> verifyPhone(String? phone, String otp) async {
     return await apiClient.postData(
         AppConstants.verifyPhoneUri, {"phone": phone, "otp": otp},
+        handleError: false);
+  }
+
+  @override
+  Future<Response> forgotConfirmOTP(String? email, String otp) async {
+    return await apiClient.postData(
+        AppConstants.forgotConfirmOtpUri, {"email": email, "codeOtp": otp},
+        handleError: false);
+  }
+  @override
+  Future<Response> sigupConfirmOTP(String? email, String otp) async {
+    return await apiClient.postData(
+        AppConstants.sigupConfirmOtpUri, {"email": email, "otp": otp},
         handleError: false);
   }
 
