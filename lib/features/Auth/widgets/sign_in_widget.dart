@@ -242,6 +242,7 @@ class SignInWidgetState extends State<SignInWidget> {
     // String phone = _phoneController.text.trim();
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
+    // Get.to(SplashScreen(isRouterLogin: true));
 
     if (_formKeyLogin!.currentState!.validate()) {
       if (email.isEmpty) {

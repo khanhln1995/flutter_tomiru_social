@@ -400,7 +400,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
       String email = status.body?["data"]?["email"];
       String otp = status.body?["meta"]?["otp"];
       Get.toNamed(RouteHelper.getVerificationRoute(
-          email, otp, RouteHelper.verification));
+          email, otp, RouteHelper.signUp));
     } else {
       showCustomSnackBar(status.message);
     }

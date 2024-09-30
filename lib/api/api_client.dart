@@ -86,7 +86,7 @@ class ApiClient extends GetxService {
     try {
       if (kDebugMode) {
         debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        debugPrint('====> API Body: $appBaseUrl + $uri');
+        debugPrint('====> API Body: $body + $uri');
         debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
         debugPrint('====> API Body: $body');
         // debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');

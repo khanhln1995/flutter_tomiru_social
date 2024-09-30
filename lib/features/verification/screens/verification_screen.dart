@@ -41,14 +41,27 @@ class VerificationScreenState extends State<VerificationScreen> {
   @override
   void initState() {
     super.initState();
-
+    if(widget.otp != null){
+      Get.find<VerificationController>().setVerificationCode(widget.otp.toString());
+    }
     // Initialize OTP controller and autofill OTP value
-    _otpController = TextEditingController(text: widget.otp ?? '');
+    _otpController = TextEditingController();
+    _otpController.text = Get.find<VerificationController>().verificationCode;
 
     Get.find<VerificationController>()
         .updateVerificationCode('', canUpdate: false);
     _email = widget.email;
     _startTimer();
+  }
+
+  void _getOTP() {
+    Future.delayed(const Duration(seconds: 2), () {
+      final verificationCode =
+          Get.find<VerificationController>().verificationCode;
+      setState(() {
+        _otpController.text = verificationCode;
+      });
+    });
   }
 
   void _startTimer() {
@@ -141,8 +154,10 @@ class VerificationScreenState extends State<VerificationScreen> {
                         animationType: AnimationType.slide,
                         pinTheme: PinTheme(
                           shape: PinCodeFieldShape.box,
-                          fieldHeight: 60,
-                          fieldWidth: 60,
+                          fieldHeight:
+                              MediaQuery.of(context).size.width > 600 ? 60 : 45,
+                          fieldWidth:
+                              MediaQuery.of(context).size.width > 600 ? 60 : 45,
                           borderWidth: 1,
                           borderRadius:
                               BorderRadius.circular(Dimensions.radiusSmall),
@@ -179,8 +194,7 @@ class VerificationScreenState extends State<VerificationScreen> {
                           ]),
                     ),
                     const SizedBox(height: Dimensions.paddingSizeDefault),
-                    verificationController.verificationCode.length ==
-                            6 // 6-digit check
+                    _otpController.text.length == 6
                         ? Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 32),
                             child: CustomButtonWidget(
@@ -190,7 +204,7 @@ class VerificationScreenState extends State<VerificationScreen> {
                               onPressed: () {
                                 if (widget.fromSignUp) {
                                   verificationController
-                                      .verifyPhone(_email, widget.otp)
+                                      .sigupConfirmOTP(widget.email!, _otpController.text)
                                       .then((value) {
                                     if (value.isSuccess) {
                                       showAnimatedDialog(
@@ -237,8 +251,8 @@ class VerificationScreenState extends State<VerificationScreen> {
                                       Future.delayed(const Duration(seconds: 2),
                                           () {
                                         Get.offNamed(
-                                            RouteHelper.getAccessLocationRoute(
-                                                'verification'));
+                                            RouteHelper.getSignInRoute(
+                                                'sig-in'));
                                       });
                                     } else {
                                       showCustomSnackBar(value.message);
@@ -246,7 +260,7 @@ class VerificationScreenState extends State<VerificationScreen> {
                                   });
                                 } else {
                                   verificationController
-                                      .verifyToken(_email)
+                                      .forgotConfirmOTP(_otpController.text)
                                       .then((value) {
                                     if (value.isSuccess) {
                                       if (ResponsiveHelper.isDesktop(context)) {
@@ -259,6 +273,8 @@ class VerificationScreenState extends State<VerificationScreen> {
                                                 fromPasswordChange: false,
                                                 fromDialog: true)));
                                       } else {
+                                        print(
+                                            '~~~~~~~~~~~~~~go to reset-password~~~~~~~~~~~~~');
                                         Get.toNamed(
                                             RouteHelper.getResetPasswordRoute(
                                                 _email,
@@ -275,6 +291,11 @@ class VerificationScreenState extends State<VerificationScreen> {
                             ),
                           )
                         : const SizedBox.shrink(),
+                    // : const Center(
+                    //     child: CircularProgressIndicator(
+                    //         valueColor:
+                    //             AlwaysStoppedAnimation<Color>(Colors.blue)),
+                    //   )
                   ]);
                 }),
               ))),

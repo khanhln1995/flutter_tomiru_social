@@ -5,14 +5,13 @@ import 'package:flutter/foundation.dart'; // For debugging purposes
 import 'package:get/get_connect/http/src/request/request.dart'; // For HTTP requests
 import 'package:http_parser/http_parser.dart'; // For handling HTTP multipart/form-data
 import 'dart:io'; // For File operations
-import 'package:tomiru_social_flutter/util/app_constants.dart'; // App constants
 import 'package:get/get.dart'; // GetX for state management
 import 'package:image_picker/image_picker.dart'; // Image picker for selecting images
 import 'package:shared_preferences/shared_preferences.dart'; // For storing data locally
 import 'package:http/http.dart' as http; // For making HTTP requests
 import 'package:path/path.dart'; // For manipulating file paths
-import 'package:flutter/foundation.dart'
-    as foundation; // Additional foundation for web compatibility
+import 'package:flutter/foundation.dart' as foundation;
+import 'package:tomiru_social_flutter/api/api_client.dart';
 
 class ApiSocial extends GetxService {
   final String appBaseUrl;
@@ -25,8 +24,9 @@ class ApiSocial extends GetxService {
   // late Map<String, String> _mainHeaders;
   Map<String, String>? _mainHeaders;
   ApiSocial({required this.appBaseUrl, required this.sharedPreferences}) {
-    token = sharedPreferences.getString(AppConstants.jwtTokenSocial);
-
+    // String? token = sharedPreferences.getString(AppConstants.jwtTokenSocial);
+    String? token =
+        'eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AZ21haWwuY29tIiwidXNlciI6InN5c3RlbSIsIm5hbWUiOiJhZG1pbiAiLCJpYXQiOjE3Mjc0MDUxMDksImV4cCI6MjU5MTQwNTEwOX0.O4GmA37jTqp3aa_FLWZrj4EBGEmQTfz6NvvTg_ibVNrlsAhVh0QkMiiJk8k5pTq_lscIznbqppiz2biCBclBpc-U6YmMYsg9ieXdCaCkTHC8F97SQW9eTPjRC7BdKSPRdocYaErGoe77lT35UyE2hp2MkV6PX0Qbc9LN_UAhu-s1mQ7CUm3BgxgdG_4kyb8yjoFWO8UmwXC0AhZFuilw0GpOWz0bW_PTtw7DyUBSf2q4SBSBjn9RQoQPbAYkk411QNVw5IM_FykMuHnp27P4X354ZnfkKH1X1Cddb7YEKPrdeUV_FarUCTPIoVBe3Fxm4lv1KkIGonbpaDLXbmKnJg';
     updateHeader(
       token,
     );
@@ -246,74 +246,5 @@ class ApiSocial extends GetxService {
     } else {
       return response0;
     }
-  }
-}
-
-// Model for multipart file body
-class MultipartBody {
-  String key;
-  XFile? file;
-
-  MultipartBody(this.key, this.file);
-}
-
-// Model for multipart document
-class MultipartDocument {
-  String key;
-  FilePickerResult? file;
-  MultipartDocument(this.key, this.file);
-}
-
-// Error response model
-class ErrorResponse {
-  List<Errors>? _errors;
-
-  List<Errors>? get errors => _errors;
-
-  ErrorResponse({List<Errors>? errors}) {
-    _errors = errors;
-  }
-
-  ErrorResponse.fromJson(dynamic json) {
-    if (json["errors"] != null) {
-      _errors = [];
-      json["errors"].forEach((v) {
-        _errors!.add(Errors.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    if (_errors != null) {
-      map["errors"] = _errors!.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-}
-
-// Model for individual error
-class Errors {
-  String? _code;
-  String? _message;
-
-  String? get code => _code;
-  String? get message => _message;
-
-  Errors({String? code, String? message}) {
-    _code = code;
-    _message = message;
-  }
-
-  Errors.fromJson(dynamic json) {
-    _code = json["code"];
-    _message = json["message"];
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map["code"] = _code;
-    map["message"] = _message;
-    return map;
   }
 }

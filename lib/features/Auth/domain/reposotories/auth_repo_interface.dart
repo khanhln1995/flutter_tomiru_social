@@ -38,7 +38,7 @@ abstract class AuthRepoInterface<SignUpModel>
   String getUserToken();
   Future<bool> saveGuestContactNumber(String number);
   String getGuestContactNumber();
-  Future<void> saveSelfInfo(SelfInfoModel selfinfo_model);
+  Future<void> saveSelfInfo();
   Future<bool> clearSelfInfo();
   Future<bool> savePosition(Position position);
   Position? getPosition();

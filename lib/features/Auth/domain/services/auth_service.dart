@@ -30,7 +30,8 @@ class AuthService implements AuthServiceInterface {
       return ResponseModelWithBody(true, response.body["token"], response.body);
     } else {
       return ResponseModelWithBody(
-          false, response.body["error"]["message"], response.body);
+          false, response.body["error"]["message"], response.body
+      );
     }
   }
 

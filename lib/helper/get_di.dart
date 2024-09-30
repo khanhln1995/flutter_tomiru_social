@@ -29,6 +29,21 @@ import 'package:tomiru_social_flutter/features/profile/domain/repositories/profi
 import 'package:tomiru_social_flutter/features/profile/domain/repositories/profile_repository_interface.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/services/profile_service.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/services/profile_service_interface.dart';
+import 'package:tomiru_social_flutter/features/social_search/controller/social_search_controller.dart';
+import 'package:tomiru_social_flutter/features/social_search/domain/repositories/social_search_repository.dart';
+import 'package:tomiru_social_flutter/features/social_search/domain/repositories/social_search_repository_interface.dart';
+import 'package:tomiru_social_flutter/features/social_search/domain/service/social_search_service.dart';
+import 'package:tomiru_social_flutter/features/social_search/domain/service/social_search_service_interface.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/controller/social_controller.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/repositories/social_repository.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/repositories/social_repository_interface.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/service/social_service.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/service/social_service_interface.dart';
+import 'package:tomiru_social_flutter/features/social_user/controller/social_user_controller.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/repositories/social_user_repositoriy_interface.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/repositories/social_user_repository.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/service/social_user_service.dart';
+import 'package:tomiru_social_flutter/features/social_user/domain/service/social_user_service_interface.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/splash_controller.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/theme_controller.dart';
 import 'package:tomiru_social_flutter/api/api_client.dart';
@@ -167,6 +182,35 @@ Future<Map<String, Map<String, String>>> init() async {
       WalletService(walletRepositoryInterface: Get.find());
   Get.lazyPut(() => usersWalletServiceInterface);
 
+  SocialRepositoryInterface socialRepositoryInterface = SocialRepository(
+    apiSocial: Get.find(),
+    sharedPreferences: Get.find(),
+  );
+  Get.lazyPut(() => socialRepositoryInterface);
+  SocialServiceInterface socialServiceInterface =
+      SocialService(socialRepositoryInterface: Get.find());
+  Get.lazyPut(() => socialServiceInterface);
+
+  SocialSearchRepositoryInterface socialSearchRepositoryInterface =
+      SocialSearchRepository(
+    apiSocial: Get.find(),
+    sharedPreferences: Get.find(),
+  );
+  Get.lazyPut(() => socialSearchRepositoryInterface);
+  SocialSearchServiceInterface socialSearchServiceInterface =
+      SocialSearchService(socialSearchRepositoryInterface: Get.find());
+  Get.lazyPut(() => socialSearchServiceInterface);
+
+  SocialUserRepositoryInterface socialUserRepositoryInterface =
+      SocialUserRepository(
+    apiSocial: Get.find(),
+    sharedPreferences: Get.find(),
+  );
+  Get.lazyPut(() => socialUserRepositoryInterface);
+  SocialUserServiceInterface socialUserServiceInterface =
+      SocialUserService(socialUserRepositoryInterface: Get.find());
+  Get.lazyPut(() => socialUserServiceInterface);
+
   /// Controller
   Get.lazyPut(() => ThemeController(splashServiceInterface: Get.find()));
   Get.lazyPut(() => SplashController(splashServiceInterface: Get.find()));
@@ -186,6 +230,11 @@ Future<Map<String, Map<String, String>>> init() async {
       () => UsersProfileController(userProfileServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
   Get.lazyPut(() => BusinessController(businessServiceInterface: Get.find()));
+  Get.lazyPut(() => SocialController(socialServiceInterface: Get.find()));
+  Get.lazyPut(
+      () => SocialSearchController(socialSearchServiceInterface: Get.find()));
+  Get.lazyPut(
+      () => SocialUserController(socialUserServiceInterface: Get.find()));
 
   /// Retrieving localized data
   Map<String, Map<String, String>> languages = {};

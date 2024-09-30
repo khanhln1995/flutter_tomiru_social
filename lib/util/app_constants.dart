@@ -11,8 +11,11 @@ class AppConstants {
   // static const String baseUrl = 'http://192.168.102.65:8000';
   //! Link MXH
   // static const String baseUrl = 'http://192.168.102.132:8000';
-  static const String baseUrl = 'http://192.168.102.56:3003';
-  static const String socialUrl = 'http://192.168.102.34:8000';
+
+  // static const String baseUrl = 'http://192.168.102.56:3003';
+  static const String baseUrl = 'http://192.168.102.7:8000';
+  static const String socialUrl = 'http://192.168.102.7:8000';
+
   // sentTOken
 
 // AUTH
@@ -32,7 +35,9 @@ class AppConstants {
   static const String checkEmailUri = '/api/v1/auth/check-email';
   static const String verifyEmailUri = '/api/v1/auth/verify-email';
   static const String verifyPhoneUri = '/api/v1/auth/verify-phone';
-
+  static const String forgotConfirmOtpUri = '/api/v1.0/auth/forgot-confirm-otp';
+  static const String sigupConfirmOtpUri =
+      '/api/v1.0/auth/register-confirm-otp';
   // USER
   static const String updateProfileUri = '/api/v1/customer/update-profile';
   static const String customerRemoveUri = '/api/v1/customer/remove-account';
