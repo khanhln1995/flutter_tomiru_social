@@ -13,8 +13,8 @@ class VerificationService implements VerificationServiceInterface {
       required this.authRepoInterface});
 
   @override
-  Future<ResponseModel> forgetPassword(String? phone) async {
-    return await verificationRepoInterface.forgetPassword(phone);
+  Future<ResponseModelWithBody> forgetPassword(String? email) async {
+    return await verificationRepoInterface.forgetPassword(email);
   }
 
   @override
@@ -42,7 +42,7 @@ class VerificationService implements VerificationServiceInterface {
         await verificationRepoInterface.verifyEmail(email, verificationCode);
     ResponseModel responseModel;
     if (response.statusCode == 200) {
-      authRepoInterface.saveUserToken(token);
+      // authRepoInterface.saveUserToken(token);
       await authRepoInterface.updateToken();
       authRepoInterface.clearGuestId();
       responseModel = ResponseModel(true, response.body["message"]);
@@ -59,9 +59,34 @@ class VerificationService implements VerificationServiceInterface {
         await verificationRepoInterface.verifyPhone(phone, verificationCode);
     ResponseModel responseModel;
     if (response.statusCode == 200) {
-      authRepoInterface.saveUserToken(token!);
       await authRepoInterface.updateToken();
       authRepoInterface.clearGuestId();
+      responseModel = ResponseModel(true, response.body["message"]);
+    } else {
+      responseModel = ResponseModel(false, response.statusText);
+    }
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> forgotConfirmOTP(String? email, String? otp) async {
+    Response response =
+        await verificationRepoInterface.forgotConfirmOTP(email, otp!);
+    ResponseModel responseModel;
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      responseModel = ResponseModel(true, response.body["message"]);
+    } else {
+      responseModel = ResponseModel(false, response.statusText);
+    }
+    return responseModel;
+  }
+
+  @override
+  Future<ResponseModel> sigupConfirmOTP(String? email, String? otp) async {
+    Response response =
+    await verificationRepoInterface.sigupConfirmOTP(email, otp!);
+    ResponseModel responseModel;
+    if (response.statusCode == 200 || response.statusCode == 201) {
       responseModel = ResponseModel(true, response.body["message"]);
     } else {
       responseModel = ResponseModel(false, response.statusText);

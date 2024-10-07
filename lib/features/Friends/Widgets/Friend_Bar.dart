@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../widgets/custom_appbar2.dart';
-import "../../../widgets/friends2_widget/post_status_friend.dart";
-import "../../../widgets/friends2_widget/search_input_friend.dart";
+import '../../../common/widgets/custom_appbar2.dart';
+import "../../../common/widgets/friends2_widget/post_status_friend.dart";
+import "../../../common/widgets/friends2_widget/search_input_friend.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 
@@ -27,64 +26,6 @@ class _FriendBarState extends State<FriendBar> {
       color: Colors.white,
       child: Column(
         children: [
-          AppBar(
-            automaticallyImplyLeading: false,
-            title: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    "Bạn bè",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Stack(
-                      children: [
-                        const FaIcon(
-                          FontAwesomeIcons.bell,
-                          size: 24,
-                          color: Colors.black,
-                        ),
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: const BoxDecoration(
-                              color: Colors.red,
-                              shape: BoxShape.circle,
-                            ),
-                            constraints: const BoxConstraints(
-                              minWidth: 10,
-                              minHeight: 10,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 16), // Khoảng cách giữa hai icon
-                    IconButton(
-                      icon: const FaIcon(
-                        FontAwesomeIcons.comment,
-                        size: 24,
-                        color: Colors.black,
-                      ),
-                      onPressed: () {
-                        // Handle search button action
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            color: const Color.fromARGB(255, 243, 241, 241),
-            height: 5,
-            width: double.infinity,
-          ),
           if (_selectedIndex == 0)
             const Column(
               children: [

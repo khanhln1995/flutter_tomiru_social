@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/global/time_line/time_line.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/time_line/time_line.dart';
 
 class AroundUser extends StatelessWidget {
   @override
@@ -14,7 +14,7 @@ class AroundUser extends StatelessWidget {
           child: Text('Xung quanh bạn',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         ),
-        TimeLine()
+        // TimeLine()
       ],
     );
   }

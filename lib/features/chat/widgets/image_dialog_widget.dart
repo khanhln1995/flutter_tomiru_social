@@ -1,5 +1,5 @@
 import 'package:tomiru_social_flutter/util/dimensions.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_image_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class ImageDialogWidget extends StatelessWidget {

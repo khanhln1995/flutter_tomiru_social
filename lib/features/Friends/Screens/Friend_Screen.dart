@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import '../widgets/Friend_Bar.dart';
+import '../widgets/friend_bar.dart';
 import 'page_view/page_view0.dart';
 import "page_view/page_view1.dart";
 import "page_view/page_view2.dart";
 import "page_view/page_view3.dart";
+import 'package:tomiru_social_flutter/common/widgets/ui/custom_mainbar.dart';
+import 'package:tomiru_social_flutter/common/widgets/custom_icon_widgets.dart';
 
 class Friend2Screen extends StatefulWidget {
   const Friend2Screen({Key? key}) : super(key: key);
@@ -35,6 +37,17 @@ class _Friend2ScreenState extends State<Friend2Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        onBackPress: () => Navigator.of(context).pop(),
+        titleText: 'Bạn bè',
+        padding: 0,
+        widget: [
+          customQr(context),
+          customMessage(context),
+          customNotification(context),
+          const SizedBox(width: 12.0)
+        ],
+      ),
       body: Column(
         children: [
           FriendBar(navigateTo: _navigateTo), // Pass the _navigateTo function

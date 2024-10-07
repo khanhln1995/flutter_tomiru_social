@@ -6,14 +6,17 @@ import 'package:tomiru_social_flutter/features/chat/domain/models/conversation_m
 import 'package:tomiru_social_flutter/features/profile/domain/models/userinfo_model.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/services/profile_service_interface.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/splash_controller.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_snackbar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:tomiru_social_flutter/features/auth/domain/services/auth_service_interface.dart';
 
 class ProfileController extends GetxController implements GetxService {
   final ProfileServiceInterface profileServiceInterface;
+  final AuthServiceInterface authServiceInterface;
 
-  ProfileController({required this.profileServiceInterface});
+  ProfileController({required this.profileServiceInterface, required this.authServiceInterface});
 
   UserInfoModel? _userInfoModel;
   UserInfoModel? get userInfoModel => _userInfoModel;
@@ -94,5 +97,13 @@ class ProfileController extends GetxController implements GetxService {
       Get.back();
     }
     update();
+  }
+
+  Position? getPosition() {
+    return authServiceInterface.getPosition();
+  }
+
+  Future<bool> savePosition(Position position) async {
+    return await authServiceInterface.savePosition(position);
   }
 }

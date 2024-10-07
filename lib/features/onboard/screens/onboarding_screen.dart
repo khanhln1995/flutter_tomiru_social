@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_asset_image_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_asset_image_widget.dart';
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
 import 'package:tomiru_social_flutter/features/onboard/controllers/onboard_controller.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/splash_controller.dart';

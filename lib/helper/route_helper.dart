@@ -14,16 +14,18 @@ import 'dart:convert';
 // import 'package:tomiru_social_flutter/features/home/screens/map_view_screen.dart';
 // import 'package:tomiru_social_flutter/features/html/enums/html_type.dart';
 // import 'package:tomiru_social_flutter/features/html/screens/html_viewer_screen.dart';
+import 'package:tomiru_social_flutter/features/bussiness/Screens/Business_Screen.dart';
 import 'package:tomiru_social_flutter/features/Home/Screens/Home_Page.dart';
-import 'package:tomiru_social_flutter/features/Home_Social/Screens/Home.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/Screens/social_network.dart';
 import 'package:tomiru_social_flutter/features/language/screens/language_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/access_location_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/map_screen.dart';
 // import 'package:tomiru_social_flutter/features/location/screens/pick_map_screen.dart';
 //! import 'package:tomiru_social_flutter/features/Home/Screens/Home.dart';
-import 'package:tomiru_social_flutter/features/Home_Screen/Screens/HomeScreen.dart';
-import 'package:tomiru_social_flutter/features/Home_Screen/test.dart';
+// import 'package:tomiru_social_flutter/features/Home_Screen/Screens/HomeScreen.dart';
+// import 'package:tomiru_social_flutter/features/Home_Screen/test.dart';
 import 'package:tomiru_social_flutter/features/auth/screens/sign_in_screen.dart';
+import 'package:tomiru_social_flutter/features/message_app/screens/message_screen.dart';
 import 'package:tomiru_social_flutter/features/notification/domain/models/notification_body_model.dart';
 // import 'package:tomiru_social_flutter/features/notification/screens/notification_screen.dart';
 import 'package:tomiru_social_flutter/features/onboard/screens/onboarding_screen.dart';
@@ -77,6 +79,8 @@ import 'package:tomiru_social_flutter/features/update/screens/update_screen.dart
 import 'package:tomiru_social_flutter/features/verification/screens/forget_pass_screen.dart';
 import 'package:tomiru_social_flutter/features/verification/screens/new_pass_screen.dart';
 import 'package:tomiru_social_flutter/features/verification/screens/verification_screen.dart';
+import 'package:tomiru_social_flutter/features/Notify_Screen/screens/notify_screen.dart';
+
 // import 'package:tomiru_social_flutter/features/wallet/screens/wallet_screen.dart';
 // import 'package:tomiru_social_flutter/helper/address_helper.dart';
 import 'package:tomiru_social_flutter/util/app_constants.dart';
@@ -84,11 +88,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:tomiru_social_flutter/features/wallet/screens/wallet_screen_ui.dart";
+import 'package:tomiru_social_flutter/features/search/screens/search_page.dart';
 // import 'package:meta_seo/meta_seo.dart';
 
 class RouteHelper {
+  static const String messageScreen = '/messageScreen';
+  static const String notifyScreen = '/notifyScreen';
   static const String walletTest = '/walletTest';
   static const String initial = '/';
+  static const String socialNetwork = '/socical_network';
+  static const String business = '/business';
+
   static const String splash = '/splash';
   static const String language = '/language';
   static const String onBoarding = '/on-boarding';
@@ -101,7 +111,7 @@ class RouteHelper {
   static const String main = '/main';
   static const String forgotPassword = '/forgot-password';
   static const String resetPassword = '/reset-password';
-  static const String search = '/search';
+  // static const String search = '/search';
   static const String restaurant = '/restaurant';
   static const String orderDetails = '/order-details';
   static const String profile = '/profile';
@@ -146,10 +156,12 @@ class RouteHelper {
   static const String subscriptionSuccess = '/subscription-success';
   static const String offlinePaymentScreen = '/offline-payment-screen';
   static const String guestTrackOrderScreen = '/guest-track-order-screen';
+  static const String searchScreen = '/search';
   static const String test = '/test';
 
   static String getInitialRoute({bool fromSplash = false}) =>
       '$initial?from-splash=$fromSplash';
+
   static String getSplashRoute(
       NotificationBodyModel? body, DeepLinkBody? linkBody) {
     String data = 'null';
@@ -169,9 +181,8 @@ class RouteHelper {
   static String getOnBoardingRoute() => onBoarding;
   static String getSignInRoute(String page) => '$signIn?page=$page';
   static String getSignUpRoute() => signUp;
-  static String getVerificationRoute(
-      String? email, String? token, String page, String pass) {
-    return '$verification?page=$page&email=$email&token=$token&pass=$pass';
+  static String getVerificationRoute(String? email, String? otp, String page) {
+    return '$verification?page=$page&email=$email&otp=$otp';
   }
 
   static String getAccessLocationRoute(String page) =>
@@ -193,7 +204,7 @@ class RouteHelper {
   static String getResetPasswordRoute(
           String? phone, String token, String page) =>
       '$resetPassword?phone=$phone&token=$token&page=$page';
-  static String getSearchRoute() => search;
+  static String getSearchRoute() => searchScreen;
   // static String getRestaurantRoute(int? id) {
   //   if (kIsWeb) {
   //     // Define MetaSEO object
@@ -211,7 +222,7 @@ class RouteHelper {
   static String getOrderDetailsRoute(int? orderID,
       {bool? fromOffline, String? contactNumber, bool fromGuestTrack = false}) {
     return '$orderDetails?id=$orderID&from_offline=$fromOffline&contact=$contactNumber&from_guest_track=$fromGuestTrack';
-  }
+  } //homePage
 
   static String getProfileRoute() => profile;
   static String getUpdateProfileRoute() => updateProfile;
@@ -291,6 +302,9 @@ class RouteHelper {
   // }
 //!
   static String getWalletTest() => walletTest;
+  static String getListNotify() => notifyScreen;
+  static String getMessage() => messageScreen;
+
 //!
   static String getReferAndEarnRoute() => referAndEarn;
   static String getChatRoute(
@@ -309,6 +323,9 @@ class RouteHelper {
     }
     return '$messages?notification=$notificationBody0&user=$user0&conversation_id=$conversationID&index=$index';
   }
+
+  static String getSocicalNetworkRoute() => socialNetwork; // mạng xã hội
+  static String getBusinessRoute() => business; // mạng xã hội
 
   static String getConversationRoute() => conversation;
   static String getMapViewRoute() => mapView;
@@ -350,6 +367,15 @@ class RouteHelper {
         //     fromSplash: (Get.parameters['from-splash'] == 'true')))),
         page: () => const Homepage()),
     GetPage(
+      name: socialNetwork,
+      page: () => const SocialNetwork(),
+    ),
+    GetPage(
+      name: business,
+      page: () => const BusinessScreen(),
+    ),
+
+    GetPage(
         name: splash,
         page: () {
           NotificationBodyModel? data;
@@ -372,6 +398,8 @@ class RouteHelper {
         name: language,
         page: () => LanguageScreen(fromMenu: Get.parameters['page'] == 'menu')),
     GetPage(name: onBoarding, page: () => OnBoardingScreen()),
+    GetPage(name: searchScreen, page: () => const SearchPage()),
+
     GetPage(
         name: signIn,
         page: () => SignInScreen(
@@ -382,17 +410,18 @@ class RouteHelper {
                   Get.parameters['page'] != onBoarding,
             )),
     GetPage(name: signUp, page: () => const SignUpScreen()),
+    //!
+    GetPage(name: notifyScreen, page: () => const NotifyScreen()),
+    GetPage(name: messageScreen, page: () => const MessageScreen()),
+
+    //!
     GetPage(
         name: verification,
         page: () {
-          List<int> decode =
-              base64Decode(Get.parameters['pass']!.replaceAll(' ', '+'));
-          String data = utf8.decode(decode);
           return VerificationScreen(
-            number: Get.parameters['number'],
+            email: Get.parameters['email'],
             fromSignUp: Get.parameters['page'] == signUp,
-            token: Get.parameters['token'],
-            password: data,
+            otp: Get.parameters['otp'],
           );
         }),
     //   GetPage(

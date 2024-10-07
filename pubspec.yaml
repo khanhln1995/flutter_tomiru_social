@@ -30,8 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
   provider: ^6.0.0
   url_launcher: ^6.3.0
   # The following adds the Cupertino Icons font to your application.
@@ -80,12 +78,26 @@ dependencies:
   just_the_tooltip: ^0.0.12
   animated_flip_counter: ^0.3.4
   carousel_slider: ^4.2.1
-  comment_tree: ^0.3.0
+  flutter_fancy_tree_view: ^1.6.0
+  dotted_border: ^2.0.0
+  qr_code_scanner: ^1.0.1
+  # multi_image_picker: ^4.8.01
+  camera: ^0.11.0+1
+  permission_handler: ^11.3.1
+  zego_uikit_prebuilt_live_streaming: ^3.11.0
+
+  geolocator: ^12.0.0
+  geolocator_android: 4.5.5
+  geocoding: ^3.0.0
+  weather: ^3.1.1
+  qr_flutter: ^4.1.0
+  google_ml_vision: ^0.0.8
+  graphview: ^1.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
-
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -99,7 +111,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -110,7 +121,8 @@ flutter:
     - assets/data-friend/dataFriends.json
     - assets/language/
     - assets/map/
-
+    - assets/timeline.json
+    - assets/feed.json
 
   fonts:
     - family: Roboto

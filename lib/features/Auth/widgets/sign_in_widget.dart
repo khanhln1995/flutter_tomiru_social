@@ -2,22 +2,24 @@ import 'dart:convert';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
-import 'package:tomiru_social_flutter/common/widgets/validate_check.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/validate_check.dart';
 import 'package:tomiru_social_flutter/features/language/controllers/localization_controller.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/splash_controller.dart';
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
 import 'package:tomiru_social_flutter/features/auth/screens/sign_up_screen.dart';
 import 'package:tomiru_social_flutter/features/auth/widgets/trams_conditions_check_box_widget.dart';
 import 'package:tomiru_social_flutter/features/auth/widgets/social_login_widget.dart';
+import 'package:tomiru_social_flutter/features/splash/screens/splash_screen.dart';
+import 'package:tomiru_social_flutter/features/users_profile/controller/users_profile_controller.dart';
 import 'package:tomiru_social_flutter/features/verification/screens/forget_pass_screen.dart';
 import 'package:tomiru_social_flutter/helper/custom_validator.dart';
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
 import 'package:tomiru_social_flutter/util/styles.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_button_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_snackbar_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_text_field_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_button_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -240,33 +242,23 @@ class SignInWidgetState extends State<SignInWidget> {
     // String phone = _phoneController.text.trim();
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
+    Get.to(SplashScreen(isRouterLogin: true));
 
-    if (_formKeyLogin!.currentState!.validate()) {
-      if (email.isEmpty) {
-        showCustomSnackBar('Vui lòng nhập Email');
-      } else if (password.isEmpty) {
-        showCustomSnackBar('Vui lòng nhập Mật khẩu');
-      } else if (password.length < 6) {
-        showCustomSnackBar('Độ dài password phải lớn hơn 6');
-      } else {
-        // login ko can api
-        Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
+    // if (_formKeyLogin!.currentState!.validate()) {
+    //   if (email.isEmpty) {
+    //     showCustomSnackBar('Vui lòng nhập Email');
+    //   } else if (password.isEmpty) {
+    //     showCustomSnackBar('Vui lòng nhập Mật khẩu');
+    //   } else if (password.length < 6) {
+    //     showCustomSnackBar('Độ dài password phải lớn hơn 6');
+    //   } else {
+    //     // login ko can api
+    //     // Get.to(SplashScreen(isRouterLogin: true));
 
-        // login with api
-        // authController
-        //     .login(email, password, alreadyInApp: widget.backFromThis)
-        //     .then((status) async {
-        //   print("status$status");
-        //   if (status.isSuccess) {
-        //     print(
-        //         "------------------------------------------login------------------------");
-        //     _processSuccessSetup(authController, email, password, status);
-        //   } else {
-        //     showCustomSnackBar(status.message);
-        //   }
-        // });
-      }
-    }
+    //     // login with api
+    //     authController.login(email, password);
+    //   }
+    // }
   }
 
   void _processSuccessSetup(
@@ -281,12 +273,14 @@ class SignInWidgetState extends State<SignInWidget> {
       authController.clearUserNumberAndPassword();
     }
     if (widget.backFromThis) {
-      if (ResponsiveHelper.isDesktop(context)) {
-        Get.offAllNamed(RouteHelper.getInitialRoute(fromSplash: false));
-      } else {
-        Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
-      }
+      // if (ResponsiveHelper.isDesktop(context)) {
+      //   Get.offAllNamed(RouteHelper.getInitialRoute(fromSplash: false));
+      // } else {
+      //   Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
+      // }
+      Get.offNamed(RouteHelper.getInitialRoute(fromSplash: false));
     } else {
+      // Get.find<UsersProfileController>().setCurrentUsers();
       Get.find<SplashController>()
           .navigateToLocationScreen('sign-in', offNamed: true);
     }

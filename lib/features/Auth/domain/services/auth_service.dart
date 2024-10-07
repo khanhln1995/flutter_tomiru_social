@@ -1,60 +1,69 @@
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/signup_body_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/models/social_log_in_body_model.dart';
+import 'package:tomiru_social_flutter/features/profile/domain/models/selfinfo_model.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/reposotories/auth_repo_interface.dart';
 import 'package:tomiru_social_flutter/features/auth/domain/services/auth_service_interface.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart'; //facebook login
 import 'package:google_sign_in/google_sign_in.dart'; //google login
 import 'package:get/get.dart';
+import 'package:geolocator/geolocator.dart';
+
+import 'package:tomiru_social_flutter/features/auth/domain/models/jwt_tokens_model.dart';
 
 class AuthService implements AuthServiceInterface {
   final AuthRepoInterface authRepoInterface;
   AuthService({required this.authRepoInterface});
 
   @override
-  Future<ResponseModel> registration(
+  Future<ResponseModelWithBody> registration(
       SignUpBodyModel signUpModel, bool isCustomerVerificationOn) async {
     Response response = await authRepoInterface.registration(signUpModel);
-    if (response.statusCode == 200) {
+    print("response: ${response.body}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
       if (!isCustomerVerificationOn) {
-        authRepoInterface.saveUserToken(response.body["token"]);
+        authRepoInterface.saveTokens(response.body);
         await authRepoInterface.updateToken();
         authRepoInterface.clearGuestId();
       }
-      return ResponseModel(true, response.body["token"]);
+      return ResponseModelWithBody(true, response.body["token"], response.body);
     } else {
-      return ResponseModel(false, response.statusText);
+      return ResponseModelWithBody(
+          false, response.body["error"]["message"], response.body
+      );
     }
   }
 
   @override
-  Future<ResponseModel> login(
-      {String? email,
-      String? password,
-      bool customerVerification = false,
-      bool alreadyInApp = false}) async {
+  Future<ResponseModel> login({
+    String? email,
+    String? password,
+  }) async {
     Response response =
         await authRepoInterface.login(email: email, password: password);
-    if (response.statusCode == 200) {
-      if (customerVerification && response.body['is_phone_verified'] == 0) {
-      } else {
-        authRepoInterface.saveUserToken(response.body['token'],
-            alreadyInApp: alreadyInApp);
-        await authRepoInterface.updateToken();
-        await authRepoInterface.clearGuestId();
-      }
-      return ResponseModel(true,
-          '${response.body['is_phone_verified']}${response.body['token']}');
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, 'Đăng nhập thành công');
     } else {
       return ResponseModel(false, response.statusText);
     }
   }
 
   @override
-  // Future<ResponseModel> guestLogin() async {
-  //   return await authRepoInterface.guestLogin();
-  // }
+  Future<ResponseModel> logout() async {
+    Response response = await authRepoInterface.logout();
+
+    if (response.statusCode == 200) {
+      return ResponseModel(true, 'Đăng xuất thành công');
+    } else {
+      return ResponseModel(false, response.statusText);
+    }
+  }
+
+  @override
+  Future<void> clearTokens() async {
+    await authRepoInterface.clearTokens();
+  }
 
   @override
   void saveUserNumberAndPassword(
@@ -93,6 +102,16 @@ class AuthService implements AuthServiceInterface {
   }
 
   @override
+  SelfInfoModel? getUserSelfInfo() {
+    return authRepoInterface.getUserSelfInfo();
+  }
+
+  @override
+  JwtTokenModel? getTokens() {
+    return authRepoInterface.getTokens();
+  }
+
+  @override
   Future<void> loginWithSocialMedia(SocialLogInBodyModel socialLogInModel,
       {bool isCustomerVerificationOn = false}) async {
     Response response =
@@ -103,12 +122,12 @@ class AuthService implements AuthServiceInterface {
         if (isCustomerVerificationOn &&
             response.body['is_phone_verified'] == 0) {
           Get.toNamed(RouteHelper.getVerificationRoute(
-              response.body['phone'] ?? socialLogInModel.email,
-              token,
-              RouteHelper.signUp,
-              ''));
+            response.body['phone'] ?? socialLogInModel.email,
+            token,
+            RouteHelper.signUp,
+          ));
         } else {
-          authRepoInterface.saveUserToken(response.body['token']);
+          authRepoInterface.saveTokens(response.body);
           await authRepoInterface.updateToken();
           authRepoInterface.clearGuestId();
           Get.toNamed(RouteHelper.getAccessLocationRoute('sign-in'));
@@ -131,9 +150,9 @@ class AuthService implements AuthServiceInterface {
       String? token = response.body['token'];
       if (isCustomerVerificationOn && response.body['is_phone_verified'] == 0) {
         Get.toNamed(RouteHelper.getVerificationRoute(
-            socialLogInModel.phone, token, RouteHelper.signUp, ''));
+            socialLogInModel.phone, token, RouteHelper.signUp));
       } else {
-        authRepoInterface.saveUserToken(response.body['token']);
+        authRepoInterface.saveTokens(response.body);
         await authRepoInterface.updateToken();
         authRepoInterface.clearGuestId();
         Get.toNamed(RouteHelper.getAccessLocationRoute('sign-in'));
@@ -159,6 +178,16 @@ class AuthService implements AuthServiceInterface {
   @override
   bool isGuestLoggedIn() {
     return authRepoInterface.isGuestLoggedIn();
+  }
+
+  @override
+  Position? getPosition() {
+    return authRepoInterface.getPosition();
+  }
+
+  @override
+  Future<bool> savePosition(Position position) {
+    return authRepoInterface.savePosition(position);
   }
 
   ///TODO: This function need to remove from here , as it is order part.

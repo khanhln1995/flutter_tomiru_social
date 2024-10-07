@@ -20,48 +20,36 @@ class ApiClient extends GetxService {
   final SharedPreferences sharedPreferences;
   static final String noInternetMessage = 'connection_to_api_server_failed'.tr;
   final int timeoutInSeconds = 30;
+  // final int timeoutInSeconds = 3;
 
   String? token;
-  late Map<String, String> _mainHeaders;
-
-  // Constructor to initialize the ApiClient with base URL and shared preferences
+  // late Map<String, String> _mainHeaders;
+  Map<String, String>? _mainHeaders;
   ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
-    token = sharedPreferences.getString(AppConstants.token);
-    if (kDebugMode) {
-      debugPrint('Token: $token');
-    }
-    // AddressModel? addressModel;
-    // try {
-    //   addressModel = AddressModel.fromJson(
-    //       jsonDecode(sharedPreferences.getString(AppConstants.userAddress)!));
-    // } catch (_) {}
+    token = sharedPreferences.getString(AppConstants.jwtToken);
+    if (kDebugMode) {}
     updateHeader(
       token,
-      // addressModel?.zoneIds,
-      // sharedPreferences.getString(AppConstants.languageCode)
-      // addressModel?.latitude,
-      // addressModel?.longitude
     );
   }
 
-  // Method to update headers
-  Map<String, String> updateHeader(String? token,
-      // List<int>? zoneIDs,
-      //     String? languageCode, String? latitude, String? longitude,
-      {bool setHeader = true}) {
-    Map<String, String> header = {};
-    header.addAll({
+// Method to update headers
+  Map<String, String> updateHeader(String? token, {bool setHeader = true}) {
+    Map<String, String> header = {
       'Content-Type': 'application/json; charset=UTF-8',
-      // AppConstants.zoneId: zoneIDs != null ? jsonEncode(zoneIDs) : '',
-      // AppConstants.localizationKey:
-      //     languageCode ?? AppConstants.languages[0].languageCode!,
-      // AppConstants.latitude: latitude != null ? jsonEncode(latitude) : '',
-      // AppConstants.longitude: longitude != null ? jsonEncode(longitude) : '',
-      'Authorization': 'Bearer $token'
-    });
+      // Other headers can be added here, like language code or other app-specific data
+    };
+
+    // Only add the Authorization header if the token is not null
+
+    if (token != null && token.isNotEmpty) {
+      header['Authorization'] = 'Bearer $token';
+    }
+
     if (setHeader) {
       _mainHeaders = header;
     }
+
     return header;
   }
 
@@ -74,6 +62,7 @@ class ApiClient extends GetxService {
     try {
       if (kDebugMode) {
         debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        debugPrint('====> API Call: $appBaseUrl');
       }
       http.Response response = await http
           .get(
@@ -97,7 +86,10 @@ class ApiClient extends GetxService {
     try {
       if (kDebugMode) {
         debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        debugPrint('====> API Body: $body + $uri');
+        debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
         debugPrint('====> API Body: $body');
+        // debugPrint('====> API Call:($headers)\nHeader: $_mainHeaders');
       }
       http.Response response = await http
           .post(
@@ -106,6 +98,8 @@ class ApiClient extends GetxService {
             headers: headers ?? _mainHeaders,
           )
           .timeout(Duration(seconds: timeoutInSeconds));
+      // print(response);
+      // print("response");
       return handleResponse(response, uri, handleError);
     } catch (e) {
       return Response(statusCode: 1, statusText: noInternetMessage);
@@ -117,12 +111,12 @@ class ApiClient extends GetxService {
       List<MultipartBody> multipartBody, List<MultipartDocument> otherFile,
       {Map<String, String>? headers, bool handleError = true}) async {
     try {
-      debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-      debugPrint(
-          '====> API Body: $body with ${multipartBody.length} and multipart ${otherFile.length}');
+      // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+      // debugPrint(
+      //     '====> API Body: $body with ${multipartBody.length} and multipart ${otherFile.length}');
       http.MultipartRequest request =
           http.MultipartRequest('POST', Uri.parse(appBaseUrl + uri));
-      request.headers.addAll(headers ?? _mainHeaders);
+      request.headers.addAll(headers ?? _mainHeaders ?? {});
       for (MultipartBody multipart in multipartBody) {
         if (multipart.file != null) {
           if (foundation.kIsWeb) {
@@ -178,8 +172,8 @@ class ApiClient extends GetxService {
       {Map<String, String>? headers, bool handleError = true}) async {
     try {
       if (kDebugMode) {
-        debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        debugPrint('====> API Body: $body');
+        // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        // debugPrint('====> API Body: $body');
       }
       http.Response response = await http
           .put(
@@ -199,7 +193,7 @@ class ApiClient extends GetxService {
       {Map<String, String>? headers, bool handleError = true}) async {
     try {
       if (kDebugMode) {
-        debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+        // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
       }
       http.Response response = await http
           .delete(
@@ -254,7 +248,7 @@ class ApiClient extends GetxService {
           '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
     }
     if (handleError) {
-      if (response0.statusCode == 200) {
+      if (response0.statusCode == 200 || response0.statusCode == 201) {
         return response0;
       } else {
         ApiChecker.checkApi(response0, showToaster: showToaster);

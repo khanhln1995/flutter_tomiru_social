@@ -1,5 +1,5 @@
-import 'package:tomiru_social_flutter/common/widgets/custom_asset_image_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/search_field_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_asset_image_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/search_field_widget.dart';
 import 'package:tomiru_social_flutter/features/chat/widgets/message_card_widget.dart';
 import 'package:tomiru_social_flutter/features/language/controllers/localization_controller.dart';
 import 'package:tomiru_social_flutter/features/notification/domain/models/notification_body_model.dart';
@@ -16,13 +16,13 @@ import 'package:tomiru_social_flutter/common/enums/user_type.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
 import 'package:tomiru_social_flutter/util/images.dart';
 import 'package:tomiru_social_flutter/util/styles.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_app_bar_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_image_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_ink_well_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_snackbar_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/menu_drawer_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/not_logged_in_screen.dart';
-import 'package:tomiru_social_flutter/common/widgets/paginated_list_view_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_app_bar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_image_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_ink_well_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/menu_drawer_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/not_logged_in_screen.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/paginated_list_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import "package:tomiru_social_flutter/widgets/build_avatar_widget.dart";
-import "package:tomiru_social_flutter/widgets/url_text/checkTextwidget.dart";
+import "package:tomiru_social_flutter/common/widgets/build_avatar_widget.dart";
+import "package:tomiru_social_flutter/common/widgets/url_text/checkTextwidget.dart";
 class BoxPositionBottom extends StatefulWidget {
   final data;
   const BoxPositionBottom({Key? key, required this.data}) : super(key: key);

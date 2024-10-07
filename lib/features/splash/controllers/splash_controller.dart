@@ -1,4 +1,4 @@
-import 'package:tomiru_social_flutter/common/widgets/custom_loader_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_loader_widget.dart';
 import 'package:tomiru_social_flutter/features/auth/controllers/auth_controller.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/models/config_model.dart';
 import 'package:tomiru_social_flutter/features/splash/domain/services/splash_service_interface.dart';

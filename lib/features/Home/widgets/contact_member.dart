@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tomiru_social_flutter/widgets/global/contact_slide.dart';
+import 'package:tomiru_social_flutter/common/widgets/global/contact_slide.dart';
 
 class ContactWithOthers extends StatelessWidget {
   // ContactWithOthers({super.key});
@@ -33,9 +33,10 @@ class ContactWithOthers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20.0),
+      margin: const EdgeInsets.only(bottom: 20.0),
       height: 150,
       child: ListView.builder(
+          padding: const EdgeInsets.only(left: 12.0),
           scrollDirection: Axis.horizontal,
           itemCount: contacts.length,
           itemBuilder: (context, index) {

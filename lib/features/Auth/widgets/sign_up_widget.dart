@@ -2,7 +2,7 @@ import 'dart:convert';
 // import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tomiru_social_flutter/common/models/response_model.dart';
-import 'package:tomiru_social_flutter/common/widgets/validate_check.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/validate_check.dart';
 // import 'package:tomiru_social_flutter/features/language/controllers/localization_controller.dart';
 import 'package:tomiru_social_flutter/features/profile/controllers/profile_controller.dart';
 import 'package:tomiru_social_flutter/features/splash/controllers/splash_controller.dart';
@@ -14,11 +14,10 @@ import 'package:tomiru_social_flutter/helper/custom_validator.dart';
 import 'package:tomiru_social_flutter/helper/responsive_helper.dart';
 import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:tomiru_social_flutter/util/dimensions.dart';
-import 'package:tomiru_social_flutter/util/images.dart';
 import 'package:tomiru_social_flutter/util/styles.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_button_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_snackbar_widget.dart';
-import 'package:tomiru_social_flutter/common/widgets/custom_text_field_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_button_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,6 +36,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
   final FocusNode _passwordFocus = FocusNode();
   final FocusNode _confirmPasswordFocus = FocusNode();
   final FocusNode _referCodeFocus = FocusNode();
+  final FocusNode _userNameFocus = FocusNode();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -45,7 +45,9 @@ class SignUpWidgetState extends State<SignUpWidget> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _referCodeController = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
   String? _countryDialCode;
+  String? _selectedGender; // Store selected gender
   GlobalKey<FormState>? _formKeySignUp;
 
   @override
@@ -68,10 +70,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
             : null,
         child: GetBuilder<AuthController>(builder: (authController) {
           return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SizedBox(
-                height: ResponsiveHelper.isDesktop(context)
-                    ? 30
-                    : Dimensions.paddingSizeSmall),
+            const SizedBox(height: Dimensions.paddingSizeSmall),
             Row(children: [
               Expanded(
                 child: CustomTextFieldWidget(
@@ -100,9 +99,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
                   required: true,
                   controller: _lastNameController,
                   focusNode: _lastNameFocus,
-                  nextFocus: ResponsiveHelper.isDesktop(context)
-                      ? _emailFocus
-                      : _phoneFocus,
+                  nextFocus: _referCodeFocus,
                   inputType: TextInputType.name,
                   capitalization: TextCapitalization.words,
                   prefixIcon: CupertinoIcons.person_alt_circle_fill,
@@ -111,6 +108,71 @@ class SignUpWidgetState extends State<SignUpWidget> {
                       value, "last_name_field_is_required".tr),
                 ),
               )
+            ]),
+            const SizedBox(height: Dimensions.paddingSizeLarge),
+            Row(children: [
+              Expanded(
+                child: CustomTextFieldWidget(
+                  hintText: 'enter_username'.tr,
+                  labelText: 'username'.tr,
+                  showLabelText: true,
+                  required: true,
+                  controller: _userNameController,
+                  focusNode: _userNameFocus,
+                  nextFocus: _referCodeFocus,
+                  inputType: TextInputType.text,
+                  isPhone: false,
+                  validator: (value) => ValidateCheck.validateEmptyText(
+                      value, "user_name_field_is_required".tr),
+                ),
+              ),
+            ]),
+            const SizedBox(height: Dimensions.paddingSizeLarge),
+
+            // Gender selection as two tappable boxes
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Text(
+                      'gender'.tr,
+                      style: robotoRegular.copyWith(
+                        fontSize: Dimensions.fontSizeDefault,
+                        color: Theme.of(context).hintColor,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      _buildGenderBox(context, 'male'.tr),
+                      const SizedBox(width: 20),
+                      _buildGenderBox(context, 'female'.tr),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: Dimensions.paddingSizeLarge),
+
+            Row(children: [
+              Expanded(
+                child: CustomTextFieldWidget(
+                  hintText: 'enter_ref_code'.tr,
+                  labelText: 'code'.tr,
+                  showLabelText: true,
+                  required: true,
+                  controller: _referCodeController,
+                  focusNode: _referCodeFocus,
+                  nextFocus: _emailFocus,
+                  inputType: TextInputType.text,
+                  isPhone: false,
+                  validator: (value) => ValidateCheck.validateEmptyText(
+                      value, "refer_code_field_is_required".tr),
+                ),
+              ),
             ]),
             const SizedBox(height: Dimensions.paddingSizeLarge),
             Row(children: [
@@ -150,36 +212,25 @@ class SignUpWidgetState extends State<SignUpWidget> {
                       : _emailFocus,
                   inputType: TextInputType.phone,
                   isPhone: true,
-                  // onCountryChanged: (CountryCode countryCode) {
-                  //   _countryDialCode = countryCode.dialCode;
-                  // },
-                  // countryDialCode: _countryDialCode != null
-                  //     ? CountryCode.fromCountryCode(Get.find<SplashController>()
-                  //             .configModel!
-                  //             .country!)
-                  //         .code
-                  //     : Get.find<LocalizationController>().locale.countryCode,
                   validator: (value) => ValidateCheck.validateEmptyText(
                       value, "phone_number_field_is_required".tr),
                 ),
               ),
             ]),
             const SizedBox(height: Dimensions.paddingSizeLarge),
-            !ResponsiveHelper.isDesktop(context)
-                ? CustomTextFieldWidget(
-                    labelText: 'email'.tr,
-                    hintText: 'enter_email'.tr,
-                    showLabelText: true,
-                    required: true,
-                    controller: _emailController,
-                    focusNode: _emailFocus,
-                    nextFocus: _passwordFocus,
-                    inputType: TextInputType.emailAddress,
-                    prefixIcon: CupertinoIcons.mail_solid,
-                    validator: (value) => ValidateCheck.validateEmail(value),
-                    divider: false,
-                  )
-                : const SizedBox(),
+            CustomTextFieldWidget(
+              labelText: 'email'.tr,
+              hintText: 'enter_email'.tr,
+              showLabelText: true,
+              required: true,
+              controller: _emailController,
+              focusNode: _emailFocus,
+              nextFocus: _passwordFocus,
+              inputType: TextInputType.emailAddress,
+              prefixIcon: CupertinoIcons.mail_solid,
+              validator: (value) => ValidateCheck.validateEmail(value),
+              divider: false,
+            ),
             SizedBox(
                 height: !ResponsiveHelper.isDesktop(context)
                     ? Dimensions.paddingSizeLarge
@@ -203,100 +254,24 @@ class SignUpWidgetState extends State<SignUpWidget> {
                   ),
                 ]),
               ),
-              SizedBox(
-                  width: ResponsiveHelper.isDesktop(context)
-                      ? Dimensions.paddingSizeSmall
-                      : 0),
-              ResponsiveHelper.isDesktop(context)
-                  ? Expanded(
-                      child: CustomTextFieldWidget(
-                      hintText: '8+characters'.tr,
-                      labelText: 'confirm_password'.tr,
-                      showLabelText: true,
-                      required: true,
-                      controller: _confirmPasswordController,
-                      focusNode: _confirmPasswordFocus,
-                      nextFocus: Get.find<SplashController>()
-                                  .configModel!
-                                  .refEarningStatus ==
-                              1
-                          ? _referCodeFocus
-                          : null,
-                      inputAction: Get.find<SplashController>()
-                                  .configModel!
-                                  .refEarningStatus ==
-                              1
-                          ? TextInputAction.next
-                          : TextInputAction.done,
-                      inputType: TextInputType.visiblePassword,
-                      prefixIcon: Icons.lock,
-                      isPassword: true,
-                      onSubmit: (text) => (GetPlatform.isWeb)
-                          ? _register(authController, _countryDialCode!)
-                          : null,
-                      validator: (value) =>
-                          ValidateCheck.validateConfirmPassword(
-                              value, _passwordController.text),
-                    ))
-                  : const SizedBox()
             ]),
             const SizedBox(height: Dimensions.paddingSizeLarge),
-            !ResponsiveHelper.isDesktop(context)
-                ? CustomTextFieldWidget(
-                    hintText: '8+characters'.tr,
-                    labelText: 'confirm_password'.tr,
-                    showLabelText: true,
-                    required: true,
-                    controller: _confirmPasswordController,
-                    focusNode: _confirmPasswordFocus,
-                    nextFocus:
-                        // Get.find<SplashController>()
-                        //             .configModel!
-                        //             .refEarningStatus ==
-                        //         1
-                        //     ?
-                        // _referCodeFocus
-                        // :
-                        null,
-                    inputAction:
-                        // Get.find<SplashController>()
-                        //             .configModel!
-                        //             .refEarningStatus ==
-                        //         1
-                        //     ?
-                        // TextInputAction.next
-                        // :
-                        TextInputAction.done,
-                    inputType: TextInputType.visiblePassword,
-                    prefixIcon: Icons.lock,
-                    isPassword: true,
-                    onSubmit: (text) => (GetPlatform.isWeb)
-                        ? _register(authController, _countryDialCode!)
-                        : null,
-                    validator: (value) => ValidateCheck.validateConfirmPassword(
-                        value, _passwordController.text),
-                  )
-                : const SizedBox(),
-            SizedBox(
-                height: !ResponsiveHelper.isDesktop(context)
-                    ? Dimensions.paddingSizeLarge
-                    : 0),
-            // (Get.find<SplashController>().configModel!.refEarningStatus == 1)
-            //     ? CustomTextFieldWidget(
-            //         hintText: 'refer_code',
-            //         labelText: 'refer_code',
-            //         showLabelText: true,
-            //         controller: _referCodeController,
-            //         focusNode: _referCodeFocus,
-            //         inputAction: TextInputAction.done,
-            //         inputType: TextInputType.text,
-            //         capitalization: TextCapitalization.words,
-            //         // prefixImage: Images.referCode,
-            //         divider: false,
-            //         prefixSize: 14,
-            //       )
-            //     :
-            const SizedBox(),
+            CustomTextFieldWidget(
+              hintText: '8+characters'.tr,
+              labelText: 'confirm_password'.tr,
+              showLabelText: true,
+              required: true,
+              controller: _confirmPasswordController,
+              focusNode: _confirmPasswordFocus,
+              nextFocus: null,
+              inputAction: TextInputAction.done,
+              inputType: TextInputType.visiblePassword,
+              prefixIcon: Icons.lock,
+              isPassword: true,
+              onSubmit: null,
+              validator: (value) => ValidateCheck.validateConfirmPassword(
+                  value, _passwordController.text),
+            ),
             const SizedBox(height: Dimensions.paddingSizeLarge),
             TramsConditionsCheckBoxWidget(
                 authController: authController,
@@ -319,7 +294,7 @@ class SignUpWidgetState extends State<SignUpWidget> {
               buttonText: 'sign_up'.tr,
               isLoading: authController.isLoading,
               onPressed: authController.acceptTerms
-                  ? () => _register(authController, _countryDialCode!)
+                  ? () => _register(authController, _countryDialCode ?? '+84')
                   : null,
             ),
             SizedBox(
@@ -364,36 +339,68 @@ class SignUpWidgetState extends State<SignUpWidget> {
     );
   }
 
-  void _register(AuthController authController, String countryCode) async {
+  // Helper method to build gender selection boxes
+  Widget _buildGenderBox(BuildContext context, String gender) {
+    bool isSelected = _selectedGender == gender;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedGender = gender;
+        });
+      },
+      child: Container(
+        width: 120,
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? Theme.of(context).primaryColor
+              : Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: isSelected
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).hintColor,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            gender,
+            style: robotoMedium.copyWith(
+              color: isSelected ? Colors.white : Theme.of(context).hintColor,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _register(AuthController authController, String? countryCode) async {
+    if (countryCode == null || countryCode.isEmpty) {
+      showCustomSnackBar("Country code is required");
+      return;
+    }
     SignUpBodyModel? signUpModel = await _prepareSignUpBody(countryCode);
 
     if (signUpModel == null) {
       return;
     } else {
       authController.registration(signUpModel).then((status) async {
-        _handleResponse(status, countryCode);
+        _handleResponse(
+          status,
+        );
       });
     }
   }
 
-  void _handleResponse(ResponseModel status, String countryCode) {
-    String password = _passwordController.text.trim();
-    String numberWithCountryCode = countryCode + _phoneController.text.trim();
-
+  void _handleResponse(ResponseModelWithBody status) {
     if (status.isSuccess) {
-      if (Get.find<SplashController>().configModel!.customerVerification!) {
-        List<int> encoded = utf8.encode(password);
-        String data = base64Encode(encoded);
-        Get.toNamed(RouteHelper.getVerificationRoute(
-            numberWithCountryCode, status.message, RouteHelper.signUp, data));
-      } else {
-        Get.find<ProfileController>().getUserInfo();
-        Get.find<SplashController>()
-            .navigateToLocationScreen(RouteHelper.signUp);
-        if (ResponsiveHelper.isDesktop(context)) {
-          Get.back();
-        }
-      }
+      print("otp: ${status.body?["meta"]?["otp"]}");
+      print("email: ${status.body?["data"]?["email"]}");
+      String email = status.body?["data"]?["email"];
+      String otp = status.body?["meta"]?["otp"];
+      Get.toNamed(RouteHelper.getVerificationRoute(
+          email, otp, RouteHelper.signUp));
     } else {
       showCustomSnackBar(status.message);
     }
@@ -407,6 +414,8 @@ class SignUpWidgetState extends State<SignUpWidget> {
     String password = _passwordController.text.trim();
     String confirmPassword = _confirmPasswordController.text.trim();
     String referCode = _referCodeController.text.trim();
+
+    String userName = _userNameController.text.trim();
 
     String numberWithCountryCode = countryCode + number;
     PhoneValid phoneValid =
@@ -432,17 +441,22 @@ class SignUpWidgetState extends State<SignUpWidget> {
         showCustomSnackBar('password_should_be_8_characters'.tr);
       } else if (password != confirmPassword) {
         showCustomSnackBar('confirm_password_does_not_matched'.tr);
-      } else if (referCode.isNotEmpty && referCode.length != 10) {
+      } else if (userName.isEmpty) {
+        showCustomSnackBar('enter_user_name'.tr);
+      } else if (referCode.isEmpty) {
         showCustomSnackBar('invalid_refer_code'.tr);
       } else {
         SignUpBodyModel signUpBody = SignUpBodyModel(
-          fName: firstName,
-          lName: lastName,
+          firstName: firstName,
+          lastName: lastName,
           email: email,
           phone: numberWithCountryCode,
           password: password,
           refCode: referCode,
+          gender: "Male",
+          username: userName,
         );
+
         return signUpBody;
       }
     }

@@ -7,7 +7,7 @@ class Images {
   static const String facebook = 'assets/images/facebook_icon.png';
   static const String facebookIcon = 'assets/images/icon-tomiru.png';
   static const String appleLogo = 'assets/images/icon-tomiru.png';
-  static const String forgot = 'assets/images/icon-tomiru.png';
+  static const String forgot = 'assets/images/forgot.png';
   static const String update = 'assets/images/icon-tomiru.png';
   static const String maintenance = 'assets/images/icon-tomiru.png';
   static const String noInternet = 'assets/images/icon-tomiru.png';
@@ -68,6 +68,7 @@ class Images {
   static const String emptySearchFood = 'assets/images/icon-tomiru.png';
   static const String emptyTransaction = 'assets/images/icon-tomiru.png';
   static const String emptyWishlist = 'assets/images/icon-tomiru.png';
+  static const String iconTomiru = 'assets/images/icon-tomiru.png';
   static const String walletReceive = 'assets/images/wallet-receive.jpg';
   static const String walletTransfer = 'assets/images/wallet-transfer.jpg';
   static const String walletExchange = 'assets/images/wallet-exchange.jpg';
@@ -77,5 +78,8 @@ class Images {
       'assets/images/wallet-waiting-request.jpg';
   static const String walletBackgroundScreen =
       'assets/images/wallet-background-screen.jpg';
-  static const String qrIcon = 'assets/images/qr 1.png';
+  static const String qrIcon = 'assets/images/qr_1.png';
+  static const String qrIconTest = 'assets/images/qr_1.png';
+  static const String messageIcon = 'assets/images/message.png';
+  static const String notificationIcon = 'assets/images/notification.png';
 }

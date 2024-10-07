@@ -1,52 +1,71 @@
-// import 'package:tomiru_social_flutter/features/order/domain/models/order_model.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/models/fund_bonus_model.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/models/wallet_model.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/repositories/wallet_repository_interface.dart';
-import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service_interface.dart';
-import 'package:tomiru_social_flutter/helper/auth_helper.dart';
-import 'package:tomiru_social_flutter/helper/route_helper.dart';
 import 'package:get/get.dart';
-import 'package:universal_html/html.dart' as html;
+import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:tomiru_social_flutter/features/bussiness/Screens/tomxu_status_screen.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/services/wallet_service_interface.dart';
+import 'package:tomiru_social_flutter/features/wallet/domain/models/sendTokenModel.dart';
+import '../models/wallet_history_model.dart';
+import '../repositories/wallet_repository_interface.dart';
+import 'package:tomiru_social_flutter/common/widgets_2/custom_snackbar_widget.dart';
 
 class WalletService implements WalletServiceInterface {
   final WalletRepositoryInterface walletRepositoryInterface;
   WalletService({required this.walletRepositoryInterface});
 
   @override
-  Future<WalletModel?> getWalletTransactionList(
-      String offset, String sortingType) async {
-    return await walletRepositoryInterface.getList(
-        offset: int.parse(offset), sortingType: sortingType);
+  Future<List<WalletHistoryModel>> fetchWalletHistory() async {
+    return await walletRepositoryInterface.fetchWalletHistory();
   }
 
   @override
-  Future<void> addFundToWallet(double amount, String paymentMethod) async {
-    Response response =
-        await walletRepositoryInterface.addFundToWallet(amount, paymentMethod);
-    if (response.statusCode == 200) {
-      String redirectUrl = response.body['redirect_link'];
-      Get.back();
-      if (GetPlatform.isWeb) {
-        html.window.open(redirectUrl, "_self");
-      } else {
-        // Get.toNamed(RouteHelper.getPaymentRoute(OrderModel(), '',
-        //     addFundUrl: redirectUrl, guestId: AuthHelper.getGuestId()));
-      }
+  Future<List<WalletHistoryModel>> fetchWalletHistoryByDate(String? page) async {
+    return await walletRepositoryInterface.fetchWalletHistoryByDate(page);
+  }
+
+  @override
+  Future<List<WalletHistoryModel>> getWalletHistoryLocal() async {
+    return await walletRepositoryInterface.getWalletHistoryLocal();
+  }
+
+  @override
+  Future<void> userCheckin() async {
+    String response = await walletRepositoryInterface.userCheckin();
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    print(response);
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  }
+
+  @override
+  Future<void> requestOTP() async {
+    Response response = await walletRepositoryInterface.requestOTP();
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      showCustomSnackBar('send OTP success'.tr, isError: false);
+    } else {
+      showCustomSnackBar(response.body['error']['message']);
     }
   }
 
   @override
-  Future<List<FundBonusModel>?> getWalletBonusList() async {
-    return await walletRepositoryInterface.getWalletBonusList();
+  Future<Response> sendToken(SendTokenModel data) async {
+    Response response = await walletRepositoryInterface.sendToken(data);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      walletRepositoryInterface.saveInfoLocal(data.email);
+      Get.to(const TomxuStatusScreen(
+        isSuccess: true,
+      ));
+    } else {
+      showCustomSnackBar(response.body['error']['message']);
+      Get.to(const TomxuStatusScreen(
+        isSuccess: false,
+      ));
+    }
+    return response;
   }
 
-  @override
-  Future<void> setWalletAccessToken(String token) {
-    return walletRepositoryInterface.setWalletAccessToken(token);
+  void saveInfoLocal(String email) {
+    walletRepositoryInterface.saveInfoLocal(email);
   }
 
-  @override
-  String getWalletAccessToken() {
-    return walletRepositoryInterface.getWalletAccessToken();
+  Future<List<String>> getEmailListLocal() async {
+    return await walletRepositoryInterface.getEmailListLocal();
   }
 }

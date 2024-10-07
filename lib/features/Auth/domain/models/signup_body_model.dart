@@ -1,36 +1,44 @@
 class SignUpBodyModel {
-  String? fName;
-  String? lName;
+  String? firstName;
+  String? lastName;
   String? phone;
   String? email;
   String? password;
   String? refCode;
+  String? username;
+  String? gender;
 
   SignUpBodyModel(
-      {this.fName,
-      this.lName,
+      {this.firstName,
+      this.lastName,
       this.phone,
       this.email = '',
       this.password,
-      this.refCode = ''});
+      this.refCode = '',
+      this.username,
+      this.gender});
 
   SignUpBodyModel.fromJson(Map<String, dynamic> json) {
-    fName = json['f_name'];
-    lName = json['l_name'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
     phone = json['phone'];
     email = json['email'];
     password = json['password'];
-    refCode = json['ref_code'];
+    refCode = json['refCode'];
+    username = json['username'];
+    gender = json['gender'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['f_name'] = fName;
-    data['l_name'] = lName;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
     data['phone'] = phone;
     data['email'] = email;
     data['password'] = password;
-    data['ref_code'] = refCode;
+    data['refCode'] = refCode;
+    data['username'] = username;
+    data['gender'] = gender;
     return data;
   }
 }

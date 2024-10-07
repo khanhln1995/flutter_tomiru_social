@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/Open_Bottom_Sheet.dart';
 import '../../widgets/Body_Bottom_Sheet_Sort.dart';
 import '../../widgets/Info_Friend_Bottom_Sheet.dart';
-import "../../../../widgets/friends_widget/friends_button.dart";
+import "../../../../common/widgets/friends2_widget/friends_button.dart";
 import 'package:shimmer/shimmer.dart';
 
 class PageView2 extends StatefulWidget {
