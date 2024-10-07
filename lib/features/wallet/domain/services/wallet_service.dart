@@ -17,6 +17,11 @@ class WalletService implements WalletServiceInterface {
   }
 
   @override
+  Future<List<WalletHistoryModel>> fetchWalletHistoryByDate(String? page) async {
+    return await walletRepositoryInterface.fetchWalletHistoryByDate(page);
+  }
+
+  @override
   Future<List<WalletHistoryModel>> getWalletHistoryLocal() async {
     return await walletRepositoryInterface.getWalletHistoryLocal();
   }

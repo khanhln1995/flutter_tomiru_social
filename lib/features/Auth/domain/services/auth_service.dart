@@ -10,7 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart'; //google login
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../models/jwt_tokens_model.dart';
+import 'package:tomiru_social_flutter/features/auth/domain/models/jwt_tokens_model.dart';
 
 class AuthService implements AuthServiceInterface {
   final AuthRepoInterface authRepoInterface;
@@ -178,6 +178,16 @@ class AuthService implements AuthServiceInterface {
   @override
   bool isGuestLoggedIn() {
     return authRepoInterface.isGuestLoggedIn();
+  }
+
+  @override
+  Position? getPosition() {
+    return authRepoInterface.getPosition();
+  }
+
+  @override
+  Future<bool> savePosition(Position position) {
+    return authRepoInterface.savePosition(position);
   }
 
   ///TODO: This function need to remove from here , as it is order part.
