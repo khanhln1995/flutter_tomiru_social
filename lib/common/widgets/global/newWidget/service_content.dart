@@ -20,25 +20,24 @@ class ServiceContent extends StatelessWidget {
                 width: 30, height: 30),
             "Mạng xã hội",
             [const Color(0xFF87CEFA), const Color(0xFF1E90FF)], () {
-          // Navigator.push(
-          //   context,
-          //   PageRouteBuilder(
-          //     pageBuilder: (context, animation1, animation2) =>
-          //         const SocialNetwork(),
-          //     transitionDuration: const Duration(seconds: 1),
-          //   ),
-          // );
-
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) =>
+                  const SocialNetwork(),
+              transitionDuration: const Duration(seconds: 1),
+            ),
+          );
+        }),
+        _exploreButton(
+            const Icon(Icons.shopping_cart, size: 30, color: Colors.white),
+            "Shopping",
+            [const Color(0xFFFF6347), const Color(0xFFDC143C)], () {
           UserSettingsRequest settings = UserSettingsRequest(
             username: 'newUsername',
           );
           Get.find<SocialUserController>().updateUsername(settings);
         }),
-        _exploreButton(
-            const Icon(Icons.shopping_cart, size: 30, color: Colors.white),
-            "Shopping",
-            [const Color(0xFFFF6347), const Color(0xFFDC143C)],
-            () {}),
         _exploreButton(
             const Icon(Icons.miscellaneous_services,
                 size: 30, color: Colors.white),

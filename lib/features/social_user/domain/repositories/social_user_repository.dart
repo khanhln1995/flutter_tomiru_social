@@ -31,10 +31,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
             UserTokenResponse.fromJson(response.body['user']);
         return user;
       } else {
-        throw Exception("Failed to load tweet");
+        throw Exception("Failed to load user");
       }
     } catch (e) {
-      throw Exception("Error fetching tweet: $e");
+      throw Exception("Error fetching user: $e");
     }
   }
 
@@ -49,10 +49,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
         UserProfileResponse user = UserProfileResponse.fromJson(response.body);
         return user;
       } else {
-        throw Exception("Failed to load tweet");
+        throw Exception("Failed to load user");
       }
     } catch (e) {
-      throw Exception("Error fetching tweet: $e");
+      throw Exception("Error fetching user: $e");
     }
   }
 
@@ -73,10 +73,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
           throw Exception("Expected a list but received something else");
         }
       } else {
-        throw Exception("Failed to load tweets");
+        throw Exception("Failed to load users");
       }
     } catch (e) {
-      throw Exception("Error fetching tweets: $e");
+      throw Exception("Error fetching users: $e");
     }
   }
 
@@ -97,10 +97,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
           throw Exception("Expected a list but received something else");
         }
       } else {
-        throw Exception("Failed to load tweets");
+        throw Exception("Failed to load users");
       }
     } catch (e) {
-      throw Exception("Error fetching tweets: $e");
+      throw Exception("Error fetching users: $e");
     }
   }
 
@@ -114,10 +114,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
         UserTokenResponse user = UserTokenResponse.fromJson(response.body);
         return user;
       } else {
-        throw Exception("Failed to load tweets");
+        throw Exception("Failed to load user");
       }
     } catch (e) {
-      throw Exception("Error fetching tweets: $e");
+      throw Exception("Error fetching user: $e");
     }
   }
 
@@ -131,10 +131,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
         UserTokenResponse user = UserTokenResponse.fromJson(response.body);
         return user;
       } else {
-        throw Exception("Failed to load tweets");
+        throw Exception("Failed to load user");
       }
     } catch (e) {
-      throw Exception("Error fetching tweets: $e");
+      throw Exception("Error fetching user: $e");
     }
   }
 
@@ -149,10 +149,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
         UserDetailResponse user = UserDetailResponse.fromJson(response.body);
         return user;
       } else {
-        throw Exception("Failed to load tweet");
+        throw Exception("Failed to load user");
       }
     } catch (e) {
-      throw Exception("Error fetching tweet: $e");
+      throw Exception("Error fetching user: $e");
     }
   }
 
@@ -174,10 +174,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
           throw Exception("Expected a list but received something else");
         }
       } else {
-        throw Exception("Failed to load tweets");
+        throw Exception("Failed to load users");
       }
     } catch (e) {
-      throw Exception("Error fetching tweets: $e");
+      throw Exception("Error fetching users: $e");
     }
   }
 
