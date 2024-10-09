@@ -1,4 +1,4 @@
-class BlockedUserResponse {
+class BlockedUser {
   final int? id;
   final String? fullName;
   final String? username;
@@ -7,7 +7,7 @@ class BlockedUserResponse {
   final bool? isPrivateProfile;
   final bool? isUserBlocked;
 
-  BlockedUserResponse({
+  BlockedUser({
     this.id,
     this.fullName,
     this.username,
@@ -17,8 +17,8 @@ class BlockedUserResponse {
     this.isUserBlocked,
   });
 
-  factory BlockedUserResponse.fromJson(Map<String, dynamic> json) {
-    return BlockedUserResponse(
+  factory BlockedUser.fromJson(Map<String, dynamic> json) {
+    return BlockedUser(
       id: json['id'] as int?,
       fullName: json['fullName'] as String?,
       username: json['username'] as String?,
@@ -42,22 +42,22 @@ class BlockedUserResponse {
   }
 }
 
-class FollowerUserResponse {
+class FollowerUser {
   final int? id;
   final String? fullName;
   final String? username;
   final String? about;
   final String? avatar;
 
-  FollowerUserResponse({
+  FollowerUser({
     this.id,
     this.fullName,
     this.username,
     this.about,
     this.avatar,
   });
-  factory FollowerUserResponse.fromJson(Map<String, dynamic> json) {
-    return FollowerUserResponse(
+  factory FollowerUser.fromJson(Map<String, dynamic> json) {
+    return FollowerUser(
       id: json['id'] as int?,
       fullName: json['fullName'] as String?,
       username: json['username'] as String?,

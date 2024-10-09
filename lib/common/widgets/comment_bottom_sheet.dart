@@ -1,3 +1,7 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/controller/social_controller.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet.dart';
 import 'package:tomiru_social_flutter/helper/comment.dart';
 import 'package:tomiru_social_flutter/common/widgets/comment/comment_tree_widget.dart';
 import 'package:tomiru_social_flutter/ui/theme/tree_theme.dart';
@@ -6,7 +10,8 @@ import 'package:tomiru_social_flutter/common/widgets/global/time_line/bar_under_
 import 'package:tomiru_social_flutter/common/widgets/comment/reaction_comment.dart';
 
 class CommentArea extends StatefulWidget {
-  const CommentArea({super.key});
+  final int tweetId;
+  CommentArea({super.key, required this.tweetId});
   @override
   State<CommentArea> createState() => _CommentAreaState();
 }
@@ -36,8 +41,7 @@ class _CommentAreaState extends State<CommentArea> {
         {
           'avatar': 'https://robohash.org/stefan-one',
           'userName': 'Cristianronaldo',
-          'content':
-              '你不知道你有多可爱跌倒后会傻笑着再站起来你从来都不来',
+          'content': '你不知道你有多可爱跌倒后会傻笑着再站起来你从来都不来',
           'time': 'Vừa xong',
           'likes': 100,
         },
@@ -78,10 +82,12 @@ class _CommentAreaState extends State<CommentArea> {
       'reply': []
     },
   ];
-
+  List<Tweet> reply = [];
   @override
   void initState() {
     super.initState();
+    Get.find<SocialController>().getRepliesByTweetId(3);
+    reply = Get.find<SocialController>().reply;
     _scrollController = ScrollController();
   }
 

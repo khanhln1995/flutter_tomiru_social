@@ -4,6 +4,7 @@ import 'package:tomiru_social_flutter/common/widgets/global/buildAvatarWidget.da
 // import 'package:tomiru_social_flutter/common/widgets/global/time_line/show_detail_images/post.dart';
 import 'package:tomiru_social_flutter/common/widgets/global/time_line/user_input_avatar_field.dart';
 import 'package:tomiru_social_flutter/common/widgets/global/time_line/like_bar.dart';
+import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet.dart';
 import 'package:tomiru_social_flutter/util/show_post_comments.dart';
 // import "../../../features/Profile-social/Screens/Profile_Screen.dart";
 import "package:tomiru_social_flutter/features/Profile-social/Screens/Profile_Screen.dart";
@@ -11,13 +12,12 @@ import "show_detail_images/image_gallery_screen.dart";
 import 'package:tomiru_social_flutter/common/widgets/global/time_line/bar_under_cmt.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
-import "post2.dart";
 
 //time line dùng ở các vị trí khác nhau như ở trang chủ , bạn bè , nhóm ...
 //sẽ có khác nhau ở tham số truyền vào để check xem người dùng đang ở page nào để call API
 class TimeLine extends StatefulWidget {
   final ScrollController scrollController;
-  final List<Post2> demoData;
+  final List<Tweet> demoData;
   final List<Author> userData;
   final bool isLoading;
 
@@ -34,43 +34,6 @@ class TimeLine extends StatefulWidget {
 }
 
 class _TimeLineState extends State<TimeLine> {
-  // late final ScrollController _scrollController;
-  // bool _isLoading = false;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _scrollController = widget.scrollController;
-
-  //   _scrollController.addListener(() {
-  //     debugPrint('Scroll position: ${_scrollController.position.pixels}');
-  //     if (_scrollController.position.pixels ==
-  //             _scrollController.position.maxScrollExtent &&
-  //         !_isLoading &&
-  //         !widget.isLoading) {
-  //       debugPrint('==============================');
-  //       debugPrint('Reached bottom of the list. Loading more posts...');
-  //       _loadMorePosts();
-  //     }
-  //   });
-  // }
-
-  // Future<void> _loadMorePosts() async {
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-
-  //   // Simulate network call and data update
-  //   await Future.delayed(const Duration(seconds: 1));
-
-  //   // Notify parent to load more posts (if needed)
-  //   // For example, use a callback or a state management solution
-
-  //   setState(() {
-  //     _isLoading = false;
-  //   });
-  // }
-
   // @override
   // void dispose() {
   //   _scrollController.dispose();
@@ -82,19 +45,24 @@ class _TimeLineState extends State<TimeLine> {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          // print("============================>>>");
-          // print(widget.userData);
           if (index == widget.demoData.length) {
             return _buildLoadingIndicator();
           }
+          final tweet = widget.demoData[index];
+          final author =
+              widget.userData.isNotEmpty ? widget.userData[index] : null;
           return Column(
             children: [
               SizedBox(height: 8.0),
-              _buildFeedCard(context, widget.demoData[index], widget.userData[index])
+              if (author != null) ...[
+                _buildFeedCard(context, tweet, author),
+              ],
             ],
           );
         },
-        childCount: widget.demoData.length + 1,
+        childCount: widget.isLoading
+            ? widget.demoData.length + 1
+            : widget.demoData.length,
       ),
     );
   }
@@ -105,7 +73,7 @@ class _TimeLineState extends State<TimeLine> {
         : const SizedBox.shrink();
   }
 
-  Widget _buildFeedCard(BuildContext context, Post2 data, Author userData) {
+  Widget _buildFeedCard(BuildContext context, Tweet data, Author userData) {
 // Giả sử bạn đã lấy thời gian từ file JSON và gán cho biến createdAtString
     String createdAtString = data.createdAt.toString();
 
@@ -125,6 +93,7 @@ class _TimeLineState extends State<TimeLine> {
         return '${difference.inHours} giờ ${difference.inMinutes.remainder(60)} phút trước';
       }
     }
+
     return Column(
       children: [
         Container(
@@ -134,6 +103,7 @@ class _TimeLineState extends State<TimeLine> {
             padding: const EdgeInsets.only(left: 15, right: 15),
             child: IntrinsicHeight(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -168,10 +138,9 @@ class _TimeLineState extends State<TimeLine> {
                                   },
                                 ),
                                 const SizedBox(width: 10),
-                                Image.asset('assets/images/crown.png')
+                                Image.asset('assets/images/crown.png'),
                               ],
                             ),
-                            
                             Row(
                               children: [
                                 Text(
@@ -212,13 +181,16 @@ class _TimeLineState extends State<TimeLine> {
                   ),
                   const SizedBox(height: 10),
                   _buildContent(data.text),
-                  GestureDetector(
-                    onTap: () {},
-                    child: SizedBox(
-                      height: 250,
-                      child: _buildImages(data.images),
+                  // Kiểm tra xem data.images có dữ liệu không
+                  if (data.images.isNotEmpty) ...[
+                    GestureDetector(
+                      onTap: () {},
+                      child: SizedBox(
+                        height: 250,
+                        child: _buildImages(data.images),
+                      ),
                     ),
-                  ),
+                  ],
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -247,6 +219,8 @@ class _TimeLineState extends State<TimeLine> {
                     likeCount: data.likesCount,
                     shareCount: data.retweetsCount,
                     commentCount: data.repliesCount,
+                    tweetId: data.id,
+                    isTweetLiked: data.isTweetLiked,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -259,7 +233,7 @@ class _TimeLineState extends State<TimeLine> {
                       color: const Color(0xFFDDDEE6),
                     ),
                   ),
-                  _buildComment(context, data,userData),
+                  _buildComment(context, data, userData),
                   const SizedBox(height: 10),
                   _buildYourComment(),
                   const SizedBox(height: 10),
@@ -273,8 +247,8 @@ class _TimeLineState extends State<TimeLine> {
     );
   }
 
-  Widget _buildComment(BuildContext context, Post2 data, Author userData) {
-    if (data.repliesCount==0) {
+  Widget _buildComment(BuildContext context, Tweet data, Author userData) {
+    if (data.repliesCount == 0) {
       return Container();
     }
 
@@ -301,7 +275,7 @@ class _TimeLineState extends State<TimeLine> {
               ),
               GestureDetector(
                 onTap: () {
-                  showUnderBottomSheet(context, 0);
+                  showUnderBottomSheet(context, 0, data.id);
                 },
                 child: const Text(
                   'Xem thêm bình luận',
@@ -451,7 +425,7 @@ class _TimeLineState extends State<TimeLine> {
   }
 
   /// check box image case 1/2/4/ >4
- Widget _buildImages(List<ImageItem> images) {
+  Widget _buildImages(List<ImageItem> images) {
     if (images.isEmpty) {
       return Container();
     } else if (images.length == 1) {
@@ -832,5 +806,4 @@ class _TimeLineState extends State<TimeLine> {
       );
     }
   }
-
 }

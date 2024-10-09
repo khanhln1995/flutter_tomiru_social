@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tomiru_social_flutter/features/social_group/controller/social_group_controller.dart';
+import 'package:tomiru_social_flutter/features/social_group/domain/models/group.dart';
 import 'package:tomiru_social_flutter/features/social_search/controller/social_search_controller.dart';
 import 'package:tomiru_social_flutter/features/social_tweet/Screens/social_network.dart';
 import 'package:tomiru_social_flutter/features/social_tweet/controller/social_controller.dart';
@@ -20,25 +22,26 @@ class ServiceContent extends StatelessWidget {
                 width: 30, height: 30),
             "Mạng xã hội",
             [const Color(0xFF87CEFA), const Color(0xFF1E90FF)], () {
-          // Navigator.push(
-          //   context,
-          //   PageRouteBuilder(
-          //     pageBuilder: (context, animation1, animation2) =>
-          //         const SocialNetwork(),
-          //     transitionDuration: const Duration(seconds: 1),
-          //   ),
-          // );
-
-          UserSettingsRequest settings = UserSettingsRequest(
-            username: 'newUsername',
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) =>
+                  const SocialNetwork(),
+              transitionDuration: const Duration(seconds: 1),
+            ),
           );
-          Get.find<SocialUserController>().updateUsername(settings);
         }),
         _exploreButton(
             const Icon(Icons.shopping_cart, size: 30, color: Colors.white),
             "Shopping",
-            [const Color(0xFFFF6347), const Color(0xFFDC143C)],
-            () {}),
+            [const Color(0xFFFF6347), const Color(0xFFDC143C)], () {
+          GroupModel request = GroupModel(
+              id: 307,
+              groupName: "group-2",
+              description: "test",
+              isPrivate: false);
+          Get.find<SocialGroupController>().getGroupById(1);
+        }),
         _exploreButton(
             const Icon(Icons.miscellaneous_services,
                 size: 30, color: Colors.white),

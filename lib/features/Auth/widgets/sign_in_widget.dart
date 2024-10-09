@@ -242,23 +242,23 @@ class SignInWidgetState extends State<SignInWidget> {
     // String phone = _phoneController.text.trim();
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
-    // Get.to(SplashScreen(isRouterLogin: true));
+    Get.to(SplashScreen(isRouterLogin: true));
 
-    if (_formKeyLogin!.currentState!.validate()) {
-      if (email.isEmpty) {
-        showCustomSnackBar('Vui lòng nhập Email');
-      } else if (password.isEmpty) {
-        showCustomSnackBar('Vui lòng nhập Mật khẩu');
-      } else if (password.length < 6) {
-        showCustomSnackBar('Độ dài password phải lớn hơn 6');
-      } else {
-        // login ko can api
-        // Get.to(SplashScreen(isRouterLogin: true));
+    // if (_formKeyLogin!.currentState!.validate()) {
+    //   if (email.isEmpty) {
+    //     showCustomSnackBar('Vui lòng nhập Email');
+    //   } else if (password.isEmpty) {
+    //     showCustomSnackBar('Vui lòng nhập Mật khẩu');
+    //   } else if (password.length < 6) {
+    //     showCustomSnackBar('Độ dài password phải lớn hơn 6');
+    //   } else {
+    //     // login ko can api
+    //     // Get.to(SplashScreen(isRouterLogin: true));
 
-        // login with api
-        authController.login(email, password);
-      }
-    }
+    //     // login with api
+    //     authController.login(email, password);
+    //   }
+    // }
   }
 
   void _processSuccessSetup(

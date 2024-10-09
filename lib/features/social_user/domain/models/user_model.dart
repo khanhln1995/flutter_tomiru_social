@@ -1,6 +1,6 @@
 import 'package:tomiru_social_flutter/common/social/common.dart';
 
-class UserResponse {
+class User {
   final int? id;
   final String? fullName;
   final String? username;
@@ -13,8 +13,11 @@ class UserResponse {
   final bool? isWaitingForApprove;
   final bool? isUserChatParticipant;
   final bool? isFollower;
+  final List<dynamic>? userBlockedList;
+  final List<dynamic>? followers;
+  final List<dynamic>? following;
 
-  UserResponse({
+  User({
     this.id,
     this.fullName,
     this.username,
@@ -27,22 +30,28 @@ class UserResponse {
     this.isWaitingForApprove,
     this.isUserChatParticipant,
     this.isFollower,
+    this.userBlockedList,
+    this.followers,
+    this.following,
   });
 
-  factory UserResponse.fromJson(Map<String, dynamic> json) {
-    return UserResponse(
-      id: json['id'],
-      fullName: json['fullName'],
-      username: json['username'],
-      about: json['about'],
-      avatar: json['avatar'],
-      isPrivateProfile: json['isPrivateProfile'],
-      isMutedDirectMessages: json['isMutedDirectMessages'],
-      isUserBlocked: json['isUserBlocked'],
-      isMyProfileBlocked: json['isMyProfileBlocked'],
-      isWaitingForApprove: json['isWaitingForApprove'],
-      isUserChatParticipant: json['isUserChatParticipant'],
-      isFollower: json['isFollower'],
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] as int?,
+      fullName: json['fullName'] as String?,
+      username: json['username'] as String?,
+      about: json['about'] as String?,
+      avatar: json['avatar'] as String?,
+      isPrivateProfile: json['privateProfile'] as bool?,
+      isMutedDirectMessages: json['isMutedDirectMessages'] as bool?,
+      isUserBlocked: json['isUserBlocked'] as bool?,
+      isMyProfileBlocked: json['isMyProfileBlocked'] as bool?,
+      isWaitingForApprove: json['isWaitingForApprove'] as bool?,
+      isUserChatParticipant: json['isUserChatParticipant'] as bool?,
+      isFollower: json['isFollower'] as bool?,
+      userBlockedList: json['userBlockedList'],
+      followers: json['followers'],
+      following: json['following'],
     );
   }
 
@@ -53,25 +62,28 @@ class UserResponse {
       'username': username,
       'about': about,
       'avatar': avatar,
-      'isPrivateProfile': isPrivateProfile,
+      'privateProfile': isPrivateProfile,
       'isMutedDirectMessages': isMutedDirectMessages,
       'isUserBlocked': isUserBlocked,
       'isMyProfileBlocked': isMyProfileBlocked,
       'isWaitingForApprove': isWaitingForApprove,
       'isUserChatParticipant': isUserChatParticipant,
       'isFollower': isFollower,
+      'userBlockedList': userBlockedList,
+      'followers': followers,
+      'following': following,
     };
   }
 }
 
-class CommonUserResponse {
+class CommonUser {
   final int? id;
   final String? fullName;
   final String? username;
   final String? avatar;
   final bool? isPrivateProfile;
 
-  CommonUserResponse({
+  CommonUser({
     this.id,
     this.fullName,
     this.username,
@@ -79,8 +91,8 @@ class CommonUserResponse {
     this.isPrivateProfile,
   });
 
-  factory CommonUserResponse.fromJson(Map<String, dynamic> json) {
-    return CommonUserResponse(
+  factory CommonUser.fromJson(Map<String, dynamic> json) {
+    return CommonUser(
       id: json['id'],
       fullName: json['fullName'],
       username: json['username'],
@@ -130,7 +142,6 @@ class UserDetailResponse {
     this.followingCount,
     this.sameFollowers,
   });
-
 
   factory UserDetailResponse.fromJson(Map<String, dynamic> json) {
     return UserDetailResponse(

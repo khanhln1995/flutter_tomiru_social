@@ -29,6 +29,11 @@ import 'package:tomiru_social_flutter/features/profile/domain/repositories/profi
 import 'package:tomiru_social_flutter/features/profile/domain/repositories/profile_repository_interface.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/services/profile_service.dart';
 import 'package:tomiru_social_flutter/features/profile/domain/services/profile_service_interface.dart';
+import 'package:tomiru_social_flutter/features/social_group/controller/social_group_controller.dart';
+import 'package:tomiru_social_flutter/features/social_group/domain/repositories/social_group_repositoriy_interface.dart';
+import 'package:tomiru_social_flutter/features/social_group/domain/repositories/social_group_repository.dart';
+import 'package:tomiru_social_flutter/features/social_group/domain/service/social_group_service.dart';
+import 'package:tomiru_social_flutter/features/social_group/domain/service/social_group_service_interface.dart';
 import 'package:tomiru_social_flutter/features/social_search/controller/social_search_controller.dart';
 import 'package:tomiru_social_flutter/features/social_search/domain/repositories/social_search_repository.dart';
 import 'package:tomiru_social_flutter/features/social_search/domain/repositories/social_search_repository_interface.dart';
@@ -211,6 +216,16 @@ Future<Map<String, Map<String, String>>> init() async {
       SocialUserService(socialUserRepositoryInterface: Get.find());
   Get.lazyPut(() => socialUserServiceInterface);
 
+  SocialGroupRepositoryInterface socialGroupRepositoryInterface =
+      SocialGroupRepository(
+    apiSocial: Get.find(),
+    sharedPreferences: Get.find(),
+  );
+  Get.lazyPut(() => socialGroupRepositoryInterface);
+  SocialGroupServiceInterface socialGroupServiceInterface =
+      SocialGroupService(socialGroupRepositoryInterface: Get.find());
+  Get.lazyPut(() => socialGroupServiceInterface);
+
   /// Controller
   Get.lazyPut(() => ThemeController(splashServiceInterface: Get.find()));
   Get.lazyPut(() => SplashController(splashServiceInterface: Get.find()));
@@ -225,7 +240,8 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
   Get.lazyPut(
       () => NotificationController(notificationServiceInterface: Get.find()));
-  Get.lazyPut(() => ProfileController(profileServiceInterface: Get.find(), authServiceInterface: Get.find()));
+  Get.lazyPut(() => ProfileController(
+      profileServiceInterface: Get.find(), authServiceInterface: Get.find()));
   Get.lazyPut(
       () => UsersProfileController(userProfileServiceInterface: Get.find()));
   Get.lazyPut(() => WalletController(walletServiceInterface: Get.find()));
@@ -235,6 +251,8 @@ Future<Map<String, Map<String, String>>> init() async {
       () => SocialSearchController(socialSearchServiceInterface: Get.find()));
   Get.lazyPut(
       () => SocialUserController(socialUserServiceInterface: Get.find()));
+  Get.lazyPut(
+      () => SocialGroupController(socialGroupServiceInterface: Get.find()));
 
   /// Retrieving localized data
   Map<String, Map<String, String>> languages = {};

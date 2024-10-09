@@ -13,8 +13,8 @@ class AppConstants {
   // static const String baseUrl = 'http://192.168.102.132:8000';
 
   // static const String baseUrl = 'http://192.168.102.56:3003';
-  static const String baseUrl = 'http://192.168.102.7:8000';
-  static const String socialUrl = 'http://192.168.102.7:8000';
+  static const String baseUrl = 'http://192.168.102.47:8000';
+  static const String socialUrl = 'http://192.168.102.47:8000';
 
   // sentTOken
 

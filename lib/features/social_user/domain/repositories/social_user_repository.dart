@@ -31,10 +31,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
             UserTokenResponse.fromJson(response.body['user']);
         return user;
       } else {
-        throw Exception("Failed to load tweet");
+        throw Exception("Failed to load user");
       }
     } catch (e) {
-      throw Exception("Error fetching tweet: $e");
+      throw Exception("Error fetching user: $e");
     }
   }
 
@@ -49,15 +49,15 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
         UserProfileResponse user = UserProfileResponse.fromJson(response.body);
         return user;
       } else {
-        throw Exception("Failed to load tweet");
+        throw Exception("Failed to load user");
       }
     } catch (e) {
-      throw Exception("Error fetching tweet: $e");
+      throw Exception("Error fetching user: $e");
     }
   }
 
   @override
-  Future<List<UserResponse>> getUsers(int page) async {
+  Future<List<User>> getUsers(int page) async {
     try {
       Response response = await apiSocial.getData(
           SocialEndpoint.UI_V1_USER_ALL.replaceAll('{page}', page.toString()));
@@ -65,23 +65,22 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
       if (response.statusCode == 200) {
         if (response.body is List) {
           List<dynamic> data = response.body;
-          List<UserResponse> users =
-              data.map((tweet) => UserResponse.fromJson(tweet)).toList();
+          List<User> users = data.map((tweet) => User.fromJson(tweet)).toList();
           print("Response JSON: ${jsonEncode(users)}");
           return users;
         } else {
           throw Exception("Expected a list but received something else");
         }
       } else {
-        throw Exception("Failed to load tweets");
+        throw Exception("Failed to load users");
       }
     } catch (e) {
-      throw Exception("Error fetching tweets: $e");
+      throw Exception("Error fetching users: $e");
     }
   }
 
   @override
-  Future<List<UserResponse>> getRelevantUsers() async {
+  Future<List<User>> getRelevantUsers() async {
     try {
       Response response =
           await apiSocial.getData(SocialEndpoint.UI_V1_USER_RELEVANT);
@@ -89,18 +88,17 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
       if (response.statusCode == 200) {
         if (response.body is List) {
           List<dynamic> data = response.body;
-          List<UserResponse> users =
-              data.map((tweet) => UserResponse.fromJson(tweet)).toList();
+          List<User> users = data.map((tweet) => User.fromJson(tweet)).toList();
           print("Response JSON: ${jsonEncode(users)}");
           return users;
         } else {
           throw Exception("Expected a list but received something else");
         }
       } else {
-        throw Exception("Failed to load tweets");
+        throw Exception("Failed to load users");
       }
     } catch (e) {
-      throw Exception("Error fetching tweets: $e");
+      throw Exception("Error fetching users: $e");
     }
   }
 
@@ -114,10 +112,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
         UserTokenResponse user = UserTokenResponse.fromJson(response.body);
         return user;
       } else {
-        throw Exception("Failed to load tweets");
+        throw Exception("Failed to load user");
       }
     } catch (e) {
-      throw Exception("Error fetching tweets: $e");
+      throw Exception("Error fetching user: $e");
     }
   }
 
@@ -131,10 +129,10 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
         UserTokenResponse user = UserTokenResponse.fromJson(response.body);
         return user;
       } else {
-        throw Exception("Failed to load tweets");
+        throw Exception("Failed to load user");
       }
     } catch (e) {
-      throw Exception("Error fetching tweets: $e");
+      throw Exception("Error fetching user: $e");
     }
   }
 
@@ -149,15 +147,15 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
         UserDetailResponse user = UserDetailResponse.fromJson(response.body);
         return user;
       } else {
-        throw Exception("Failed to load tweet");
+        throw Exception("Failed to load user");
       }
     } catch (e) {
-      throw Exception("Error fetching tweet: $e");
+      throw Exception("Error fetching user: $e");
     }
   }
 
   @override
-  Future<List<FriendUserResponse>> fetchListFriend(int userId) async {
+  Future<List<FriendUser>> fetchListFriend(int userId) async {
     try {
       Response response = await apiSocial.getData(SocialEndpoint
           .UI_V1_LIST_FRIEND
@@ -166,23 +164,23 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
       if (response.statusCode == 200) {
         if (response.body is List) {
           List<dynamic> data = response.body;
-          List<FriendUserResponse> users =
-              data.map((tweet) => FriendUserResponse.fromJson(tweet)).toList();
+          List<FriendUser> users =
+              data.map((tweet) => FriendUser.fromJson(tweet)).toList();
           print("Response JSON: ${jsonEncode(users)}");
           return users;
         } else {
           throw Exception("Expected a list but received something else");
         }
       } else {
-        throw Exception("Failed to load tweets");
+        throw Exception("Failed to load users");
       }
     } catch (e) {
-      throw Exception("Error fetching tweets: $e");
+      throw Exception("Error fetching users: $e");
     }
   }
 
   @override
-  Future<List<BlockedUserResponse>> getBlockList(int page) async {
+  Future<List<BlockedUser>> getBlockList(int page) async {
     try {
       Response response = await apiSocial.getData(SocialEndpoint
           .UI_V1_USER_BLOCKED
@@ -191,8 +189,8 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
       if (response.statusCode == 200) {
         if (response.body is List) {
           List<dynamic> data = response.body;
-          List<BlockedUserResponse> users =
-              data.map((tweet) => BlockedUserResponse.fromJson(tweet)).toList();
+          List<BlockedUser> users =
+              data.map((tweet) => BlockedUser.fromJson(tweet)).toList();
           print("Response JSON: ${jsonEncode(users)}");
           return users;
         } else {
@@ -221,7 +219,7 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
   }
 
   @override
-  Future<List<UserResponse>> getFollowers(int userId, int page) async {
+  Future<List<User>> getFollowers(int userId, int page) async {
     try {
       Response response = await apiSocial.getData(SocialEndpoint
           .UI_V1_USER_FOLLOWERS_USER_ID
@@ -231,8 +229,7 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
       if (response.statusCode == 200) {
         if (response.body is List) {
           List<dynamic> data = response.body;
-          List<UserResponse> users =
-              data.map((tweet) => UserResponse.fromJson(tweet)).toList();
+          List<User> users = data.map((tweet) => User.fromJson(tweet)).toList();
           print("Response JSON: ${jsonEncode(users)}");
           return users;
         } else {
@@ -247,7 +244,7 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
   }
 
   @override
-  Future<List<UserResponse>> getFollowing(int userId, int page) async {
+  Future<List<User>> getFollowing(int userId, int page) async {
     try {
       Response response = await apiSocial.getData(SocialEndpoint
           .UI_V1_USER_FOLLOWING_USER_ID
@@ -257,8 +254,7 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
       if (response.statusCode == 200) {
         if (response.body is List) {
           List<dynamic> data = response.body;
-          List<UserResponse> users =
-              data.map((tweet) => UserResponse.fromJson(tweet)).toList();
+          List<User> users = data.map((tweet) => User.fromJson(tweet)).toList();
           print("Response JSON: ${jsonEncode(users)}");
           return users;
         } else {
@@ -287,7 +283,7 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
   }
 
   @override
-  Future<List<MutedUserResponse>> getMutedList(int page) async {
+  Future<List<MutedUser>> getMutedList(int page) async {
     try {
       Response response = await apiSocial.getData(SocialEndpoint
           .UI_V1_USER_FOLLOWING_USER_ID
@@ -296,8 +292,8 @@ class SocialUserRepository implements SocialUserRepositoryInterface {
       if (response.statusCode == 200) {
         if (response.body is List) {
           List<dynamic> data = response.body;
-          List<MutedUserResponse> users =
-              data.map((tweet) => MutedUserResponse.fromJson(tweet)).toList();
+          List<MutedUser> users =
+              data.map((tweet) => MutedUser.fromJson(tweet)).toList();
           print("Response JSON: ${jsonEncode(users)}");
           return users;
         } else {
