@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:tomiru_social_flutter/features/auth/domain/models/jwt_tokens_model.dart';
+import 'package:tomiru_social_flutter/util/social_endpoint.dart';
 
 class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
   final ApiClient apiClient;
@@ -135,6 +136,7 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
     if (res.statusCode == 200 || res.statusCode == 201) {
       apiClient.updateHeader(res.body['data']['accessToken']);
       apiSocial.updateHeader(res.body['data']['accessTokenSocial']);
+      await saveSelfInfo();
       await saveTokens(res.body['data']);
     }
 
@@ -190,12 +192,15 @@ class AuthRepo implements AuthRepoInterface<SignUpBodyModel> {
   }
 
   @override
-  Future<void> saveSelfInfo(SelfInfoModel selfInfomodel) async {
+  Future<void> saveSelfInfo() async {
     try {
-      String selfInfoJson = jsonEncode(selfInfomodel.toJson());
-
-      await sharedPreferences.setString(
-          AppConstants.userSelfInfo, selfInfoJson);
+      Response response =
+          await apiSocial.getData(SocialEndpoint.UI_V1_USER_TOKEN);
+      if (response.statusCode == 200) {
+        String selfInfoJson = jsonEncode(response.body['user']);
+        await sharedPreferences.setString(
+            AppConstants.userSelfInfo, selfInfoJson);
+      }
     } catch (e) {
       rethrow;
     }
