@@ -1,4 +1,4 @@
-class FriendUserResponse {
+class FriendUser {
   final int id;
   final String? fullName;
   final String? username;
@@ -10,7 +10,7 @@ class FriendUserResponse {
   final bool? privateProfile;
   final bool? statusFollow;
 
-  FriendUserResponse({
+  FriendUser({
     required this.id,
     this.fullName,
     this.username,
@@ -23,8 +23,8 @@ class FriendUserResponse {
     this.statusFollow,
   });
 
-  factory FriendUserResponse.fromJson(Map<String, dynamic> json) {
-    return FriendUserResponse(
+  factory FriendUser.fromJson(Map<String, dynamic> json) {
+    return FriendUser(
       id: json['id'] as int,
       fullName: json['fullName'] as String?,
       username: json['username'] as String?,

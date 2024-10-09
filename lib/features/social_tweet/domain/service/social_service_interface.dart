@@ -28,5 +28,6 @@ abstract class SocialServiceInterface {
   Future<Tweet> quoteTweet(AddQuoteTweetRequest request);
   Future<Tweet> changeTweetReplyType(ChangeReplyTypeRequest request);
   Future<List<Image>> uploadMultiTweetImage(List<MultipartBody> images);
-  Future<List<UserResponse>> getTaggedImageUsers(int tweetId, int page);
+  Future<List<User>> getTaggedImageUsers(int tweetId, int page);
+  Future<ResponseModel> likeTweet(int id);
 }

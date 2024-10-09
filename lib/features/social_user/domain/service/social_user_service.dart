@@ -26,12 +26,12 @@ class SocialUserService implements SocialUserServiceInterface {
   }
 
   @override
-  Future<List<UserResponse>> getUsers(int page) async {
+  Future<List<User>> getUsers(int page) async {
     return await socialUserRepositoryInterface.getUsers(page);
   }
 
   @override
-  Future<List<UserResponse>> getRelevantUsers() async {
+  Future<List<User>> getRelevantUsers() async {
     return await socialUserRepositoryInterface.getRelevantUsers();
   }
 
@@ -51,12 +51,12 @@ class SocialUserService implements SocialUserServiceInterface {
   }
 
   @override
-  Future<List<FriendUserResponse>> fetchListFriend(int userId) async {
+  Future<List<FriendUser>> fetchListFriend(int userId) async {
     return await socialUserRepositoryInterface.fetchListFriend(userId);
   }
 
   @override
-  Future<List<BlockedUserResponse>> getBlockList(int page) async {
+  Future<List<BlockedUser>> getBlockList(int page) async {
     return await socialUserRepositoryInterface.getBlockList(page);
   }
 
@@ -66,12 +66,12 @@ class SocialUserService implements SocialUserServiceInterface {
   }
 
   @override
-  Future<List<UserResponse>> getFollowers(int userId, int page) async {
+  Future<List<User>> getFollowers(int userId, int page) async {
     return await socialUserRepositoryInterface.getFollowers(userId, page);
   }
 
   @override
-  Future<List<UserResponse>> getFollowing(int userId, int page) async {
+  Future<List<User>> getFollowing(int userId, int page) async {
     return await socialUserRepositoryInterface.getFollowing(userId, page);
   }
 
@@ -81,7 +81,7 @@ class SocialUserService implements SocialUserServiceInterface {
   }
 
   @override
-  Future<List<MutedUserResponse>> getMutedList(int page) async {
+  Future<List<MutedUser>> getMutedList(int page) async {
     return await socialUserRepositoryInterface.getMutedList(page);
   }
 

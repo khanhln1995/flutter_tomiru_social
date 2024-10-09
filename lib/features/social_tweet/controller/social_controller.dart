@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:tomiru_social_flutter/api/api_client.dart';
@@ -13,13 +14,28 @@ class SocialController extends GetxController implements GetxService {
 
   SocialController({required this.socialServiceInterface});
 
-  void getTweets(int page) async {
+  List<Tweet> _tweets = [];
+  List<Tweet> get tweets => _tweets;
+
+  List<Tweet> _reply = [];
+  List<Tweet> get reply => _reply;
+
+  late Tweet _tweet;
+  Tweet get tweet => _tweet;
+
+  Future<void> getTweets(int page) async {
     List<Tweet> tweets =
         await socialServiceInterface.getTweets(page.toString());
+    _tweets.addAll(tweets);
+    update();
+  }
+
+  void clearTweets() async {
+    _tweets.clear();
   }
 
   void getTweetById(int id) async {
-    Tweet tweet = await socialServiceInterface.getTweetById(id);
+    Tweet _tweet = await socialServiceInterface.getTweetById(id);
   }
 
   void getTweetsByUser(int userId, int page) async {
@@ -47,7 +63,7 @@ class SocialController extends GetxController implements GetxService {
   }
 
   void getRepliesByTweetId(int tweetId) async {
-    List<Tweet> tweets =
+    List<Tweet> _reply =
         await socialServiceInterface.getRepliesByTweetId(tweetId);
   }
 
@@ -94,5 +110,9 @@ class SocialController extends GetxController implements GetxService {
 
   void getTaggedImageUsers(int tweetId, int page) async {
     await socialServiceInterface.getTaggedImageUsers(tweetId, page);
+  }
+
+  void likeTweet(int id) async {
+    await socialServiceInterface.likeTweet(id);
   }
 }

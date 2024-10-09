@@ -15,7 +15,7 @@ class Tweet {
   final String? gifImage;
   final String? linkCoverSize;
   final Author author;
-  final List<dynamic> images;
+  final List<ImageItem> images;
   final String imageDescription;
   final List<dynamic> taggedImageUsers;
   final QuoteTweet? quoteTweet;
@@ -79,7 +79,9 @@ class Tweet {
       gifImage: json['gifImage'],
       linkCoverSize: json['linkCoverSize'],
       author: Author.fromJson(json['author']),
-      images: List<dynamic>.from(json['images']),
+      images: (json['images'] as List)
+          .map((imageJson) => ImageItem.fromJson(imageJson))
+          .toList(),
       imageDescription: json['imageDescription'] ?? '',
       taggedImageUsers: List<dynamic>.from(json['taggedImageUsers']),
       quoteTweet: json['quoteTweet'] != null
@@ -134,25 +136,25 @@ class Tweet {
 
 class Author {
   final int id;
-  final String? fullName;
-  final String? username;
-  final String? avatar;
-  final bool? isPrivateProfile;
-  final bool? isFollower;
-  final bool? isMyProfileBlocked;
-  final bool? isUserBlocked;
-  final bool? isUserMuted;
+  final String fullName;
+  final String username;
+  final String avatar;
+  final bool isPrivateProfile;
+  final bool isFollower;
+  final bool isMyProfileBlocked;
+  final bool isUserBlocked;
+  final bool isUserMuted;
 
   Author({
     required this.id,
-    this.fullName,
-    this.username,
-    this.avatar,
-    this.isPrivateProfile,
-    this.isFollower,
-    this.isMyProfileBlocked,
-    this.isUserBlocked,
-    this.isUserMuted,
+    required this.fullName,
+    required this.username,
+    required this.avatar,
+    required this.isPrivateProfile,
+    required this.isFollower,
+    required this.isMyProfileBlocked,
+    required this.isUserBlocked,
+    required this.isUserMuted,
   });
 
   factory Author.fromJson(Map<String, dynamic> json) {
@@ -181,6 +183,11 @@ class Author {
       'isUserBlocked': isUserBlocked,
       'isUserMuted': isUserMuted,
     };
+  }
+
+  @override
+  String toString() {
+    return 'Author(id: $id, fullName: $fullName, username: $username, avatar: $avatar)';
   }
 }
 
@@ -304,5 +311,31 @@ class TweetAdditionalInfoResponse {
       'isDeleted': isDeleted,
       'author': author.toJson(),
     };
+  }
+}
+
+class ImageItem {
+  final int id;
+  final String src;
+
+  ImageItem({required this.id, required this.src});
+
+  factory ImageItem.fromJson(Map<String, dynamic> json) {
+    return ImageItem(
+      id: json['id'],
+      src: json['src'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'src': src,
+    };
+  }
+
+  @override
+  String toString() {
+    return 'ImageItem(id: $id, src: $src)';
   }
 }

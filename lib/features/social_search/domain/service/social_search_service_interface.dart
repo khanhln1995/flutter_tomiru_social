@@ -3,8 +3,8 @@ import 'package:tomiru_social_flutter/features/social_tweet/domain/models/tweet.
 import 'package:tomiru_social_flutter/features/social_user/domain/models/user_model.dart';
 
 abstract class SocialSearchServiceInterface {
-  Future<List<UserResponse>> getUsersByUserName(String userName, int page);
+  Future<List<User>> getUsersByUserName(String userName, int page);
   Future<List<Tweet>> getTweetsByTagName(String tag);
   Future<List<Tweet>> getTweetsByText(String text, int page);
-  Future<CommonUserResponse> getRelevantUsers(SearchTermsRequest request);
+  Future<CommonUser> getRelevantUsers(SearchTermsRequest request);
 }
