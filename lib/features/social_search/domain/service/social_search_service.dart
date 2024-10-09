@@ -9,8 +9,7 @@ class SocialSearchService implements SocialSearchServiceInterface {
   SocialSearchService({required this.socialSearchRepositoryInterface});
 
   @override
-  Future<List<UserResponse>> getUsersByUserName(
-      String userName, int page) async {
+  Future<List<User>> getUsersByUserName(String userName, int page) async {
     return await socialSearchRepositoryInterface.getUsersByUserName(
         userName, page);
   }
@@ -26,8 +25,7 @@ class SocialSearchService implements SocialSearchServiceInterface {
   }
 
   @override
-  Future<CommonUserResponse> getRelevantUsers(
-      SearchTermsRequest request) async {
+  Future<CommonUser> getRelevantUsers(SearchTermsRequest request) async {
     return await socialSearchRepositoryInterface.getRelevantUsers(request);
   }
 }

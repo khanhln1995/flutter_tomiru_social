@@ -412,7 +412,7 @@ class SocialRepository implements SocialRepositoryInterface {
   }
 
   @override
-  Future<List<UserResponse>> getTaggedImageUsers(int tweetId, int page) async {
+  Future<List<User>> getTaggedImageUsers(int tweetId, int page) async {
     try {
       Response response = await apiSocial.getData(SocialEndpoint
           .UI_V1_TWEETS_IMAGE_TAGGED
@@ -422,8 +422,7 @@ class SocialRepository implements SocialRepositoryInterface {
       if (response.statusCode == 200) {
         if (response.body is List) {
           List<dynamic> data = response.body;
-          List<UserResponse> users =
-              data.map((tweet) => UserResponse.fromJson(tweet)).toList();
+          List<User> users = data.map((tweet) => User.fromJson(tweet)).toList();
           return users;
         } else {
           throw Exception("Expected a list but received something else");
@@ -433,6 +432,19 @@ class SocialRepository implements SocialRepositoryInterface {
       }
     } catch (e) {
       throw Exception("Error uploading images: $e");
+    }
+  }
+
+  @override
+  Future<ResponseModel> likeTweet(int id) async {
+    Response response = await apiSocial.getData(SocialEndpoint
+        .UI_V1_LIKE_TWEET_ID
+        .replaceAll('{tweetId}', id.toString()));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ResponseModel(true, response.body["message"]);
+    } else {
+      return ResponseModel(false, response.statusText);
     }
   }
 

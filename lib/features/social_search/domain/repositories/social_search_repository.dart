@@ -15,8 +15,7 @@ class SocialSearchRepository implements SocialSearchRepositoryInterface {
       {required this.apiSocial, required this.sharedPreferences});
 
   @override
-  Future<List<UserResponse>> getUsersByUserName(
-      String userName, int page) async {
+  Future<List<User>> getUsersByUserName(String userName, int page) async {
     try {
       Response response = await apiSocial.getData(SocialEndpoint
           .UI_V1_SEARCH_USER
@@ -26,8 +25,7 @@ class SocialSearchRepository implements SocialSearchRepositoryInterface {
       if (response.statusCode == 200) {
         if (response.body is List) {
           List<dynamic> data = response.body;
-          List<UserResponse> users =
-              data.map((tweet) => UserResponse.fromJson(tweet)).toList();
+          List<User> users = data.map((tweet) => User.fromJson(tweet)).toList();
           print("Response JSON: ${jsonEncode(users)}");
           return users;
         } else {
@@ -93,14 +91,13 @@ class SocialSearchRepository implements SocialSearchRepositoryInterface {
   }
 
   @override
-  Future<CommonUserResponse> getRelevantUsers(
-      SearchTermsRequest request) async {
+  Future<CommonUser> getRelevantUsers(SearchTermsRequest request) async {
     try {
       Response response = await apiSocial.postData(
           SocialEndpoint.UI_V1_USER_SEARCH_RESULTS, request);
 
       if (response.statusCode == 200) {
-        CommonUserResponse tweets = CommonUserResponse.fromJson(response.body);
+        CommonUser tweets = CommonUser.fromJson(response.body);
 
         return tweets;
       } else {

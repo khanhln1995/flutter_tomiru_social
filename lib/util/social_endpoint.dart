@@ -1,7 +1,7 @@
 class SocialEndpoint {
   static const String UI_V1_TWEETS = '/ui/v1/tweets?page={page}';
   static const String UI_V1_TWEETS_ID = '/ui/v1/tweets/';
-
+  static const String UI_V1_LIKE_TWEET_ID = '/ui/v1/tweets/like/{tweetId}';
   static const String UI_V1_TWEETS_USER_ID =
       '/ui/v1/tweets/user/{userId}?page={page}';
   static const String UI_V1_PINNED_TWEET_USER_ID = '/ui/v1/tweets/pinned/user/';
@@ -87,4 +87,36 @@ class SocialEndpoint {
       '/ui/v1/user/settings/update/color_scheme';
   static const String UI_V1_USER_SETTINGS_UPDATE_BACKGROUND_COLOR =
       '/ui/v1/user/settings/update/background_color';
+
+  ////////////////////Group///////////////////////
+  static const String UI_V1_GROUP = '/ui/v1/group';
+  static const String UI_V1_GROUP_ID = '/ui/v1/group/{groupId}';
+  static const String UI_V1_GROUP_REQUEST_JOIN = 'ui/v1/group/request-join';
+  static const String UI_V1_GROUP_PENDING_USERS_ACCEPT =
+      '/ui/v1/group/pending-users/accept';
+  static const String UI_V1_GROUP_REMOVE_MEMBER =
+      '/ui/v1/group/{groupId}/remove-member/{userId}';
+  static const String UI_V1_GROUP_BLOCK =
+      '/ui/v1/group/block?groupId={groupId}&userId={userId}';
+  static const String UI_V1_GROUP_UNBLOCK =
+      '/ui/v1/group/unblock?groupId={groupId}&userId={userId}';
+  static const String UI_V1_GROUP_REJECT =
+      '/ui/v1/group/reject_group?groupId={groupId}&userId={userId}';
+  static const String UI_V1_GROUP_ASSIGN =
+      '/ui/v1/group/assign/user?groupId={groupId}&userId={userId}';
+  static const String UI_V1_GROUP_DEMOTED =
+      '/ui/v1/group/demoted/user?groupId={groupId}&userId={userId}';
+  static const String UI_V1_GROUP_TRANSFER_RIGHTS =
+      '/ui/v1/group/transfer_rights?groupId={groupId}&userId={userId}';
+  static const String UI_V1_GROUP_SUGGEST = '/ui/v1/group/suggest?page={page}';
+  static const String UI_V1_GROUP_USER =
+      '/ui/v1/group/user/{userId}?page={page}';
+  static const String UI_V1_GROUP_MEMBER =
+      '/ui/v1/group/{groupId}/member?page={page}';
+  static const String UI_V1_GROUP_PENDING_MEMBER =
+      '/ui/v1/group/{groupId}/pending-members';
+  static const String UI_V1_GROUP_BLOCKED_MEMBER =
+      '/ui/v1/group/{groupId}/blocked-members';
+  static const String UI_V1_GROUP_SEARCH_GROUP =
+      '/ui/v1/group/search_group?groupName={groupName}&page={page}';
 }

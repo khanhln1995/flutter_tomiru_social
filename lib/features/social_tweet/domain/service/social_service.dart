@@ -105,7 +105,12 @@ class SocialService implements SocialServiceInterface {
   }
 
   @override
-  Future<List<UserResponse>> getTaggedImageUsers(int tweetId, int page) async {
+  Future<List<User>> getTaggedImageUsers(int tweetId, int page) async {
     return await socialRepositoryInterface.getTaggedImageUsers(tweetId, page);
+  }
+
+  @override
+  Future<ResponseModel> likeTweet(int id) async {
+    return await socialRepositoryInterface.likeTweet(id);
   }
 }

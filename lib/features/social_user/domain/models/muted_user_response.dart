@@ -1,4 +1,4 @@
-class MutedUserResponse {
+class MutedUser {
   final int? id;
   final String? fullName;
   final String? username;
@@ -7,7 +7,7 @@ class MutedUserResponse {
   final bool? isPrivateProfile;
   final bool? isUserMuted;
 
-  MutedUserResponse({
+  MutedUser({
     this.id,
     this.fullName,
     this.username,
@@ -17,8 +17,8 @@ class MutedUserResponse {
     this.isUserMuted,
   });
 
-  factory MutedUserResponse.fromJson(Map<String, dynamic> json) {
-    return MutedUserResponse(
+  factory MutedUser.fromJson(Map<String, dynamic> json) {
+    return MutedUser(
       id: json['id'] as int?,
       fullName: json['fullName'] as String?,
       username: json['username'] as String?,

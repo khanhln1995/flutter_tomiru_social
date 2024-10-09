@@ -26,7 +26,7 @@ class ApiSocial extends GetxService {
   ApiSocial({required this.appBaseUrl, required this.sharedPreferences}) {
     // String? token = sharedPreferences.getString(AppConstants.jwtTokenSocial);
     String? token =
-        'eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AZ21haWwuY29tIiwidXNlciI6InN5c3RlbSIsIm5hbWUiOiJhZG1pbiAiLCJpYXQiOjE3Mjc0MDUxMDksImV4cCI6MjU5MTQwNTEwOX0.O4GmA37jTqp3aa_FLWZrj4EBGEmQTfz6NvvTg_ibVNrlsAhVh0QkMiiJk8k5pTq_lscIznbqppiz2biCBclBpc-U6YmMYsg9ieXdCaCkTHC8F97SQW9eTPjRC7BdKSPRdocYaErGoe77lT35UyE2hp2MkV6PX0Qbc9LN_UAhu-s1mQ7CUm3BgxgdG_4kyb8yjoFWO8UmwXC0AhZFuilw0GpOWz0bW_PTtw7DyUBSf2q4SBSBjn9RQoQPbAYkk411QNVw5IM_FykMuHnp27P4X354ZnfkKH1X1Cddb7YEKPrdeUV_FarUCTPIoVBe3Fxm4lv1KkIGonbpaDLXbmKnJg';
+        'eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AZ21haWwuY29tIiwidXNlciI6InN5c3RlbSIsIm5hbWUiOiJOb2FoIFNtaXRoIiwiaWF0IjoxNzI4MzcyNTUzLCJleHAiOjI1OTIzNzI1NTN9.S4531Adgx43LsQiylwMsEllhxoaScEF1_WKN7gqlULaxDPqv6fDWRzZc_RBJZiVpcBWlBd_arqwNmpbVeUyJiM37Vd3xcmmSn1gOcS3FEFbO0Q4QBebQSRpUwmMc0XgdeOYDI7DvpijLyXulxE8kuvpWw2yLiBa456me6isMZ5--MgmyK8S8HfDvX-t2mLlc9nYC5XZnZ2edYFXeATOrYNSw1bDSYjlyn9rJrctFI-5i3rpU3lZfg5kjp_BvuV_jYQyDOgCY6bSJPTdcJJwx1l2ofNmBYlaHUexdZ79zn0JRQYD2AOt4W5uGM7eWPb-rLq0hRsTZOsIgCBM-DH5c1w';
     updateHeader(
       token,
     );
@@ -162,7 +162,7 @@ class ApiSocial extends GetxService {
     try {
       if (kDebugMode) {
         // debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-        // debugPrint('====> API Body: $body');
+        debugPrint('====> API Body: $body');
       }
       http.Response response = await http
           .put(

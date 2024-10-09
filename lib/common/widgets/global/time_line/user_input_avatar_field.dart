@@ -32,7 +32,7 @@ class _UserInputAvatarFieldState extends State<UserInputAvatarField> {
             padding: const EdgeInsets.only(left: 10.0),
             child: TextField(
               onTap: () {
-                showUnderBottomSheet(context, 0);
+                showUnderBottomSheet(context, 0, 0);
               },
               readOnly: true,
               decoration: InputDecoration(
